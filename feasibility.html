@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request Feasibility Study — MACLEC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="technology.css">
+<link rel="stylesheet" href="feasibility.css">
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header site-header--solid">
+  <div class="header-inner">
+    <a style="width: 18%;" class="logo" href="index.html">
+      <img style="width: 100%;" src="img/logo.png" alt="MACLEC Logo">
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="index.html#about">About Maclec</a>
+      <a href="technology.html">Technology</a>
+      <a href="atlas.html">Potential Atlas</a>
+      <a href="projects.html">Projects</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-outline-pill" href="atlas.html">Run Quick Assessment</a>
+    </div>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="feas-hero">
+  <div class="feas-hero-bg" aria-hidden="true">
+    <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=1920&q=80" alt="Flowing canal water representing feasibility study opportunity">
+    <div class="feas-hero-overlay"></div>
+  </div>
+  <div class="feas-hero-content">
+    <div class="about-tag">Request Professional Feasibility Study</div>
+    <h1 class="atlas-hero-title">Your Site Appears Suitable<br><span class="accent">For Hydrokinetic Energy Generation</span></h1>
+    <p class="atlas-hero-desc">Let MACLEC's engineering team conduct a detailed, site-specific assessment — refining preliminary estimates into a bankable feasibility report.</p>
+  </div>
+</section>
+
+<!-- ===== FORM + SIDE INFO ===== -->
+<section class="feas-section">
+  <div class="feas-inner">
+
+    <div class="feas-layout">
+
+      <!-- FORM -->
+      <form class="feas-form" id="feas-form">
+        <h2>Tell Us About Your Site</h2>
+        <p class="feas-form-sub">All fields marked * are required. Our engineering team typically responds within 3–5 business days.</p>
+
+        <div class="form-grid">
+          <label class="form-field">
+            <span>Name *</span>
+            <input type="text" name="name" required placeholder="Your full name">
+          </label>
+          <label class="form-field">
+            <span>Organization *</span>
+            <input type="text" name="organization" required placeholder="Company / Department / Institution">
+          </label>
+          <label class="form-field">
+            <span>Email *</span>
+            <input type="email" name="email" required placeholder="you@example.com">
+          </label>
+          <label class="form-field">
+            <span>Phone *</span>
+            <input type="tel" name="phone" required placeholder="+91 XXXXX XXXXX">
+          </label>
+          <label class="form-field">
+            <span>Country *</span>
+            <select name="country" required>
+              <option value="">Select Country</option>
+              <option>India</option>
+              <option>Saudi Arabia</option>
+              <option>Oman</option>
+              <option>Kenya</option>
+              <option>Uzbekistan</option>
+              <option>USA</option>
+              <option>Australia</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label class="form-field">
+            <span>Project Location *</span>
+            <input type="text" name="location" required placeholder="City, State / Region">
+          </label>
+          <label class="form-field form-field--full">
+            <span>Upload Drawings (site layout, cross-section)</span>
+            <div class="file-drop" data-target="drawings">
+              <span class="file-drop-icon">📐</span>
+              <span>Click to upload or drag &amp; drop</span>
+              <input type="file" name="drawings" id="upload-drawings" multiple>
+            </div>
+            <div class="file-drop-list" id="list-drawings"></div>
+          </label>
+          <label class="form-field form-field--full">
+            <span>Upload Photos (site, canal, channel)</span>
+            <div class="file-drop" data-target="photos">
+              <span class="file-drop-icon">📷</span>
+              <span>Click to upload or drag &amp; drop</span>
+              <input type="file" name="photos" id="upload-photos" multiple accept="image/*">
+            </div>
+            <div class="file-drop-list" id="list-photos"></div>
+          </label>
+          <label class="form-field form-field--full">
+            <span>Additional Notes</span>
+            <textarea name="notes" rows="4" placeholder="Tell us about water source type, approximate dimensions, project goals, or anything else relevant..."></textarea>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-primary feas-submit">Request Detailed Feasibility Study</button>
+
+        <div class="feas-success" id="feas-success">
+          <span class="feas-success-icon">✓</span>
+          <div>
+            <strong>Request Received</strong>
+            <p>Thank you — MACLEC's engineering team will reach out shortly to schedule your assessment.</p>
+          </div>
+        </div>
+      </form>
+
+      <!-- SIDE PANEL -->
+      <aside class="feas-side">
+        <div class="feas-side-card">
+          <h3>What Happens Next</h3>
+          <ol class="feas-steps">
+            <li><strong>Initial Review</strong><span>Our engineers review your submitted data and drawings.</span></li>
+            <li><strong>Site Discussion</strong><span>A short call to clarify site conditions and project goals.</span></li>
+            <li><strong>Detailed Feasibility Report</strong><span>Capacity, energy yield, LCOE and installation plan delivered.</span></li>
+            <li><strong>Proposal &amp; Next Steps</strong><span>Commercial proposal and project timeline shared.</span></li>
+          </ol>
+        </div>
+
+        <div class="feas-side-card feas-side-card--accent">
+          <h3>Prefer a Quick Estimate First?</h3>
+          <p>Run our self-service Hydrokinetic Potential Atlas for an instant preliminary assessment before requesting a full study.</p>
+          <a class="btn-outline" href="atlas.html">Try the Atlas →</a>
+        </div>
+
+        <div class="feas-side-card">
+          <h3>Explore Past Projects</h3>
+          <p>See completed and ongoing MACLEC deployments across irrigation canals, tail races and industrial channels worldwide.</p>
+          <a class="btn-outline" href="projects.html">View Project Explorer →</a>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<script src="script.js"></script>
+<script src="feasibility.js"></script>
+</body>
+</html>
