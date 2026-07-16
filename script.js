@@ -65,3 +65,45 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(video);
   }
 });
+
+
+
+
+
+// ---  CAROUSEL & VIDEO MODAL ------
+(function () {
+  const track = document.getElementById('carouselTrack');
+  const prevBtn = document.querySelector('.carousel-arrow--prev');
+  const nextBtn = document.querySelector('.carousel-arrow--next');
+  const modal = document.getElementById('videoModal');
+  const modalPlayer = document.getElementById('videoModalPlayer');
+  const modalClose = document.getElementById('videoModalClose');
+
+  if (!track) return;
+
+  const scrollAmount = () => track.clientWidth * 0.8;
+  prevBtn.addEventListener('click', () => track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' }));
+  nextBtn.addEventListener('click', () => track.scrollBy({ left: scrollAmount(), behavior: 'smooth' }));
+
+  document.querySelectorAll('.carousel-slide').forEach(slide => {
+    slide.addEventListener('click', () => {
+      const src = slide.getAttribute('data-video');
+      modalPlayer.src = src;
+      modal.classList.add('open');
+      modalPlayer.play();
+    });
+  });
+
+  function closeModal() {
+    modal.classList.remove('open');
+    modalPlayer.pause();
+    modalPlayer.currentTime = 0;
+    modalPlayer.src = '';
+  }
+
+  modalClose.addEventListener('click', closeModal);
+  modal.querySelector('.video-modal-backdrop').addEventListener('click', closeModal);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+})();

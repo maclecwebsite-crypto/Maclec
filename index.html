@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32-v2.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16-v2.png">
 </head>
 <body class="loading">
 <div class="loading-screen" id="loadingScreen">
@@ -282,7 +285,75 @@
     </div>
   </div>
 </section>
+<!-- ===== MEDIA CAROUSEL ===== -->
+<section class="carousel-section" id="media-gallery">
+  <div class="carousel-inner">
+    <div class="about-tag">See It In Action</div>
+    <h2 class="about-title">MACLEC <span class="accent">In Motion</span></h2>
+    <p class="about-intro">Click any image below to watch the technology, installation process, and live project footage.</p>
 
+    <div class="carousel-wrap">
+      <button class="carousel-arrow carousel-arrow--prev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+
+      <div class="carousel-track" id="carouselTrack">
+        <button class="carousel-slide" data-video="./img/hydropower.mp4">
+          <img src="./img/yellow_hydro_machine.png" alt="SHKT turbine in a flowing river">
+          <span class="carousel-play">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+          <span class="carousel-caption">Turbine in a Flowing River</span>
+        </button>
+
+        <button class="carousel-slide" data-video="./img/canal-install.mp4">
+          <img src="./img/yellow_hydro_machine.png" alt="Canal installation">
+          <span class="carousel-play">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+          <span class="carousel-caption">Irrigation Canal Deployment</span>
+        </button>
+
+        <button class="carousel-slide" data-video="./img/thermal-discharge.mp4">
+          <img src="./img/yellow_hydro_machine.png" alt="Thermal plant discharge channel">
+          <span class="carousel-play">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+          <span class="carousel-caption">Thermal Plant Energy Recovery</span>
+        </button>
+
+        <button class="carousel-slide" data-video="./img/modular-array.mp4">
+          <img src="./img/yellow_hydro_machine.png" alt="Modular turbine array">
+          <span class="carousel-play">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+          <span class="carousel-caption">Modular Turbine Array</span>
+        </button>
+
+        <button class="carousel-slide" data-video="./img/field-site.mp4">
+          <img src="./img/yellow_hydro_machine.png" alt="Field site installation">
+          <span class="carousel-play">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+          <span class="carousel-caption">Live Field Site</span>
+        </button>
+      </div>
+
+      <button class="carousel-arrow carousel-arrow--next" aria-label="Next">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Video Modal -->
+<div class="video-modal" id="videoModal">
+  <div class="video-modal-backdrop"></div>
+  <div class="video-modal-content">
+    <button class="video-modal-close" id="videoModalClose" aria-label="Close video">&times;</button>
+    <video id="videoModalPlayer" controls playsinline></video>
+  </div>
+</div>
 <!-- ===== ABOUT SECTION ===== -->
 <section class="about-section" id="about">
   <div class="about-inner">

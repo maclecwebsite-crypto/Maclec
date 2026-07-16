@@ -1253,3 +1253,147 @@ a{ text-decoration:none; color:inherit; }
 .partner--tag .partner-logo {
   height: 32px;        /* smaller for the startup india "tag" style */
 }
+
+
+/*  MEDIA CAROUSEL  */
+.carousel-section {
+  padding: 80px 24px;
+  background: #ef7f1b;
+  text-align: center;
+}
+.carousel-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+
+}
+.carousel-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 40px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 8px 4px 16px;
+  flex: 1;
+  scrollbar-width: none;
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+
+.carousel-slide {
+  position: relative;
+  flex: 0 0 280px;
+  scroll-snap-align: start;
+  border-radius: 14px;
+  overflow: hidden;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  aspect-ratio: 4/3;
+  background: #000;
+}
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .4s ease, opacity .3s ease;
+}
+.carousel-slide:hover img { transform: scale(1.06); opacity: .8; }
+
+.carousel-play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(94,196,224,0.9);
+  color: #06131c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.carousel-caption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 12px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: left;
+  background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+}
+
+.carousel-arrow {
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(94,196,224,0.4);
+  background: rgba(255,255,255,0.05);
+  color: #5ec4e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+.carousel-arrow:hover { background: rgba(94,196,224,0.15); }
+
+/* Modal */
+.video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+.video-modal.open { display: flex; }
+.video-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+}
+.video-modal-content {
+  position: relative;
+  width: min(90vw, 900px);
+  z-index: 1;
+}
+.video-modal-content video {
+  width: 100%;
+  border-radius: 10px;
+  display: block;
+  background: #000;
+}
+.video-modal-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .carousel-slide { flex-basis: 220px; }
+}
+
+.carousel-section .about-intro {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+}
