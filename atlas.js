@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ===== STEP NAVIGATION ===== */
   const tabs = document.querySelectorAll('.console-step-tab');
   const panels = document.querySelectorAll('.console-panel-block');
 
@@ -16,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => goToStep(btn.dataset.goto));
   });
 
-  /* ===== RANGE INPUTS — LIVE LABELS ===== */
   const ranges = [
     { id: 'f-width', outId: 'f-width-out', unit: ' m', decimals: 1 },
     { id: 'f-depth', outId: 'f-depth-out', unit: ' m', decimals: 1 },
@@ -52,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   updateRangeLabels();
 
-  /* ===== DIGITAL TWIN SVG RENDERING ===== */
   const flowGroup = document.getElementById('twin-flowlines');
   const turbineGroup = document.getElementById('twin-turbines');
   const channelRect = document.getElementById('twin-channel');
@@ -115,7 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderDigitalTwin();
 
-  /* ===== RUN FULL ASSESSMENT ===== */
   const runBtn = document.getElementById('run-assessment');
   if (runBtn) {
     runBtn.addEventListener('click', () => {
@@ -177,7 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('res-lcoe').textContent = `₹${lcoeLow} – ₹${lcoeHigh} / kWh`;
   }
 
-  /* ===== BEFORE / AFTER TOGGLE ===== */
   const baToggles = document.querySelectorAll('.ba-toggle');
   const baImages = document.querySelectorAll('.ba-image');
   baToggles.forEach(btn => {

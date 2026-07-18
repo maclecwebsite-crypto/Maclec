@@ -633,3 +633,16 @@ a { text-decoration:none; color:inherit; }
   .gallery-card-overlay { opacity: 1; padding: 16px 14px; }
   .gallery-card-zoom { opacity: 1; transform: translateY(0); }
 }
+
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+* {
+  -ms-overflow-style: none;
+}

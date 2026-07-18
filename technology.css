@@ -435,3 +435,15 @@
   .tglobal-stat{ border-right: none; border-bottom: 1px solid rgba(94,196,224,0.12); }
   .tvalid-track{ grid-template-columns: 1fr; }
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+* {
+  -ms-overflow-style: none;
+}

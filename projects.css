@@ -323,3 +323,15 @@
   filter: grayscale(40%) brightness(0.9);
   pointer-events: none;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+* {
+  -ms-overflow-style: none;
+}

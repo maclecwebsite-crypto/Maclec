@@ -1,9 +1,5 @@
-/* ============================================
-   GLOBAL HYDROKINETIC POTENTIAL ATLAS™ STYLES
-   LIGHT THEME — Brand Colors: #2a3b7e, #039846, #ef7f1b
-   ============================================ */
 
-/* ===== HERO: GLOBE ===== */
+
 .atlas-hero{
   position: relative;
   min-height: 92vh;
@@ -102,7 +98,6 @@
   margin-bottom: 32px;
 }
 
-/* ===== INTRO STRIP ===== */
 .atlas-intro-strip{
   padding: 70px 0;
   background: #ffffff;
@@ -116,7 +111,6 @@
 .atlas-intro-inner .about-title{ margin-bottom: 18px; color: #0f172a; }
 .atlas-intro-inner .about-intro{ margin: 0 auto; color: #475569; }
 
-/* ===== CONSOLE ===== */
 .atlas-console{
   padding: 80px 0 100px;
   background: #f7f9fc;
@@ -329,7 +323,6 @@
 .twin-readout span{ font-size: 0.78rem; color: #64748b; }
 .twin-readout strong{ font-family: var(--font-display); color: #2a3b7e; font-size: 1rem; }
 
-/* ===== RESULTS DASHBOARD ===== */
 .atlas-results{
   padding: 90px 0;
   background: #ffffff;
@@ -454,7 +447,6 @@
   max-width: 760px;
 }
 
-/* ===== INTERACTIVE VISUALIZATION ===== */
 .atlas-visual{
   padding: 90px 0;
   background: #f7f9fc;
@@ -526,7 +518,6 @@
 .viz-3d-note strong{ display: block; color: #0f172a; margin-bottom: 6px; }
 .viz-3d-note p{ font-size: 0.85rem; color: #475569; line-height: 1.6; }
 
-/* ===== GLOBAL PROJECTS LAYER TEASER ===== */
 .atlas-layers{
   position: relative;
   padding: 100px 0;
@@ -549,7 +540,6 @@
 .atlas-layers-inner .about-title{ margin-bottom: 16px; color: #0f172a; }
 .atlas-layers-inner .about-intro{ margin: 0 auto 30px; color: #475569; }
 
-/* ===== WHY UNIQUE ===== */
 .atlas-unique{
   padding: 90px 0;
   background: #ffffff;
@@ -775,4 +765,16 @@
 }
 @media (max-width: 768px){
   .radio-grid--visual{ grid-template-columns: repeat(2, 1fr); }
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+* {
+  -ms-overflow-style: none;
 }

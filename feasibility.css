@@ -233,3 +233,16 @@
   .feas-form{ padding: 26px; }
   .feas-form .form-grid{ grid-template-columns: 1fr; }
 }
+
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+* {
+  -ms-overflow-style: none;
+}
