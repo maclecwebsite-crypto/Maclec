@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery — MACLEC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="gallery.css">
+<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32-v2.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16-v2.png">
+<base target="_blank">
+</head>
+<body class="loading">
+<div class="loading-screen" id="loadingScreen">
+  <img src="img/logo.png" alt="MACLEC" class="loading-logo">
+</div>
+
+<!--  HEADER  -->
+<header class="site-header">
+  <div class="header-inner">
+    <a style="width: 18%;" class="logo" href="index.html">
+      <img style="width: 100%;" src="img/logo.png" alt="MACLEC Logo">
+    </a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <a href="index.html#about">About Maclec</a>
+      <a href="technology.html">Technology</a>
+      <a href="atlas.html">Potential Atlas</a>
+      <a href="projects.html">Projects</a>
+      <a href="gallery.html" class="active">Gallery</a>
+      <a href="index.html#knowledge">Knowledge Centre</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="btn btn-outline-pill" href="atlas.html">Calculate Site Potential</a>
+    </div>
+
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== GALLERY HERO ===== -->
+<section class="gallery-hero">
+  <div class="gallery-hero-media" aria-hidden="true">
+    <div class="gallery-hero-overlay"></div>
+  </div>
+  <div class="gallery-hero-content">
+    <div class="about-tag">Visual Journey</div>
+    <h1 class="gallery-hero-title">MACLEC <span class="accent">Gallery</span></h1>
+    <p class="gallery-hero-desc">
+      Explore our technology, installations, and projects through images and videos.
+      Witness dam-free hydropower in action across rivers, canals, and industrial sites worldwide.
+    </p>
+  </div>
+</section>
+
+<!-- ===== FILTER BAR ===== -->
+<section class="filter-bar">
+  <div class="filter-bar-inner">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="turbines">Turbines</button>
+    <button class="filter-btn" data-filter="installations">Installations</button>
+    <button class="filter-btn" data-filter="projects">Projects</button>
+    <button class="filter-btn" data-filter="team">Team & Events</button>
+    <button class="filter-btn" data-filter="videos">Videos</button>
+  </div>
+</section>
+
+<!-- ===== GALLERY GRID ===== -->
+<section class="gallery-section">
+  <div class="gallery-grid" id="galleryGrid">
+
+    <!-- Turbines -->
+    <div class="gallery-item" data-category="turbines">
+      <div class="gallery-card">
+        <img src="./img/yellow_hydro_machine.png" alt="SHKT Turbine — Front View" loading="lazy">
+        <div class="gallery-card-overlay">
+          <span class="gallery-card-tag">Turbines</span>
+          <h3>SHKT Turbine — Front View</h3>
+          <p>Surface Hydrokinetic Turbine core unit with optimized blade geometry.</p>
+          <button class="gallery-card-zoom" aria-label="View full size">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="turbines">
+      <div class="gallery-card">
+        <img src="./img/yellow_hydro_machine.png" alt="SHKT Turbine — Side Profile" loading="lazy">
+        <div class="gallery-card-overlay">
+          <span class="gallery-card-tag">Turbines</span>
+          <h3>SHKT Turbine — Side Profile</h3>
+          <p>Compact modular design engineered for rapid deployment.</p>
+          <button class="gallery-card-zoom" aria-label="View full size">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="turbines">
+      <div class="gallery-card">
+        <img src="./img/yellow_hydro_machine.png" alt="Modular Array Configuration" loading="lazy">
+        <div class="gallery-card-overlay">
+          <span class="gallery-card-tag">Turbines</span>
+          <h3>Modular Array Configuration</h3>
+          <p>Scalable cluster deployment from 50 kW to multi-GW arrays.</p>
+          <button class="gallery-card-zoom" aria-label="View full size">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Installations -->
+    <div class="gallery-item gallery-item--wide" data-category="installations">
+      <div class="gallery-card">
+        <img src="./img/yellow_hydro_machine.png" alt="Canal Installation — Punjab" loading="lazy">
+        <div class="gallery-card-overlay">
+          <span class="gallery-card-tag">Installations</span>
+          <h3>Canal Installation — Punjab</h3>
+          <p>First commercial deployment in an irrigation canal network, generating 24×7 baseload power.</p>
+          <button class="gallery-card-zoom" aria-label="View full size">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="installations">
+      <div class="gallery-card">
+        <img src="./img/yellow_hydro_machine.png" alt="River Deployment — Uttarakhand" loading="lazy">
+        <div class="gallery-card-overlay">
+          <span class="gallery-card-tag">Installations</span>
+          <h3>River Deployment — Uttarakhand</h3>
+          <p>Dam-free installation in a Himalayan stream with zero environmental disruption.</p>
+          <button class="gallery-card-zoom" aria-label="View full size">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="installations">
+      <div class="gallery-card">
+        <img src="./img/yellow_hydro_machine.png" alt="Thermal Plant Discharge Channel" loading="lazy">
+        <div class="gallery-card-overlay">
+          <span class="gallery-card-tag">Installations</span>
+          <h3>Thermal Plant Discharge Channel</h3>
+          <p>Energy recovery from cooling water discharge at a major thermal power station.</p>
+          <button class="gallery-card-zoom" aria-label="View full size">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="gallery-item" data-category="projects">
+      <div class="gallery-card">
+        <img src="./img/yellow_hydro_machine.png" alt="Central Asia Pilot Project" loading="lazy">
+        <div class="gallery-card-overlay">
+          <span class="gallery-card-tag">Projects</span>
+          <h3>Central Asia Pilot Project</h3>
+          <p>International demonstration in collaboration with regional energy authorities.</p>
+          <button class="gallery-card-zoom" aria-label="View full size">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-item gallery-item--tall" data-category="projects">
+      <div class="gallery-card">
+        <img src="./img/yellow_hydro_machine.png" alt="Multi-MW Array — Gujarat" loading="lazy">
+        <div class="gallery-card-overlay">
+          <span class="gallery-card-tag">Projects</span>
+          <h3>Multi-MW Array — Gujarat</h3>
+          <p>Utility-scale deployment with grid integration and SCADA monitoring.</p>
+          <button class="gallery-card-zoom" aria-label="View full size">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="projects">
+      <div class="gallery-card">
+        <img src="./img/yellow_hydro_machine.png" alt="Rural Electrification — Bihar" loading="lazy">
+        <div class="gallery-card-overlay">
+          <span class="gallery-card-tag">Projects</span>
+          <h3>Rural Electrification — Bihar</h3>
+          <p>Decentralized power for off-grid villages using local stream flow.</p>
+          <button class="gallery-card-zoom" aria-label="View full size">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team & Events -->
+    <div class="gallery-item" data-category="team">
+      <div class="gallery-card">
+        <img src="./img/yellow_hydro_machine.png" alt="CEA TRL-9 Certification Ceremony" loading="lazy">
+        <div class="gallery-card-overlay">
+          <span class="gallery-card-tag">Team & Events</span>
+          <h3>CEA TRL-9 Certification Ceremony</h3>
+          <p>Official recognition by Central Electricity Authority, Ministry of Power.</p>
+          <button class="gallery-card-zoom" aria-label="View full size">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-item gallery-item--wide" data-category="team">
+      <div class="gallery-card">
+        <img src="./img/yellow_hydro_machine.png" alt="IIT Roorkee Research Collaboration" loading="lazy">
+        <div class="gallery-card-overlay">
+          <span class="gallery-card-tag">Team & Events</span>
+          <h3>IIT Roorkee Research Collaboration</h3>
+          <p>Joint hydrodynamic performance and CFD validation studies.</p>
+          <button class="gallery-card-zoom" aria-label="View full size">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-item" data-category="team">
+      <div class="gallery-card">
+        <img src="./img/yellow_hydro_machine.png" alt="UNDP Sustainability Summit" loading="lazy">
+        <div class="gallery-card-overlay">
+          <span class="gallery-card-tag">Team & Events</span>
+          <h3>UNDP Sustainability Summit</h3>
+          <p>Showcasing SHKT technology at the United Nations Development Programme.</p>
+          <button class="gallery-card-zoom" aria-label="View full size">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Videos -->
+    <div class="gallery-item gallery-item--video" data-category="videos">
+      <div class="gallery-card gallery-card--video">
+        <img src="./img/yellow_hydro_machine.png" alt="Turbine in a Flowing River" loading="lazy">
+        <button class="gallery-play-btn" data-video="./img/hydropower.mp4" aria-label="Play video">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="gallery-card-overlay">
+          <span class="gallery-card-tag">Video</span>
+          <h3>Turbine in a Flowing River</h3>
+          <p>Live footage of SHKT turbine generating power in a natural stream.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-item gallery-item--video" data-category="videos">
+      <div class="gallery-card gallery-card--video">
+        <img src="./img/yellow_hydro_machine.png" alt="Canal Installation Process" loading="lazy">
+        <button class="gallery-play-btn" data-video="./img/canal-install.mp4" aria-label="Play video">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="gallery-card-overlay">
+          <span class="gallery-card-tag">Video</span>
+          <h3>Canal Installation Process</h3>
+          <p>Step-by-step deployment of SHKT units in an irrigation canal.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-item gallery-item--video" data-category="videos">
+      <div class="gallery-card gallery-card--video">
+        <img src="./img/yellow_hydro_machine.png" alt="Thermal Plant Energy Recovery" loading="lazy">
+        <button class="gallery-play-btn" data-video="./img/thermal-discharge.mp4" aria-label="Play video">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="gallery-card-overlay">
+          <span class="gallery-card-tag">Video</span>
+          <h3>Thermal Plant Energy Recovery</h3>
+          <p>Recovering energy from cooling water discharge channels.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-item gallery-item--video" data-category="videos">
+      <div class="gallery-card gallery-card--video">
+        <img src="./img/yellow_hydro_machine.png" alt="Modular Turbine Array" loading="lazy">
+        <button class="gallery-play-btn" data-video="./img/modular-array.mp4" aria-label="Play video">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="gallery-card-overlay">
+          <span class="gallery-card-tag">Video</span>
+          <h3>Modular Turbine Array</h3>
+          <p>Scalable cluster deployment demonstration footage.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-backdrop"></div>
+  <div class="lightbox-content">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <img src="" alt="" class="lightbox-img" id="lightboxImg">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- Video Modal -->
+<div class="video-modal" id="videoModal">
+  <div class="video-modal-backdrop"></div>
+  <div class="video-modal-content">
+    <button class="video-modal-close" id="videoModalClose" aria-label="Close video">&times;</button>
+    <video id="videoModalPlayer" controls playsinline></video>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="img/logo.png" alt="MACLEC" class="footer-logo">
+      <p>Energy Through Innovation</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <strong>Company</strong>
+        <a href="index.html#about">About</a>
+        <a href="technology.html">Technology</a>
+        <a href="projects.html">Projects</a>
+        <a href="gallery.html">Gallery</a>
+      </div>
+      <div class="footer-col">
+        <strong>Resources</strong>
+        <a href="atlas.html">Potential Atlas</a>
+        <a href="index.html#knowledge">Knowledge Centre</a>
+        <a href="#">Investor Desk</a>
+      </div>
+      <div class="footer-col">
+        <strong>Connect</strong>
+        <a href="#">Contact</a>
+        <a href="#">Careers</a>
+        <a href="#">Media</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 MACLEC. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="gallery.js"></script>
+</body>
+</html>
