@@ -5,7 +5,6 @@ using Pomelo.EntityFrameworkCore.MySql;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<CareerDbContext>(options =>
     options.UseMySql(
@@ -26,13 +25,13 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
 app.UseHttpsRedirection();
 app.UseCors(CareerSitePolicy);
 app.UseAuthorization();
 app.MapControllers();
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<CareerDbContext>();
+    db.Database.Migrate();
+}
 app.Run();
