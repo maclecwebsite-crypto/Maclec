@@ -10,10 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<CareerDbContext>(options =>
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("CareerDb"),
-        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("CareerDb"))
-    ));;
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CareerDb")));
 
 const string CareerSitePolicy = "CareerSitePolicy";
 builder.Services.AddCors(options =>
@@ -27,11 +24,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<CareerDbContext>();
-    db.Database.EnsureCreated();
-}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
