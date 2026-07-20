@@ -39,6 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Every slider in Site Parameters (width, depth, velocity, discharge,
+  // variation, length) re-renders the digital twin on input.
   ranges.forEach(r => {
     const input = document.getElementById(r.id);
     if (input) {
@@ -53,8 +55,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const flowGroup = document.getElementById('twin-flowlines');
   const turbineGroup = document.getElementById('twin-turbines');
   const channelRect = document.getElementById('twin-channel');
+  const bedLine = document.getElementById('twin-bedline');
+  const variationGroup = document.getElementById('twin-variation');
+  const depthScaleGroup = document.getElementById('twin-depth-scale');
+  const widthScaleGroup = document.getElementById('twin-width-scale');
+  const depthLabel = document.getElementById('twin-depth-label');
+  const widthLabel = document.getElementById('twin-width-label');
   const powerOut = document.getElementById('twin-power');
   const turbineCountOut = document.getElementById('twin-turbine-count');
+  const segmentNote = document.getElementById('twin-segment-note');
 
   function estimatePower() {
     const width = getVal('f-width');
@@ -69,34 +78,107 @@ document.addEventListener('DOMContentLoaded', () => {
     return powerKW;
   }
 
+  // Slider ranges, used to map real-world values onto the SVG's pixel space
+  const DEPTH_MIN = 0.3, DEPTH_MAX = 10;     // matches #f-depth min/max
+  const CHANNEL_X = 20, CHANNEL_W = 320;     // horizontal extent of the water body
+  const BED_Y = 150;                          // riverbed stays fixed near the bottom
+  const PX_MIN = 26, PX_MAX = 130;           // shallowest / deepest channel height in px
+
   function renderDigitalTwin() {
     const width = getVal('f-width');
     const depth = getVal('f-depth');
+    const velocity = getVal('f-velocity');
+    const discharge = getVal('f-discharge');
+    const variation = getVal('f-variation');
+    const length = getVal('f-length');
+
     const powerKW = estimatePower();
     const turbineCount = Math.max(1, Math.min(12, Math.round(width / 6)));
 
-    // Adjust channel height based on depth (visual scaling, capped)
-    const channelHeight = Math.min(140, Math.max(40, depth * 18));
-    const channelY = 110 - channelHeight / 2;
+    // --- Depth: scale channel height in the SVG to the depth slider ---
+    const depthRatio = (depth - DEPTH_MIN) / (DEPTH_MAX - DEPTH_MIN);
+    const channelHeight = PX_MIN + depthRatio * (PX_MAX - PX_MIN);
+    const channelY = BED_Y - channelHeight;
+
+    channelRect.setAttribute('x', CHANNEL_X);
     channelRect.setAttribute('y', channelY);
+    channelRect.setAttribute('width', CHANNEL_W);
     channelRect.setAttribute('height', channelHeight);
 
-    // Flow lines
+    if (bedLine) {
+      bedLine.setAttribute('x1', CHANNEL_X);
+      bedLine.setAttribute('x2', CHANNEL_X + CHANNEL_W);
+      bedLine.setAttribute('y1', BED_Y);
+      bedLine.setAttribute('y2', BED_Y);
+    }
+
+    // --- Depth scale / ruler on the left, with tick marks + value ---
+    if (depthScaleGroup) {
+      let svgTicks = `<line x1="16" y1="${channelY}" x2="16" y2="${BED_Y}" />`;
+      const tickCount = 4;
+      for (let i = 0; i <= tickCount; i++) {
+        const y = channelY + (channelHeight / tickCount) * i;
+        const val = (depth - (depth / tickCount) * i).toFixed(1);
+        svgTicks += `<line x1="12" y1="${y}" x2="16" y2="${y}" />`;
+        svgTicks += `<text x="9" y="${y + 2.5}" text-anchor="end">${val}</text>`;
+      }
+      depthScaleGroup.innerHTML = svgTicks;
+    }
+    if (depthLabel) {
+      const midY = channelY + channelHeight / 2;
+      depthLabel.textContent = 'Depth ' + depth.toFixed(1) + ' m';
+      depthLabel.setAttribute('y', midY + 3);
+      depthLabel.setAttribute('transform', `rotate(-90 10 ${midY})`);
+    }
+
+    // --- Width scale bar above the channel, with value ---
+    if (widthScaleGroup) {
+      const y = channelY - 14;
+      widthScaleGroup.innerHTML = `
+        <line x1="${CHANNEL_X}" y1="${y}" x2="${CHANNEL_X + CHANNEL_W}" y2="${y}" />
+        <line x1="${CHANNEL_X}" y1="${y - 4}" x2="${CHANNEL_X}" y2="${y + 4}" />
+        <line x1="${CHANNEL_X + CHANNEL_W}" y1="${y - 4}" x2="${CHANNEL_X + CHANNEL_W}" y2="${y + 4}" />
+      `;
+    }
+    if (widthLabel) {
+      widthLabel.textContent = 'Width ' + width.toFixed(1) + ' m';
+      widthLabel.setAttribute('y', Math.max(14, channelY - 20));
+    }
+
+    // --- Water level variation band, scaled proportionally to depth ---
+    if (variationGroup) {
+      variationGroup.innerHTML = '';
+      if (variation > 0) {
+        const pxPerM = channelHeight / depth;
+        const varPx = Math.min(channelHeight * 0.45, (variation / 2) * pxPerM);
+        variationGroup.innerHTML = `
+          <line x1="${CHANNEL_X}" y1="${channelY - varPx}" x2="${CHANNEL_X + CHANNEL_W}" y2="${channelY - varPx}"
+                stroke="#5ec4e0" stroke-width="1" stroke-dasharray="3 3" opacity="0.55"/>
+          <line x1="${CHANNEL_X}" y1="${channelY + varPx}" x2="${CHANNEL_X + CHANNEL_W}" y2="${channelY + varPx}"
+                stroke="#5ec4e0" stroke-width="1" stroke-dasharray="3 3" opacity="0.55"/>
+        `;
+      }
+    }
+
+    // --- Flow lines: count reflects depth, speed reflects velocity ---
     flowGroup.innerHTML = '';
-    for (let i = 0; i < 5; i++) {
-      const y = channelY + 12 + i * ((channelHeight - 24) / 4);
+    const flowLineCount = Math.max(3, Math.min(7, Math.round(depthRatio * 4) + 3));
+    const flowDuration = Math.max(0.35, 2.4 - velocity * 0.5); // faster velocity -> shorter duration
+    for (let i = 0; i < flowLineCount; i++) {
+      const y = channelY + 10 + i * ((channelHeight - 20) / (flowLineCount - 1 || 1));
       const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      line.setAttribute('d', `M0 ${y} L360 ${y}`);
+      line.setAttribute('d', `M${CHANNEL_X} ${y} L${CHANNEL_X + CHANNEL_W} ${y}`);
       line.setAttribute('stroke-dasharray', '8 6');
       line.classList.add('twin-flow-anim');
+      line.style.animationDuration = flowDuration + 's';
       flowGroup.appendChild(line);
     }
 
-    // Turbines
+    // --- Turbines, sitting mid-depth in the channel ---
     turbineGroup.innerHTML = '';
-    const spacing = 360 / (turbineCount + 1);
+    const spacing = CHANNEL_W / (turbineCount + 1);
     for (let i = 1; i <= turbineCount; i++) {
-      const cx = spacing * i;
+      const cx = CHANNEL_X + spacing * i;
       const cy = channelY + channelHeight / 2;
       const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
       g.innerHTML = `
@@ -108,6 +190,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     powerOut.textContent = Math.round(powerKW).toLocaleString() + ' kW';
     turbineCountOut.textContent = turbineCount;
+
+    // --- Segment note reflects discharge + installation length too ---
+    if (segmentNote) {
+      segmentNote.textContent =
+        `Segment shown: ${width.toFixed(1)} m wide × ${depth.toFixed(1)} m deep, flowing at ${velocity.toFixed(1)} m/s ` +
+        `(~${discharge} cumecs). Full installation length: ${length} m.`;
+    }
   }
 
   renderDigitalTwin();
@@ -116,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (runBtn) {
     runBtn.addEventListener('click', () => {
       runAssessment();
-      document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById('results')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
 
@@ -141,18 +230,23 @@ document.addEventListener('DOMContentLoaded', () => {
     score += Math.min(15, width / 4);
     score = Math.max(35, Math.min(98, Math.round(score)));
 
-    // Update suitability ring
-    const circumference = 2 * Math.PI * 52;
+    // Update suitability ring (only runs if the results dashboard markup is present)
     const ring = document.getElementById('suit-ring');
-    const offset = circumference - (score / 100) * circumference;
-    ring.setAttribute('stroke-dashoffset', offset);
-    ring.setAttribute('stroke', score >= 75 ? '#3ddc84' : score >= 50 ? '#f6c945' : '#e85bd6');
-    document.getElementById('suit-score').textContent = score;
+    if (ring) {
+      const circumference = 2 * Math.PI * 52;
+      const offset = circumference - (score / 100) * circumference;
+      ring.setAttribute('stroke-dashoffset', offset);
+      ring.setAttribute('stroke', score >= 75 ? '#3ddc84' : score >= 50 ? '#f6c945' : '#e85bd6');
+    }
+    const suitScoreEl = document.getElementById('suit-score');
+    if (suitScoreEl) suitScoreEl.textContent = score;
 
     const suitTag = document.getElementById('suit-tag');
-    if (score >= 80) { suitTag.textContent = 'Excellent'; suitTag.style.color = '#3ddc84'; }
-    else if (score >= 60) { suitTag.textContent = 'Good'; suitTag.style.color = '#f6c945'; }
-    else { suitTag.textContent = 'Moderate'; suitTag.style.color = '#e85bd6'; }
+    if (suitTag) {
+      if (score >= 80) { suitTag.textContent = 'Excellent'; suitTag.style.color = '#3ddc84'; }
+      else if (score >= 60) { suitTag.textContent = 'Good'; suitTag.style.color = '#f6c945'; }
+      else { suitTag.textContent = 'Moderate'; suitTag.style.color = '#e85bd6'; }
+    }
 
     // Technology recommendation
     document.querySelectorAll('.tech-rec-item').forEach(el => el.classList.remove('active'));
@@ -163,14 +257,21 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (width > 35) recId = 'rec-hybrid';
     document.getElementById(recId)?.classList.add('active');
 
-    // Result stats
-    document.getElementById('res-capacity').textContent = installedCapacityMW.toFixed(2) + ' MW';
-    document.getElementById('res-energy').textContent = annualEnergyMU.toFixed(1) + 'M Units';
-    document.getElementById('res-carbon').textContent = Math.round(carbonTons).toLocaleString() + ' t CO₂';
-    document.getElementById('res-households').textContent = households.toLocaleString() + '+';
-    const lcoeLow = (2.2 + Math.random() * 0.3).toFixed(1);
-    const lcoeHigh = (5.0 + Math.random() * 0.6).toFixed(1);
-    document.getElementById('res-lcoe').textContent = `₹${lcoeLow} – ₹${lcoeHigh} / kWh`;
+    // Result stats (only run if present)
+    const resCapacity = document.getElementById('res-capacity');
+    if (resCapacity) resCapacity.textContent = installedCapacityMW.toFixed(2) + ' MW';
+    const resEnergy = document.getElementById('res-energy');
+    if (resEnergy) resEnergy.textContent = annualEnergyMU.toFixed(1) + 'M Units';
+    const resCarbon = document.getElementById('res-carbon');
+    if (resCarbon) resCarbon.textContent = Math.round(carbonTons).toLocaleString() + ' t CO₂';
+    const resHouseholds = document.getElementById('res-households');
+    if (resHouseholds) resHouseholds.textContent = households.toLocaleString() + '+';
+    const resLcoe = document.getElementById('res-lcoe');
+    if (resLcoe) {
+      const lcoeLow = (2.2 + Math.random() * 0.3).toFixed(1);
+      const lcoeHigh = (5.0 + Math.random() * 0.6).toFixed(1);
+      resLcoe.textContent = `₹${lcoeLow} – ₹${lcoeHigh} / kWh`;
+    }
   }
 
   const baToggles = document.querySelectorAll('.ba-toggle');
@@ -196,65 +297,3 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
-
-
-/* ===== DIGITAL TWIN VIEW TOGGLE + 3D SCENE ===== */
-const viewBtns = document.querySelectorAll('.twin-view-btn');
-const viewPanels = document.querySelectorAll('.twin-view');
-const container3d = document.getElementById('twin-3d-container');
-let riverScene = null;
-
-function getTwinParams() {
-  return {
-    width: getVal('f-width'),
-    depth: getVal('f-depth'),
-    velocity: getVal('f-velocity'),
-    discharge: getVal('f-discharge'),
-    variation: getVal('f-variation'),
-    length: getVal('f-length'),
-  };
-}
-
-function ensureRiverScene() {
-  if (riverScene || !container3d) return;
-  if (typeof RiverScene !== 'function') {
-    console.error('RiverScene not available — check that three.min.js and river3d.js loaded before atlas.js.');
-    return;
-  }
-  riverScene = RiverScene(container3d);
-  if (riverScene) {
-    riverScene.update(getTwinParams());
-    riverScene.start();
-  }
-}
-
-function setTwinView(view) {
-  viewBtns.forEach(b => b.classList.toggle('active', b.dataset.view === view));
-  viewPanels.forEach(p => p.classList.toggle('active', p.dataset.view === view));
-  if (view === 'side3d') {
-    ensureRiverScene();
-    if (riverScene) { riverScene.resize(); riverScene.start(); }
-  } else if (riverScene) {
-    riverScene.stop();
-  }
-}
-
-viewBtns.forEach(btn => btn.addEventListener('click', () => setTwinView(btn.dataset.view)));
-
-const resetViewBtn = document.getElementById('btn-reset-view');
-if (resetViewBtn) {
-  resetViewBtn.addEventListener('click', () => { if (riverScene) riverScene.resetView(); });
-}
-
-// keep the 3D model synced with slider changes
-ranges.forEach(r => {
-  const input = document.getElementById(r.id);
-  if (input) {
-    input.addEventListener('input', () => {
-      if (riverScene) riverScene.update(getTwinParams());
-    });
-  }
-});
-
-// default to the 3D view
-setTwinView('side3d');

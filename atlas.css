@@ -596,28 +596,6 @@
   to{ stroke-dashoffset: -28; }
 }
 
-.twin-view-toggle{
-  display:flex;
-  gap:8px;
-  margin-bottom:12px;
-}
-.twin-view-btn{
-  flex:1;
-  padding:8px 10px;
-  border-radius:8px;
-  border:1px solid #e2e8f0;
-  background:#ffffff;
-  color:#64748b;
-  font-size:0.75rem;
-  font-weight:600;
-  cursor:pointer;
-  transition:all 0.2s;
-}
-.twin-view-btn.active{
-  background:#e8ecf8;
-  border-color:rgba(42,59,126,0.4);
-  color:#2a3b7e;
-}
 .twin-view{
   display:none;
   position:relative;
@@ -626,28 +604,7 @@
 }
 .twin-view.active{ display:block; }
 .twin-view .twin-svg{ width:100%; height:100%; display:block; }
-.twin-3d-container{ width:100%; height:100%; }
-.twin-3d-hint{
-  position:absolute;
-  bottom:8px; left:12px;
-  font-size:0.7rem;
-  color:#64748b;
-  background:rgba(247,249,252,0.9);
-  padding:3px 8px;
-  border-radius:6px;
-  pointer-events:none;
-}
-.twin-3d-reset{
-  position:absolute;
-  top:8px; right:8px;
-  padding:5px 10px;
-  font-size:0.7rem;
-  border-radius:6px;
-  border:1px solid #e2e8f0;
-  background:rgba(247,249,252,0.9);
-  color:#2a3b7e;
-  cursor:pointer;
-}
+
 .twin-segment-note{
   font-size:0.72rem;
   color:#64748b;
@@ -765,6 +722,16 @@
 }
 @media (max-width: 768px){
   .radio-grid--visual{ grid-template-columns: repeat(2, 1fr); }
+}
+
+.twin-svg{ overflow: visible; }
+ 
+.twin-window{
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 18px;
+  background: #060d17;
 }
 
 ::-webkit-scrollbar {

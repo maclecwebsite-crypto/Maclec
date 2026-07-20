@@ -25,7 +25,6 @@
       <a href="#about">About Maclec</a>
       <a href="technology.html">Technology</a>
       <a href="atlas.html">Potential Atlas</a>
-      
       <a href="gallery.html">Gallery</a>
       <a href="career.html">Careers</a>
       <a href="contact.html">Contact</a>
@@ -337,46 +336,56 @@
 
       </div>
 
-      <!-- LIVE DIGITAL TWIN -->
-      <div class="console-twin-panel">
-        <div class="twin-label">Live Digital Twin</div>
-
-<div class="twin-view-toggle">
-  <button class="twin-view-btn" data-view="cross" type="button">Cross-Section</button>
-  <button class="twin-view-btn active" data-view="side3d" type="button">Side View (3D)</button>
+<div class="console-twin-panel">
+  <div class="twin-label">Live Digital Twin</div>
+ 
+  <div class="twin-window">
+    <div class="twin-view active" data-view="cross">
+      <svg viewBox="0 0 360 220" class="twin-svg">
+        <defs>
+          <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1c4f6e"/>
+            <stop offset="55%" stop-color="#143a52"/>
+            <stop offset="100%" stop-color="#0a1c2c"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="360" height="220" fill="#060d17"/>
+ 
+        <!-- width scale (top) -->
+        <g id="twin-width-scale" stroke="#3a4d5e" stroke-width="1"></g>
+        <text id="twin-width-label" x="180" y="30" text-anchor="middle" fill="#5ec4e0" font-size="9" font-weight="700" font-family="Manrope, sans-serif"></text>
+ 
+        <!-- depth scale (left) -->
+        <g id="twin-depth-scale" stroke="#3a4d5e" stroke-width="1" font-family="Manrope, sans-serif" font-size="7" fill="#7d93a6"></g>
+        <text id="twin-depth-label" x="10" y="110" text-anchor="middle" fill="#5ec4e0" font-size="9" font-weight="700" font-family="Manrope, sans-serif" transform="rotate(-90 10 110)"></text>
+ 
+        <!-- water body -->
+        <rect id="twin-channel" x="20" y="70" width="320" height="80" fill="url(#waterGrad)"/>
+ 
+        <!-- riverbed line -->
+        <line id="twin-bedline" x1="20" y1="150" x2="340" y2="150" stroke="#2a3b7e" stroke-width="2" opacity="0.6"/>
+ 
+        <!-- water-level variation band -->
+        <g id="twin-variation"></g>
+ 
+        <!-- flow lines (speed reflects velocity) -->
+        <g id="twin-flowlines" stroke="rgba(94,196,224,0.35)" stroke-width="1.2" fill="none"></g>
+ 
+        <!-- turbines -->
+        <g id="twin-turbines"></g>
+ 
+        <text x="180" y="205" text-anchor="middle" fill="#a9bccd" font-size="9" font-family="Manrope, sans-serif">Channel cross-section — flow direction into page</text>
+      </svg>
+    </div>
+  </div>
+ 
+  <p class="twin-segment-note" id="twin-segment-note">Cross-section shown to scale for width &amp; depth — actual installation length is shown below.</p>
+ 
+  <div class="twin-readout">
+    <div><span>Live Power Estimate</span><strong id="twin-power">— kW</strong></div>
+    <div><span>Turbines Suggested</span><strong id="twin-turbine-count">—</strong></div>
+  </div>
 </div>
-
-        <div class="twin-window">
-          <div class="twin-view active" data-view="cross">
-            <svg viewBox="0 0 360 220" class="twin-svg">
-              <defs>
-                <linearGradient id="waterGrad" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stop-color="#0d2b3d"/>
-                  <stop offset="50%" stop-color="#143a52"/>
-                  <stop offset="100%" stop-color="#0d2b3d"/>
-                </linearGradient>
-              </defs>
-              <rect x="0" y="0" width="360" height="220" fill="#060d17"/>
-              <rect id="twin-channel" x="0" y="70" width="360" height="80" fill="url(#waterGrad)"/>
-              <g id="twin-flowlines" stroke="rgba(94,196,224,0.35)" stroke-width="1.2" fill="none"></g>
-              <g id="twin-turbines"></g>
-              <text x="180" y="200" text-anchor="middle" fill="#a9bccd" font-size="10" font-family="Manrope, sans-serif">Channel cross-section (illustrative)</text>
-            </svg>
-          </div>
-          <div class="twin-view" data-view="side3d">
-            <div class="twin-3d-container" id="twin-3d-container"></div>
-            <div class="twin-3d-hint">Drag to orbit · Scroll to zoom</div>
-            <button class="twin-3d-reset" id="btn-reset-view" type="button">Reset View</button>
-          </div>
-        </div>
-
-        <p class="twin-segment-note" id="twin-segment-note">Side view shows a representative segment — actual installation length is shown below.</p>
-
-        <div class="twin-readout">
-          <div><span>Live Power Estimate</span><strong id="twin-power">— kW</strong></div>
-          <div><span>Turbines Suggested</span><strong id="twin-turbine-count">—</strong></div>
-        </div>
-      </div>
 
     </div>
   </div>
