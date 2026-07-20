@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Careers Admin — MACLEC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="loginWrap">
+  <div class="login-card">
+    <h1>Careers Admin</h1>
+    <p>Sign in to manage job postings and applications.</p>
+    <form id="loginForm">
+      <input type="password" id="loginPassword" placeholder="Admin password" required autocomplete="current-password">
+      <p class="login-error" id="loginError"></p>
+      <button type="submit">Sign In</button>
+    </form>
+  </div>
+</div>
+
+<!-- ADMIN BODY -->
+<div class="admin-body" id="adminBody">
+  <header class="admin-header">
+    <h1>MACLEC Careers Admin</h1>
+    <button class="admin-logout" id="logoutBtn">Log out</button>
+  </header>
+
+  <nav class="admin-tabs">
+    <button class="admin-tab-btn active" data-tab="jobs">Job Postings</button>
+    <button class="admin-tab-btn" data-tab="applications">Applications</button>
+  </nav>
+
+  <!-- JOB POSTINGS PANEL -->
+  <section class="admin-panel visible" id="jobsPanel">
+    <div class="panel-toolbar">
+      <h2>Job Postings</h2>
+      <button class="btn btn-primary" id="newJobBtn">+ Add New Job</button>
+    </div>
+    <div class="admin-job-list" id="adminJobList"></div>
+    <div class="empty-state" id="jobsEmptyState" style="display:none;">No job postings yet. Click "Add New Job" to create one.</div>
+  </section>
+
+  <!-- APPLICATIONS PANEL -->
+  <section class="admin-panel" id="applicationsPanel">
+    <div class="panel-toolbar">
+      <h2>Submitted Applications</h2>
+    </div>
+    <div class="applications-table-wrap">
+      <table class="applications-table">
+        <colgroup>
+          <col style="width:100px">
+          <col style="width:150px">
+          <col style="width:160px">
+          <col style="width:110px">
+          <col style="width:80px">
+          <col style="width:200px">
+          <col style="width:110px">
+          <col style="width:90px">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Submitted</th>
+            <th>Applicant</th>
+            <th>Job Applied For</th>
+            <th>Contact</th>
+            <th>Links</th>
+            <th>Message</th>
+            <th>Resume</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="applicationsTableBody"></tbody>
+      </table>
+    </div>
+    <div class="empty-state" id="applicationsEmptyState" style="display:none;">No applications submitted yet.</div>
+  </section>
+</div>
+
+<!-- JOB FORM MODAL -->
+<div class="modal-backdrop" id="jobModalBackdrop">
+  <div class="modal-box">
+    <h3 id="jobModalTitle">Add New Job</h3>
+    <form id="jobForm">
+      <input type="hidden" id="jobId">
+      <div class="form-row-2">
+        <div class="form-field">
+          <label for="jobTitleInput">Job Title *</label>
+          <input type="text" id="jobTitleInput" required placeholder="e.g. Senior Mechanical Design Engineer">
+        </div>
+        <div class="form-field">
+          <label for="jobDeptInput">Department *</label>
+          <select id="jobDeptInput" required>
+            <option value="engineering">Engineering</option>
+            <option value="operations">Operations</option>
+            <option value="business">Business & Strategy</option>
+            <option value="research">R&D</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row-2">
+        <div class="form-field">
+          <label for="jobLocationInput">Location *</label>
+          <input type="text" id="jobLocationInput" required placeholder="e.g. Roorkee, Uttarakhand">
+        </div>
+        <div class="form-field">
+          <label for="jobTypeInput">Employment Type *</label>
+          <select id="jobTypeInput" required>
+            <option value="Full-time">Full-time</option>
+            <option value="Part-time">Part-time</option>
+            <option value="Contract">Contract</option>
+            <option value="Internship">Internship</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="jobSummaryInput">Summary *</label>
+        <textarea id="jobSummaryInput" required placeholder="One or two sentences describing the role"></textarea>
+      </div>
+      <div class="form-field">
+        <label for="jobResponsibilitiesInput">Responsibilities *</label>
+        <textarea id="jobResponsibilitiesInput" required placeholder="One responsibility per line"></textarea>
+        <p class="field-hint">Enter one item per line.</p>
+      </div>
+      <div class="form-field">
+        <label for="jobRequirementsInput">Requirements *</label>
+        <textarea id="jobRequirementsInput" required placeholder="One requirement per line"></textarea>
+        <p class="field-hint">Enter one item per line.</p>
+      </div>
+      <div class="form-field">
+        <label for="jobKeywordsInput">Search Keywords</label>
+        <input type="text" id="jobKeywordsInput" placeholder="e.g. mechanical design cfd turbine blade">
+        <p class="field-hint">Helps candidates find this role via the search box on the careers page.</p>
+      </div>
+      <div class="form-field">
+        <label><input type="checkbox" id="jobActiveInput" style="width:auto; display:inline-block; margin-right:8px;" checked>Published (visible on careers page)</label>
+      </div>
+      <div class="form-actions">
+        <button type="button" class="btn btn-outline" id="jobCancelBtn">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="jobSaveBtn">Save Job</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="admin.js"></script>
+</body>
+</html>
