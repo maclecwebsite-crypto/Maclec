@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — MACLEC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="contact.css">
+<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32-v2.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16-v2.png">
+<base target="_blank">
+</head>
+<body class="loading">
+<div class="loading-screen" id="loadingScreen">
+  <img src="img/logo.png" alt="MACLEC" class="loading-logo">
+</div>
+
+<!--  HEADER  -->
+<header class="site-header">
+  <div class="header-inner">
+    <a style="width: 18%;" class="logo" href="index.html">
+      <img style="width: 100%;" src="img/logo.png" alt="MACLEC Logo">
+    </a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <a href="index.html#about">About Maclec</a>
+      <a href="technology.html">Technology</a>
+      <a href="atlas.html">Potential Atlas</a>
+      <a href="projects.html">Projects</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="career.html">Careers</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="btn btn-outline-pill" href="atlas.html">Calculate Site Potential</a>
+    </div>
+
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===== CONTACT HERO ===== -->
+<section class="contact-hero">
+  <div class="contact-hero-media" aria-hidden="true">
+    <div class="contact-hero-overlay"></div>
+  </div>
+  <div class="contact-hero-content">
+    <div class="about-tag">Get in Touch</div>
+    <h1 class="contact-hero-title">Let's Start a<br><span class="accent">Conversation</span></h1>
+    <p class="contact-hero-desc">
+      Whether you are exploring a project partnership, seeking technical consultation, 
+      or interested in investment opportunities — our team is ready to connect.
+    </p>
+  </div>
+</section>
+
+<!-- ===== CONTACT CHANNELS ===== -->
+<section class="channels-section">
+  <div class="channels-inner">
+    <div class="channel-grid">
+      <a href="mailto:info@maclec.com" class="channel-card">
+        <div class="channel-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <strong>General Enquiries</strong>
+        <span>info@maclec.com</span>
+      </a>
+      <a href="mailto:partnerships@maclec.com" class="channel-card">
+        <div class="channel-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <strong>Partnerships & Investors</strong>
+        <span>partnerships@maclec.com</span>
+      </a>
+      <a href="mailto:careers@maclec.com" class="channel-card">
+        <div class="channel-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <strong>Careers</strong>
+        <span>careers@maclec.com</span>
+      </a>
+      <a href="mailto:media@maclec.com" class="channel-card">
+        <div class="channel-icon">
+          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        </div>
+        <strong>Media & Press</strong>
+        <span>media@maclec.com</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT FORM + INFO ===== -->
+<section class="contact-main">
+  <div class="contact-main-inner">
+
+    <!-- Form -->
+    <div class="contact-form-wrap">
+      <div class="about-tag">Send a Message</div>
+      <h2 class="about-title">How Can We <span class="accent">Help?</span></h2>
+      <p class="about-intro">Fill out the form below and our team will respond within 24–48 hours.</p>
+
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contactFirstName">First Name *</label>
+            <input type="text" id="contactFirstName" name="first_name" required placeholder="e.g. Rahul">
+          </div>
+          <div class="form-group">
+            <label for="contactLastName">Last Name *</label>
+            <input type="text" id="contactLastName" name="last_name" required placeholder="e.g. Sharma">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contactEmail">Email Address *</label>
+            <input type="email" id="contactEmail" name="email" required placeholder="rahul.sharma@email.com">
+          </div>
+          <div class="form-group">
+            <label for="contactPhone">Phone Number</label>
+            <input type="tel" id="contactPhone" name="phone" placeholder="+91 98765 43210">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="contactOrg">Organization</label>
+          <input type="text" id="contactOrg" name="organization" placeholder="Company / Institution Name">
+        </div>
+        <div class="form-group">
+          <label for="contactSubject">Subject *</label>
+          <select id="contactSubject" name="subject" required>
+            <option value="" disabled selected>Select a topic</option>
+            <option value="project-inquiry">Project Inquiry</option>
+            <option value="partnership">Partnership & Collaboration</option>
+            <option value="investment">Investment Opportunities</option>
+            <option value="technical">Technical Consultation</option>
+            <option value="site-potential">Site Potential Assessment</option>
+            <option value="careers">Careers</option>
+            <option value="media">Media & Press</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="contactMessage">Message *</label>
+          <textarea id="contactMessage" name="message" rows="5" required placeholder="Tell us about your project, question, or interest..."></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" id="contactSubmitBtn">Send Message</button>
+        </div>
+      </form>
+
+      <div class="contact-success" id="contactSuccess" style="display:none;">
+        <div class="contact-success-icon">
+          <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h3>Message Sent!</h3>
+        <p>Thank you for reaching out. A member of our team will get back to you within 24–48 hours.</p>
+        <button class="btn-outline" id="contactSuccessClose">Send Another Message</button>
+      </div>
+    </div>
+
+    <!-- Info Sidebar -->
+    <aside class="contact-info">
+      <div class="info-card">
+        <div class="info-card-header">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <strong>Headquarters</strong>
+        </div>
+        <p>MACLEC Renewable Energy Pvt. Ltd.<br>
+        Technology Park, Roorkee<br>
+        Uttarakhand — 247667, India</p>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-header">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13 1 .37 1.98.7 2.92a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.94.33 1.92.57 2.92.7A2 2 0 0 1 22 16.92z"/></svg>
+          <strong>Phone</strong>
+        </div>
+        <p><a href="tel:+911332123456">+91 1332 123 456</a><br>
+        <span class="info-note">Mon–Fri, 9:00 AM – 6:00 PM IST</span></p>
+      </div>
+
+      <div class="info-card">
+        <div class="info-card-header">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <strong>Response Time</strong>
+        </div>
+        <p>We aim to respond to all enquiries within <strong>24–48 business hours</strong>. For urgent project matters, please call us directly.</p>
+      </div>
+
+      <div class="info-card info-card--accent">
+        <div class="info-card-header">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+          <strong>Site Potential Atlas</strong>
+        </div>
+        <p>Want to quickly assess your site's hydrokinetic potential? Use our online calculator.</p>
+        <a class="btn-outline btn-outline--small" href="atlas.html">Calculate Potential →</a>
+      </div>
+
+      <div class="info-social">
+        <strong>Follow Us</strong>
+        <div class="social-links">
+          <a href="#" aria-label="LinkedIn" class="social-link">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="#" aria-label="Twitter / X" class="social-link">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube" class="social-link">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ===== MAP SECTION ===== -->
+<section class="map-section">
+  <div class="map-inner">
+    <div class="map-frame">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3457.0!2d77.88!3d29.86!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjnCsDUxJzM2LjAiTiA3N8KwNTInNDguMCJF!5e0!3m2!1sen!2sin!4v1"
+        width="100%"
+        height="100%"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="MACLEC Headquarters Location"
+      ></iframe>
+    </div>
+    <div class="map-overlay">
+      <div class="map-card">
+        <div class="map-card-dot"></div>
+        <strong>MACLEC HQ</strong>
+        <span>Roorkee, Uttarakhand</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ SECTION ===== -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="about-tag">Common Questions</div>
+    <h2 class="about-title">Frequently Asked <span class="accent">Questions</span></h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>How do I request a site feasibility study?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>You can request a feasibility study by filling out the contact form above and selecting "Site Potential Assessment" as the subject. Alternatively, use our <a href="atlas.html">online Potential Atlas calculator</a> for an instant preliminary assessment. Our engineering team will follow up with a detailed technical and commercial evaluation.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>What information do you need for a project proposal?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>To prepare a project proposal, we typically need: site location and waterway type (river, canal, discharge channel), average flow velocity and depth, available width, proximity to grid connection, land ownership details, and your target capacity. Our team can also conduct a site survey if preliminary data is unavailable.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>How can I partner with or invest in MACLEC?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>For partnership and investment inquiries, please email <a href="mailto:partnerships@maclec.com">partnerships@maclec.com</a> or select "Investment Opportunities" in the contact form. We welcome strategic investors, EPC partners, technology licensees, and joint venture collaborators across India and international markets.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>Do you offer internships or research collaborations?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. We actively collaborate with academic institutions on hydrodynamics research, CFD validation, and environmental impact studies. We also offer internships for engineering students passionate about renewable energy. Please email <a href="mailto:careers@maclec.com">careers@maclec.com</a> with your CV and area of interest.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span>How long does a typical SHKT project take from inquiry to commissioning?</span>
+          <svg class="faq-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-answer">
+          <p>Project timelines vary by scale and site complexity. A typical 50–250 kW installation takes 3–6 months from feasibility confirmation to commissioning. Multi-MW projects may take 8–14 months. Our modular, plug-and-play approach significantly reduces deployment time compared to conventional hydropower.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="img/logo.png" alt="MACLEC" class="footer-logo">
+      <p>Energy Through Innovation</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <strong>Company</strong>
+        <a href="index.html#about">About</a>
+        <a href="technology.html">Technology</a>
+        <a href="projects.html">Projects</a>
+        <a href="gallery.html">Gallery</a>
+      </div>
+      <div class="footer-col">
+        <strong>Resources</strong>
+        <a href="atlas.html">Potential Atlas</a>
+        <a href="index.html#knowledge">Knowledge Centre</a>
+        <a href="#">Investor Desk</a>
+      </div>
+      <div class="footer-col">
+        <strong>Connect</strong>
+        <a href="contact.html">Contact</a>
+        <a href="career.html">Careers</a>
+        <a href="#">Media</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 MACLEC. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="contact.js"></script>
+</body>
+</html>
