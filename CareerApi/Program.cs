@@ -10,7 +10,10 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<CareerDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("CareerDb")));
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("CareerDb"),
+        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("CareerDb"))
+    ));
 
 const string CareerSitePolicy = "CareerSitePolicy";
 builder.Services.AddCors(options =>
