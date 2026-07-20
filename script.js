@@ -107,3 +107,81 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeModal();
   });
 })();
+
+// ---  FILE VIEW / DOWNLOAD HANDLING ------
+(function () {
+  const fileModal = document.getElementById('fileModal');
+  const fileModalBody = document.getElementById('fileModalBody');
+  const fileModalTitle = document.getElementById('fileModalTitle');
+  const fileModalDownload = document.getElementById('fileModalDownload');
+  const fileModalClose = document.getElementById('fileModalClose');
+
+  if (!fileModal) return;
+
+  function openFileModal(src, type, title) {
+    fileModalTitle.textContent = title || 'Document';
+    fileModalDownload.href = src;
+    fileModalDownload.setAttribute('download', title ? title.replace(/\s+/g, '-') : '');
+    fileModalBody.innerHTML = '';
+
+    if (type === 'pdf') {
+      const iframe = document.createElement('iframe');
+      iframe.src = src;
+      fileModalBody.appendChild(iframe);
+    } else {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = title || '';
+      fileModalBody.appendChild(img);
+    }
+
+    fileModal.classList.add('open');
+  }
+
+  function closeFileModal() {
+    fileModal.classList.remove('open');
+    fileModalBody.innerHTML = '';
+  }
+
+  // Wire up all "View" buttons
+  document.querySelectorAll('[data-view-src]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const src = btn.getAttribute('data-view-src');
+      const type = btn.getAttribute('data-view-type') || 'pdf';
+      const title = btn.getAttribute('data-view-title') || btn.textContent.trim();
+      openFileModal(src, type, title);
+    });
+  });
+
+  fileModalClose.addEventListener('click', closeFileModal);
+  fileModal.querySelector('.file-modal-backdrop').addEventListener('click', closeFileModal);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeFileModal();
+  });
+
+  // Fallback for download buttons: forces a real download even if
+  // the browser would otherwise navigate (e.g. cross-origin PDFs)
+  document.querySelectorAll('a[download]').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      const href = btn.getAttribute('href');
+      if (!href || href === '#') return; // no file wired yet
+      try {
+        const response = await fetch(href);
+        if (!response.ok) return; // let default anchor behavior try
+        e.preventDefault();
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const tempLink = document.createElement('a');
+        tempLink.href = url;
+        tempLink.download = btn.getAttribute('download') || 'download';
+        document.body.appendChild(tempLink);
+        tempLink.click();
+        tempLink.remove();
+        URL.revokeObjectURL(url);
+      } catch (err) {
+        // If fetch fails (e.g. CORS), fall back to native <a download> behavior
+      }
+    });
+  });
+})();

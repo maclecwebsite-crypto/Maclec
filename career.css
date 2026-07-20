@@ -948,3 +948,16 @@ a { text-decoration:none; color:inherit; }
   .form-actions .btn-primary,
   .form-actions .btn-outline { width: 100%; text-align: center; }
 }
+
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+* {
+  -ms-overflow-style: none;
+}
