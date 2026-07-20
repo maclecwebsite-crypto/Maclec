@@ -143,7 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fileModalBody.innerHTML = '';
   }
 
-  // Wire up all "View" buttons
   document.querySelectorAll('[data-view-src]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -160,8 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeFileModal();
   });
 
-  // Fallback for download buttons: forces a real download even if
-  // the browser would otherwise navigate (e.g. cross-origin PDFs)
   document.querySelectorAll('a[download]').forEach(btn => {
     btn.addEventListener('click', async (e) => {
       const href = btn.getAttribute('href');
