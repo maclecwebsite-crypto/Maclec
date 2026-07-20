@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using CareerApi.Data;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
