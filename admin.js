@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5241/api';
+const API_BASE = 'https://maclec.onrender.com/api';
 
 const DEPT_LABELS = {
   engineering: 'Engineering',
