@@ -20,7 +20,7 @@
 </script>
 </head>
 <body>
-
+ 
 <!-- ===== HEADER ===== -->
 <header class="site-header site-header--solid">
   <div class="header-inner">
@@ -43,14 +43,14 @@
     </button>
   </div>
 </header>
-
+ 
 <!-- ===== HERO: ROTATING GLOBE ===== -->
 <section class="atlas-hero">
   <div class="atlas-hero-bg" aria-hidden="true">
     <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80" alt="Earth at night from space">
     <div class="atlas-hero-overlay"></div>
   </div>
-
+ 
   <div class="atlas-globe-stage" aria-hidden="true">
     <div class="atlas-globe">
       <svg viewBox="0 0 500 500" class="globe-svg">
@@ -107,7 +107,7 @@
       <div class="globe-ring globe-ring--2"></div>
     </div>
   </div>
-
+ 
   <div class="atlas-hero-content">
     <div class="about-tag">Global Hydrokinetic Potential Atlas™</div>
     <h1 class="atlas-hero-title">Discover the Hidden Energy<br><span class="accent">Flowing Through the World's Waterways</span></h1>
@@ -115,7 +115,7 @@
     <a class="btn-primary" href="#assessment">Start Your Assessment ↓</a>
   </div>
 </section>
-
+ 
 <!-- ===== SUB HEADING STRIP ===== -->
 <section class="atlas-intro-strip">
   <div class="atlas-intro-inner">
@@ -123,11 +123,11 @@
     <p class="about-intro">Harness the untapped kinetic energy flowing through existing water infrastructure anywhere in the world. From irrigation canals in India to industrial cooling channels in the Middle East and rivers across Africa, MACLEC's Surface Hydrokinetic Turbine technology transforms moving water into clean electricity — without dams, reservoirs or major civil construction.</p>
   </div>
 </section>
-
+ 
 <!-- ===== INTERACTIVE ASSESSMENT CONSOLE ===== -->
 <section class="atlas-console" id="assessment">
   <div class="atlas-console-inner">
-
+ 
     <div class="console-steps">
       <div class="console-step-tab active" data-step="1">
         <span class="step-num">1</span> Select Location
@@ -139,12 +139,12 @@
         <span class="step-num">3</span> AI Location Assist
       </div>
     </div>
-
+ 
     <div class="console-layout">
-
+ 
       <!-- FORM PANEL -->
       <div class="console-form-panel">
-
+ 
         <!-- STEP 1 -->
         <div class="console-panel-block active" data-panel="1">
           <h3>Select Your Location</h3>
@@ -177,83 +177,25 @@
             </label>
 <label class="form-field form-field--full">
   <span>Water Source Type</span>
-  <div class="radio-grid radio-grid--visual">
-
-    <label class="radio-card">
-      <input type="radio" name="watertype" value="Irrigation Canal" checked>
-      <span class="radio-card-media">
-        <img src="https://images.unsplash.com/photo-1732604447830-b4ba3c4ece89?w=500&q=80&auto=format&fit=crop" alt="Irrigation canal" loading="lazy">
-      </span>
-      <span class="radio-card-label">Irrigation Canal</span>
-    </label>
-
-    <label class="radio-card">
-      <input type="radio" name="watertype" value="River">
-      <span class="radio-card-media">
-        <img src="https://images.unsplash.com/photo-1556828139-f201a948e668?w=500&q=80&auto=format&fit=crop" alt="River" loading="lazy">
-      </span>
-      <span class="radio-card-label">River</span>
-    </label>
-
-    <label class="radio-card">
-      <input type="radio" name="watertype" value="Stream">
-      <span class="radio-card-media">
-        <img src="https://images.unsplash.com/photo-1688799445526-fdcfa8375087?w=500&q=80&auto=format&fit=crop" alt="Stream" loading="lazy">
-      </span>
-      <span class="radio-card-label">Stream</span>
-    </label>
-
-    <label class="radio-card">
-      <input type="radio" name="watertype" value="Hydropower Tail Race Channel">
-      <span class="radio-card-media">
-        <img src="https://images.unsplash.com/photo-1606050309588-741702cceb9b?w=500&q=80&auto=format&fit=crop" alt="Hydropower tail race channel" loading="lazy">
-      </span>
-      <span class="radio-card-label">Tail Race Channel</span>
-    </label>
-
-    <label class="radio-card">
-      <input type="radio" name="watertype" value="Thermal Power Plant CW Channel">
-      <span class="radio-card-media">
-        <img src="https://images.unsplash.com/photo-1771273954407-05345d61543e?w=500&q=80&auto=format&fit=crop" alt="Thermal power plant cooling water channel" loading="lazy">
-      </span>
-      <span class="radio-card-label">Thermal CW Channel</span>
-    </label>
-
-    <label class="radio-card">
-      <input type="radio" name="watertype" value="Industrial Water Channel">
-      <span class="radio-card-media">
-        <img src="https://images.unsplash.com/photo-1533077162801-86490c593afb?w=500&q=80&auto=format&fit=crop" alt="Industrial water channel" loading="lazy">
-      </span>
-      <span class="radio-card-label">Industrial Channel</span>
-    </label>
-
-    <label class="radio-card">
-      <input type="radio" name="watertype" value="Wastewater Channel">
-      <span class="radio-card-media">
-        <img src="https://images.unsplash.com/photo-1622322977879-af6982dcba00?w=500&q=80&auto=format&fit=crop" alt="Wastewater channel" loading="lazy">
-      </span>
-      <span class="radio-card-label">Wastewater Channel</span>
-    </label>
-
-    <label class="radio-card">
-      <input type="radio" name="watertype" value="Pumped Storage Canal">
-      <span class="radio-card-media">
-        <img src="https://images.unsplash.com/photo-1534168523742-301283cb37fa?w=500&q=80&auto=format&fit=crop" alt="Pumped storage canal" loading="lazy">
-      </span>
-      <span class="radio-card-label">Pumped Storage Canal</span>
-    </label>
-
+ 
+  <div class="watertype-tabs" id="watertype-tabs" role="tablist" aria-label="Water source category">
+    <button type="button" class="watertype-tab active" data-cat="hydro" role="tab" aria-selected="true">Flowing Water Sources</button>
+    <button type="button" class="watertype-tab" data-cat="psp" role="tab" aria-selected="false">SHK‑PSP Sites</button>
   </div>
+ 
+  <p class="watertype-hint">Tap a card to browse its full photo set · tap <span class="watertype-hint-icon">Select</span> to choose that water source type</p>
+ 
+  <div class="radio-grid radio-grid--visual" id="watertype-grid" role="radiogroup" aria-label="Water source type options"></div>
 </label>
-
-
+ 
+ 
           </div>
           <div class="console-nav">
             <span></span>
             <button class="btn-primary console-next" data-goto="2">Next: Site Parameters →</button>
           </div>
         </div>
-
+ 
         <!-- STEP 2 -->
         <div class="console-panel-block" data-panel="2">
           <h3>Enter Site Parameters</h3>
@@ -294,7 +236,7 @@
             <button class="btn-primary console-next" data-goto="3">Next: AI Location Assist →</button>
           </div>
         </div>
-
+ 
         <!-- STEP 3 -->
         <div class="console-panel-block" data-panel="3">
           <h3>AI Assisted Location Selection</h3>
@@ -327,9 +269,9 @@
             <button class="btn-primary" id="run-assessment">Generate Assessment →</button>
           </div>
         </div>
-
+ 
       </div>
-
+ 
 <!-- LIVE DIGITAL TWIN -->
 <div class="console-twin-panel">
   <div class="twin-label">Live Digital Twin</div>
@@ -347,17 +289,17 @@
     <div><span>Turbines Suggested</span><strong id="twin-turbine-count">—</strong></div>
   </div>
 </div>
-
+ 
     </div>
   </div>
 </section>
-
+ 
 <!-- ===== RESULTS DASHBOARD ===== -->
 <!-- <section class="atlas-results" id="results">
   <div class="atlas-results-inner">
     <div class="about-tag">Results Dashboard</div>
     <h2 class="about-title">Preliminary Hydrokinetic <span class="accent">Assessment</span></h2>
-
+ 
     <div class="results-top">
       <div class="suitability-card">
         <div class="suitability-ring">
@@ -370,7 +312,7 @@
         <div class="suitability-label">Site Suitability Score</div>
         <div class="suitability-tag" id="suit-tag">Excellent</div>
       </div>
-
+ 
       <div class="tech-rec-card">
         <span class="results-mini-tag">Technology Recommendation</span>
         <div class="tech-rec-list">
@@ -381,7 +323,7 @@
         </div>
       </div>
     </div>
-
+ 
     <div class="results-grid">
       <div class="result-stat">
         <span class="result-icon">⚡</span>
@@ -414,29 +356,29 @@
         <span>Indicative LCOE Range</span>
       </div>
     </div>
-
+ 
     <p class="results-disclaimer">Figures are indicative, generated from the parameters entered above using MACLEC's preliminary screening model. A detailed feasibility study refines all estimates with site-specific engineering data.</p>
   </div>
 </section> -->
-
+ 
 <!-- ===== INTERACTIVE VISUALIZATION ===== -->
 <!-- <section class="atlas-visual">
   <div class="atlas-visual-inner">
     <div class="about-tag">Interactive Visualization</div>
     <h2 class="about-title">See Your Site, <span class="accent">Before &amp; After</span></h2>
     <p class="about-intro">The system automatically generates the canal layout, SHKT positions, wake recovery zones and energy extraction zones for your site.</p>
-
+ 
     <div class="ba-toggle-wrap">
       <button class="ba-toggle active" data-view="before">Original Waterway</button>
       <button class="ba-toggle" data-view="after">With SHKT Installation</button>
     </div>
-
+ 
     <div class="ba-image-wrap">
       <img class="ba-image active" data-view="before" src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1400&q=80" alt="Original waterway before SHKT installation">
       <img class="ba-image" data-view="after" src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1400&q=80" alt="Waterway with SHKT turbines installed">
       <div class="ba-caption">Natural water flow remains unaltered — turbines sit within the existing channel.</div>
     </div>
-
+ 
     <div class="viz-3d-note">
       <div class="viz-3d-icon">🔄</div>
       <div>
@@ -446,7 +388,7 @@
     </div>
   </div>
 </section> -->
-
+ 
 <!-- ===== GLOBAL PROJECTS LAYER TEASER ===== -->
 <section class="atlas-layers">
   <div class="atlas-layers-media" aria-hidden="true">
@@ -460,14 +402,14 @@
     <a class="btn-primary" href="projects.html">Open Project Explorer →</a>
   </div>
 </section>
-
+ 
 <!-- ===== WHY THIS TOOL IS UNIQUE ===== -->
 <section class="atlas-unique">
   <div class="atlas-unique-inner">
     <div class="about-tag">Why This Tool Is Unique</div>
     <h2 class="about-title">One Platform. <span class="accent">Every Capability.</span></h2>
     <p class="about-intro">Only MACLEC's Global Hydrokinetic Potential Atlas™ combines all of this into a single platform:</p>
-
+ 
     <div class="unique-grid">
       <div class="unique-item">✓ Hydrokinetic Assessment</div>
       <div class="unique-item">✓ Canal Energy Mapping</div>
@@ -480,7 +422,7 @@
     </div>
   </div>
 </section>
-
+ 
 <!-- ===== CLOSING ===== -->
 <section class="tclose-section">
   <div class="tclose-media" aria-hidden="true">
@@ -493,7 +435,30 @@
     <a class="btn-primary" href="#assessment">Start Your Assessment</a>
   </div>
 </section>
-
+ 
+<!-- ===== WATER SOURCE TYPE — PHOTO GALLERY MODAL ===== -->
+<div class="wt-modal" id="wt-modal" aria-hidden="true">
+  <div class="wt-modal-backdrop" id="wt-modal-backdrop"></div>
+  <div class="wt-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="wt-modal-title">
+    <button type="button" class="wt-modal-close" id="wt-modal-close" aria-label="Close gallery">×</button>
+    <div class="wt-modal-header">
+      <span class="wt-modal-cat" id="wt-modal-cat"></span>
+      <h4 id="wt-modal-title"></h4>
+      <p class="wt-modal-count" id="wt-modal-count"></p>
+    </div>
+    <div class="wt-modal-main">
+      <button type="button" class="wt-modal-nav wt-modal-nav--prev" id="wt-modal-prev" aria-label="Previous image">‹</button>
+      <div class="wt-modal-image-wrap">
+        <img id="wt-modal-image" src="" alt="">
+      </div>
+      <button type="button" class="wt-modal-nav wt-modal-nav--next" id="wt-modal-next" aria-label="Next image">›</button>
+    </div>
+    <p class="wt-modal-image-name" id="wt-modal-image-name"></p>
+    <div class="wt-modal-thumbs" id="wt-modal-thumbs"></div>
+    <button type="button" class="btn-primary wt-modal-select" id="wt-modal-select">Use this Water Source Type</button>
+  </div>
+</div>
+ 
 <script src="script.js"></script>
 <script src="atlas.js"></script>
 <script type="module" src="atlas-3d.js"></script>

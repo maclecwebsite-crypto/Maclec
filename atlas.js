@@ -250,9 +250,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Technology recommendation
     document.querySelectorAll('.tech-rec-item').forEach(el => el.classList.remove('active'));
-    const watertype = document.querySelector('input[name="watertype"]:checked')?.value || '';
+    const checkedWatertype = document.querySelector('input[name="watertype"]:checked');
+    const watertype = checkedWatertype?.value || '';
+    const watertypeCategory = checkedWatertype?.dataset.category || '';
     let recId = 'rec-fixed';
-    if (watertype === 'Pumped Storage Canal') recId = 'rec-psp';
+    if (watertypeCategory === 'psp' || watertype === 'Pumped Storage Canal') recId = 'rec-psp';
     else if (velocity < 0.8) recId = 'rec-floating';
     else if (width > 35) recId = 'rec-hybrid';
     document.getElementById(recId)?.classList.add('active');
@@ -298,3 +300,286 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+
+/* ===== WATER SOURCE TYPE — DYNAMIC GALLERY-BACKED SELECTOR ===== */
+(function(){
+  const WT_DATA = [{"category": "Hydro Power Generation Through Flowing Water", "key": "hydro", "folder": "Hydro Power Generationt through flowing water", "items": [{"name": "Bidirectional Tidal Channels", "files": ["Bidirectional Tidal Stream Channel 2.jfif", "Bidirectional Tidal Stream Channel 3.jfif", "Bidirectional Tidal Stream Channel 4.jfif", "Bidirectional Tidal Stream Channel 5.jfif", "Bidirectional Tidal Stream Channel 6.jfif", "Bidirectional Tidal Stream Channel 7.jfif", "Bidirectional tidal channels 1.jfif"]}, {"name": "Drinking Water Treatment Plant Inlet & Outlet Channel", "files": ["Drinking Water Treatement Plant Inlet & Outlet channel 7.jfif", "Drinking Water Treatment Plant In_et & Outlet Channel 6.jfif"]}, {"name": "Hilly Stream", "files": ["Hilly Stream 1.jfif", "Hilly Stream 2.jfif", "Hilly Stream 3.jfif", "Hilly Stream 4.jfif", "Hilly Streams 1.jfif", "Himalaya_s River 1.jfif", "Himalaya_s River 2.jfif", "Himalaya_s River 3.jfif", "Himalaya_s River 4.jfif", "Himalaya_s River 5.jfif", "Himalaya_s River 6.jfif"]}, {"name": "Industrial Plant Cooling Water Channels", "files": ["Industrial Plant Cooling Water Channels 2.jfif", "Industrial Plant Cooling Water Channels 3.jfif", "Industrial Plant Cooling Water Channels.jfif"]}, {"name": "Irrigation Canal", "files": ["Lined Canal.jfif", "Small Irrigation canal.jfif", "Unlined Canal.jfif"]}, {"name": "Lift Irrigation and Drinkng water upper channel pump pipe outlet", "files": ["Lift Irrigation Canal Systems 1.jfif", "Lift Irrigation Canal Systems 2.jfif", "Lift Irrigation and Drinking water canal.jfif", "Lift Irrigation and Drinkng water upper channel pump pipe outlet.jfif", "Lifting and Drinking water canal 2.jfif"]}, {"name": "Raw Water Intake & Inlet Canal", "files": ["Raw Water Intake & Inlet Canal 1.jfif", "Raw Water Intake & Inlet Canal 2.jfif", "Raw Water Intake & Inlet Canal 3.jfif", "Raw Water Intake & Inlet Canal 4.jfif", "Raw Water Intake & Inlet Canal 5.jfif"]}, {"name": "Rivers", "files": ["Forest River 5.jfif", "Lowland or Alluvial River 1.jfif", "Lowland or Alluvial River 2.jfif", "Lowland or Alluvial River 3.jfif", "Lowland or Alluvial River 4.jfif", "Lowland or Alluvial River 5.jfif", "Lowland or Alluvial River 6.jfif", "Lowland or Alluvial River 7.jfif", "Lowland or Alluvial River 8.jfif", "Mountain River 1.jfif", "Mountain River 2.jfif", "Mountain River 3.jfif", "Mountain River 4.jfif", "Plain Ground Stream 1.jfif", "Plain Ground Stream 2.jfif", "Plain Ground Stream 3.jfif", "Plain Ground Stream 4.jfif", "Plain Ground Stream 5.jfif", "Plain Ground Stream 6.jfif"]}, {"name": "Sewage Water Channels", "files": ["Sewage Water Channels 1.jfif", "Sewage Water Channels 2.jfif", "Sewage Water Channels 3.jfif", "Sewage Water Channels 4.jfif", "Sewage Water Channels 5.jfif"]}, {"name": "Tailrace Hydropower Dam Canal", "files": ["Tailrace Hydropower Dam Canal 1.jfif", "Tailrace Hydropower Dam Canal 10.jfif", "Tailrace Hydropower Dam Canal 11.jfif", "Tailrace Hydropower Dam Canal 2.jfif", "Tailrace Hydropower Dam Canal 3.jfif", "Tailrace Hydropower Dam Canal 4.jfif", "Tailrace Hydropower Dam Canal 5.jfif", "Tailrace Hydropower Dam Canal 6.jfif", "Tailrace Hydropower Dam Canal 7.jfif", "Tailrace Hydropower Dam Canal 8.jfif", "Tailrace Hydropower Dam Canal 9.jfif"]}, {"name": "Thermal Power Plant Cooling Water Channels", "files": ["Thermal Power Plant Cooling Water Channels 1.jfif", "Thermal Power Plant Cooling Water Channels 2.jfif", "Thermal Power Plant Cooling Water Channels 3.jfif", "Thermal Power Plant Cooling Water Channels 4.jfif"]}, {"name": "Waste Water Inlet & Outlet Channels", "files": ["Waste Water Inlet & Outlet Channels 1.jfif", "Waste Water Inlet & Outlet Channels 2.jfif", "Waste Water Inlet & Outlet Channels 3.jfif", "Waste Water Inlet & Outlet Channels 4.jfif", "Waste Water Inlet & Outlet Channels 5.jfif", "Waste Water Inlet & Outlet Channels 6.jfif", "Wastewater Treatment Plant \u2013 Aerial Overview 1.jfif"]}]}, {"category": "SHK Pumped Storage Potential (PSP)", "key": "psp", "folder": "PSP", "items": [{"name": "Drnking water Treatment Plant", "files": ["drinking water treatment plants located in or near desert or bared land 1.jfif", "drinking water treatment plants located in or near desert or bared land 2.jfif"]}, {"name": "Sea Islands", "files": ["sea islands 1.jfif", "sea islands 2.jfif", "sea islands 3.jfif"]}, {"name": "Uptream and Lowerstream Reservior", "files": ["Downstream or Lower Stream1.jfif", "Upstream Reservoir 1.jfif", "Upstream Reservoir 2.jfif", "Upstream Reservoir 3.jfif"]}, {"name": "abandoned mines", "files": ["abandoned mines 1.jfif", "abandoned mines 2.jfif", "abandoned mines 3.jfif", "abandoned mines 4.jfif", "abandoned mines 5.jfif"]}, {"name": "barren islands", "files": ["barren islands 1.jfif", "barren islands 2.jfif", "barren islands 3.jfif", "barren islands 4.jfif"]}, {"name": "barren or sparsely vegetated islands close to cities", "files": ["barren or sparsely vegetated islands close to cities 1.jfif", "barren or sparsely vegetated islands close to cities 2.jfif", "desert landscapes directly adjacent to the sea 1.jfif", "desert landscapes directly adjacent to the sea 2.jfif", "desert landscapes directly adjacent to the sea 3.jfif", "desert landscapes directly adjacent to the sea 4.jfif", "desert landscapes directly adjacent to the sea 5.jfif"]}, {"name": "coastal sea wetlands", "files": ["coastal sea wetlands 1.jfif", "coastal sea wetlands 2.jfif", "coastal sea wetlands 3.jfif", "coastal sea wetlands 4.jfif"]}, {"name": "desert landscapes with rivers and irrigation canals", "files": ["desert landscapes with rivers and irrigation canals 1.jfif", "desert landscapes with rivers and irrigation canals 2.jfif", "desert landscapes with rivers and irrigation canals 3.jfif", "desert landscapes with rivers and irrigation canals 4.jfif"]}, {"name": "large water ponds, reservoirs, and storage lagoons located outside cities or villages", "files": ["large water ponds, reservoirs, and storage lagoons located outside cities or villages 1.jfif", "large water ponds, reservoirs, and storage lagoons located outside cities or villages 2.jfif", "large water ponds, reservoirs, and storage lagoons located outside cities or villages 3.jfif", "large water ponds, reservoirs, and storage lagoons located outside cities or villages 4.jfif", "large water ponds, reservoirs, and storage lagoons located outside cities or villages 5.jfif"]}, {"name": "sewage treatment plants (STPs) located in desert", "files": ["sewage treatment plants (STPs) located in desert 1.jfif", "sewage treatment plants (STPs) located in desert 2.jfif", "sewage treatment plants (STPs) located in desert 3.jfif", "sewage treatment plants (STPs) located in desert 4.jfif", "sewage treatment plants (STPs) located in desert 5.jfif", "sewage treatment plants (STPs) located in desert 6.jfif"]}, {"name": "wasteland or barren land located adjacent to lakes, ponds, or reservoirs", "files": ["wasteland or barren land located adjacent to lakes, ponds, or reservoirs 1.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 2.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 3.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 4.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 5.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 6.jfif"]}, {"name": "wetlands located on the outskirts of cities", "files": ["wetlands located on the outskirts of cities 1.jfif", "wetlands located on the outskirts of cities 2.jfif", "wetlands located on the outskirts of cities 3.jfif", "wetlands located on the outskirts of cities 4.jfif"]}]}];
+
+  const grid = document.getElementById('watertype-grid');
+  const tabs = document.getElementById('watertype-tabs');
+  if (!grid || !tabs) return;
+
+  function encPath(parts){
+    return parts.map(p => encodeURIComponent(p)).join('/');
+  }
+
+  function imgSrc(folder, sub, file){
+    return 'img/' + encPath([folder, sub, file]);
+  }
+
+  // Turn a raw filename into a friendly display name
+  function cleanName(file){
+    return file
+      .replace(/\.[a-zA-Z0-9]+$/, '')   // strip extension
+      .replace(/_/g, ' ')                // underscores -> spaces
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function esc(str){
+    return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  }
+
+  // Which specific photo is selected for each item, keyed by "key-idx" -> file index
+  const selectedPhotoIndex = {};
+  // Which item is currently the chosen watertype
+  let currentSelection = { key: 'hydro', idx: 0 };
+
+  let activeKey = 'hydro';
+
+  function itemKey(key, idx){ return key + '-' + idx; }
+
+  function renderGrid(key){
+    const cat = WT_DATA.find(c => c.key === key);
+    grid.innerHTML = '';
+    if (!cat) return;
+
+    cat.items.forEach((item, idx) => {
+      const ik = itemKey(key, idx);
+      const fileIdx = selectedPhotoIndex[ik] || 0;
+      const file = item.files[fileIdx];
+      const thumb = imgSrc(cat.folder, item.name, file);
+      const inputId = 'wt-' + ik;
+      const isChecked = currentSelection.key === key && currentSelection.idx === idx;
+      const photoName = cleanName(file);
+
+      const label = document.createElement('label');
+      label.className = 'radio-card';
+      label.dataset.key = key;
+      label.dataset.idx = idx;
+
+      label.innerHTML = `
+        <input type="radio" id="${inputId}" name="watertype" value="${esc(item.name)}" data-category="${key}" ${isChecked ? 'checked' : ''}>
+        <span class="radio-card-media">
+          <img src="${thumb}" alt="${esc(item.name)}" loading="lazy">
+          <span class="radio-card-count">${item.files.length} photo${item.files.length > 1 ? 's' : ''}</span>
+        </span>
+        <span class="radio-card-label">${esc(item.name)}</span>
+        <span class="radio-card-selected-name">Selected: ${esc(photoName)}</span>
+      `;
+      grid.appendChild(label);
+    });
+  }
+
+  tabs.querySelectorAll('.watertype-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.querySelectorAll('.watertype-tab').forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      activeKey = tab.dataset.cat;
+      renderGrid(activeKey);
+    });
+  });
+
+  renderGrid(activeKey);
+
+  /* ----- Gallery modal ----- */
+  const modal = document.getElementById('wt-modal');
+  const modalBackdrop = document.getElementById('wt-modal-backdrop');
+  const modalClose = document.getElementById('wt-modal-close');
+  const modalCat = document.getElementById('wt-modal-cat');
+  const modalTitle = document.getElementById('wt-modal-title');
+  const modalCount = document.getElementById('wt-modal-count');
+  const modalImage = document.getElementById('wt-modal-image');
+  const modalImageName = document.getElementById('wt-modal-image-name');
+  const modalThumbs = document.getElementById('wt-modal-thumbs');
+  const modalPrev = document.getElementById('wt-modal-prev');
+  const modalNext = document.getElementById('wt-modal-next');
+  const modalSelect = document.getElementById('wt-modal-select');
+
+  let galCat = null;
+  let galItem = null;
+  let galKey = null;
+  let galIdx = 0;
+  let galPhotoIdx = 0;
+
+  // Open the gallery for a given water-source-type card (does NOT select it yet)
+  function openGallery(key, idx){
+    const cat = WT_DATA.find(c => c.key === key);
+    if (!cat) return;
+    const item = cat.items[idx];
+    if (!item) return;
+
+    galCat = cat;
+    galItem = item;
+    galKey = key;
+    galIdx = idx;
+    galPhotoIdx = selectedPhotoIndex[itemKey(key, idx)] || 0;
+
+    modalCat.textContent = cat.category;
+    modalTitle.textContent = item.name;
+    renderPhoto();
+    renderThumbs();
+
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+
+  function renderPhoto(){
+    const file = galItem.files[galPhotoIdx];
+    modalImage.src = imgSrc(galCat.folder, galItem.name, file);
+    modalImage.alt = galItem.name + ' — ' + cleanName(file);
+    modalCount.textContent = 'Photo ' + (galPhotoIdx + 1) + ' of ' + galItem.files.length;
+    if (modalImageName) modalImageName.textContent = cleanName(file);
+    modalThumbs.querySelectorAll('.wt-thumb').forEach((t, i) => {
+      t.classList.toggle('active', i === galPhotoIdx);
+    });
+    if (modalSelect) {
+      modalSelect.textContent = 'Select this photo — ' + cleanName(file);
+    }
+  }
+
+  function renderThumbs(){
+    modalThumbs.innerHTML = '';
+    galItem.files.forEach((file, i) => {
+      const name = cleanName(file);
+      const cell = document.createElement('div');
+      cell.className = 'wt-thumb' + (i === galPhotoIdx ? ' active' : '');
+      cell.innerHTML = `
+        <button type="button" class="wt-thumb-preview" data-idx="${i}" aria-label="Preview ${esc(name)}">
+          <img src="${imgSrc(galCat.folder, galItem.name, file)}" alt="${esc(name)}" loading="lazy">
+        </button>
+        <span class="wt-thumb-name" title="${esc(name)}">${esc(name)}</span>
+        <button type="button" class="wt-thumb-select" data-idx="${i}">Select</button>
+      `;
+      modalThumbs.appendChild(cell);
+    });
+  }
+
+  function closeGallery(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
+  // Confirm the selection of a specific photo for the current gallery item
+  function commitSelection(fileIdx){
+    selectedPhotoIndex[itemKey(galKey, galIdx)] = fileIdx;
+    currentSelection = { key: galKey, idx: galIdx };
+
+    // Make sure the right tab is active so the grid re-render shows the update
+    const tabBtn = tabs.querySelector(`.watertype-tab[data-cat="${galKey}"]`);
+    if (tabBtn && !tabBtn.classList.contains('active')) {
+      tabs.querySelectorAll('.watertype-tab').forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tabBtn.classList.add('active');
+      tabBtn.setAttribute('aria-selected', 'true');
+      activeKey = galKey;
+    }
+
+    renderGrid(activeKey);
+
+    const input = document.getElementById('wt-' + itemKey(galKey, galIdx));
+    if (input) {
+      input.checked = true;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    closeGallery();
+  }
+
+  // Clicking anywhere on a water-source-type card opens its photo gallery
+  grid.addEventListener('click', (e) => {
+    const card = e.target.closest('.radio-card');
+    if (!card) return;
+    e.preventDefault(); // selection now happens inside the modal, not on card click
+    openGallery(card.dataset.key, parseInt(card.dataset.idx, 10));
+  });
+
+  modalBackdrop.addEventListener('click', closeGallery);
+  modalClose.addEventListener('click', closeGallery);
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('open')) return;
+    if (e.key === 'Escape') closeGallery();
+    if (e.key === 'ArrowLeft') stepPhoto(-1);
+    if (e.key === 'ArrowRight') stepPhoto(1);
+  });
+
+  function stepPhoto(dir){
+    if (!galItem) return;
+    const len = galItem.files.length;
+    galPhotoIdx = (galPhotoIdx + dir + len) % len;
+    renderPhoto();
+  }
+  modalPrev.addEventListener('click', () => stepPhoto(-1));
+  modalNext.addEventListener('click', () => stepPhoto(1));
+
+  // Per-photo controls inside the thumbnail strip
+  modalThumbs.addEventListener('click', (e) => {
+    const selectBtn = e.target.closest('.wt-thumb-select');
+    if (selectBtn) {
+      commitSelection(parseInt(selectBtn.dataset.idx, 10));
+      return;
+    }
+    const previewBtn = e.target.closest('.wt-thumb-preview');
+    if (previewBtn) {
+      galPhotoIdx = parseInt(previewBtn.dataset.idx, 10);
+      renderPhoto();
+    }
+  });
+
+  // Select the photo currently shown in the main viewer
+  modalSelect.addEventListener('click', () => {
+    commitSelection(galPhotoIdx);
+  });
+})();
+
+  function renderThumbs(){
+    modalThumbs.innerHTML = '';
+    galItem.files.forEach((file, i) => {
+      const name = cleanName(file);
+      const cell = document.createElement('div');
+      cell.className = 'wt-thumb' + (i === galPhotoIdx ? ' active' : '');
+      cell.dataset.idx = i;
+      
+      cell.innerHTML = `
+        <button type="button" class="wt-thumb-preview" data-idx="${i}" aria-label="Preview ${esc(name)}">
+          <div class="wt-thumb-checkbox" role="checkbox" aria-checked="${i === galPhotoIdx ? 'true' : 'false'}" aria-label="Select ${esc(name)}"></div>
+          <img src="${imgSrc(galCat.folder, galItem.name, file)}" alt="${esc(name)}" loading="lazy">
+        </button>
+        <span class="wt-thumb-name" title="${esc(name)}">${esc(name)}</span>
+      `;
+      modalThumbs.appendChild(cell);
+    });
+  }
+
+  // Clicking a thumbnail's checkbox OR preview selects it
+  modalThumbs.addEventListener('click', (e) => {
+    const checkbox = e.target.closest('.wt-thumb-checkbox');
+    const preview = e.target.closest('.wt-thumb-preview');
+    
+    if (checkbox || preview) {
+      const thumb = (checkbox || preview).closest('.wt-thumb');
+      const idx = parseInt(thumb.dataset.idx, 10);
+      
+      // Update visual selection in modal
+      galPhotoIdx = idx;
+      modalThumbs.querySelectorAll('.wt-thumb').forEach((t, i) => {
+        t.classList.toggle('active', i === idx);
+        const cb = t.querySelector('.wt-thumb-checkbox');
+        if (cb) cb.setAttribute('aria-checked', i === idx ? 'true' : 'false');
+      });
+      
+      // Update main preview
+      renderPhoto();
+    }
+  });
+
+  // Bottom "Select This Option" button commits the choice
+  modalSelect.addEventListener('click', () => {
+    commitSelection(galPhotoIdx);
+  });
