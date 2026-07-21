@@ -10,6 +10,14 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="technology.css">
 <link rel="stylesheet" href="atlas.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
 </head>
 <body>
 
@@ -322,30 +330,23 @@
 
       </div>
 
-      <!-- LIVE DIGITAL TWIN -->
-      <div class="console-twin-panel">
-        <div class="twin-label">Live Digital Twin</div>
-        <div class="twin-window">
-          <svg viewBox="0 0 360 220" class="twin-svg">
-            <defs>
-              <linearGradient id="waterGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#0d2b3d"/>
-                <stop offset="50%" stop-color="#143a52"/>
-                <stop offset="100%" stop-color="#0d2b3d"/>
-              </linearGradient>
-            </defs>
-            <rect x="0" y="0" width="360" height="220" fill="#060d17"/>
-            <rect id="twin-channel" x="0" y="70" width="360" height="80" fill="url(#waterGrad)"/>
-            <g id="twin-flowlines" stroke="rgba(94,196,224,0.35)" stroke-width="1.2" fill="none"></g>
-            <g id="twin-turbines"></g>
-            <text x="180" y="200" text-anchor="middle" fill="#a9bccd" font-size="10" font-family="Manrope, sans-serif">Channel cross-section (illustrative)</text>
-          </svg>
-        </div>
-        <div class="twin-readout">
-          <div><span>Live Power Estimate</span><strong id="twin-power">— kW</strong></div>
-          <div><span>Turbines Suggested</span><strong id="twin-turbine-count">—</strong></div>
-        </div>
-      </div>
+<!-- LIVE DIGITAL TWIN -->
+<div class="console-twin-panel">
+  <div class="twin-label">Live Digital Twin</div>
+  <div class="twin3d-wrap">
+    <div id="twin3d-canvas"></div>
+    <div class="twin3d-views">
+      <button type="button" data-view="top">Top</button>
+      <button type="button" data-view="side">Side</button>
+      <button type="button" data-view="iso">Iso</button>
+    </div>
+  </div>
+  <p class="twin-segment-note" id="twin-segment-note"></p>
+  <div class="twin-readout">
+    <div><span>Live Power Estimate</span><strong id="twin-power">— kW</strong></div>
+    <div><span>Turbines Suggested</span><strong id="twin-turbine-count">—</strong></div>
+  </div>
+</div>
 
     </div>
   </div>
@@ -495,5 +496,6 @@
 
 <script src="script.js"></script>
 <script src="atlas.js"></script>
+<script type="module" src="atlas-3d.js"></script>
 </body>
 </html>
