@@ -438,7 +438,7 @@ document.addEventListener('DOMContentLoaded', () => {
       t.classList.toggle('active', i === galPhotoIdx);
     });
     if (modalSelect) {
-      modalSelect.textContent = 'Select this photo — ' + cleanName(file);
+      modalSelect.textContent = 'Select this Category';
     }
   }
 

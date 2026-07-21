@@ -1377,3 +1377,18 @@
     font-size: 1rem;
   }
 }
+
+.wt-modal-image-wrap {
+  flex: 1;
+  max-height: 220px;      /* cap the height directly */
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.wt-modal-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
