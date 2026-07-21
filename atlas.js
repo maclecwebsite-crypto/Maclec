@@ -47,6 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
       input.addEventListener('input', () => {
         updateRangeLabels();
         renderDigitalTwin();
+        // Sync the 3D WebGL twin if it's loaded
+        if (typeof window.twin3dRebuild === 'function') {
+          window.twin3dRebuild();
+        }
       });
     }
   });
@@ -214,6 +218,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function runAssessment() {
+    // Sync the 3D WebGL twin
+    if (typeof window.twin3dRebuild === 'function') {
+      window.twin3dRebuild();
+    }
     const width = getVal('f-width');
     const depth = getVal('f-depth');
     const velocity = getVal('f-velocity');

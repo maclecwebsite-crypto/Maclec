@@ -225,92 +225,124 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
   function buildTurbine(z, hubY, depth) {
     const g = new THREE.Group();
+    const scale = 2.0;
 
     // --- Mounting Pylon ---
-    const postMat = new THREE.MeshStandardMaterial({ color: 0x3a4a5a, metalness: 0.6, roughness: 0.3 });
+    const postMat = new THREE.MeshStandardMaterial({ 
+      color: 0x6a7a8a, metalness: 0.6, roughness: 0.3 
+    });
     const postHeight = Math.abs(hubY - (-depth));
-    const post = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.10, 1, 12), postMat);
+    const post = new THREE.Mesh(new THREE.CylinderGeometry(0.12 * scale, 0.15 * scale, 1, 12), postMat);
     post.scale.y = postHeight;
     post.position.y = -postHeight / 2;
     post.castShadow = true;
     g.add(post);
 
-    // --- Turbine Housing / Nacelle (the main body) ---
-    const housingMat = new THREE.MeshStandardMaterial({ color: 0x5a6a7a, metalness: 0.5, roughness: 0.4 });
-    const housing = new THREE.Mesh(new THREE.CylinderGeometry(0.25, 0.30, 0.6, 16), housingMat);
+    // --- Main Nacelle / Housing ---
+    const housingMat = new THREE.MeshStandardMaterial({ 
+      color: 0xf5f8fa, metalness: 0.6, roughness: 0.25, emissive: 0x1a2a3a, emissiveIntensity: 0.15 
+    });
+    const housing = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.50 * scale, 0.65 * scale, 1.4 * scale, 20), 
+      housingMat
+    );
     housing.rotation.z = Math.PI / 2;
     housing.castShadow = true;
     g.add(housing);
 
-    // Nose cone (front)
-    const noseMat = new THREE.MeshStandardMaterial({ color: 0x7a8a9a, metalness: 0.4, roughness: 0.3 });
-    const nose = new THREE.Mesh(new THREE.ConeGeometry(0.25, 0.35, 16), noseMat);
+    // --- Front Nose Cone ---
+    const noseMat = new THREE.MeshStandardMaterial({ 
+      color: 0xe8eef4, metalness: 0.55, roughness: 0.2, emissive: 0x1a2a3a, emissiveIntensity: 0.1 
+    });
+    const nose = new THREE.Mesh(
+      new THREE.ConeGeometry(0.50 * scale, 0.80 * scale, 20), 
+      noseMat
+    );
     nose.rotation.z = -Math.PI / 2;
-    nose.position.x = 0.45;
+    nose.position.x = 1.0 * scale;
     nose.castShadow = true;
     g.add(nose);
 
-    // Tail cone (back)
-    const tail = new THREE.Mesh(new THREE.ConeGeometry(0.30, 0.40, 16), noseMat);
+    // --- Rear Tail Cone ---
+    const tail = new THREE.Mesh(
+      new THREE.ConeGeometry(0.65 * scale, 0.90 * scale, 20), 
+      noseMat
+    );
     tail.rotation.z = Math.PI / 2;
-    tail.position.x = -0.45;
+    tail.position.x = -1.05 * scale;
     tail.castShadow = true;
     g.add(tail);
 
-    // --- Rotor with curved hydro blades ---
+    // --- ROTOR ---
     const rotor = new THREE.Group();
     const bladeMat = new THREE.MeshStandardMaterial({
-      color: 0xc0c8d0, metalness: 0.7, roughness: 0.25,
-      side: THREE.DoubleSide
+      color: 0xc8d8e8, metalness: 0.8, roughness: 0.15, side: THREE.DoubleSide, emissive: 0x2a4a6a, emissiveIntensity: 0.2
     });
 
-    // Create 5 curved hydrofoil blades
     for (let i = 0; i < 5; i++) {
       const holder = new THREE.Group();
       holder.rotation.x = (i * Math.PI * 2) / 5;
 
-      // Curved blade using a custom shape with sweep
       const bladeShape = new THREE.Shape();
-      // Root of blade (near hub)
-      bladeShape.moveTo(0.06, 0);
-      // Leading edge curves outward and back
-      bladeShape.bezierCurveTo(0.10, 0.15, 0.18, 0.35, 0.22, 0.55);
-      // Tip
-      bladeShape.lineTo(0.14, 0.58);
-      // Trailing edge curves back to root
-      bladeShape.bezierCurveTo(0.10, 0.38, 0.05, 0.18, 0.02, 0);
-      bladeShape.lineTo(0.06, 0);
+      bladeShape.moveTo(0.12 * scale, 0);
+      bladeShape.bezierCurveTo(
+        0.22 * scale, 0.30 * scale,
+        0.38 * scale, 0.70 * scale,
+        0.48 * scale, 1.15 * scale
+      );
+      bladeShape.bezierCurveTo(
+        0.44 * scale, 1.25 * scale,
+        0.32 * scale, 1.25 * scale,
+        0.28 * scale, 1.15 * scale
+      );
+      bladeShape.bezierCurveTo(
+        0.18 * scale, 0.75 * scale,
+        0.08 * scale, 0.35 * scale,
+        0.04 * scale, 0
+      );
+      bladeShape.lineTo(0.12 * scale, 0);
 
       const extrudeSettings = {
-        depth: 0.04,
+        depth: 0.08 * scale,
         bevelEnabled: true,
-        bevelThickness: 0.01,
-        bevelSize: 0.01,
+        bevelThickness: 0.02 * scale,
+        bevelSize: 0.02 * scale,
         bevelSegments: 2
       };
       const bladeGeo = new THREE.ExtrudeGeometry(bladeShape, extrudeSettings);
       const blade = new THREE.Mesh(bladeGeo, bladeMat);
-
-      // Twist the blade for hydrofoil effect
-      blade.rotation.x = 0.35; // pitch angle
-      blade.position.set(0, 0, -0.02);
+      blade.rotation.x = 0.25;
+      blade.position.set(0, 0, -0.04 * scale);
       blade.castShadow = true;
       holder.add(blade);
       rotor.add(holder);
     }
 
-    // Central hub cap
+    const hubMat = new THREE.MeshStandardMaterial({ 
+      color: 0xd8e4f0, metalness: 0.85, roughness: 0.1, emissive: 0x3a5a7a, emissiveIntensity: 0.25 
+    });
     const hubCap = new THREE.Mesh(
-      new THREE.SphereGeometry(0.12, 16, 16),
-      new THREE.MeshStandardMaterial({ color: 0x8a9aaa, metalness: 0.8, roughness: 0.15 })
+      new THREE.SphereGeometry(0.30 * scale, 20, 20), 
+      hubMat
     );
-    hubCap.scale.set(1, 0.6, 1);
+    hubCap.scale.set(1, 0.5, 1);
     rotor.add(hubCap);
 
-    rotor.rotation.z = Math.PI / 2;
+    const spinner = new THREE.Mesh(
+      new THREE.SphereGeometry(0.20 * scale, 16, 16), 
+      hubMat
+    );
+    spinner.position.x = 1.3 * scale;
+    rotor.add(spinner);
+
     g.add(rotor);
     g.position.set(0, hubY, z);
     turbineGroup.add(g);
+
+    // Underwater light for turbine visibility
+    const turbineLight = new THREE.PointLight(0x88ccff, 0.8, 15);
+    turbineLight.position.set(0, hubY + 0.5, z);
+    turbineGroup.add(turbineLight);
     rotors.push(rotor);
   }
 
@@ -333,8 +365,13 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
     const depth = getVal('f-depth') || 2;
     const velocity = getVal('f-velocity') || 1.5;
     const discharge = getVal('f-discharge') || 0;
+    const variation = getVal('f-variation') || 0;
     const realLength = getVal('f-length') || 250;
     const length = Math.min(80, Math.max(20, width * 2.5));
+
+    // Adjust water level based on variation (seasonal water level change)
+    const waterLevel = 0.5 + (variation * 0.1);
+    if (waterMesh) waterMesh.position.y = waterLevel;
 
     buildWater(width, length);
     buildRiverbed(length, width, depth);
@@ -343,7 +380,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
     rotors.length = 0;
     const turbineCount = Math.max(1, Math.min(8, Math.round(width / 6)));
     const spacing = width / (turbineCount + 1);
-    const hubY = -depth * 0.25 + 0.2;
+    const hubY = -depth * 0.20 + 0.1;
     for (let i = 1; i <= turbineCount; i++) {
       buildTurbine(-width / 2 + spacing * i, hubY, depth);
     }
@@ -353,15 +390,16 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
     if (turbineCountOut) turbineCountOut.textContent = turbineCount;
     if (segmentNote) {
       segmentNote.textContent =
-        `Segment shown: ${width.toFixed(1)} m wide x ${depth.toFixed(1)} m deep, flowing at ${velocity.toFixed(1)} m/s` +
-        (discharge ? ` (~${discharge} cumecs).` : '.') +
-        ` Full installation length: ${realLength} m.`;
+        `Segment shown: ${width.toFixed(1)} m wide × ${depth.toFixed(1)} m deep, flowing at ${velocity.toFixed(1)} m/s` +
+        (discharge ? ` (~${discharge} cumecs)` : '') +
+        (variation ? `, variation ±${variation.toFixed(1)} m` : '') +
+        `. Full installation length: ${realLength} m.`;
     }
 
     waterUniforms.flowSpeed.value = velocity * 0.8;
   }
 
-  ['f-width', 'f-depth', 'f-velocity', 'f-length', 'f-discharge'].forEach(id => {
+  ['f-width', 'f-depth', 'f-velocity', 'f-length', 'f-discharge', 'f-variation'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('input', rebuild);
   });
@@ -388,12 +426,15 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
   rebuild();
 
+  // Expose rebuild globally so atlas.js can sync the 3D twin
+  window.twin3dRebuild = rebuild;
+
   const clock = new THREE.Clock();
   function animate() {
     requestAnimationFrame(animate);
     const dt = clock.getDelta();
     waterUniforms.time.value += dt;
-    rotors.forEach(r => { r.rotation.z += dt * 4; });
+    rotors.forEach(r => { r.rotation.x += dt * 4; });
     controls.update();
     renderer.render(scene, camera);
   }
