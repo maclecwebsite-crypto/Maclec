@@ -10,7 +10,8 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
   scene.fog = new THREE.Fog(0xc8dce8, 30, 180);
 
   const camera = new THREE.PerspectiveCamera(45, mount.clientWidth / mount.clientHeight, 0.1, 2000);
-  camera.position.set(30, 20, 40);
+  // Zoomed in 20% — closer initial view
+  camera.position.set(24, 15.6, 32);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -62,27 +63,28 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
   const waterVertexShader = `
     uniform float time;
     uniform float flowSpeed;
+    uniform float waveIntensity;
     varying vec2 vUv;
     varying vec3 vWorldPos;
     varying vec3 vNormal;
     void main() {
       vUv = uv;
       vec3 pos = position;
-      float wave1 = sin(pos.x * 0.3 + time * flowSpeed) * 0.25;
-      float wave2 = sin(pos.z * 0.5 + time * flowSpeed * 0.8) * 0.20;
-      float wave3 = sin((pos.x + pos.z) * 0.8 + time * flowSpeed * 1.2) * 0.12;
-      float wave4 = sin(pos.x * 1.2 + pos.z * 0.4 + time * flowSpeed * 0.5) * 0.08;
-      float wave5 = sin(pos.x * 2.5 + pos.z * 1.5 + time * flowSpeed * 1.5) * 0.05;
+      float wave1 = sin(pos.x * 0.3 + time * flowSpeed) * 0.25 * waveIntensity;
+      float wave2 = sin(pos.z * 0.5 + time * flowSpeed * 0.8) * 0.20 * waveIntensity;
+      float wave3 = sin((pos.x + pos.z) * 0.8 + time * flowSpeed * 1.2) * 0.12 * waveIntensity;
+      float wave4 = sin(pos.x * 1.2 + pos.z * 0.4 + time * flowSpeed * 0.5) * 0.08 * waveIntensity;
+      float wave5 = sin(pos.x * 2.5 + pos.z * 1.5 + time * flowSpeed * 1.5) * 0.05 * waveIntensity;
       pos.y += wave1 + wave2 + wave3 + wave4 + wave5;
       vWorldPos = (modelMatrix * vec4(pos, 1.0)).xyz;
-      float dx = cos(pos.x * 0.3 + time * flowSpeed) * 0.075 +
-                 cos((pos.x + pos.z) * 0.8 + time * flowSpeed * 1.2) * 0.096 +
-                 cos(pos.x * 1.2 + pos.z * 0.4 + time * flowSpeed * 0.5) * 0.096 +
-                 cos(pos.x * 2.5 + pos.z * 1.5 + time * flowSpeed * 1.5) * 0.125;
-      float dz = cos(pos.z * 0.5 + time * flowSpeed * 0.8) * 0.10 +
-                 cos((pos.x + pos.z) * 0.8 + time * flowSpeed * 1.2) * 0.096 +
-                 cos(pos.x * 1.2 + pos.z * 0.4 + time * flowSpeed * 0.5) * 0.032 +
-                 cos(pos.x * 2.5 + pos.z * 1.5 + time * flowSpeed * 1.5) * 0.075;
+      float dx = cos(pos.x * 0.3 + time * flowSpeed) * 0.075 * waveIntensity +
+                 cos((pos.x + pos.z) * 0.8 + time * flowSpeed * 1.2) * 0.096 * waveIntensity +
+                 cos(pos.x * 1.2 + pos.z * 0.4 + time * flowSpeed * 0.5) * 0.096 * waveIntensity +
+                 cos(pos.x * 2.5 + pos.z * 1.5 + time * flowSpeed * 1.5) * 0.125 * waveIntensity;
+      float dz = cos(pos.z * 0.5 + time * flowSpeed * 0.8) * 0.10 * waveIntensity +
+                 cos((pos.x + pos.z) * 0.8 + time * flowSpeed * 1.2) * 0.096 * waveIntensity +
+                 cos(pos.x * 1.2 + pos.z * 0.4 + time * flowSpeed * 0.5) * 0.032 * waveIntensity +
+                 cos(pos.x * 2.5 + pos.z * 1.5 + time * flowSpeed * 1.5) * 0.075 * waveIntensity;
       vNormal = normalize(vec3(-dx, 1.0, -dz));
       gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
     }
@@ -119,6 +121,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
   let waterUniforms = {
     time: { value: 0 },
     flowSpeed: { value: 1.0 },
+    waveIntensity: { value: 1.0 },
     waterColor: { value: new THREE.Color(0x2a7a9a) },
     sunDirection: { value: new THREE.Vector3(0.5, 0.8, 0.3).normalize() }
   };
@@ -223,103 +226,166 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
   scene.add(turbineGroup);
   const rotors = [];
 
-  function buildTurbine(z, hubY, depth) {
-    const g = new THREE.Group();
-    const scale = 2.0;
+  // Wake flow lines to visualize velocity
+  const wakeGroup = new THREE.Group();
+  scene.add(wakeGroup);
+  const wakeLines = [];
 
-    // --- Mounting Pylon ---
-    const postMat = new THREE.MeshStandardMaterial({ 
+  function buildWakeLines(length, width, velocity) {
+    // Clear existing wake lines
+    wakeLines.forEach(w => wakeGroup.remove(w.mesh));
+    wakeLines.length = 0;
+
+    // Number of wake lines proportional to velocity (more lines = faster flow)
+    const lineCount = Math.max(3, Math.min(20, Math.round(velocity * 6)));
+    const wakeMat = new THREE.LineBasicMaterial({ 
+      color: 0x88ccff, 
+      transparent: true, 
+      opacity: 0.35 + (velocity * 0.1) 
+    });
+
+    for (let i = 0; i < lineCount; i++) {
+      const zPos = -width / 2 + (width / (lineCount + 1)) * (i + 1);
+      const points = [];
+      const segments = 40;
+      for (let j = 0; j <= segments; j++) {
+        const x = -length / 2 + (length / segments) * j;
+        const y = 0.5 + Math.sin(x * 0.5 + i) * 0.05;
+        points.push(new THREE.Vector3(x, y, zPos));
+      }
+      const geometry = new THREE.BufferGeometry().setFromPoints(points);
+      const line = new THREE.Line(geometry, wakeMat.clone());
+      wakeGroup.add(line);
+      wakeLines.push({ mesh: line, offset: i * 0.5, speed: velocity });
+    }
+  }
+
+  function updateWakeLines(time) {
+    wakeLines.forEach(wake => {
+      const positions = wake.mesh.geometry.attributes.position;
+      for (let i = 0; i < positions.count; i++) {
+        const x = positions.getX(i);
+        // Broken/dashed effect: segments appear/disappear based on time
+        const dashPhase = Math.sin(x * 2 + time * wake.speed * 3 + wake.offset) > 0.3 ? 1 : 0;
+        // Wiggle amplitude increases with velocity
+        const wiggle = Math.sin(x * 1.5 + time * wake.speed * 2 + wake.offset) * 0.08 * wake.speed;
+        positions.setY(i, 0.5 + wiggle * dashPhase);
+      }
+      positions.needsUpdate = true;
+      // Pulsing opacity based on velocity
+      wake.mesh.material.opacity = 0.2 + Math.sin(time * wake.speed * 2 + wake.offset) * 0.15 + (wake.speed * 0.08);
+    });
+  }
+
+  function buildTurbine(xPos, hubY, depth, zPos = 0) {
+    const g = new THREE.Group();
+    
+    // Larger turbine for visibility
+    const scale = 2.5;
+
+    // Rotate so housing points Z (width), rotor faces Z
+    g.rotation.y = -Math.PI / 2;
+
+    // --- Surface Mounting Post ---
+    const armMat = new THREE.MeshStandardMaterial({ 
       color: 0x6a7a8a, metalness: 0.6, roughness: 0.3 
     });
-    const postHeight = Math.abs(hubY - (-depth));
-    const post = new THREE.Mesh(new THREE.CylinderGeometry(0.12 * scale, 0.15 * scale, 1, 12), postMat);
+    const postHeight = Math.min(Math.abs(hubY) + depth * 0.5, Math.abs(hubY) + 1.5);
+    const post = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.12 * scale, 0.15 * scale, 1, 12), 
+      armMat
+    );
     post.scale.y = postHeight;
     post.position.y = -postHeight / 2;
     post.castShadow = true;
     g.add(post);
 
-    // --- Main Nacelle / Housing ---
+    // Surface platform
+    const platform = new THREE.Mesh(
+      new THREE.BoxGeometry(1.4 * scale, 0.12, 1.0 * scale),
+      armMat
+    );
+    platform.position.y = 0.3;
+    platform.castShadow = true;
+    g.add(platform);
+
+    // --- Main Housing (FLAT SIDES) ---
     const housingMat = new THREE.MeshStandardMaterial({ 
-      color: 0xf5f8fa, metalness: 0.6, roughness: 0.25, emissive: 0x1a2a3a, emissiveIntensity: 0.15 
+      color: 0xf5f8fa, metalness: 0.6, roughness: 0.25, 
+      emissive: 0x1a2a3a, emissiveIntensity: 0.15 
     });
     const housing = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.50 * scale, 0.65 * scale, 1.4 * scale, 20), 
+      new THREE.BoxGeometry(0.9 * scale, 0.7 * scale, 1.4 * scale), 
       housingMat
     );
-    housing.rotation.z = Math.PI / 2;
     housing.castShadow = true;
     g.add(housing);
 
-    // --- Front Nose Cone ---
+    // --- Front Nose (FLAT) ---
     const noseMat = new THREE.MeshStandardMaterial({ 
-      color: 0xe8eef4, metalness: 0.55, roughness: 0.2, emissive: 0x1a2a3a, emissiveIntensity: 0.1 
+      color: 0xe8eef4, metalness: 0.55, roughness: 0.2, 
+      emissive: 0x1a2a3a, emissiveIntensity: 0.1 
     });
     const nose = new THREE.Mesh(
-      new THREE.ConeGeometry(0.50 * scale, 0.80 * scale, 20), 
+      new THREE.BoxGeometry(0.7 * scale, 0.5 * scale, 0.6 * scale), 
       noseMat
     );
-    nose.rotation.z = -Math.PI / 2;
-    nose.position.x = 1.0 * scale;
+    nose.position.x = 0.95 * scale;
     nose.castShadow = true;
     g.add(nose);
 
-    // --- Rear Tail Cone ---
+    // --- Rear Tail (FLAT) ---
     const tail = new THREE.Mesh(
-      new THREE.ConeGeometry(0.65 * scale, 0.90 * scale, 20), 
+      new THREE.BoxGeometry(0.8 * scale, 0.6 * scale, 0.7 * scale), 
       noseMat
     );
-    tail.rotation.z = Math.PI / 2;
     tail.position.x = -1.05 * scale;
     tail.castShadow = true;
     g.add(tail);
 
-    // --- ROTOR ---
+    // --- ROTOR with STRAIGHT, WIDE BLADES ---
     const rotor = new THREE.Group();
     const bladeMat = new THREE.MeshStandardMaterial({
-      color: 0xc8d8e8, metalness: 0.8, roughness: 0.15, side: THREE.DoubleSide, emissive: 0x2a4a6a, emissiveIntensity: 0.2
+      color: 0xc8d8e8, metalness: 0.8, roughness: 0.15, 
+      side: THREE.DoubleSide, emissive: 0x2a4a6a, emissiveIntensity: 0.2
     });
 
     for (let i = 0; i < 5; i++) {
       const holder = new THREE.Group();
       holder.rotation.x = (i * Math.PI * 2) / 5;
 
+      // STRAIGHT, WIDE blade shape (trapezoid)
       const bladeShape = new THREE.Shape();
-      bladeShape.moveTo(0.12 * scale, 0);
-      bladeShape.bezierCurveTo(
-        0.22 * scale, 0.30 * scale,
-        0.38 * scale, 0.70 * scale,
-        0.48 * scale, 1.15 * scale
-      );
-      bladeShape.bezierCurveTo(
-        0.44 * scale, 1.25 * scale,
-        0.32 * scale, 1.25 * scale,
-        0.28 * scale, 1.15 * scale
-      );
-      bladeShape.bezierCurveTo(
-        0.18 * scale, 0.75 * scale,
-        0.08 * scale, 0.35 * scale,
-        0.04 * scale, 0
-      );
-      bladeShape.lineTo(0.12 * scale, 0);
+      // Root (near hub) — wider
+      bladeShape.moveTo(-0.30 * scale, 0.15 * scale);
+      bladeShape.lineTo(0.30 * scale, 0.15 * scale);
+      // Tip — slightly tapered
+      bladeShape.lineTo(0.22 * scale, 1.20 * scale);
+      bladeShape.lineTo(-0.22 * scale, 1.20 * scale);
+      // Close back to root
+      bladeShape.lineTo(-0.30 * scale, 0.15 * scale);
 
+      // Thicker extrusion for visible blade
       const extrudeSettings = {
-        depth: 0.08 * scale,
+        depth: 0.15 * scale,
         bevelEnabled: true,
-        bevelThickness: 0.02 * scale,
-        bevelSize: 0.02 * scale,
+        bevelThickness: 0.03 * scale,
+        bevelSize: 0.03 * scale,
         bevelSegments: 2
       };
       const bladeGeo = new THREE.ExtrudeGeometry(bladeShape, extrudeSettings);
       const blade = new THREE.Mesh(bladeGeo, bladeMat);
-      blade.rotation.x = 0.25;
-      blade.position.set(0, 0, -0.04 * scale);
+      
+      // No twist — blade stays straight
+      blade.position.set(0, 0, -0.075 * scale);
       blade.castShadow = true;
       holder.add(blade);
       rotor.add(holder);
     }
 
     const hubMat = new THREE.MeshStandardMaterial({ 
-      color: 0xd8e4f0, metalness: 0.85, roughness: 0.1, emissive: 0x3a5a7a, emissiveIntensity: 0.25 
+      color: 0xd8e4f0, metalness: 0.85, roughness: 0.1, 
+      emissive: 0x3a5a7a, emissiveIntensity: 0.25 
     });
     const hubCap = new THREE.Mesh(
       new THREE.SphereGeometry(0.30 * scale, 20, 20), 
@@ -336,19 +402,43 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
     rotor.add(spinner);
 
     g.add(rotor);
-    g.position.set(0, hubY, z);
+    
+    g.position.set(xPos, hubY, zPos);
     turbineGroup.add(g);
 
-    // Underwater light for turbine visibility
     const turbineLight = new THREE.PointLight(0x88ccff, 0.8, 15);
-    turbineLight.position.set(0, hubY + 0.5, z);
+    turbineLight.position.set(xPos, hubY + 0.5, zPos);
     turbineGroup.add(turbineLight);
     rotors.push(rotor);
   }
 
   function getVal(id) {
     const el = document.getElementById(id);
-    return el ? parseFloat(el.value) : 0;
+    if (!el) return 0;
+    // Special handling for length slider (non-linear 0-100 -> 500-200000m)
+    if (id === 'f-length') {
+      return getLengthFromSlider(parseFloat(el.value));
+    }
+    return parseFloat(el.value);
+  }
+
+  function getLengthFromSlider(rawVal) {
+    if (rawVal <= 20) {
+      // Phase 1: 500m to 2000m (fine control for small installations)
+      return Math.round(500 + rawVal * 75);
+    } else {
+      // Phase 2: 5000m to 200000m (coarse control for large installations)
+      const t = (rawVal - 20) / 80;
+      return Math.round(5000 + t * t * 195000);
+    }
+  }
+
+  function getSliderFromLength(length) {
+    if (length <= 2000) {
+      return (length - 500) / 75;
+    } else {
+      return 20 + Math.sqrt((length - 5000) / 195000) * 80;
+    }
   }
 
   function estimatePowerKW(width, depth, velocity) {
@@ -367,23 +457,39 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
     const discharge = getVal('f-discharge') || 0;
     const variation = getVal('f-variation') || 0;
     const realLength = getVal('f-length') || 250;
-    const length = Math.min(80, Math.max(20, width * 2.5));
 
-    // Adjust water level based on variation (seasonal water level change)
+    // FIX: displayLength now scales with realLength (capped 20-80 for performance)
+    let displayLength;
+    if (realLength <= 250) {
+      displayLength = 20;
+    } else {
+      displayLength = Math.min(80, Math.max(20, 20 + Math.log10(realLength / 250) * 30));
+    }
+
     const waterLevel = 0.5 + (variation * 0.1);
     if (waterMesh) waterMesh.position.y = waterLevel;
 
-    buildWater(width, length);
-    buildRiverbed(length, width, depth);
+    buildWater(width, displayLength);
+    buildRiverbed(displayLength, width, depth);
 
     turbineGroup.clear();
     rotors.length = 0;
-    const turbineCount = Math.max(1, Math.min(8, Math.round(width / 6)));
-    const spacing = width / (turbineCount + 1);
-    const hubY = -depth * 0.20 + 0.1;
-    for (let i = 1; i <= turbineCount; i++) {
-      buildTurbine(-width / 2 + spacing * i, hubY, depth);
+
+    const bladeRadius = 1.15 * 2.5;
+    const hubY = waterLevel + bladeRadius * 0.25;
+
+    // Turbine count and spacing now based on displayLength
+    const turbineSpacing = 20;
+    const maxTurbines = Math.floor((displayLength - 10) / turbineSpacing);
+    const turbineCount = Math.max(1, Math.min(6, maxTurbines));
+
+    const startX = -displayLength / 2 + turbineSpacing;
+    for (let i = 0; i < turbineCount; i++) {
+      const xPos = startX + i * turbineSpacing;
+      buildTurbine(xPos, hubY, depth, 0);
     }
+
+    buildWakeLines(displayLength, width, velocity);
 
     const powerKW = estimatePowerKW(width, depth, velocity) * turbineCount;
     if (powerOut) powerOut.textContent = Math.round(powerKW).toLocaleString() + ' kW';
@@ -396,7 +502,8 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
         `. Full installation length: ${realLength} m.`;
     }
 
-    waterUniforms.flowSpeed.value = velocity * 0.8;
+    waterUniforms.flowSpeed.value = velocity * 1.5;
+    waterUniforms.waveIntensity.value = 0.5 + Math.min(2.0, discharge / 100);
   }
 
   ['f-width', 'f-depth', 'f-velocity', 'f-length', 'f-discharge', 'f-variation'].forEach(id => {
@@ -413,13 +520,13 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
   document.querySelectorAll('.twin3d-views button').forEach(btn => {
     btn.addEventListener('click', () => {
       const width = getVal('f-width') || 12, depth = getVal('f-depth') || 2;
-      const length = Math.min(80, Math.max(20, width * 2.5));
+      const displayLength = Math.min(80, Math.max(20, width * 2.5));
       if (btn.dataset.view === 'top') {
-        flyTo({ x: 0.001, y: Math.max(30, length * 0.9), z: 0.001 }, { x: 0, y: 0, z: 0 });
+        flyTo({ x: 0.001, y: Math.max(30, displayLength * 0.9), z: 0.001 }, { x: 0, y: 0, z: 0 });
       } else if (btn.dataset.view === 'side') {
         flyTo({ x: 0.001, y: -depth / 2, z: Math.max(20, width * 2.2) }, { x: 0, y: -depth / 2, z: 0 });
       } else {
-        flyTo({ x: length * 0.55, y: length * 0.35, z: width * 1.6 + 15 }, { x: 0, y: -depth / 3, z: 0 });
+        flyTo({ x: displayLength * 0.55, y: displayLength * 0.35, z: width * 1.6 + 15 }, { x: 0, y: -depth / 3, z: 0 });
       }
     });
   });
@@ -433,10 +540,15 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
   function animate() {
     requestAnimationFrame(animate);
     const dt = clock.getDelta();
+    const elapsed = clock.getElapsedTime();
     waterUniforms.time.value += dt;
+    
+    // FIX 2: rotors spin around local X (which is world Z after Y-rotation)
     rotors.forEach(r => { r.rotation.x += dt * 4; });
+    
+    updateWakeLines(elapsed);
     controls.update();
     renderer.render(scene, camera);
   }
   animate();
-})();
+  })();
