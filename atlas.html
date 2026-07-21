@@ -149,32 +149,43 @@
         <div class="console-panel-block active" data-panel="1">
           <h3>Select Your Location</h3>
           <div class="form-grid">
-            <label class="form-field">
-              <span>Country</span>
-              <select id="f-country">
-                <option value="">Select Country</option>
-                <option>India</option>
-                <option>Saudi Arabia</option>
-                <option>Oman</option>
-                <option>Kenya</option>
-                <option>Uzbekistan</option>
-                <option>USA</option>
-                <option>Australia</option>
-                <option>Other</option>
-              </select>
-            </label>
-            <label class="form-field">
-              <span>State / Province</span>
-              <select id="f-state">
-                <option value="">Select State / Province</option>
-                <option>Punjab</option>
-                <option>Uttar Pradesh</option>
-                <option>Rajasthan</option>
-                <option>Maharashtra</option>
-                <option>Gujarat</option>
-                <option>Other</option>
-              </select>
-            </label>
+
+ <!-- Country: custom scrollable dropdown, populated from CountriesNow API -->
+<div class="form-field">
+  <span>Country</span>
+  <div class="loc-dropdown" id="loc-country-dropdown">
+    <button type="button" class="loc-dropdown-toggle" id="loc-country-toggle" aria-haspopup="listbox" aria-label="Country">
+      <span class="loc-dropdown-toggle-text is-placeholder" id="loc-country-text">Select Country</span>
+      <span class="loc-dropdown-caret">▾</span>
+    </button>
+    <div class="loc-dropdown-panel" id="loc-country-panel" role="listbox">
+      <div class="loc-dropdown-search-wrap">
+        <input type="text" class="loc-dropdown-search" id="loc-country-search" placeholder="Search country…" autocomplete="off">
+      </div>
+      <ul class="loc-dropdown-list" id="loc-country-list"></ul>
+    </div>
+  </div>
+  <input type="hidden" id="f-country" value="">
+</div>
+
+<!-- State / Province: custom scrollable dropdown, populated based on selected country -->
+<div class="form-field">
+  <span>State / Province</span>
+  <div class="loc-dropdown" id="loc-state-dropdown">
+    <button type="button" class="loc-dropdown-toggle" id="loc-state-toggle" aria-haspopup="listbox" aria-label="State or Province" disabled>
+      <span class="loc-dropdown-toggle-text is-placeholder" id="loc-state-text">Select Country First</span>
+      <span class="loc-dropdown-caret">▾</span>
+    </button>
+    <div class="loc-dropdown-panel" id="loc-state-panel" role="listbox">
+      <div class="loc-dropdown-search-wrap">
+        <input type="text" class="loc-dropdown-search" id="loc-state-search" placeholder="Search state / province…" autocomplete="off">
+      </div>
+      <ul class="loc-dropdown-list" id="loc-state-list"></ul>
+    </div>
+  </div>
+  <input type="hidden" id="f-state" value="">
+</div>
+
 <label class="form-field form-field--full">
   <span>Water Source Type</span>
  

@@ -85,6 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const PX_MIN = 26, PX_MAX = 130;           // shallowest / deepest channel height in px
 
   function renderDigitalTwin() {
+    // Guard: the digital-twin SVG (built by atlas-3d.js) may not exist yet,
+    // or may not exist at all on some pages. Bail out quietly instead of throwing.
+    if (!channelRect || !flowGroup || !turbineGroup) return;
+
     const width = getVal('f-width');
     const depth = getVal('f-depth');
     const velocity = getVal('f-velocity');
@@ -188,8 +192,8 @@ document.addEventListener('DOMContentLoaded', () => {
       turbineGroup.appendChild(g);
     }
 
-    powerOut.textContent = Math.round(powerKW).toLocaleString() + ' kW';
-    turbineCountOut.textContent = turbineCount;
+    if (powerOut) powerOut.textContent = Math.round(powerKW).toLocaleString() + ' kW';
+    if (turbineCountOut) turbineCountOut.textContent = turbineCount;
 
     // --- Segment note reflects discharge + installation length too ---
     if (segmentNote) {
@@ -428,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.setAttribute('aria-hidden', 'false');
   }
 
-const modalImageWrap = document.querySelector('.wt-modal-image-wrap');
+  const modalImageWrap = document.querySelector('.wt-modal-image-wrap');
 
   function renderPhoto(){
     const file = galItem.files[galPhotoIdx];
@@ -436,14 +440,14 @@ const modalImageWrap = document.querySelector('.wt-modal-image-wrap');
     modalImage.alt = galItem.name + ' — ' + cleanName(file);
     modalCount.textContent = 'Photo ' + (galPhotoIdx + 1) + ' of ' + galItem.files.length;
     if (modalImageName) modalImageName.textContent = cleanName(file);
-    
+
     // Update thumbnail highlights
     modalThumbs.querySelectorAll('.wt-thumb').forEach((t, i) => {
       t.classList.toggle('active', i === galPhotoIdx);
       const cb = t.querySelector('.wt-thumb-checkbox');
       if (cb) cb.setAttribute('aria-checked', i === galPhotoIdx ? 'true' : 'false');
     });
-    
+
     // Update main checkbox state
     updateMainCheckbox();
   }
@@ -457,20 +461,20 @@ const modalImageWrap = document.querySelector('.wt-modal-image-wrap');
       checkbox.setAttribute('role', 'checkbox');
       checkbox.setAttribute('aria-label', 'Select this image');
       checkbox.setAttribute('tabindex', '0');
-      
+
       const label = document.createElement('span');
       label.className = 'wt-modal-main-checkbox-label';
       label.textContent = 'Click to select';
-      
+
       modalImageWrap.appendChild(checkbox);
       modalImageWrap.appendChild(label);
-      
+
       // Click to select
       checkbox.addEventListener('click', (e) => {
         e.stopPropagation();
         commitSelection(galPhotoIdx);
       });
-      
+
       // Keyboard support
       checkbox.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -479,26 +483,29 @@ const modalImageWrap = document.querySelector('.wt-modal-image-wrap');
         }
       });
     }
-    
+
     // Show checked state if this photo is already selected for this item
     const ik = itemKey(galKey, galIdx);
-    const isSelected = (selectedPhotoIndex[ik] === galPhotoIdx) && 
+    const isSelected = (selectedPhotoIndex[ik] === galPhotoIdx) &&
                        (currentSelection.key === galKey && currentSelection.idx === galIdx);
     checkbox.classList.toggle('checked', isSelected);
     checkbox.setAttribute('aria-checked', isSelected ? 'true' : 'false');
   }
+
   function renderThumbs(){
     modalThumbs.innerHTML = '';
     galItem.files.forEach((file, i) => {
       const name = cleanName(file);
       const cell = document.createElement('div');
       cell.className = 'wt-thumb' + (i === galPhotoIdx ? ' active' : '');
+      cell.dataset.idx = i;
+
       cell.innerHTML = `
         <button type="button" class="wt-thumb-preview" data-idx="${i}" aria-label="Preview ${esc(name)}">
+          <div class="wt-thumb-checkbox" role="checkbox" aria-checked="${i === galPhotoIdx ? 'true' : 'false'}" aria-label="Select ${esc(name)}"></div>
           <img src="${imgSrc(galCat.folder, galItem.name, file)}" alt="${esc(name)}" loading="lazy">
         </button>
         <span class="wt-thumb-name" title="${esc(name)}">${esc(name)}</span>
-        <button type="button" class="wt-thumb-select" data-idx="${i}">Select</button>
       `;
       modalThumbs.appendChild(cell);
     });
@@ -563,63 +570,22 @@ const modalImageWrap = document.querySelector('.wt-modal-image-wrap');
   modalPrev.addEventListener('click', () => stepPhoto(-1));
   modalNext.addEventListener('click', () => stepPhoto(1));
 
-  // Per-photo controls inside the thumbnail strip
-  modalThumbs.addEventListener('click', (e) => {
-    const selectBtn = e.target.closest('.wt-thumb-select');
-    if (selectBtn) {
-      commitSelection(parseInt(selectBtn.dataset.idx, 10));
-      return;
-    }
-    const previewBtn = e.target.closest('.wt-thumb-preview');
-    if (previewBtn) {
-      galPhotoIdx = parseInt(previewBtn.dataset.idx, 10);
-      renderPhoto();
-    }
-  });
-
-  // Select the photo currently shown in the main viewer
-  modalSelect.addEventListener('click', () => {
-    commitSelection(galPhotoIdx);
-  });
-})();
-
-  function renderThumbs(){
-    modalThumbs.innerHTML = '';
-    galItem.files.forEach((file, i) => {
-      const name = cleanName(file);
-      const cell = document.createElement('div');
-      cell.className = 'wt-thumb' + (i === galPhotoIdx ? ' active' : '');
-      cell.dataset.idx = i;
-      
-      cell.innerHTML = `
-        <button type="button" class="wt-thumb-preview" data-idx="${i}" aria-label="Preview ${esc(name)}">
-          <div class="wt-thumb-checkbox" role="checkbox" aria-checked="${i === galPhotoIdx ? 'true' : 'false'}" aria-label="Select ${esc(name)}"></div>
-          <img src="${imgSrc(galCat.folder, galItem.name, file)}" alt="${esc(name)}" loading="lazy">
-        </button>
-        <span class="wt-thumb-name" title="${esc(name)}">${esc(name)}</span>
-      `;
-      modalThumbs.appendChild(cell);
-    });
-  }
-
-  // Clicking a thumbnail's checkbox OR preview selects it
+  // Clicking a thumbnail's checkbox OR preview selects/previews it
   modalThumbs.addEventListener('click', (e) => {
     const checkbox = e.target.closest('.wt-thumb-checkbox');
     const preview = e.target.closest('.wt-thumb-preview');
-    
+
     if (checkbox || preview) {
       const thumb = (checkbox || preview).closest('.wt-thumb');
       const idx = parseInt(thumb.dataset.idx, 10);
-      
-      // Update visual selection in modal
+
       galPhotoIdx = idx;
       modalThumbs.querySelectorAll('.wt-thumb').forEach((t, i) => {
         t.classList.toggle('active', i === idx);
         const cb = t.querySelector('.wt-thumb-checkbox');
         if (cb) cb.setAttribute('aria-checked', i === idx ? 'true' : 'false');
       });
-      
-      // Update main preview
+
       renderPhoto();
     }
   });
@@ -628,3 +594,244 @@ const modalImageWrap = document.querySelector('.wt-modal-image-wrap');
   modalSelect.addEventListener('click', () => {
     commitSelection(galPhotoIdx);
   });
+})();
+
+
+/* =========================================================================
+   Country / State dropdowns — live data from the CountriesNow API
+   https://countriesnow.space/api/v0.1/countries          (GET  -> countries)
+   https://countriesnow.space/api/v0.1/countries/states    (POST -> states)
+   ========================================================================= */
+(function () {
+  const API_BASE = 'https://countriesnow.space/api/v0.1';
+
+  // Cache so we don't re-fetch on every open
+  let countriesCache = null;
+  const statesCache = {}; // countryName -> [state names]
+
+  function createDropdown({ wrapId, toggleId, textId, panelId, searchId, listId, placeholder }) {
+    const wrap = document.getElementById(wrapId);
+    const toggle = document.getElementById(toggleId);
+    const text = document.getElementById(textId);
+    const panel = document.getElementById(panelId);
+    const search = document.getElementById(searchId);
+    const list = document.getElementById(listId);
+
+    if (!wrap || !toggle || !text || !panel || !search || !list) {
+      return null; // markup not present on this page
+    }
+
+    let allOptions = []; // full list of strings currently available
+    let selectedValue = '';
+    let onSelectCallback = null;
+
+  function open() {
+      if (toggle.disabled) return;
+      wrap.classList.add('open');
+      openPanel();
+      search.value = '';
+      renderList(allOptions);
+      setTimeout(() => search.focus(), 0);
+    }
+
+function close() {
+      wrap.classList.remove('open');
+      panel.setAttribute('style', 'display: none !important;');
+    }
+
+    function openPanel() {
+      panel.removeAttribute('style');
+    }
+
+    function toggleOpen() {
+      if (wrap.classList.contains('open')) close();
+      else open();
+    }
+
+function renderList(items) {
+      list.innerHTML = '';
+      if (!items || items.length === 0) {
+        const empty = document.createElement('li');
+        empty.className = 'loc-dropdown-empty';
+        empty.textContent = 'No matches found';
+        list.appendChild(empty);
+        return;
+      }
+      items.forEach((name) => {
+        const li = document.createElement('li');
+        li.className = 'loc-dropdown-item' + (name === selectedValue ? ' active' : '');
+        li.textContent = name;
+        li.dataset.value = name;
+        li.setAttribute('role', 'option');
+        list.appendChild(li);
+      });
+    }
+
+    // Event delegation: one listener handles clicks on any item, present or future
+    list.addEventListener('click', (e) => {
+      const item = e.target.closest('.loc-dropdown-item');
+      if (!item || !item.dataset.value) return;
+      e.stopPropagation();
+      selectValue(item.dataset.value);
+    });
+
+    function selectValue(name) {
+      selectedValue = name;
+      text.textContent = name;
+      text.classList.remove('is-placeholder');
+      close();
+      if (typeof onSelectCallback === 'function') onSelectCallback(name);
+    }
+
+    function setLoading(msg) {
+      list.innerHTML = `<li class="loc-dropdown-loading">${msg}</li>`;
+    }
+
+    function setOptions(items) {
+      allOptions = items || [];
+      renderList(allOptions);
+    }
+
+    function reset(newPlaceholder) {
+      selectedValue = '';
+      text.textContent = newPlaceholder || placeholder;
+      text.classList.add('is-placeholder');
+      allOptions = [];
+      list.innerHTML = '';
+    }
+
+    function setDisabled(isDisabled) {
+      toggle.disabled = isDisabled;
+      if (isDisabled) close();
+    }
+
+    // Search / filter as you type
+    search.addEventListener('input', () => {
+      const q = search.value.trim().toLowerCase();
+      const filtered = q ? allOptions.filter((n) => n.toLowerCase().includes(q)) : allOptions;
+      renderList(filtered);
+    });
+
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleOpen();
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!wrap.contains(e.target)) close();
+    });
+
+    // Close on escape
+    wrap.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') close();
+    });
+
+    return {
+      setOptions,
+      setLoading,
+      reset,
+      setDisabled,
+      getValue: () => selectedValue,
+      onSelect: (cb) => { onSelectCallback = cb; },
+    };
+  }
+
+  async function fetchCountries() {
+    if (countriesCache) return countriesCache;
+    const res = await fetch(`${API_BASE}/countries`);
+    const json = await res.json();
+    if (json.error) throw new Error(json.msg || 'Failed to load countries');
+    // Keep just the names, sorted alphabetically
+    countriesCache = json.data
+      .map((c) => c.country)
+      .filter(Boolean)
+      .sort((a, b) => a.localeCompare(b));
+    return countriesCache;
+  }
+
+  async function fetchStates(countryName) {
+    if (statesCache[countryName]) return statesCache[countryName];
+    const res = await fetch(`${API_BASE}/countries/states`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ country: countryName }),
+    });
+    const json = await res.json();
+    if (json.error) throw new Error(json.msg || 'Failed to load states');
+    const names = (json.data && json.data.states ? json.data.states : [])
+      .map((s) => s.name)
+      .filter(Boolean);
+    statesCache[countryName] = names;
+    return names;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const countryDD = createDropdown({
+      wrapId: 'loc-country-dropdown',
+      toggleId: 'loc-country-toggle',
+      textId: 'loc-country-text',
+      panelId: 'loc-country-panel',
+      searchId: 'loc-country-search',
+      listId: 'loc-country-list',
+      placeholder: 'Select Country',
+    });
+
+    const stateDD = createDropdown({
+      wrapId: 'loc-state-dropdown',
+      toggleId: 'loc-state-toggle',
+      textId: 'loc-state-text',
+      panelId: 'loc-state-panel',
+      searchId: 'loc-state-search',
+      listId: 'loc-state-list',
+      placeholder: 'Select State / Province',
+    });
+
+    if (!countryDD || !stateDD) return; // markup not present, nothing to do
+
+    const countryHidden = document.getElementById('f-country');
+    const stateHidden = document.getElementById('f-state');
+
+    stateDD.setDisabled(true);
+    stateDD.reset('Select Country First');
+
+    countryDD.setLoading('Loading countries…');
+    fetchCountries()
+      .then((names) => countryDD.setOptions(names))
+      .catch(() => countryDD.setOptions([]));
+
+    countryDD.onSelect((countryName) => {
+      if (countryHidden) {
+        countryHidden.value = countryName;
+        countryHidden.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+
+      stateDD.reset('Loading states…');
+      stateDD.setDisabled(true);
+      if (stateHidden) stateHidden.value = '';
+      stateDD.setLoading('Loading states…');
+
+      fetchStates(countryName)
+        .then((states) => {
+          stateDD.setDisabled(false);
+          stateDD.reset(states.length ? 'Select State / Province' : 'No states available');
+          if (!states.length) {
+            stateDD.setDisabled(true);
+            return;
+          }
+          stateDD.setOptions(states);
+        })
+        .catch(() => {
+          stateDD.reset('Could not load states');
+          stateDD.setDisabled(true);
+        });
+    });
+
+    stateDD.onSelect((stateName) => {
+      if (stateHidden) {
+        stateHidden.value = stateName;
+        stateHidden.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    });
+  });
+})();
