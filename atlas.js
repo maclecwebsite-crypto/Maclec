@@ -428,20 +428,65 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.setAttribute('aria-hidden', 'false');
   }
 
+const modalImageWrap = document.querySelector('.wt-modal-image-wrap');
+
   function renderPhoto(){
     const file = galItem.files[galPhotoIdx];
     modalImage.src = imgSrc(galCat.folder, galItem.name, file);
     modalImage.alt = galItem.name + ' — ' + cleanName(file);
     modalCount.textContent = 'Photo ' + (galPhotoIdx + 1) + ' of ' + galItem.files.length;
     if (modalImageName) modalImageName.textContent = cleanName(file);
+    
+    // Update thumbnail highlights
     modalThumbs.querySelectorAll('.wt-thumb').forEach((t, i) => {
       t.classList.toggle('active', i === galPhotoIdx);
+      const cb = t.querySelector('.wt-thumb-checkbox');
+      if (cb) cb.setAttribute('aria-checked', i === galPhotoIdx ? 'true' : 'false');
     });
-    if (modalSelect) {
-      modalSelect.textContent = 'Select this Category';
-    }
+    
+    // Update main checkbox state
+    updateMainCheckbox();
   }
 
+  function updateMainCheckbox() {
+    let checkbox = document.getElementById('wt-main-checkbox');
+    if (!checkbox) {
+      checkbox = document.createElement('div');
+      checkbox.id = 'wt-main-checkbox';
+      checkbox.className = 'wt-modal-main-checkbox';
+      checkbox.setAttribute('role', 'checkbox');
+      checkbox.setAttribute('aria-label', 'Select this image');
+      checkbox.setAttribute('tabindex', '0');
+      
+      const label = document.createElement('span');
+      label.className = 'wt-modal-main-checkbox-label';
+      label.textContent = 'Click to select';
+      
+      modalImageWrap.appendChild(checkbox);
+      modalImageWrap.appendChild(label);
+      
+      // Click to select
+      checkbox.addEventListener('click', (e) => {
+        e.stopPropagation();
+        commitSelection(galPhotoIdx);
+      });
+      
+      // Keyboard support
+      checkbox.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          commitSelection(galPhotoIdx);
+        }
+      });
+    }
+    
+    // Show checked state if this photo is already selected for this item
+    const ik = itemKey(galKey, galIdx);
+    const isSelected = (selectedPhotoIndex[ik] === galPhotoIdx) && 
+                       (currentSelection.key === galKey && currentSelection.idx === galIdx);
+    checkbox.classList.toggle('checked', isSelected);
+    checkbox.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+  }
   function renderThumbs(){
     modalThumbs.innerHTML = '';
     galItem.files.forEach((file, i) => {
