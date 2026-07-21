@@ -18,6 +18,7 @@
   }
 }
 </script>
+<base target="_blank">
 </head>
 <body>
  
@@ -136,7 +137,7 @@
         <span class="step-num">2</span> Site Parameters
       </div>
       <div class="console-step-tab" data-step="3">
-        <span class="step-num">3</span> AI Location Assist
+        <span class="step-num">3</span> Book Consultation
       </div>
     </div>
  
@@ -218,7 +219,7 @@
             </label>
             <label class="form-field">
               <span>Approximate Water Depth (m)</span>
-              <input type="range" id="f-depth" min="5" max="20" value="2" step="0.1">
+              <input type="range" id="f-depth" min="0.3" max="10" value="2" step="0.1">
               <output class="range-out" id="f-depth-out">2.0 m</output>
             </label>
             <label class="form-field">
@@ -250,34 +251,48 @@
  
         <!-- STEP 3 -->
         <div class="console-panel-block" data-panel="3">
-          <h3>AI Assisted Location Selection</h3>
-          <p class="step3-note">Alternative option — let MACLEC's system estimate your site parameters automatically.</p>
-          <div class="ai-options">
-            <button class="ai-option" type="button">
-              <span class="ai-option-icon">🛰️</span>
-              <strong>Upload Google Earth Screenshot</strong>
-              <small>Drop an image of your canal or river</small>
-            </button>
-            <button class="ai-option" type="button">
-              <span class="ai-option-icon">📍</span>
-              <strong>Enter Latitude &amp; Longitude</strong>
-              <small>Pinpoint your exact site</small>
-            </button>
-            <button class="ai-option" type="button">
-              <span class="ai-option-icon">📐</span>
-              <strong>Upload Site Drawing</strong>
-              <small>Engineering layout or sketch</small>
-            </button>
-            <button class="ai-option" type="button">
-              <span class="ai-option-icon">📊</span>
-              <strong>Upload Canal Cross Section</strong>
-              <small>Technical cross-section diagram</small>
-            </button>
+          <h3>Schedule a Virtual Consultation</h3>
+          <p class="step3-note">Speak directly with MACLEC's engineering team to review your site assessment, discuss turbine placement strategy, and get a preliminary feasibility roadmap.</p>
+          <div class="meeting-form">
+            <label class="form-field">
+              <span>Full Name</span>
+              <input type="text" id="m-name" placeholder="Your name">
+            </label>
+            <label class="form-field">
+              <span>Email Address</span>
+              <input type="email" id="m-email" placeholder="you@company.com">
+            </label>
+            <label class="form-field">
+              <span>Organization</span>
+              <input type="text" id="m-org" placeholder="Company / Authority">
+            </label>
+            <label class="form-field">
+              <span>Preferred Date</span>
+              <input type="date" id="m-date">
+            </label>
+            <label class="form-field">
+              <span>Preferred Time (UTC)</span>
+              <select id="m-time">
+                <option value="">Select time slot</option>
+                <option value="09:00">09:00 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                <option value="12:00">12:00 PM</option>
+                <option value="13:00">01:00 PM</option>
+                <option value="14:00">02:00 PM</option>
+                <option value="15:00">03:00 PM</option>
+                <option value="16:00">04:00 PM</option>
+              </select>
+            </label>
+            <label class="form-field form-field--full">
+              <span>Message / Site Details</span>
+              <textarea id="m-message" rows="3" placeholder="Briefly describe your project, site location, or questions..."></textarea>
+            </label>
           </div>
-          <p class="step3-note step3-note--muted">System will identify: Estimated Width · Estimated Depth · Estimated Flow Direction · Potential Installation Area</p>
+          <p class="step3-note step3-note--muted">A MACLEC representative will confirm your appointment within 24 hours.</p>
           <div class="console-nav">
             <button class="btn-outline console-prev" data-goto="2">← Back</button>
-            <button class="btn-primary" id="run-assessment">Generate Assessment →</button>
+            <button class="btn-primary" id="schedule-meeting">Request Appointment →</button>
           </div>
         </div>
  
@@ -289,7 +304,7 @@
   <div class="twin3d-wrap">
         <div class="twin3d-depth-wrap">
       <div id="twin3d-depth-canvas"></div>
-      <div class="twin3d-depth-label"></div>
+      <div class="twin3d-depth-label">Cross-Section</div>
     </div>
     <div id="twin3d-canvas"></div>
     <div class="twin3d-views">
