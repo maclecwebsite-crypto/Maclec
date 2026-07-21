@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* ===== STEP NAVIGATION ===== */
   const tabs = document.querySelectorAll('.console-step-tab');
   const panels = document.querySelectorAll('.console-panel-block');
 
@@ -15,6 +16,37 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => goToStep(btn.dataset.goto));
   });
 
+  function getLengthFromSlider(rawVal) {
+    if (rawVal <= 20) {
+      // Phase 1: 250m to 2000m (fine control)
+      return Math.round(250 + rawVal * 87.5);
+    } else {
+      // Phase 2: 5000m to 100,000,000m (100,000 km)
+      const t = (rawVal - 20) / 80;
+      return Math.round(5000 + t * t * 99995000);
+    }
+  }
+
+  function getSliderFromLength(length) {
+    if (length <= 2000) {
+      return (length - 250) / 87.5;
+    } else {
+      return 20 + Math.sqrt((length - 5000) / 99995000) * 80;
+    }
+  }
+
+  /* ===== GET VALUE HELPER ===== */
+  function getVal(id) {
+    const el = document.getElementById(id);
+    if (!el) return 0;
+    const raw = parseFloat(el.value);
+    if (id === 'f-length') {
+      return getLengthFromSlider(raw);
+    }
+    return raw;
+  }
+
+  /* ===== RANGE SLIDERS ===== */
   const ranges = [
     { id: 'f-width', outId: 'f-width-out', unit: ' m', decimals: 1 },
     { id: 'f-depth', outId: 'f-depth-out', unit: ' m', decimals: 1 },
@@ -24,30 +56,37 @@ document.addEventListener('DOMContentLoaded', () => {
     { id: 'f-length', outId: 'f-length-out', unit: ' m', decimals: 0 },
   ];
 
-  function getVal(id) {
-    const el = document.getElementById(id);
-    return el ? parseFloat(el.value) : 0;
+  function formatLength(val) {
+    if (val < 1000) {
+      return val.toLocaleString(undefined, { maximumFractionDigits: 0 }) + ' m';
+    } else {
+      return (val / 1000).toLocaleString(undefined, { maximumFractionDigits: 0 }) + ' km';
+    }
   }
-
+  
   function updateRangeLabels() {
     ranges.forEach(r => {
       const input = document.getElementById(r.id);
       const out = document.getElementById(r.outId);
       if (input && out) {
-        out.textContent = parseFloat(input.value).toFixed(r.decimals) + r.unit;
+        let val = parseFloat(input.value);
+        if (r.id === 'f-length') {
+          val = getLengthFromSlider(val);
+          out.textContent = formatLength(val);
+        } else {
+          out.textContent = val.toLocaleString(undefined, { minimumFractionDigits: r.decimals, maximumFractionDigits: r.decimals }) + r.unit;
+        }
       }
     });
   }
 
-  // Every slider in Site Parameters (width, depth, velocity, discharge,
-  // variation, length) re-renders the digital twin on input.
+  // Attach listeners + initial render
   ranges.forEach(r => {
     const input = document.getElementById(r.id);
     if (input) {
       input.addEventListener('input', () => {
         updateRangeLabels();
         renderDigitalTwin();
-        // Sync the 3D WebGL twin if it's loaded
         if (typeof window.twin3dRebuild === 'function') {
           window.twin3dRebuild();
         }
@@ -56,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   updateRangeLabels();
 
+  /* ===== 2D SVG DIGITAL TWIN ===== */
   const flowGroup = document.getElementById('twin-flowlines');
   const turbineGroup = document.getElementById('twin-turbines');
   const channelRect = document.getElementById('twin-channel');
@@ -73,24 +113,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const width = getVal('f-width');
     const depth = getVal('f-depth');
     const velocity = getVal('f-velocity');
-    // Simplified kinetic power estimate: P = 0.5 * rho * A * v^3 * Cp * efficiency_factor
     const rho = 1000;
     const area = width * depth;
-    const Cp = 0.35; // turbine efficiency coefficient
+    const Cp = 0.35;
     const rawPowerW = 0.5 * rho * area * Math.pow(velocity, 3) * Cp;
-    const powerKW = rawPowerW / 1000;
-    return powerKW;
+    return rawPowerW / 1000;
   }
 
-  // Slider ranges, used to map real-world values onto the SVG's pixel space
-  const DEPTH_MIN = 0.3, DEPTH_MAX = 10;     // matches #f-depth min/max
-  const CHANNEL_X = 20, CHANNEL_W = 320;     // horizontal extent of the water body
-  const BED_Y = 150;                          // riverbed stays fixed near the bottom
-  const PX_MIN = 26, PX_MAX = 130;           // shallowest / deepest channel height in px
+  const DEPTH_MIN = 0.3, DEPTH_MAX = 10;
+  const CHANNEL_X = 20, CHANNEL_W = 320;
+  const BED_Y = 150;
+  const PX_MIN = 26, PX_MAX = 130;
 
   function renderDigitalTwin() {
-    // Guard: the digital-twin SVG (built by atlas-3d.js) may not exist yet,
-    // or may not exist at all on some pages. Bail out quietly instead of throwing.
     if (!channelRect || !flowGroup || !turbineGroup) return;
 
     const width = getVal('f-width');
@@ -103,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const powerKW = estimatePower();
     const turbineCount = Math.max(1, Math.min(12, Math.round(width / 6)));
 
-    // --- Depth: scale channel height in the SVG to the depth slider ---
     const depthRatio = (depth - DEPTH_MIN) / (DEPTH_MAX - DEPTH_MIN);
     const channelHeight = PX_MIN + depthRatio * (PX_MAX - PX_MIN);
     const channelY = BED_Y - channelHeight;
@@ -120,7 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
       bedLine.setAttribute('y2', BED_Y);
     }
 
-    // --- Depth scale / ruler on the left, with tick marks + value ---
     if (depthScaleGroup) {
       let svgTicks = `<line x1="16" y1="${channelY}" x2="16" y2="${BED_Y}" />`;
       const tickCount = 4;
@@ -139,7 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
       depthLabel.setAttribute('transform', `rotate(-90 10 ${midY})`);
     }
 
-    // --- Width scale bar above the channel, with value ---
     if (widthScaleGroup) {
       const y = channelY - 14;
       widthScaleGroup.innerHTML = `
@@ -153,7 +185,6 @@ document.addEventListener('DOMContentLoaded', () => {
       widthLabel.setAttribute('y', Math.max(14, channelY - 20));
     }
 
-    // --- Water level variation band, scaled proportionally to depth ---
     if (variationGroup) {
       variationGroup.innerHTML = '';
       if (variation > 0) {
@@ -168,10 +199,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // --- Flow lines: count reflects depth, speed reflects velocity ---
     flowGroup.innerHTML = '';
     const flowLineCount = Math.max(3, Math.min(7, Math.round(depthRatio * 4) + 3));
-    const flowDuration = Math.max(0.35, 2.4 - velocity * 0.5); // faster velocity -> shorter duration
+    const flowDuration = Math.max(0.35, 2.4 - velocity * 0.5);
     for (let i = 0; i < flowLineCount; i++) {
       const y = channelY + 10 + i * ((channelHeight - 20) / (flowLineCount - 1 || 1));
       const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
@@ -182,7 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
       flowGroup.appendChild(line);
     }
 
-    // --- Turbines, sitting mid-depth in the channel ---
     turbineGroup.innerHTML = '';
     const spacing = CHANNEL_W / (turbineCount + 1);
     for (let i = 1; i <= turbineCount; i++) {
@@ -199,7 +228,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (powerOut) powerOut.textContent = Math.round(powerKW).toLocaleString() + ' kW';
     if (turbineCountOut) turbineCountOut.textContent = turbineCount;
 
-    // --- Segment note reflects discharge + installation length too ---
     if (segmentNote) {
       segmentNote.textContent =
         `Segment shown: ${width.toFixed(1)} m wide × ${depth.toFixed(1)} m deep, flowing at ${velocity.toFixed(1)} m/s ` +
@@ -209,6 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderDigitalTwin();
 
+  /* ===== RUN ASSESSMENT ===== */
   const runBtn = document.getElementById('run-assessment');
   if (runBtn) {
     runBtn.addEventListener('click', () => {
@@ -218,7 +247,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function runAssessment() {
-    // Sync the 3D WebGL twin
     if (typeof window.twin3dRebuild === 'function') {
       window.twin3dRebuild();
     }
@@ -231,18 +259,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const powerKW = estimatePower();
     const turbineCount = Math.max(1, Math.min(12, Math.round(width / 6)));
     const installedCapacityMW = (powerKW * turbineCount) / 1000;
-    const annualEnergyMU = installedCapacityMW * 8760 * 0.42 / 1000; // capacity factor ~42%, million units
-    const carbonTons = annualEnergyMU * 1000000 * 0.0007; // approx kg CO2/unit avoided, converted to tons
-    const households = Math.round((annualEnergyMU * 1000000) / 2200); // ~2200 units/household/year
+    const annualEnergyMU = installedCapacityMW * 8760 * 0.42 / 1000;
+    const carbonTons = annualEnergyMU * 1000000 * 0.0007;
+    const households = Math.round((annualEnergyMU * 1000000) / 2200);
 
-    // Suitability score — weighted by velocity, discharge, width
     let score = 40;
     score += Math.min(25, velocity * 12);
     score += Math.min(20, discharge / 25);
     score += Math.min(15, width / 4);
     score = Math.max(35, Math.min(98, Math.round(score)));
 
-    // Update suitability ring (only runs if the results dashboard markup is present)
     const ring = document.getElementById('suit-ring');
     if (ring) {
       const circumference = 2 * Math.PI * 52;
@@ -260,7 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
       else { suitTag.textContent = 'Moderate'; suitTag.style.color = '#e85bd6'; }
     }
 
-    // Technology recommendation
     document.querySelectorAll('.tech-rec-item').forEach(el => el.classList.remove('active'));
     const checkedWatertype = document.querySelector('input[name="watertype"]:checked');
     const watertype = checkedWatertype?.value || '';
@@ -271,7 +296,6 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (width > 35) recId = 'rec-hybrid';
     document.getElementById(recId)?.classList.add('active');
 
-    // Result stats (only run if present)
     const resCapacity = document.getElementById('res-capacity');
     if (resCapacity) resCapacity.textContent = installedCapacityMW.toFixed(2) + ' MW';
     const resEnergy = document.getElementById('res-energy');
@@ -288,6 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  /* ===== BEFORE/AFTER TOGGLE ===== */
   const baToggles = document.querySelectorAll('.ba-toggle');
   const baImages = document.querySelectorAll('.ba-image');
   baToggles.forEach(btn => {
@@ -300,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ===== AI OPTION BUTTONS (placeholder interaction) ===== */
+  /* ===== AI OPTION BUTTONS ===== */
   document.querySelectorAll('.ai-option').forEach(btn => {
     btn.addEventListener('click', () => {
       btn.style.borderColor = 'rgba(94,196,224,0.6)';
