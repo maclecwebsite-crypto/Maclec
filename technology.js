@@ -33,3 +33,298 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(video);
   }
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ----- Turbine gallery data -----
+  const turbineData = {
+    'canal-series': {
+      title: 'SHK-50 Canal Series',
+      desc: '50 kW modular turbine engineered for irrigation canal deployment.',
+      media: [
+        { type: 'image', src: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1400&q=80', thumb: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=200&q=80', caption: 'Canal installation, front view' },
+        { type: 'image', src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1400&q=80', thumb: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=200&q=80', caption: 'Irrigation canal setting' },
+        { type: 'video', src: 'https://cdn.pixabay.com/video/2020/07/31/46264-446944099_large.mp4', poster: 'https://images.unsplash.com/photo-1444858291040-58add836fa2b?w=1400&q=80', thumb: 'https://images.unsplash.com/photo-1444858291040-58add836fa2b?w=200&q=80', caption: 'Turbine in operation' }
+      ]
+    },
+    'river-series': {
+      title: 'SHK-100 River Series',
+      desc: '100 kW turbine engineered for open river conditions.',
+      media: [
+        { type: 'image', src: 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=1400&q=80', thumb: 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=200&q=80', caption: 'River series turbine' },
+        { type: 'image', src: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?w=1400&q=80', thumb: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?w=200&q=80', caption: 'River deployment site' },
+        { type: 'video', src: 'https://cdn.pixabay.com/video/2022/09/02/129660-746150904_large.mp4', poster: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?w=1400&q=80', thumb: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?w=200&q=80', caption: 'Turbine field footage' }
+      ]
+    },
+    'cluster-array': {
+      title: 'SHK Cluster Array',
+      desc: 'Multi-unit cluster configuration for MW-scale output.',
+      media: [
+        { type: 'image', src: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1400&q=80', thumb: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=200&q=80', caption: 'Cluster array modules' },
+        { type: 'image', src: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1400&q=80', thumb: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=200&q=80', caption: 'Large-scale installation' }
+      ]
+    }
+  };
+
+  const modal = document.getElementById('turbineModal');
+  const stage = document.getElementById('tmodalStage');
+  const thumbsWrap = document.getElementById('tmodalThumbs');
+  const titleEl = document.getElementById('turbineModalTitle');
+  const descEl = document.getElementById('turbineModalDesc');
+  const prevBtn = document.getElementById('tmodalPrev');
+  const nextBtn = document.getElementById('tmodalNext');
+
+  let currentMedia = [];
+  let currentIndex = 0;
+
+  function renderStage(index){
+    const item = currentMedia[index];
+    if (!item) return;
+    currentIndex = index;
+
+    stage.innerHTML = '';
+    if (item.type === 'video') {
+      const video = document.createElement('video');
+      video.src = item.src;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      if (item.poster) video.poster = item.poster;
+      stage.appendChild(video);
+    } else {
+      const img = document.createElement('img');
+      img.src = item.src;
+      img.alt = item.caption || '';
+      stage.appendChild(img);
+    }
+
+    descEl.textContent = item.caption || '';
+
+    thumbsWrap.querySelectorAll('.tmodal-thumb').forEach((thumb, i) => {
+      thumb.classList.toggle('is-active', i === index);
+    });
+  }
+
+  function buildThumbs(){
+    thumbsWrap.innerHTML = '';
+    currentMedia.forEach((item, i) => {
+      const thumb = document.createElement('button');
+      thumb.type = 'button';
+      thumb.className = 'tmodal-thumb' + (i === 0 ? ' is-active' : '');
+      thumb.innerHTML = `<img src="${item.thumb || item.src}" alt="">` +
+        (item.type === 'video' ? '<span class="tmodal-thumb-play">▶</span>' : '');
+      thumb.addEventListener('click', () => renderStage(i));
+      thumbsWrap.appendChild(thumb);
+    });
+  }
+
+  function openModal(key){
+    const data = turbineData[key];
+    if (!data) return;
+
+    currentMedia = data.media;
+    titleEl.textContent = data.title;
+
+    buildThumbs();
+    renderStage(0);
+
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(){
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    stage.innerHTML = ''; // stop any playing video
+  }
+
+  document.querySelectorAll('.tturbine-card').forEach(card => {
+    card.addEventListener('click', () => openModal(card.getAttribute('data-turbine')));
+  });
+
+  modal.querySelectorAll('[data-close]').forEach(el => {
+    el.addEventListener('click', closeModal);
+  });
+
+  prevBtn.addEventListener('click', () => {
+    const newIndex = (currentIndex - 1 + currentMedia.length) % currentMedia.length;
+    renderStage(newIndex);
+  });
+  nextBtn.addEventListener('click', () => {
+    const newIndex = (currentIndex + 1) % currentMedia.length;
+    renderStage(newIndex);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('is-open')) return;
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft') prevBtn.click();
+    if (e.key === 'ArrowRight') nextBtn.click();
+  });
+});
+
+
+/* ===== WHERE SHKT WORKS — category gallery (browse only, no selection) ===== */
+(function(){
+  const WT_DATA = [{"category": "Hydro Power Generation Through Flowing Water", "key": "hydro", "folder": "Hydro Power Generationt through flowing water", "items": [{"name": "Bidirectional Tidal Channels", "files": ["Bidirectional Tidal Stream Channel 2.jfif", "Bidirectional Tidal Stream Channel 3.jfif", "Bidirectional Tidal Stream Channel 4.jfif", "Bidirectional Tidal Stream Channel 5.jfif", "Bidirectional Tidal Stream Channel 6.jfif", "Bidirectional Tidal Stream Channel 7.jfif", "Bidirectional tidal channels 1.jfif"]}, {"name": "Drinking Water Treatment Plant Inlet & Outlet Channel", "files": ["Drinking Water Treatement Plant Inlet & Outlet channel 7.jfif", "Drinking Water Treatment Plant In_et & Outlet Channel 6.jfif"]}, {"name": "Hilly Stream", "files": ["Hilly Stream 1.jfif", "Hilly Stream 2.jfif", "Hilly Stream 3.jfif", "Hilly Stream 4.jfif", "Hilly Streams 1.jfif", "Himalaya_s River 1.jfif", "Himalaya_s River 2.jfif", "Himalaya_s River 3.jfif", "Himalaya_s River 4.jfif", "Himalaya_s River 5.jfif", "Himalaya_s River 6.jfif"]}, {"name": "Industrial Plant Cooling Water Channels", "files": ["Industrial Plant Cooling Water Channels 2.jfif", "Industrial Plant Cooling Water Channels 3.jfif", "Industrial Plant Cooling Water Channels.jfif"]}, {"name": "Irrigation Canal", "files": ["Lined Canal.jfif", "Small Irrigation canal.jfif", "Unlined Canal.jfif"]}, {"name": "Lift Irrigation and Drinkng water upper channel pump pipe outlet", "files": ["Lift Irrigation Canal Systems 1.jfif", "Lift Irrigation Canal Systems 2.jfif", "Lift Irrigation and Drinking water canal.jfif", "Lift Irrigation and Drinkng water upper channel pump pipe outlet.jfif", "Lifting and Drinking water canal 2.jfif"]}, {"name": "Raw Water Intake & Inlet Canal", "files": ["Raw Water Intake & Inlet Canal 1.jfif", "Raw Water Intake & Inlet Canal 2.jfif", "Raw Water Intake & Inlet Canal 3.jfif", "Raw Water Intake & Inlet Canal 4.jfif", "Raw Water Intake & Inlet Canal 5.jfif"]}, {"name": "Rivers", "files": ["Forest River 5.jfif", "Lowland or Alluvial River 1.jfif", "Lowland or Alluvial River 2.jfif", "Lowland or Alluvial River 3.jfif", "Lowland or Alluvial River 4.jfif", "Lowland or Alluvial River 5.jfif", "Lowland or Alluvial River 6.jfif", "Lowland or Alluvial River 7.jfif", "Lowland or Alluvial River 8.jfif", "Mountain River 1.jfif", "Mountain River 2.jfif", "Mountain River 3.jfif", "Mountain River 4.jfif", "Plain Ground Stream 1.jfif", "Plain Ground Stream 2.jfif", "Plain Ground Stream 3.jfif", "Plain Ground Stream 4.jfif", "Plain Ground Stream 5.jfif", "Plain Ground Stream 6.jfif"]}, {"name": "Sewage Water Channels", "files": ["Sewage Water Channels 1.jfif", "Sewage Water Channels 2.jfif", "Sewage Water Channels 3.jfif", "Sewage Water Channels 4.jfif", "Sewage Water Channels 5.jfif"]}, {"name": "Tailrace Hydropower Dam Canal", "files": ["Tailrace Hydropower Dam Canal 1.jfif", "Tailrace Hydropower Dam Canal 10.jfif", "Tailrace Hydropower Dam Canal 11.jfif", "Tailrace Hydropower Dam Canal 2.jfif", "Tailrace Hydropower Dam Canal 3.jfif", "Tailrace Hydropower Dam Canal 4.jfif", "Tailrace Hydropower Dam Canal 5.jfif", "Tailrace Hydropower Dam Canal 6.jfif", "Tailrace Hydropower Dam Canal 7.jfif", "Tailrace Hydropower Dam Canal 8.jfif", "Tailrace Hydropower Dam Canal 9.jfif"]}, {"name": "Thermal Power Plant Cooling Water Channels", "files": ["Thermal Power Plant Cooling Water Channels 1.jfif", "Thermal Power Plant Cooling Water Channels 2.jfif", "Thermal Power Plant Cooling Water Channels 3.jfif", "Thermal Power Plant Cooling Water Channels 4.jfif"]}, {"name": "Waste Water Inlet & Outlet Channels", "files": ["Waste Water Inlet & Outlet Channels 1.jfif", "Waste Water Inlet & Outlet Channels 2.jfif", "Waste Water Inlet & Outlet Channels 3.jfif", "Waste Water Inlet & Outlet Channels 4.jfif", "Waste Water Inlet & Outlet Channels 5.jfif", "Waste Water Inlet & Outlet Channels 6.jfif", "Wastewater Treatment Plant \u2013 Aerial Overview 1.jfif"]}]}, {"category": "SHK Pumped Storage Potential (PSP)", "key": "psp", "folder": "PSP", "items": [{"name": "Drnking water Treatment Plant", "files": ["drinking water treatment plants located in or near desert or bared land 1.jfif", "drinking water treatment plants located in or near desert or bared land 2.jfif"]}, {"name": "Sea Islands", "files": ["sea islands 1.jfif", "sea islands 2.jfif", "sea islands 3.jfif"]}, {"name": "Uptream and Lowerstream Reservior", "files": ["Downstream or Lower Stream1.jfif", "Upstream Reservoir 1.jfif", "Upstream Reservoir 2.jfif", "Upstream Reservoir 3.jfif"]}, {"name": "abandoned mines", "files": ["abandoned mines 1.jfif", "abandoned mines 2.jfif", "abandoned mines 3.jfif", "abandoned mines 4.jfif", "abandoned mines 5.jfif"]}, {"name": "barren islands", "files": ["barren islands 1.jfif", "barren islands 2.jfif", "barren islands 3.jfif", "barren islands 4.jfif"]}, {"name": "barren or sparsely vegetated islands close to cities", "files": ["barren or sparsely vegetated islands close to cities 1.jfif", "barren or sparsely vegetated islands close to cities 2.jfif", "desert landscapes directly adjacent to the sea 1.jfif", "desert landscapes directly adjacent to the sea 2.jfif", "desert landscapes directly adjacent to the sea 3.jfif", "desert landscapes directly adjacent to the sea 4.jfif", "desert landscapes directly adjacent to the sea 5.jfif"]}, {"name": "coastal sea wetlands", "files": ["coastal sea wetlands 1.jfif", "coastal sea wetlands 2.jfif", "coastal sea wetlands 3.jfif", "coastal sea wetlands 4.jfif"]}, {"name": "desert landscapes with rivers and irrigation canals", "files": ["desert landscapes with rivers and irrigation canals 1.jfif", "desert landscapes with rivers and irrigation canals 2.jfif", "desert landscapes with rivers and irrigation canals 3.jfif", "desert landscapes with rivers and irrigation canals 4.jfif"]}, {"name": "large water ponds, reservoirs, and storage lagoons located outside cities or villages", "files": ["large water ponds, reservoirs, and storage lagoons located outside cities or villages 1.jfif", "large water ponds, reservoirs, and storage lagoons located outside cities or villages 2.jfif", "large water ponds, reservoirs, and storage lagoons located outside cities or villages 3.jfif", "large water ponds, reservoirs, and storage lagoons located outside cities or villages 4.jfif", "large water ponds, reservoirs, and storage lagoons located outside cities or villages 5.jfif"]}, {"name": "sewage treatment plants (STPs) located in desert", "files": ["sewage treatment plants (STPs) located in desert 1.jfif", "sewage treatment plants (STPs) located in desert 2.jfif", "sewage treatment plants (STPs) located in desert 3.jfif", "sewage treatment plants (STPs) located in desert 4.jfif", "sewage treatment plants (STPs) located in desert 5.jfif", "sewage treatment plants (STPs) located in desert 6.jfif"]}, {"name": "wasteland or barren land located adjacent to lakes, ponds, or reservoirs", "files": ["wasteland or barren land located adjacent to lakes, ponds, or reservoirs 1.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 2.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 3.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 4.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 5.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 6.jfif"]}, {"name": "wetlands located on the outskirts of cities", "files": ["wetlands located on the outskirts of cities 1.jfif", "wetlands located on the outskirts of cities 2.jfif", "wetlands located on the outskirts of cities 3.jfif", "wetlands located on the outskirts of cities 4.jfif"]}]}];
+
+  const grid = document.getElementById('twhere-grid');
+  const tabs = document.getElementById('twhere-tabs');
+  if (!grid || !tabs) return;
+
+  let activeKey = 'hydro';
+
+  function encPath(parts){
+    return parts.map(p => encodeURIComponent(p)).join('/');
+  }
+  function imgSrc(folder, sub, file){
+    return 'img/' + encPath([folder, sub, file]);
+  }
+  function cleanName(file){
+    return file
+      .replace(/\.[a-zA-Z0-9]+$/, '')
+      .replace(/_/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+  function esc(str){
+    return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+  }
+
+  function renderGrid(key){
+    const cat = WT_DATA.find(c => c.key === key);
+    grid.innerHTML = '';
+    if (!cat) return;
+
+    cat.items.forEach((item, idx) => {
+      const cover = imgSrc(cat.folder, item.name, item.files[0]);
+
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'twhere-card';
+      card.dataset.key = key;
+      card.dataset.idx = idx;
+
+      card.innerHTML = `
+        <img src="${cover}" alt="${esc(item.name)}" loading="lazy">
+        <span class="twhere-card-count">${item.files.length} photo${item.files.length > 1 ? 's' : ''}</span>
+        <span class="twhere-overlay">
+          <h3>${esc(item.name)}</h3>
+          <p>Tap to view gallery</p>
+        </span>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  tabs.querySelectorAll('.twhere-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.querySelectorAll('.twhere-tab').forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      activeKey = tab.dataset.cat;
+      renderGrid(activeKey);
+    });
+  });
+
+  renderGrid(activeKey);
+
+  /* ----- Modal (browse only) ----- */
+  const modal = document.getElementById('twhere-modal');
+  const modalBackdrop = document.getElementById('twhere-modal-backdrop');
+  const modalClose = document.getElementById('twhere-modal-close');
+  const modalCat = document.getElementById('twhere-modal-cat');
+  const modalTitle = document.getElementById('twhere-modal-title');
+  const modalCount = document.getElementById('twhere-modal-count');
+  const modalImage = document.getElementById('twhere-modal-image');
+  const modalImageName = document.getElementById('twhere-modal-image-name');
+  const modalThumbs = document.getElementById('twhere-modal-thumbs');
+  const modalPrev = document.getElementById('twhere-modal-prev');
+  const modalNext = document.getElementById('twhere-modal-next');
+
+  let galCat = null, galItem = null, galPhotoIdx = 0;
+
+  function openGallery(key, idx){
+    const cat = WT_DATA.find(c => c.key === key);
+    if (!cat) return;
+    const item = cat.items[idx];
+    if (!item) return;
+
+    galCat = cat;
+    galItem = item;
+    galPhotoIdx = 0;
+
+    modalCat.textContent = cat.category;
+    modalTitle.textContent = item.name;
+    renderPhoto();
+    renderThumbs();
+
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function renderPhoto(){
+    const file = galItem.files[galPhotoIdx];
+    modalImage.src = imgSrc(galCat.folder, galItem.name, file);
+    modalImage.alt = galItem.name + ' — ' + cleanName(file);
+    modalCount.textContent = 'Photo ' + (galPhotoIdx + 1) + ' of ' + galItem.files.length;
+    modalImageName.textContent = cleanName(file);
+
+    modalThumbs.querySelectorAll('.twhere-thumb').forEach((t, i) => {
+      t.classList.toggle('active', i === galPhotoIdx);
+    });
+  }
+
+  function renderThumbs(){
+    modalThumbs.innerHTML = '';
+    galItem.files.forEach((file, i) => {
+      const thumb = document.createElement('button');
+      thumb.type = 'button';
+      thumb.className = 'twhere-thumb' + (i === 0 ? ' active' : '');
+      thumb.innerHTML = `<img src="${imgSrc(galCat.folder, galItem.name, file)}" alt="${esc(cleanName(file))}" loading="lazy">`;
+      thumb.addEventListener('click', () => {
+        galPhotoIdx = i;
+        renderPhoto();
+      });
+      modalThumbs.appendChild(thumb);
+    });
+  }
+
+  function closeGallery(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function stepPhoto(dir){
+    if (!galItem) return;
+    const len = galItem.files.length;
+    galPhotoIdx = (galPhotoIdx + dir + len) % len;
+    renderPhoto();
+  }
+
+  grid.addEventListener('click', (e) => {
+    const card = e.target.closest('.twhere-card');
+    if (!card) return;
+    openGallery(card.dataset.key, parseInt(card.dataset.idx, 10));
+  });
+
+  modalBackdrop.addEventListener('click', closeGallery);
+  modalClose.addEventListener('click', closeGallery);
+  modalPrev.addEventListener('click', () => stepPhoto(-1));
+  modalNext.addEventListener('click', () => stepPhoto(1));
+
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('open')) return;
+    if (e.key === 'Escape') closeGallery();
+    if (e.key === 'ArrowLeft') stepPhoto(-1);
+    if (e.key === 'ArrowRight') stepPhoto(1);
+  });
+})();
