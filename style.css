@@ -1496,3 +1496,17 @@ a{ text-decoration:none; color:inherit; }
 * {
   -ms-overflow-style: none;
 }
+
+.hero-media, .hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* this crops the video to fill the box */
+}
+
+.hero-media .hero-video,
+.hero-video {
+  object-fit: contain;
+  background: #000; /* or var(--primary) to match brand */
+}
