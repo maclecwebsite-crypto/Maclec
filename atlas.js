@@ -335,12 +335,116 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* ===== GEOTAG LOCATION (actual coordinates) ===== */
+  (function initGeotagLocation(){
+    const latInput = document.getElementById('f-geo-lat');
+    const lngInput = document.getElementById('f-geo-lng');
+    const detectBtn = document.getElementById('geo-detect-btn');
+    const readout = document.getElementById('geo-readout');
+    const mapLink = document.getElementById('geo-map-link');
+    const latHidden = document.getElementById('f-geo-lat-value');
+    const lngHidden = document.getElementById('f-geo-lng-value');
+
+    if (!latInput || !lngInput) return;
+
+    function isValidCoord(lat, lng) {
+      return Number.isFinite(lat) && Number.isFinite(lng) &&
+             lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180;
+    }
+
+    function commitCoords(lat, lng, source) {
+      const latFixed = lat.toFixed(6);
+      const lngFixed = lng.toFixed(6);
+      latInput.value = latFixed;
+      lngInput.value = lngFixed;
+      if (latHidden) latHidden.value = latFixed;
+      if (lngHidden) lngHidden.value = lngFixed;
+
+      if (readout) {
+        readout.textContent = `Geotag captured (${source}): ${latFixed}, ${lngFixed}`;
+        readout.classList.add('geo-readout--ok');
+        readout.classList.remove('geo-readout--err');
+      }
+      if (mapLink) {
+        mapLink.href = `https://www.google.com/maps?q=${latFixed},${lngFixed}`;
+        mapLink.style.display = 'inline-block';
+      }
+    }
+
+    // Manual typing of coordinates
+    function handleManualInput() {
+      const lat = parseFloat(latInput.value);
+      const lng = parseFloat(lngInput.value);
+      if (isValidCoord(lat, lng)) {
+        commitCoords(lat, lng, 'entered manually');
+      } else if (readout) {
+        readout.textContent = 'Enter a valid latitude (-90 to 90) and longitude (-180 to 180).';
+        readout.classList.remove('geo-readout--ok');
+        readout.classList.add('geo-readout--err');
+        if (mapLink) mapLink.style.display = 'none';
+      }
+    }
+    latInput.addEventListener('change', handleManualInput);
+    lngInput.addEventListener('change', handleManualInput);
+
+    // Auto-detect using the browser Geolocation API
+    if (detectBtn) {
+      detectBtn.addEventListener('click', () => {
+        if (!('geolocation' in navigator)) {
+          if (readout) {
+            readout.textContent = 'Geolocation is not supported on this device/browser — please enter coordinates manually.';
+            readout.classList.add('geo-readout--err');
+          }
+          return;
+        }
+        if (readout) {
+          readout.textContent = 'Detecting your current location…';
+          readout.classList.remove('geo-readout--ok', 'geo-readout--err');
+        }
+        detectBtn.disabled = true;
+
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            detectBtn.disabled = false;
+            const { latitude, longitude } = position.coords;
+            commitCoords(latitude, longitude, 'auto-detected');
+          },
+          (err) => {
+            detectBtn.disabled = false;
+            if (readout) {
+              readout.textContent = 'Could not detect location automatically (' + (err.message || 'permission denied') + '). Please enter coordinates manually.';
+              readout.classList.add('geo-readout--err');
+              readout.classList.remove('geo-readout--ok');
+            }
+          },
+          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+      });
+    }
+  })();
+
+  /* ===== SAMPLE VIDEOS: recorded river / canal upload readout ===== */
+  (function initSampleVideoUpload(){
+    const fileInput = document.getElementById('f-site-video');
+    const readout = document.getElementById('site-video-readout');
+    if (!fileInput || !readout) return;
+
+    fileInput.addEventListener('change', () => {
+      const file = fileInput.files && fileInput.files[0];
+      if (!file) {
+        readout.textContent = 'No file selected yet.';
+        return;
+      }
+      const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
+      readout.textContent = `Selected: ${file.name} (${sizeMB} MB) — ready to share with your assessment.`;
+    });
+  })();
+
 });
 
 
-/* ===== WATER SOURCE TYPE — DYNAMIC GALLERY-BACKED SELECTOR ===== */
 (function(){
-  const WT_DATA = [{"category": "Hydro Power Generation Through Flowing Water", "key": "hydro", "folder": "Hydro Power Generationt through flowing water", "items": [{"name": "Bidirectional Tidal Channels", "files": ["Bidirectional Tidal Stream Channel 2.jfif", "Bidirectional Tidal Stream Channel 3.jfif", "Bidirectional Tidal Stream Channel 4.jfif", "Bidirectional Tidal Stream Channel 5.jfif", "Bidirectional Tidal Stream Channel 6.jfif", "Bidirectional Tidal Stream Channel 7.jfif", "Bidirectional tidal channels 1.jfif"]}, {"name": "Drinking Water Treatment Plant Inlet & Outlet Channel", "files": ["Drinking Water Treatement Plant Inlet & Outlet channel 7.jfif", "Drinking Water Treatment Plant In_et & Outlet Channel 6.jfif"]}, {"name": "Hilly Stream", "files": ["Hilly Stream 1.jfif", "Hilly Stream 2.jfif", "Hilly Stream 3.jfif", "Hilly Stream 4.jfif", "Hilly Streams 1.jfif", "Himalaya_s River 1.jfif", "Himalaya_s River 2.jfif", "Himalaya_s River 3.jfif", "Himalaya_s River 4.jfif", "Himalaya_s River 5.jfif", "Himalaya_s River 6.jfif"]}, {"name": "Industrial Plant Cooling Water Channels", "files": ["Industrial Plant Cooling Water Channels 2.jfif", "Industrial Plant Cooling Water Channels 3.jfif", "Industrial Plant Cooling Water Channels.jfif"]}, {"name": "Irrigation Canal", "files": ["Lined Canal.jfif", "Small Irrigation canal.jfif", "Unlined Canal.jfif"]}, {"name": "Lift Irrigation and Drinkng water upper channel pump pipe outlet", "files": ["Lift Irrigation Canal Systems 1.jfif", "Lift Irrigation Canal Systems 2.jfif", "Lift Irrigation and Drinking water canal.jfif", "Lift Irrigation and Drinkng water upper channel pump pipe outlet.jfif", "Lifting and Drinking water canal 2.jfif"]}, {"name": "Raw Water Intake & Inlet Canal", "files": ["Raw Water Intake & Inlet Canal 1.jfif", "Raw Water Intake & Inlet Canal 2.jfif", "Raw Water Intake & Inlet Canal 3.jfif", "Raw Water Intake & Inlet Canal 4.jfif", "Raw Water Intake & Inlet Canal 5.jfif"]}, {"name": "Rivers", "files": ["Forest River 5.jfif", "Lowland or Alluvial River 1.jfif", "Lowland or Alluvial River 2.jfif", "Lowland or Alluvial River 3.jfif", "Lowland or Alluvial River 4.jfif", "Lowland or Alluvial River 5.jfif", "Lowland or Alluvial River 6.jfif", "Lowland or Alluvial River 7.jfif", "Lowland or Alluvial River 8.jfif", "Mountain River 1.jfif", "Mountain River 2.jfif", "Mountain River 3.jfif", "Mountain River 4.jfif", "Plain Ground Stream 1.jfif", "Plain Ground Stream 2.jfif", "Plain Ground Stream 3.jfif", "Plain Ground Stream 4.jfif", "Plain Ground Stream 5.jfif", "Plain Ground Stream 6.jfif"]}, {"name": "Sewage Water Channels", "files": ["Sewage Water Channels 1.jfif", "Sewage Water Channels 2.jfif", "Sewage Water Channels 3.jfif", "Sewage Water Channels 4.jfif", "Sewage Water Channels 5.jfif"]}, {"name": "Tailrace Hydropower Dam Canal", "files": ["Tailrace Hydropower Dam Canal 1.jfif", "Tailrace Hydropower Dam Canal 10.jfif", "Tailrace Hydropower Dam Canal 11.jfif", "Tailrace Hydropower Dam Canal 2.jfif", "Tailrace Hydropower Dam Canal 3.jfif", "Tailrace Hydropower Dam Canal 4.jfif", "Tailrace Hydropower Dam Canal 5.jfif", "Tailrace Hydropower Dam Canal 6.jfif", "Tailrace Hydropower Dam Canal 7.jfif", "Tailrace Hydropower Dam Canal 8.jfif", "Tailrace Hydropower Dam Canal 9.jfif"]}, {"name": "Thermal Power Plant Cooling Water Channels", "files": ["Thermal Power Plant Cooling Water Channels 1.jfif", "Thermal Power Plant Cooling Water Channels 2.jfif", "Thermal Power Plant Cooling Water Channels 3.jfif", "Thermal Power Plant Cooling Water Channels 4.jfif"]}, {"name": "Waste Water Inlet & Outlet Channels", "files": ["Waste Water Inlet & Outlet Channels 1.jfif", "Waste Water Inlet & Outlet Channels 2.jfif", "Waste Water Inlet & Outlet Channels 3.jfif", "Waste Water Inlet & Outlet Channels 4.jfif", "Waste Water Inlet & Outlet Channels 5.jfif", "Waste Water Inlet & Outlet Channels 6.jfif", "Wastewater Treatment Plant \u2013 Aerial Overview 1.jfif"]}]}, {"category": "SHK Pumped Storage Potential (PSP)", "key": "psp", "folder": "PSP", "items": [{"name": "Drnking water Treatment Plant", "files": ["drinking water treatment plants located in or near desert or bared land 1.jfif", "drinking water treatment plants located in or near desert or bared land 2.jfif"]}, {"name": "Sea Islands", "files": ["sea islands 1.jfif", "sea islands 2.jfif", "sea islands 3.jfif"]}, {"name": "Uptream and Lowerstream Reservior", "files": ["Downstream or Lower Stream1.jfif", "Upstream Reservoir 1.jfif", "Upstream Reservoir 2.jfif", "Upstream Reservoir 3.jfif"]}, {"name": "abandoned mines", "files": ["abandoned mines 1.jfif", "abandoned mines 2.jfif", "abandoned mines 3.jfif", "abandoned mines 4.jfif", "abandoned mines 5.jfif"]}, {"name": "barren islands", "files": ["barren islands 1.jfif", "barren islands 2.jfif", "barren islands 3.jfif", "barren islands 4.jfif"]}, {"name": "barren or sparsely vegetated islands close to cities", "files": ["barren or sparsely vegetated islands close to cities 1.jfif", "barren or sparsely vegetated islands close to cities 2.jfif", "desert landscapes directly adjacent to the sea 1.jfif", "desert landscapes directly adjacent to the sea 2.jfif", "desert landscapes directly adjacent to the sea 3.jfif", "desert landscapes directly adjacent to the sea 4.jfif", "desert landscapes directly adjacent to the sea 5.jfif"]}, {"name": "coastal sea wetlands", "files": ["coastal sea wetlands 1.jfif", "coastal sea wetlands 2.jfif", "coastal sea wetlands 3.jfif", "coastal sea wetlands 4.jfif"]}, {"name": "desert landscapes with rivers and irrigation canals", "files": ["desert landscapes with rivers and irrigation canals 1.jfif", "desert landscapes with rivers and irrigation canals 2.jfif", "desert landscapes with rivers and irrigation canals 3.jfif", "desert landscapes with rivers and irrigation canals 4.jfif"]}, {"name": "large water ponds, reservoirs, and storage lagoons located outside cities or villages", "files": ["large water ponds, reservoirs, and storage lagoons located outside cities or villages 1.jfif", "large water ponds, reservoirs, and storage lagoons located outside cities or villages 2.jfif", "large water ponds, reservoirs, and storage lagoons located outside cities or villages 3.jfif", "large water ponds, reservoirs, and storage lagoons located outside cities or villages 4.jfif", "large water ponds, reservoirs, and storage lagoons located outside cities or villages 5.jfif"]}, {"name": "sewage treatment plants (STPs) located in desert", "files": ["sewage treatment plants (STPs) located in desert 1.jfif", "sewage treatment plants (STPs) located in desert 2.jfif", "sewage treatment plants (STPs) located in desert 3.jfif", "sewage treatment plants (STPs) located in desert 4.jfif", "sewage treatment plants (STPs) located in desert 5.jfif", "sewage treatment plants (STPs) located in desert 6.jfif"]}, {"name": "wasteland or barren land located adjacent to lakes, ponds, or reservoirs", "files": ["wasteland or barren land located adjacent to lakes, ponds, or reservoirs 1.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 2.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 3.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 4.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 5.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 6.jfif"]}, {"name": "wetlands located on the outskirts of cities", "files": ["wetlands located on the outskirts of cities 1.jfif", "wetlands located on the outskirts of cities 2.jfif", "wetlands located on the outskirts of cities 3.jfif", "wetlands located on the outskirts of cities 4.jfif"]}]}];
+  const WT_DATA = [{"category": "Hydro Power Generation Through Flowing Water", "key": "hydro", "folder": "Hydro Power Generationt through flowing water", "items": [{"name": "Bidirectional Tidal Channels", "files": ["Bidirectional Tidal Stream Channel 2.jfif", "Bidirectional Tidal Stream Channel 3.jfif", "Bidirectional Tidal Stream Channel 4.jfif", "Bidirectional Tidal Stream Channel 5.jfif", "Bidirectional Tidal Stream Channel 6.jfif", "Bidirectional Tidal Stream Channel 7.jfif", "Bidirectional tidal channels 1.jfif"]}, {"name": "Drinking Water Treatment Plant Inlet & Outlet Channel", "files": ["Drinking Water Treatement Plant Inlet & Outlet channel 7.jfif", "Drinking Water Treatment Plant In_et & Outlet Channel 6.jfif"]}, {"name": "Hilly Stream", "files": ["Hilly Stream 1.jfif", "Hilly Stream 2.jfif", "Hilly Stream 3.jfif", "Hilly Stream 4.jfif", "Hilly Streams 1.jfif", "Himalaya_s River 1.jfif", "Himalaya_s River 2.jfif", "Himalaya_s River 3.jfif", "Himalaya_s River 4.jfif", "Himalaya_s River 5.jfif", "Himalaya_s River 6.jfif"]}, {"name": "Industrial Plant Cooling Water Channels", "files": ["Industrial Plant Cooling Water Channels 2.jfif", "Industrial Plant Cooling Water Channels 3.jfif", "Industrial Plant Cooling Water Channels.jfif"]}, {"name": "Irrigation Canal", "files": ["Lined Canal.jfif", "Small Irrigation canal.jfif", "Unlined Canal.jfif"]}, {"name": "Lift Irrigation and Drinkng water upper channel pump pipe outlet", "files": ["Lift Irrigation Canal Systems 1.jfif", "Lift Irrigation Canal Systems 2.jfif", "Lift Irrigation and Drinking water canal.jfif", "Lift Irrigation and Drinkng water upper channel pump pipe outlet.jfif", "Lifting and Drinking water canal 2.jfif"]}, {"name": "Raw Water Intake & Inlet Canal", "files": ["Raw Water Intake & Inlet Canal 1.jfif", "Raw Water Intake & Inlet Canal 2.jfif", "Raw Water Intake & Inlet Canal 3.jfif", "Raw Water Intake & Inlet Canal 4.jfif", "Raw Water Intake & Inlet Canal 5.jfif"]}, {"name": "Rivers", "files": ["Forest River 5.jfif", "Lowland or Alluvial River 1.jfif", "Lowland or Alluvial River 2.jfif", "Lowland or Alluvial River 3.jfif", "Lowland or Alluvial River 4.jfif", "Lowland or Alluvial River 5.jfif", "Lowland or Alluvial River 6.jfif", "Lowland or Alluvial River 7.jfif", "Lowland or Alluvial River 8.jfif", "Mountain River 1.jfif", "Mountain River 2.jfif", "Mountain River 3.jfif", "Mountain River 4.jfif", "Plain Ground Stream 1.jfif", "Plain Ground Stream 2.jfif", "Plain Ground Stream 3.jfif", "Plain Ground Stream 4.jfif", "Plain Ground Stream 5.jfif", "Plain Ground Stream 6.jfif"]}, {"name": "Sewage Water Channels", "files": ["Sewage Water Channels 1.jfif", "Sewage Water Channels 2.jfif", "Sewage Water Channels 3.jfif", "Sewage Water Channels 4.jfif", "Sewage Water Channels 5.jfif"]}, {"name": "Tailrace Hydropower Dam Canal", "files": ["Tailrace Hydropower Dam Canal 1.jfif", "Tailrace Hydropower Dam Canal 10.jfif", "Tailrace Hydropower Dam Canal 11.jfif", "Tailrace Hydropower Dam Canal 2.jfif", "Tailrace Hydropower Dam Canal 3.jfif", "Tailrace Hydropower Dam Canal 4.jfif", "Tailrace Hydropower Dam Canal 5.jfif", "Tailrace Hydropower Dam Canal 6.jfif", "Tailrace Hydropower Dam Canal 7.jfif", "Tailrace Hydropower Dam Canal 8.jfif", "Tailrace Hydropower Dam Canal 9.jfif"]}, {"name": "Thermal Power Plant Cooling Water Channels", "files": ["Thermal Power Plant Cooling Water Channels 1.jfif", "Thermal Power Plant Cooling Water Channels 2.jfif", "Thermal Power Plant Cooling Water Channels 3.jfif", "Thermal Power Plant Cooling Water Channels 4.jfif"]}, {"name": "Waste Water Inlet & Outlet Channels", "files": ["Waste Water Inlet & Outlet Channels 1.jfif", "Waste Water Inlet & Outlet Channels 2.jfif", "Waste Water Inlet & Outlet Channels 3.jfif", "Waste Water Inlet & Outlet Channels 4.jfif", "Waste Water Inlet & Outlet Channels 5.jfif", "Waste Water Inlet & Outlet Channels 6.jfif", "Wastewater Treatment Plant \u2013 Aerial Overview 1.jfif"]}]}, {"category": "SHK Pumped Storage Potential (PSP)", "key": "psp", "folder": "PSP", "items": [{"name": "Drnking water Treatment Plant", "files": ["drinking water treatment plants located in or near desert or bared land 1.jfif", "drinking water treatment plants located in or near desert or bared land 2.jfif"]}, {"name": "Uptream and Lowerstream Reservior", "files": ["Downstream or Lower Stream1.jfif", "Upstream Reservoir 1.jfif", "Upstream Reservoir 2.jfif", "Upstream Reservoir 3.jfif"]}, {"name": "abandoned mines", "files": ["abandoned mines 1.jfif", "abandoned mines 2.jfif", "abandoned mines 3.jfif", "abandoned mines 4.jfif", "abandoned mines 5.jfif"]}, {"name": "barren islands", "files": ["barren islands 1.jfif", "barren islands 2.jfif", "barren islands 3.jfif", "barren islands 4.jfif"]}, {"name": "barren or sparsely vegetated islands close to cities", "files": ["barren or sparsely vegetated islands close to cities 1.jfif", "barren or sparsely vegetated islands close to cities 2.jfif", "desert landscapes directly adjacent to the sea 1.jfif", "desert landscapes directly adjacent to the sea 2.jfif", "desert landscapes directly adjacent to the sea 3.jfif", "desert landscapes directly adjacent to the sea 4.jfif", "desert landscapes directly adjacent to the sea 5.jfif"]}, {"name": "coastal sea wetlands", "files": ["coastal sea wetlands 1.jfif", "coastal sea wetlands 2.jfif", "coastal sea wetlands 3.jfif", "coastal sea wetlands 4.jfif"]}, {"name": "desert landscapes with rivers and irrigation canals", "files": ["desert landscapes with rivers and irrigation canals 1.jfif", "desert landscapes with rivers and irrigation canals 2.jfif", "desert landscapes with rivers and irrigation canals 3.jfif", "desert landscapes with rivers and irrigation canals 4.jfif"]}, {"name": "large water ponds, reservoirs, and storage lagoons located outside cities or villages", "files": ["large water ponds, reservoirs, and storage lagoons located outside cities or villages 1.jfif", "large water ponds, reservoirs, and storage lagoons located outside cities or villages 2.jfif", "large water ponds, reservoirs, and storage lagoons located outside cities or villages 3.jfif", "large water ponds, reservoirs, and storage lagoons located outside cities or villages 4.jfif", "large water ponds, reservoirs, and storage lagoons located outside cities or villages 5.jfif"]}, {"name": "sewage treatment plants (STPs) located in desert", "files": ["sewage treatment plants (STPs) located in desert 1.jfif", "sewage treatment plants (STPs) located in desert 2.jfif", "sewage treatment plants (STPs) located in desert 3.jfif", "sewage treatment plants (STPs) located in desert 4.jfif", "sewage treatment plants (STPs) located in desert 5.jfif", "sewage treatment plants (STPs) located in desert 6.jfif"]}, {"name": "wasteland or barren land located adjacent to lakes, ponds, or reservoirs", "files": ["wasteland or barren land located adjacent to lakes, ponds, or reservoirs 1.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 2.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 3.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 4.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 5.jfif", "wasteland or barren land located adjacent to lakes, ponds, or reservoirs 6.jfif"]}, {"name": "wetlands located on the outskirts of cities", "files": ["wetlands located on the outskirts of cities 1.jfif", "wetlands located on the outskirts of cities 2.jfif", "wetlands located on the outskirts of cities 3.jfif", "wetlands located on the outskirts of cities 4.jfif"]}]}];
 
   const grid = document.getElementById('watertype-grid');
   const tabs = document.getElementById('watertype-tabs');

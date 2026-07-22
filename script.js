@@ -196,3 +196,130 @@ document.querySelectorAll('.carousel-slide').forEach(slide => {
     };
   }
 });
+
+
+// --- TIMELINE MODAL ---
+(function () {
+  const cards = document.querySelectorAll('.about-card');
+  const modal = document.getElementById('timelineModal');
+  const modalBackdrop = document.getElementById('timelineModalBackdrop');
+  const modalClose = document.getElementById('timelineModalClose');
+  const modalTitle = document.getElementById('timelineModalTitle');
+  const modalBody = document.getElementById('timelineModalBody');
+
+  const cardData = {
+    '2008': {
+      year: '2008',
+      title: 'Technology Conceptualization',
+      text: 'First floating Turbine Picture Upper Ganga Canal UP',
+      image: './img/2008-ganga-canal.jpg',   // ← replace with your image path
+      hasImage: true
+    },
+    '2014': {
+      year: '2014',
+      title: 'MACLEC Incorporated',
+      text: 'MTPL Incorporation Certificate',
+      image: './img/award_forensic_lab_assocham_ict_cert.jpg',  // ← your image
+      hasImage: true
+    },
+    '2020': {
+      year: '2020',
+      title: 'First Commercial Demonstration',
+      text: 'Add Picture of Uttrakhand – Ramanagar Image & Rajasthan Project Image',
+      image: './img/Fixed_type_surface_hydro_kinetic_turbine.png',  // ← your image
+      hasImage: true
+    },
+    '2024-cea': {
+      year: '2024',
+      title: 'CEA TRL-9 Validation',
+      text: 'CEA TRL-9 Validation',
+      fullForm: 'Central Electricity Authority',
+      hasImage: false
+    },
+    '2024-mnre': {
+      year: '2024',
+      title: 'Hydro & Small Hydro Recognition',
+      text: 'Hydro & Small Hydro Recognition by MNRE',
+      fullForm: 'Ministry of New & Renewable Energy',
+      hasImage: false
+    },
+    '2025': {
+      year: '2025+',
+      title: 'Global Commercial Expansion',
+      text: '200+ MW SHK Turbine Power Generation Projects in hand and 50+ MW SHK PSP project in hand',
+      hasImage: false
+    },
+    '2026': {
+      year: '2026',
+      title: 'DSIR Recognition',
+      text: 'DSIR Recognition (in-house R & D Recognition)',
+      fullForm: 'Department of Scientific and Industrial Research',
+      table: {
+        left: 'R & D Recognition',
+        right: '250+ MW SHK Turbine Power Generation Projects in hand and 100+ MW SHK PSP project in hand'
+      },
+      hasImage: false
+    }
+  };
+
+  function openModal(data) {
+    modalTitle.textContent = data.title;
+
+    let html = '';
+
+    html += `<span class="timeline-modal-year-badge">${data.year}</span>`;
+
+    if (data.hasImage && data.image) {
+      html += `
+        <div class="timeline-modal-image">
+          <img src="${data.image}" alt="${data.title}">
+        </div>
+      `;
+    }
+
+    html += `<div class="timeline-modal-text">`;
+    html += `<p>${data.text}</p>`;
+
+    if (data.fullForm) {
+      html += `<span class="full-form">${data.fullForm}</span>`;
+    }
+
+    html += `</div>`;
+
+    if (data.table) {
+      html += `
+        <div class="timeline-modal-table">
+          <div class="timeline-modal-table-row">
+            <div class="timeline-modal-table-cell">${data.table.left}</div>
+            <div class="timeline-modal-table-cell">${data.table.right}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    modalBody.innerHTML = html;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      const year = card.dataset.year;
+      openModal(cardData[year]);
+    });
+  });
+
+  modalClose.addEventListener('click', closeModal);
+  modalBackdrop.addEventListener('click', closeModal);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) {
+      closeModal();
+    }
+  });
+})();

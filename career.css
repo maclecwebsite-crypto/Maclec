@@ -112,7 +112,6 @@ a { text-decoration:none; color:inherit; }
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.12em;
-  text-transform: uppercase;
   transition: background 0.2s, color 0.2s;
 }
 .btn-outline-pill:hover {
@@ -838,7 +837,6 @@ a { text-decoration:none; color:inherit; }
   font-weight: 700;
   font-size: 0.8rem;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   padding: 12px 26px;
   border-radius: 8px;
   transition: border-color 0.2s, background 0.2s, color 0.2s;

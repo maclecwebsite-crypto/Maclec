@@ -26,17 +26,14 @@
     <nav class="main-nav" aria-label="Primary">
       <a href="#about">About Maclec</a>
       <a href="/technology.html">Technology</a>
-      <a href="/atlas.html">Potential Atlas</a>
+      <a href="/atlas.html">Potential Calculator</a>
       <a href="/projects.html">Projects</a>
       <a href="/gallery.html">Gallery</a>
       <a href="/career.html">Careers</a>
       <a href="/contact.html">Contact</a>
     </nav>
 
-    <div class="header-actions">
-      <a class="btn btn-outline-pill" href="atlas.html">Calculate Site Potential</a>
-      
-    </div>
+  
 
     <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -339,32 +336,84 @@
     <h2 class="about-title">Reimagining Hydropower<br><span class="accent">for the Twenty-First Century</span></h2>
     <p class="about-intro">From remote villages and irrigation canals to thermal power plants and utility-scale renewable energy parks, MACLEC's Surface Hydrokinetic Turbine technology is unlocking a new era of sustainable energy generation by transforming the kinetic energy of flowing water into clean electricity—without altering the natural course of the stream.</p>
 
-    <div class="about-grid">
-      <div class="about-card">
-        <div class="about-card-year">2008</div>
-        <div class="about-card-label">Technology Conceptualization</div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-year">2014</div>
-        <div class="about-card-label">MACLEC Incorporated</div>
-      </div>
-      <div class="about-card">
-        <div class="about-card-year">2020</div>
-        <div class="about-card-label">First Commercial Demonstration</div>
-      </div>
-      <div class="about-card about-card--accent">
-        <div class="about-card-year">2024</div>
-        <div class="about-card-label">CEA TRL-9 Validation</div>
-      </div>
-      <div class="about-card about-card--accent">
-        <div class="about-card-year">2024</div>
-        <div class="about-card-label">Hydro &amp; Small Hydro Recognition</div>
-      </div>
-      <div class="about-card about-card--glow">
-        <div class="about-card-year">2025+</div>
-        <div class="about-card-label">Global Commercial Expansion</div>
+<div class="about-grid" id="aboutGrid">
+  <!-- 2008 -->
+  <div class="about-card" data-year="2008" data-has-image="true">
+    <div class="about-card-header">
+      <div class="about-card-year">2008</div>
+      <div class="about-card-label">Technology Conceptualization</div>
+      <div class="about-card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
       </div>
     </div>
+  </div>
+
+  <!-- 2014 -->
+  <div class="about-card" data-year="2014" data-has-image="true">
+    <div class="about-card-header">
+      <div class="about-card-year">2014</div>
+      <div class="about-card-label">MACLEC Incorporated</div>
+      <div class="about-card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2020 -->
+  <div class="about-card" data-year="2020" data-has-image="true">
+    <div class="about-card-header">
+      <div class="about-card-year">2020</div>
+      <div class="about-card-label">First Commercial Demonstration</div>
+      <div class="about-card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2024 CEA -->
+  <div class="about-card about-card--accent" data-year="2024-cea">
+    <div class="about-card-header">
+      <div class="about-card-year">2024</div>
+      <div class="about-card-label">CEA TRL-9 Validation</div>
+      <div class="about-card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2024 MNRE -->
+  <div class="about-card about-card--accent" data-year="2024-mnre">
+    <div class="about-card-header">
+      <div class="about-card-year">2024</div>
+      <div class="about-card-label">Hydro &amp; Small Hydro Recognition</div>
+      <div class="about-card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2025+ -->
+  <div class="about-card about-card--glow" data-year="2025">
+    <div class="about-card-header">
+      <div class="about-card-year">2025+</div>
+      <div class="about-card-label">Global Commercial Expansion</div>
+      <div class="about-card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2026 -->
+  <div class="about-card about-card--glow" data-year="2026">
+    <div class="about-card-header">
+      <div class="about-card-year">2026</div>
+      <div class="about-card-label">DSIR Recognition</div>
+      <div class="about-card-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </div>
+    </div>
+  </div>
+</div>
 
     <div class="about-pillars">
       <div class="about-pillar">
@@ -452,7 +501,7 @@
       </div>
     </div>
 
-    <!-- Six Advantage Cards -->
+    <!-- Advantage Cards -->
     <div class="adv-grid">
       <div class="adv-card">
         <div class="adv-icon">
@@ -496,6 +545,20 @@
         <h3>40+ Year Design Life</h3>
         <p>Engineered for long-term operation under harsh field conditions with minimal maintenance.</p>
       </div>
+      <div class="adv-card">
+        <div class="adv-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2M3.5 9A9 9 0 0 1 12 3M3 12h2M12 21v-2M21 12h-2"/></svg>
+        </div>
+        <h3>Multiple Feasible Site Locations</h3>
+        <p>A wide SHK turbine range enables deployment across canals, rivers, hydropower and thermal plant channels, ports and pumped-storage sites for power production.</p>
+      </div>
+      <div class="adv-card">
+        <div class="adv-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2M8 12h.01M12 12h.01M16 12h.01M8 16h8"/></svg>
+        </div>
+        <h3>In-House Large Scale Manufacturing</h3>
+        <p>Complete in-house design, manufacturing and execution capacity enables MACLEC to deliver large-scale SHK turbine deployments end-to-end.</p>
+      </div>
     </div>
 
     <div class="why-cta">
@@ -537,7 +600,7 @@
           <li>No major civil modification</li>
           <li>Hydro PSU and utility compatible</li>
         </ul>
-        <span class="industry-scale">100 kW → 10 MW+</span>
+        <span class="industry-scale">20 kW → 3 MW single unit</span>
       </div>
 
       <div class="industry-card" data-industry="thermal">
@@ -551,7 +614,7 @@
           <li>Reduces auxiliary energy cost</li>
           <li>NTPC, GENCOs, captive plants</li>
         </ul>
-        <span class="industry-scale">500 kW → 5 MW+</span>
+        <span class="industry-scale">5 kW → 250 kW single unit</span>
       </div>
 
       <div class="industry-card" data-industry="rivers">
@@ -565,7 +628,7 @@
           <li>Quick deployment vs conventional hydro</li>
           <li>Solar and battery integration ready</li>
         </ul>
-        <span class="industry-scale">5 kW → 1 MW+</span>
+        <span class="industry-scale">50 kW → 3 MW single unit</span>
       </div>
 
       <div class="industry-card" data-industry="ports">
@@ -579,10 +642,10 @@
           <li>Net-zero shipping support</li>
           <li>Tidal and marine current energy</li>
         </ul>
-        <span class="industry-scale">100 kW → Multi-MW</span>
+        <span class="industry-scale">50 kW → 1 MW single unit</span>
       </div>
 
-      <div class="industry-card industry-card--accent" data-industry="storage">
+      <div class="industry-card" data-industry="storage">
         <div class="industry-icon">
           <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M12 12v3M10 14h4"/></svg>
         </div>
@@ -591,17 +654,17 @@
         <ul class="industry-benefits">
           <li>Long-duration energy storage</li>
           <li>Grid stability and peak power</li>
-          <li>Solar, wind and BESS integration</li>
+          <li>Min. 2 m to max. 25 m head required per plant unit</li>
         </ul>
-        <span class="industry-scale">1 MWh → GWh scale</span>
+        <span class="industry-scale">1 MW → 5 GW</span>
       </div>
     </div>
 
     <div class="industries-footer">
       <p class="industries-tagline">One Technology. Multiple Industries. Unlimited Water-Energy Possibilities.</p>
       <div class="industries-cta">
-        <a class="btn-primary" href="#contact">Request a Feasibility Study</a>
-        <a class="btn-outline" href="#contact">Talk to MACLEC Experts</a>
+        <a class="btn-primary" href="/atlas.html">Request a Feasibility Study</a>
+        <a class="btn-outline" href="/contact.html">Talk to MACLEC Experts</a>
       </div>
     </div>
   </div>
@@ -631,16 +694,16 @@
       </ul>
       <div class="timeline-actions">
         <a class="tl-btn"
-           data-view-src="./docs/startup-india-certificate.pdf"
-           data-view-type="pdf"
+           data-view-src="./img/DSIR_recognition.png"
+           data-view-type="image"
            data-view-title="Startup India Certificate">
           View Certificate
         </a>
-        <a class="tl-btn tl-btn--outline"
+        <!-- <a class="tl-btn tl-btn--outline"
            href="./docs/startup-india-certificate.pdf"
            download="MACLEC-StartupIndia-Certificate.pdf">
           Download
-        </a>
+        </a> -->
       </div>
     </div>
   </div>
@@ -662,15 +725,15 @@
       <div class="timeline-actions">
         <a class="tl-btn"
            data-view-src="./docs/startup-india-certificate.pdf"
-           data-view-type="pdf"
+           data-view-type="image"
            data-view-title="Startup India Certificate">
           View Certificate
         </a>
-        <a class="tl-btn tl-btn--outline"
+        <!-- <a class="tl-btn tl-btn--outline"
            href="./docs/startup-india-certificate.pdf"
            download="MACLEC-StartupIndia-Certificate.pdf">
           Download
-        </a>
+        </a> -->
       </div>
     </div>
   </div>
@@ -696,11 +759,11 @@
            data-view-title="Startup India Certificate">
           View Certificate
         </a>
-        <a class="tl-btn tl-btn--outline"
+        <!-- <a class="tl-btn tl-btn--outline"
            href="./docs/startup-india-certificate.pdf"
            download="MACLEC-StartupIndia-Certificate.pdf">
           Download
-        </a>
+        </a> -->
       </div>
     </div>
   </div>
@@ -725,11 +788,11 @@
            data-view-title="Startup India Certificate">
           View Certificate
         </a>
-        <a class="tl-btn tl-btn--outline"
+        <!-- <a class="tl-btn tl-btn--outline"
            href="./docs/startup-india-certificate.pdf"
            download="MACLEC-StartupIndia-Certificate.pdf">
           Download
-        </a>
+        </a> -->
       </div>
     </div>
   </div>
@@ -754,11 +817,11 @@
            data-view-title="Startup India Certificate">
           View Certificate
         </a>
-        <a class="tl-btn tl-btn--outline"
+        <!-- <a class="tl-btn tl-btn--outline"
            href="./docs/startup-india-certificate.pdf"
            download="MACLEC-StartupIndia-Certificate.pdf">
           Download
-        </a>
+        </a> -->
       </div>
     </div>
   </div>
@@ -784,11 +847,11 @@
            data-view-title="Startup India Certificate">
           View Certificate
         </a>
-        <a class="tl-btn tl-btn--outline"
+        <!-- <a class="tl-btn tl-btn--outline"
            href="./docs/startup-india-certificate.pdf"
            download="MACLEC-StartupIndia-Certificate.pdf">
           Download
-        </a>
+        </a> -->
       </div>
     </div>
   </div>
@@ -815,11 +878,11 @@
            data-view-title="Startup India Certificate">
           View Certificate
         </a>
-        <a class="tl-btn tl-btn--outline"
+        <!-- <a class="tl-btn tl-btn--outline"
            href="./docs/startup-india-certificate.pdf"
            download="MACLEC-StartupIndia-Certificate.pdf">
           Download
-        </a>
+        </a> -->
       </div>
     </div>
   </div>
@@ -827,36 +890,30 @@
 </div>
 
     <!-- Trust Dashboard -->
-    <div class="trust-dashboard">
-      <div class="trust-stat">
-        <span class="trust-num">05+</span>
-        <span class="trust-label">Government Recognitions</span>
-      </div>
-      <div class="trust-stat">
-        <span class="trust-num">TRL-9</span>
-        <span class="trust-label">Technology Readiness · Commercially Certified</span>
-      </div>
-      <div class="trust-stat">
-        <span class="trust-num">10+</span>
-        <span class="trust-label">Countries Engaged</span>
-      </div>
-      <div class="trust-stat">
-        <span class="trust-num">₹1,600+ Cr</span>
-        <span class="trust-label">Active Project Portfolio</span>
-      </div>
-    </div>
 
     <div class="trust-quote">
       <p>"Innovation Alone Does Not Create Impact. <strong>Validation Creates Trust.</strong>"</p>
     </div>
 
     <div class="trust-footer-cta">
-      <a class="btn-primary" href="#">Download Company Profile</a>
-      <a class="btn-outline" href="#">Download Certification Package</a>
-      <a class="btn-outline" href="#">Request Technical Presentation</a>
+      <a class="btn-primary"href="./docs/Brochure.pdf" download="Brochure.pdf">Download Company Profile</a>
     </div>
   </div>
 </section>
+
+<!-- Timeline Modal -->
+<div class="timeline-modal" id="timelineModal">
+  <div class="timeline-modal-backdrop" id="timelineModalBackdrop"></div>
+  <div class="timeline-modal-content">
+    <div class="timeline-modal-header">
+      <h3 id="timelineModalTitle">Timeline Detail</h3>
+      <button class="timeline-modal-close" id="timelineModalClose" aria-label="Close">&times;</button>
+    </div>
+    <div class="timeline-modal-body" id="timelineModalBody">
+      <!-- Content injected via JS -->
+    </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="turbine3d.js"></script>

@@ -10,6 +10,39 @@
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="technology.css">
 <link rel="stylesheet" href="atlas.css">
+<style>
+  /* --- Geotag Location field --- */
+  .field-optional{ font-size:.78em; font-weight:400; opacity:.65; font-style:normal; margin-left:.35em; }
+  .geo-field{ display:flex; flex-direction:column; gap:.6rem; }
+  .geo-field-inputs{ display:flex; flex-wrap:wrap; gap:.6rem; }
+  .geo-coord-input{
+    flex:1 1 180px; min-width:140px; padding:.65rem .8rem; border-radius:8px;
+    border:1px solid rgba(94,196,224,0.25); background:rgba(10,28,44,0.4); color:#eaf6fb;
+    font-family:inherit; font-size:.92rem;
+  }
+  .geo-coord-input::placeholder{ color:rgba(234,246,251,0.4); }
+  .geo-detect-btn{ flex:0 0 auto; white-space:nowrap; }
+  .geo-readout{ font-size:.85rem; opacity:.75; margin:0; }
+  .geo-readout.geo-readout--ok{ color:#3ddc84; opacity:1; }
+  .geo-readout.geo-readout--err{ color:#e85bd6; opacity:1; }
+  .geo-map-link{ font-size:.85rem; color:#5ec4e0; text-decoration:underline; width:fit-content; }
+
+  /* --- Sample video cards --- */
+  .sample-video-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:1rem; margin:.75rem 0 1rem; }
+  .sample-video-card{
+    border:1px solid rgba(94,196,224,0.2); border-radius:12px; overflow:hidden;
+    background:rgba(10,28,44,0.35); display:flex; flex-direction:column;
+  }
+  .sample-video-thumb video{ width:100%; display:block; max-height:200px; background:#000; }
+  .sample-video-meta{ padding:.7rem .9rem; display:flex; flex-direction:column; gap:.25rem; }
+  .sample-video-meta strong{ color:#eaf6fb; font-size:.95rem; }
+  .sample-video-meta span{ font-size:.82rem; opacity:.72; line-height:1.4; }
+  .sample-video-upload{ margin-top:.25rem; }
+  .sample-video-upload input[type="file"]{
+    padding:.6rem .7rem; border-radius:8px; border:1px dashed rgba(94,196,224,0.3);
+    background:rgba(10,28,44,0.3); color:#eaf6fb; font-size:.85rem;
+  }
+</style>
 <script type="importmap">
 {
   "imports": {
@@ -30,7 +63,7 @@
     <nav class="main-nav" aria-label="Primary">
       <a href="#about">About Maclec</a>
       <a href="technology.html">Technology</a>
-      <a href="atlas.html">Potential Atlas</a>
+      <a href="atlas.html">Potential Calculator</a>
       <a href="gallery.html">Gallery</a>
       <a href="career.html">Careers</a>
       <a href="contact.html">Contact</a>
@@ -185,18 +218,77 @@
   <input type="hidden" id="f-state" value="">
 </div>
 
+<!-- Geotag Location: pinpoint coordinates for the exact site -->
+<div class="form-field form-field--full">
+  <span>Geotag Location <em class="field-optional">(actual site coordinates)</em></span>
+  <div class="geo-field">
+    <div class="geo-field-inputs">
+      <input type="text" id="f-geo-lat" class="geo-coord-input" placeholder="Latitude — e.g. 25.276987" inputmode="decimal" autocomplete="off">
+      <input type="text" id="f-geo-lng" class="geo-coord-input" placeholder="Longitude — e.g. 55.296249" inputmode="decimal" autocomplete="off">
+      <button type="button" class="btn-outline geo-detect-btn" id="geo-detect-btn">📍 Use My Current Location</button>
+    </div>
+    <p class="geo-readout" id="geo-readout">No coordinates captured yet — enter manually or tap "Use My Current Location".</p>
+    <a class="geo-map-link" id="geo-map-link" href="#" target="_blank" rel="noopener" style="display:none;">View pinned location on map ↗</a>
+  </div>
+  <input type="hidden" id="f-geo-lat-value" value="">
+  <input type="hidden" id="f-geo-lng-value" value="">
+</div>
+
 <label class="form-field form-field--full">
   <span>Water Source Type</span>
  
   <div class="watertype-tabs" id="watertype-tabs" role="tablist" aria-label="Water source category">
-    <button type="button" class="watertype-tab active" data-cat="hydro" role="tab" aria-selected="true">Flowing Water Sources</button>
-    <button type="button" class="watertype-tab" data-cat="psp" role="tab" aria-selected="false">SHK‑PSP Sites</button>
+    <button type="button" class="watertype-tab active" data-cat="hydro" role="tab" aria-selected="true"> SHK Turbine Feasible Flowing Water Sites </button>
+    <button type="button" class="watertype-tab" data-cat="psp" role="tab" aria-selected="false">Low Head (2mtr to 25 mtr) SHK PSP Feasible Site</button>
   </div>
  
   <p class="watertype-hint">Tap a card to browse its full photo set · tap <span class="watertype-hint-icon">Select</span> to choose that water source type</p>
  
   <div class="radio-grid radio-grid--visual" id="watertype-grid" role="radiogroup" aria-label="Water source type options"></div>
 </label>
+
+<!-- Sample recording videos: guidance on how to film your river / canal for submission -->
+<div class="form-field form-field--full">
+  <span>Record &amp; Share Your Site <em class="field-optional">(sample videos)</em></span>
+  <p class="watertype-hint">Watch these short reference clips, then record your own river or canal in a similar way and share it with our engineering team.</p>
+  <div class="sample-video-grid" id="sample-video-grid">
+
+    <div class="sample-video-card">
+      <div class="sample-video-thumb">
+        <video id="sample-video-river" preload="metadata" controls playsinline
+               poster="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80">
+          <source src="https://res.cloudinary.com/a07iptoj/video/upload/v1784745612/WhatsApp_Video_2026-07-22_at_2.09.47_AM_h2znkk.mp4" type="video/mp4">
+          Your browser does not support embedded video.
+        </video>
+      </div>
+      <div class="sample-video-meta">
+        <strong>a) Sample River Video</strong>
+        <span>Example of a well-recorded flowing river — steady frame, visible banks, and a clear view of the current.</span>
+      </div>
+    </div>
+
+    <div class="sample-video-card">
+      <div class="sample-video-thumb">
+        <video id="sample-video-canal" preload="metadata" controls playsinline
+               poster="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&q=80">
+          <source src="https://res.cloudinary.com/a07iptoj/video/upload/v1784745608/WhatsApp_Video_2026-07-22_at_2.09.47_AM_1_am0dw1.mp4" type="video/mp4">
+          Your browser does not support embedded video.
+        </video>
+      </div>
+      <div class="sample-video-meta">
+        <strong>b) Sample Canal Video</strong>
+        <span>Example of a well-recorded canal — panning slowly along the channel to show width, depth and flow.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <label class="form-field form-field--full sample-video-upload">
+    <span>Upload Your Recorded Video</span>
+    <input type="file" id="f-site-video" accept="video/*">
+    <small class="geo-readout" id="site-video-readout">No file selected yet.</small>
+  </label>
+</div>
  
  
           </div>
@@ -217,7 +309,7 @@
             </label>
             <label class="form-field">
               <span>Approximate Water Depth (m)</span>
-              <input type="range" id="f-depth" min="0.3" max="10" value="2" step="0.1">
+              <input type="range" id="f-depth" min="2" max="20" value="2" step="0.1">
               <output class="range-out" id="f-depth-out">2.0 m</output>
             </label>
             <label class="form-field">

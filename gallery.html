@@ -1,492 +1,623 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gallery — MACLEC</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="gallery.css">
-<link rel="icon" type="image/x-icon" href="img/favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32-v2.png">
-<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16-v2.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery — MACLEC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="gallery.css">
+  <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32-v2.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16-v2.png">
 
 </head>
+
 <body class="loading">
-<div class="loading-screen" id="loadingScreen">
-  <img src="img/logo.png" alt="MACLEC" class="loading-logo">
-</div>
-
-<!--  HEADER  -->
-<header class="site-header">
-  <div class="header-inner">
-    <a style="width: 18%;" class="logo" href="index.html">
-      <img style="width: 100%;" src="img/logo.png" alt="MACLEC Logo">
-    </a>
-
-    <nav class="main-nav" aria-label="Primary">
-      <a href="#about">About Maclec</a>
-      <a href="/technology.html">Technology</a>
-      <a href="/atlas.html">Potential Atlas</a>
-      <a href="/projects.html">Projects</a>
-      <a href="/gallery.html">Gallery</a>
-      <a href="/career.html">Careers</a>
-      <a href="/contact.html">Contact</a>
-    </nav>
-
-    <div class="header-actions">
-      <a class="btn btn-outline-pill" href="atlas.html">Calculate Site Potential</a>
-    </div>
-
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+  <div class="loading-screen" id="loadingScreen">
+    <img src="img/logo.png" alt="MACLEC" class="loading-logo">
   </div>
-</header>
 
-<!-- ===== GALLERY HERO ===== -->
-<section class="gallery-hero">
-  <div class="gallery-hero-media" aria-hidden="true">
-    <div class="gallery-hero-overlay"></div>
+  <!--  HEADER  -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a style="width: 18%;" class="logo" href="index.html">
+        <img style="width: 100%;" src="img/logo.png" alt="MACLEC Logo">
+      </a>
+
+      <nav class="main-nav" aria-label="Primary">
+        <a href="#about">About Maclec</a>
+        <a href="/technology.html">Technology</a>
+        <a href="/atlas.html">Potential Calculator</a>
+        <a href="/projects.html">Projects</a>
+        <a href="/gallery.html">Gallery</a>
+        <a href="/career.html">Careers</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-outline-pill" href="atlas.html">Calculate Site Potential</a>
+      </div>
+
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== GALLERY HERO ===== -->
+  <section class="gallery-hero">
+    <div class="gallery-hero-media" aria-hidden="true">
+      <div class="gallery-hero-overlay"></div>
+    </div>
+    <div class="gallery-hero-content">
+      <div class="about-tag">Visual Journey</div>
+      <h1 class="gallery-hero-title">MACLEC <span class="accent">Gallery</span></h1>
+      <p class="gallery-hero-desc">
+        Explore our technology, installations, and projects through images and videos.
+        Witness dam-free hydropower in action across rivers, canals, and industrial sites worldwide.
+      </p>
+    </div>
+  </section>
+
+  <section class="filter-bar">
+    <div class="filter-bar-inner">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="awards">Agreement Signing</button>
+      <button class="filter-btn" data-filter="awards">Field Trials</button>
+      <button class="filter-btn" data-filter="awards">Patents</button>
+      <button class="filter-btn" data-filter="awards">Awards & recognization</button>
+      <button class="filter-btn" data-filter="awards">Media Coverage</button>
+      <button class="filter-btn" data-filter="certifications">Certifications</button>
+      <button class="filter-btn" data-filter="team"> Events</button>
+    </div>
+  </section>
+
+  <section class="gallery-section">
+    <div class="gallery-grid" id="galleryGrid">
+
+      <!-- Awards & Recognition -->
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_sabit_us_dept_commerce.jpg" alt="U.S. Department of Commerce SABIT Program"
+            loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>U.S. Dept. of Commerce SABIT Program</h3>
+            <p>SHK Turbine selected from India to showcase under the SABIT Clean Energy for South Asia Program.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_ict_startup_meity_2018.jpg" alt="India's Top 20 ICT Startup Award 2018" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>Top 20 ICT Startup Award</h3>
+            <p>Recognized by MeitY, Ericsson and ASSOCHAM at the 2nd ICT Start-Ups Awards, 2018.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item gallery-item--wide" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_undp_grassroot_aws_clean_energy.jpg" alt="NASA iTech X Factor and BRICS SDG Award"
+            loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>NASA iTech "X Factor" &amp; BRICS SDG Award</h3>
+            <p>Named "X Factor" Innovation of Earth at NASA iTech 2020, and Runner-Up at BRICS Solutions for SDG Awards
+              2021.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_nasa_itech_brics_sdg.jpg"
+            alt="UNDP Grassroot Innovation Database and AWS Clean Energy Accelerator" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>UNDP Database &amp; AWS Accelerator Winner</h3>
+            <p>SHK Turbines included in UNDP's Grassroot Innovation Database; winner of the AWS Clean Energy Accelerator
+              3.0.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_national_innovation_i3_budding_innovators.jpg"
+            alt="National Innovation of the Year Award and National Budding Innovators Award" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>National Innovation &amp; Budding Innovators Awards</h3>
+            <p>National Innovation of the Year Award at i3 National Fair 2014, and National Budding Innovators Award
+              2017.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item gallery-item--tall" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_swachh_bharat_brands_of_india.jpg"
+            alt="Swachh-Bharat Grand Program Award and Brands of India Award" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>Swachh-Bharat &amp; Brands of India Awards</h3>
+            <p>National Award at Swachh-Bharat Grand Program 2018, and Brands of India Award by MSME &amp; YourStory,
+              2019.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_tata_social_alpha_innovative_tech.jpg"
+            alt="TATA Social Alpha Energy Challenge winner and India's most innovative technology 2020" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>TATA Social Alpha Energy Challenge Winner</h3>
+            <p>Winner of TATA's Social Alpha Energy Challenge 2020; showcased as India's most innovative technology of
+              the year.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_agnii_invest_india_vedanta_spark.jpg"
+            alt="Agnii Invest India Portal showcase and Vedanta Spark 2.0 winner" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>Invest India Portal &amp; Vedanta Spark 2.0</h3>
+            <p>Showcased on the Agnii-Invest India Portal as a promising indigenous technology; winner of Vedanta Spark
+              2.0, 2022.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item gallery-item--wide" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_startup_india_climate_launchpad.jpg"
+            alt="Startup India Showcase and ClimateLaunchpad by European Union" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>Startup India &amp; ClimateLaunchpad Showcase</h3>
+            <p>Featured as a Top Indigenous Technology Driven Startup by Startup India, and showcased by
+              ClimateLaunchpad/Climate-KIC, EU.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_maharashtra_startup_week_agri_entrepreneur.jpg"
+            alt="Maharashtra Government Startup Week winner and Best Agri Entrepreneur Award" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>Maharashtra Startup Week &amp; Agri Entrepreneur Award</h3>
+            <p>Winner of Maharashtra Govt's Startup Week 2021 (Sustainability); Best Agri Entrepreneur Award 2021.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_spain_thailand_top10_innovations.jpg"
+            alt="Top 10 Innovations of the World in Spain and Thailand" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>Top 10 World Innovations — Spain &amp; Thailand</h3>
+            <p>Showcased under Top 10 Innovations of the World in the "Rising Up in Spain" event and Decarbonize
+              Thailand Startup Sandbox, 2022.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_nrdc_budding_innovators_cert_2014.jpg"
+            alt="NRDC Budding Innovators Award 2014 Certificate" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>NRDC Budding Innovators Award 2014</h3>
+            <p>Certificate awarded to Balram Bhardwaj for the "Water Kinetic Energy Driven Hydro Turbine System, Type -
+              VARUN-III".</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_nrdc_budding_innovators_cert_2014.jpg"
+            alt="8th India Innovation Initiative i3 National Fair 2016 certificate" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>i3 National Fair 2016 — Young Innovator</h3>
+            <p>Er. Balram Bhardwaj awarded Best Young Innovator at the 8th India Innovation Initiative - National Fair
+              2016.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item gallery-item--tall" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_i3_national_fair_2016_cert.jpg"
+            alt="Renewable Energy India Awards 2019 Certificate of Honour" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>Renewable Energy India Awards 2019</h3>
+            <p>Certificate of Honour for Leading RE Technology/Product Innovation, as a Finalist at the 4th Edition,
+              2019.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/logo.png"
+            alt="National Innovator Award 2014 by Central University Punjab (certificate photo pending)" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>National Innovator Award 2014</h3>
+            <p>Presented by Central University Punjab on Innovators' Day.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item gallery-item--wide" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_renewable_energy_india_2019_cert.jpg"
+            alt="State Forensic Science Laboratory certificate and ASSOCHAM ICT Start-Ups Awards 2018 certificate"
+            loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>Forensic Lab Certificate &amp; ASSOCHAM ICT Award</h3>
+            <p>State Forensic Science Laboratory (M.P.) training certificate, and ASSOCHAM's Top 20 ICT Startups
+              certificate, 2018.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_national_innovator_punjab_2014.jpg"
+            alt="BRICS Solutions for SDG Awards 2021 project detail" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>BRICS Solutions for SDG Awards 2021</h3>
+            <p>Runner-up proposal details for the Plug &amp; Play Type Surface Hydrokinetic Turbine, presented with
+              FICCI and Grant Thornton.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_forensic_lab_assocham_ict_cert.jpg"
+            alt="Swachh Bharat Grand Program 2018 First Prize Certificate" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>Swachh Bharat Grand Program — First Prize</h3>
+            <p>First Prize in the Air Management Category, awarded to Narayan Bhardwaj and Balram Bhardwaj, December
+              2018.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item gallery-item--wide" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_brics_sdg_awards_2021_detail.jpg" alt="The SET100 List 2024 - Clean Energy and Storage"
+            loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Awards</span>
+            <h3>The SET100 List 2024</h3>
+            <p>Named among the 100 most promising global energy start-ups of 2024 in the Clean Energy &amp; Storage
+              category.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_swachh_bharat_cert_2018_framed.jpg"
+            alt="Economic Times feature on 15 Clean Tech Start-Ups" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Media Coverage</span>
+            <h3>The Economic Times Feature</h3>
+            <p>Featured in "15 Clean Tech Start-Ups That Are Addressing Climate Change", The Economic Times, 2020.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_set100_list_2024.jpg"
+            alt="Tweet from Union Minister Piyush Goyal about Startup India and Hydro Kinetic Turbine" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Media Coverage</span>
+            <h3>Recognized by Union Minister Piyush Goyal</h3>
+            <p>Union Minister Piyush Goyal highlighted the Startup India-backed hydro kinetic turbine journey on social
+              media.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_economic_times_cleantech_2020.jpg"
+            alt="Site visit by Union Minister Ajay Bhatt to the MACLEC installation" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Media Coverage</span>
+            <h3>Union Minister Ajay Bhatt's Site Visit</h3>
+            <p>Sh. Ajay Bhatt, Union Minister of State for Defence &amp; Tourism, visited the MACLEC installation, Dec
+              2021.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_piyush_goyal_tweet.jpg" alt="Inauguration by Uttarakhand CM Pushkar Singh Dhami"
+            loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Media Coverage</span>
+            <h3>Inauguration by Uttarakhand CM</h3>
+            <p>The installation was inaugurated by Uttarakhand Chief Minister Sh. Pushkar Singh Dhami, Dec 2021.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_ajay_bhatt_dhami_inauguration.jpg"
+            alt="IIT Delhi recognition letter for MACLEC Advance Swaccha-Bharat Trash innovation" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Recognition</span>
+            <h3>IIT Delhi Recognition Letter</h3>
+            <p>Dr. Virendra K. Vijay, IIT Delhi, recognizes MACLEC's "Advance Swaccha-Bharat Trash" innovation, March
+              2017.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="awards">
+        <div class="gallery-card">
+          <img src="./img/award_iit_delhi_recognition_letter.jpg"
+            alt="Invitation from the President of India to the Visitor's Awards 2017" loading="lazy">
+          <div class="gallery-card-overlay">
+            <span class="gallery-card-tag">Recognition</span>
+            <h3>Invited by the President of India</h3>
+            <p>Narayan Bhardwaj and Balram Bhardwaj invited to the Visitor's Awards 2017 at Rashtrapati Bhavan.</p>
+            <button class="gallery-card-zoom" aria-label="View full size">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+  </section>
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-backdrop"></div>
+    <div class="lightbox-content">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+      <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+      </button>
+      <img src="" alt="" class="lightbox-img" id="lightboxImg">
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+      <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6" />
+        </svg>
+      </button>
+    </div>
   </div>
-  <div class="gallery-hero-content">
-    <div class="about-tag">Visual Journey</div>
-    <h1 class="gallery-hero-title">MACLEC <span class="accent">Gallery</span></h1>
-    <p class="gallery-hero-desc">
-      Explore our technology, installations, and projects through images and videos.
-      Witness dam-free hydropower in action across rivers, canals, and industrial sites worldwide.
-    </p>
-  </div>
-</section>
 
-<section class="filter-bar">
-  <div class="filter-bar-inner">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="awards">Awards & recognization</button>
-    <button class="filter-btn" data-filter="certifications">Certifications</button>
-    <button class="filter-btn" data-filter="team"> Events</button>
-  </div>
-</section>
-
-<section class="gallery-section">
-  <div class="gallery-grid" id="galleryGrid">
-
-    <!-- Awards & Recognition -->
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_sabit_us_dept_commerce.jpg" alt="U.S. Department of Commerce SABIT Program" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>U.S. Dept. of Commerce SABIT Program</h3>
-          <p>SHK Turbine selected from India to showcase under the SABIT Clean Energy for South Asia Program.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_ict_startup_meity_2018.jpg" alt="India's Top 20 ICT Startup Award 2018" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>Top 20 ICT Startup Award</h3>
-          <p>Recognized by MeitY, Ericsson and ASSOCHAM at the 2nd ICT Start-Ups Awards, 2018.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item gallery-item--wide" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_undp_grassroot_aws_clean_energy.jpg" alt="NASA iTech X Factor and BRICS SDG Award" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>NASA iTech "X Factor" &amp; BRICS SDG Award</h3>
-          <p>Named "X Factor" Innovation of Earth at NASA iTech 2020, and Runner-Up at BRICS Solutions for SDG Awards 2021.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_nasa_itech_brics_sdg.jpg" alt="UNDP Grassroot Innovation Database and AWS Clean Energy Accelerator" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>UNDP Database &amp; AWS Accelerator Winner</h3>
-          <p>SHK Turbines included in UNDP's Grassroot Innovation Database; winner of the AWS Clean Energy Accelerator 3.0.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_national_innovation_i3_budding_innovators.jpg" alt="National Innovation of the Year Award and National Budding Innovators Award" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>National Innovation &amp; Budding Innovators Awards</h3>
-          <p>National Innovation of the Year Award at i3 National Fair 2014, and National Budding Innovators Award 2017.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item gallery-item--tall" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_swachh_bharat_brands_of_india.jpg" alt="Swachh-Bharat Grand Program Award and Brands of India Award" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>Swachh-Bharat &amp; Brands of India Awards</h3>
-          <p>National Award at Swachh-Bharat Grand Program 2018, and Brands of India Award by MSME &amp; YourStory, 2019.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_tata_social_alpha_innovative_tech.jpg" alt="TATA Social Alpha Energy Challenge winner and India's most innovative technology 2020" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>TATA Social Alpha Energy Challenge Winner</h3>
-          <p>Winner of TATA's Social Alpha Energy Challenge 2020; showcased as India's most innovative technology of the year.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_agnii_invest_india_vedanta_spark.jpg" alt="Agnii Invest India Portal showcase and Vedanta Spark 2.0 winner" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>Invest India Portal &amp; Vedanta Spark 2.0</h3>
-          <p>Showcased on the Agnii-Invest India Portal as a promising indigenous technology; winner of Vedanta Spark 2.0, 2022.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item gallery-item--wide" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_startup_india_climate_launchpad.jpg" alt="Startup India Showcase and ClimateLaunchpad by European Union" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>Startup India &amp; ClimateLaunchpad Showcase</h3>
-          <p>Featured as a Top Indigenous Technology Driven Startup by Startup India, and showcased by ClimateLaunchpad/Climate-KIC, EU.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_maharashtra_startup_week_agri_entrepreneur.jpg" alt="Maharashtra Government Startup Week winner and Best Agri Entrepreneur Award" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>Maharashtra Startup Week &amp; Agri Entrepreneur Award</h3>
-          <p>Winner of Maharashtra Govt's Startup Week 2021 (Sustainability); Best Agri Entrepreneur Award 2021.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_spain_thailand_top10_innovations.jpg" alt="Top 10 Innovations of the World in Spain and Thailand" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>Top 10 World Innovations — Spain &amp; Thailand</h3>
-          <p>Showcased under Top 10 Innovations of the World in the "Rising Up in Spain" event and Decarbonize Thailand Startup Sandbox, 2022.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_nrdc_budding_innovators_cert_2014.jpg" alt="NRDC Budding Innovators Award 2014 Certificate" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>NRDC Budding Innovators Award 2014</h3>
-          <p>Certificate awarded to Balram Bhardwaj for the "Water Kinetic Energy Driven Hydro Turbine System, Type - VARUN-III".</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_nrdc_budding_innovators_cert_2014.jpg" alt="8th India Innovation Initiative i3 National Fair 2016 certificate" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>i3 National Fair 2016 — Young Innovator</h3>
-          <p>Er. Balram Bhardwaj awarded Best Young Innovator at the 8th India Innovation Initiative - National Fair 2016.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item gallery-item--tall" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_i3_national_fair_2016_cert.jpg" alt="Renewable Energy India Awards 2019 Certificate of Honour" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>Renewable Energy India Awards 2019</h3>
-          <p>Certificate of Honour for Leading RE Technology/Product Innovation, as a Finalist at the 4th Edition, 2019.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/logo.png" alt="National Innovator Award 2014 by Central University Punjab (certificate photo pending)" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>National Innovator Award 2014</h3>
-          <p>Presented by Central University Punjab on Innovators' Day.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item gallery-item--wide" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_renewable_energy_india_2019_cert.jpg" alt="State Forensic Science Laboratory certificate and ASSOCHAM ICT Start-Ups Awards 2018 certificate" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>Forensic Lab Certificate &amp; ASSOCHAM ICT Award</h3>
-          <p>State Forensic Science Laboratory (M.P.) training certificate, and ASSOCHAM's Top 20 ICT Startups certificate, 2018.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_national_innovator_punjab_2014.jpg" alt="BRICS Solutions for SDG Awards 2021 project detail" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>BRICS Solutions for SDG Awards 2021</h3>
-          <p>Runner-up proposal details for the Plug &amp; Play Type Surface Hydrokinetic Turbine, presented with FICCI and Grant Thornton.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_forensic_lab_assocham_ict_cert.jpg" alt="Swachh Bharat Grand Program 2018 First Prize Certificate" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>Swachh Bharat Grand Program — First Prize</h3>
-          <p>First Prize in the Air Management Category, awarded to Narayan Bhardwaj and Balram Bhardwaj, December 2018.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item gallery-item--wide" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_brics_sdg_awards_2021_detail.jpg" alt="The SET100 List 2024 - Clean Energy and Storage" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Awards</span>
-          <h3>The SET100 List 2024</h3>
-          <p>Named among the 100 most promising global energy start-ups of 2024 in the Clean Energy &amp; Storage category.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_swachh_bharat_cert_2018_framed.jpg" alt="Economic Times feature on 15 Clean Tech Start-Ups" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Media Coverage</span>
-          <h3>The Economic Times Feature</h3>
-          <p>Featured in "15 Clean Tech Start-Ups That Are Addressing Climate Change", The Economic Times, 2020.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_set100_list_2024.jpg" alt="Tweet from Union Minister Piyush Goyal about Startup India and Hydro Kinetic Turbine" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Media Coverage</span>
-          <h3>Recognized by Union Minister Piyush Goyal</h3>
-          <p>Union Minister Piyush Goyal highlighted the Startup India-backed hydro kinetic turbine journey on social media.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_economic_times_cleantech_2020.jpg" alt="Site visit by Union Minister Ajay Bhatt to the MACLEC installation" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Media Coverage</span>
-          <h3>Union Minister Ajay Bhatt's Site Visit</h3>
-          <p>Sh. Ajay Bhatt, Union Minister of State for Defence &amp; Tourism, visited the MACLEC installation, Dec 2021.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_piyush_goyal_tweet.jpg" alt="Inauguration by Uttarakhand CM Pushkar Singh Dhami" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Media Coverage</span>
-          <h3>Inauguration by Uttarakhand CM</h3>
-          <p>The installation was inaugurated by Uttarakhand Chief Minister Sh. Pushkar Singh Dhami, Dec 2021.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_ajay_bhatt_dhami_inauguration.jpg" alt="IIT Delhi recognition letter for MACLEC Advance Swaccha-Bharat Trash innovation" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Recognition</span>
-          <h3>IIT Delhi Recognition Letter</h3>
-          <p>Dr. Virendra K. Vijay, IIT Delhi, recognizes MACLEC's "Advance Swaccha-Bharat Trash" innovation, March 2017.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="gallery-item" data-category="awards">
-      <div class="gallery-card">
-        <img src="./img/award_iit_delhi_recognition_letter.jpg" alt="Invitation from the President of India to the Visitor's Awards 2017" loading="lazy">
-        <div class="gallery-card-overlay">
-          <span class="gallery-card-tag">Recognition</span>
-          <h3>Invited by the President of India</h3>
-          <p>Narayan Bhardwaj and Balram Bhardwaj invited to the Visitor's Awards 2017 at Rashtrapati Bhavan.</p>
-          <button class="gallery-card-zoom" aria-label="View full size">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-
-
-  
-  </div>
-</section>
-
-<!-- ===== LIGHTBOX ===== -->
-<div class="lightbox" id="lightbox">
-  <div class="lightbox-backdrop"></div>
-  <div class="lightbox-content">
-    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
-    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-    </button>
-    <img src="" alt="" class="lightbox-img" id="lightboxImg">
-    <div class="lightbox-caption" id="lightboxCaption"></div>
-    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-    </button>
-  </div>
-</div>
-
-<!-- Video Modal -->
-<div class="video-modal" id="videoModal">
-  <div class="video-modal-backdrop"></div>
-  <div class="video-modal-content">
-    <button class="video-modal-close" id="videoModalClose" aria-label="Close video">&times;</button>
-    <video id="videoModalPlayer" controls playsinline></video>
-  </div>
-</div>
-
-<!-- ===== FOOTER ===== -->
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="img/logo.png" alt="MACLEC" class="footer-logo">
-      <p>Energy Through Innovation</p>
-    </div>
-    <div class="footer-links">
-      <div class="footer-col">
-        <strong>Company</strong>
-        <a href="index.html#about">About</a>
-        <a href="technology.html">Technology</a>
-        
-        <a href="gallery.html">Gallery</a>
-      </div>
-      <div class="footer-col">
-        <strong>Resources</strong>
-        <a href="atlas.html">Potential Atlas</a>
-        <a href="index.html#knowledge">Knowledge Centre</a>
-        <a href="#">Investor Desk</a>
-      </div>
-      <div class="footer-col">
-        <strong>Connect</strong>
-        <a href="#">Contact</a>
-        <a href="#">Careers</a>
-        <a href="#">Media</a>
-      </div>
+  <!-- Video Modal -->
+  <div class="video-modal" id="videoModal">
+    <div class="video-modal-backdrop"></div>
+    <div class="video-modal-content">
+      <button class="video-modal-close" id="videoModalClose" aria-label="Close video">&times;</button>
+      <video id="videoModalPlayer" controls playsinline></video>
     </div>
   </div>
-  <div class="footer-bottom">
-    <p>&copy; 2026 MACLEC. All rights reserved.</p>
-  </div>
-</footer>
 
-<script src="gallery.js"></script>
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="img/logo.png" alt="MACLEC" class="footer-logo">
+        <p>Energy Through Innovation</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <strong>Company</strong>
+          <a href="index.html#about">About</a>
+          <a href="technology.html">Technology</a>
+
+          <a href="gallery.html">Gallery</a>
+        </div>
+        <div class="footer-col">
+          <strong>Resources</strong>
+          <a href="atlas.html">Potential Calculator</a>
+          <a href="index.html#knowledge">Knowledge Centre</a>
+          <a href="#">Investor Desk</a>
+        </div>
+        <div class="footer-col">
+          <strong>Connect</strong>
+          <a href="#">Contact</a>
+          <a href="#">Careers</a>
+          <a href="#">Media</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 MACLEC. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="gallery.js"></script>
 </body>
+
 </html>
