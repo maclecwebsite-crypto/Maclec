@@ -95,24 +95,12 @@
   </div>
 </section>
   <div class="hero-content">
-    <div class="hero-globe" aria-hidden="true">
-      <!-- <p class="globe-eyebrow">Global Projects.<br><span>Local Impact.</span></p> -->
-      <svg class="globe-dots" viewBox="0 0 360 220" width="100%" height="100%">
-        <path d="M10 110 Q60 40 140 60 T260 50 Q320 70 350 120" stroke="rgba(94,196,224,0.25)" stroke-width="0.6" fill="none"/>
-        <path d="M5 150 Q90 200 180 160 T350 165" stroke="rgba(94,196,224,0.18)" stroke-width="0.6" fill="none"/>
-        <g fill="#5ec4e0">
-          <circle cx="60" cy="80" r="2.4"/>
-          <circle cx="120" cy="60" r="2.4"/>
-          <circle cx="175" cy="95" r="2.4"/>
-          <circle cx="230" cy="70" r="2.4"/>
-          <circle cx="285" cy="110" r="2.4"/>
-          <circle cx="320" cy="80" r="2.4"/>
-          <circle cx="200" cy="150" r="2.4"/>
-          <circle cx="90" cy="160" r="2.4"/>
-        </g>
-      </svg>
-    </div>
-
+  <!-- <div class="hero-3d" id="hero3d" aria-hidden="true"></div> // animation here --> 
+<div class="hero-3d" id="hero3d" aria-hidden="true" style="width:100%; max-width:560px; aspect-ratio:16/9; margin:0 auto 2rem; border-radius:12px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,0.4);">
+  <video autoplay muted loop playsinline style="width:100%; height:100%; object-fit:cover; display:block;">
+    <source src="https://res.cloudinary.com/a07iptoj/video/upload/v1784728489/animation_2_mjty4c.mp4" type="video/mp4">
+  </video>
+</div>
     <p class="hero-eyebrow">Surface Hydrokinetic Turbine Technology</p>
     <h1 class="hero-title">
       Harnessing Energy<br>
@@ -270,47 +258,51 @@
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
 
-      <div class="carousel-track" id="carouselTrack">
-        <button class="carousel-slide" data-video="./img/hydropower.mp4">
-          <img src="./img/yellow_hydro_machine.png" alt="SHKT turbine in a flowing river">
-          <span class="carousel-play">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </span>
-          <span class="carousel-caption">Turbine in a Flowing River</span>
-        </button>
+<div class="carousel-track" id="carouselTrack">
+  <!-- IIT Roorkee -->
+<button class="carousel-slide" data-video="https://res.cloudinary.com/a07iptoj/video/upload/v1784732823/MOV_0030_compressed_slhmlc.mp4">
+  <img src="./img/Fixed_type_surface_hydro_kinetic_turbine.png" alt="Deployment at Ramgarh">
+    <span class="carousel-play">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </span>
+    <span class="carousel-caption">SHK Floating Turbine in Ramgarh</span>
+  </button>
 
-        <button class="carousel-slide" data-video="./img/canal-install.mp4">
-          <img src="./img/yellow_hydro_machine.png" alt="Canal installation">
-          <span class="carousel-play">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </span>
-          <span class="carousel-caption">Irrigation Canal Deployment</span>
-        </button>
+  <!-- SHK Turbine Proposal for Rajasthan -->
+  <button class="carousel-slide"
+    data-video="https://res.cloudinary.com/a07iptoj/video/upload/v1784734353/hydropower_ch3fhu.mp4">
+    <img alt="SHK Turbine Proposal for Rajasthan">
+    <span class="carousel-play">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </span>
+    <span class="carousel-caption">SHK Floating Turbine in Hanumangarh Rajasthan</span>
+  </button>
 
-        <button class="carousel-slide" data-video="./img/thermal-discharge.mp4">
-          <img src="./img/yellow_hydro_machine.png" alt="Thermal plant discharge channel">
-          <span class="carousel-play">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </span>
-          <span class="carousel-caption">Thermal Plant Energy Recovery</span>
-        </button>
-
-        <button class="carousel-slide" data-video="./img/modular-array.mp4">
-          <img src="./img/yellow_hydro_machine.png" alt="Modular turbine array">
-          <span class="carousel-play">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </span>
-          <span class="carousel-caption">Modular Turbine Array</span>
-        </button>
-
-        <button class="carousel-slide" data-video="./img/field-site.mp4">
-          <img src="./img/yellow_hydro_machine.png" alt="Field site installation">
-          <span class="carousel-play">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </span>
-          <span class="carousel-caption">Live Field Site</span>
-        </button>
-      </div>
+  <!-- Deployment of Fixed Type SHK Turbine at Jim Corbett -->
+  <button class="carousel-slide"
+    data-video="https://res.cloudinary.com/a07iptoj/video/upload/v1784730424/Deployment_of_Fixed_Tye_SHK_Turbine_at_Jim_Corbett_bpdvdb.mp4">
+    <img alt="Deployment of Fixed Type SHK Turbine at Jim Corbett">
+    <span class="carousel-play">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </span>
+    <span class="carousel-caption">SHK Floating Turbine in IIT Roorkee</span>
+  </button>
+  <button class="carousel-slide" data-video="https://res.cloudinary.com/a07iptoj/video/upload/v1784731898/Industrial_Cooling_Water_Canal_compressed_sttl4y.mp4">
+  <img src="./img/Fixed_type_surface_hydro_kinetic_turbine.png" alt="IIT Roorkee Project">
+    <span class="carousel-play">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </span>
+    <span class="carousel-caption">SHKT Turbine Proposal at Yanbu3 Power Plant</span>
+  </button>
+</div>
 
       <button class="carousel-arrow carousel-arrow--next" aria-label="Next">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
@@ -409,12 +401,6 @@
 
 <!-- ===== WHY SHKT ===== -->
 <section class="why-section" id="technology">
-  <div class="why-bg-video" aria-hidden="true">
-    <video autoplay muted loop playsinline>
-      <source src="https://cdn.pixabay.com/video/2020/07/31/46264-446944099_large.mp4" type="video/mp4">
-    </video>
-    <div class="why-overlay"></div>
-  </div>
 
   <div class="why-inner">
     <div class="about-tag">Why SHKT?</div>
@@ -872,7 +858,8 @@
   </div>
 </section>
 
-
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="turbine3d.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

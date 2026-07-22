@@ -182,3 +182,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 })();
+
+document.querySelectorAll('.carousel-slide').forEach(slide => {
+  const videoUrl = slide.dataset.video;
+  const fallback = slide.dataset.fallback;
+  const img = slide.querySelector('img');
+  if (videoUrl && img) {
+    const thumbUrl = videoUrl.replace('/video/upload/', '/video/upload/so_1.0/')
+                             .replace(/\.[^/.]+$/, '.jpg');
+    img.src = thumbUrl;
+    img.onerror = () => {
+      if (fallback) img.src = fallback; // graceful fallback per-slide
+    };
+  }
+});
