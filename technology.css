@@ -103,7 +103,7 @@
 .tcompare-image img{
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
   display: block;
 }
 .tcompare-image-tag{
@@ -178,7 +178,7 @@
   font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 700;
-  color: #fff;
+  color: black;
   margin-bottom: 10px;
 }
 .tadv-body p{
@@ -500,7 +500,7 @@
   font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 700;
-  color: #fff;
+  color: #000000;
   margin-bottom: 8px;
 }
 .tturbine-body p{
@@ -738,7 +738,7 @@
   font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 700;
-  color: #fff;
+  color: black;
   margin-bottom: 8px;
 }
 .tturbine-body p{
@@ -853,7 +853,7 @@
   font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 700;
-  color: #fff;
+  color: #050505;
   margin-bottom: 6px;
 }
 .tmodal-info p{
@@ -1153,3 +1153,149 @@
 }
 
 
+/* ===== COMPARISON SLIDER ===== */
+.tcompare-slider{
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  height: 100%;
+  min-height: 420px;
+}
+.tcompare-slides{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.tcompare-slide{
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.7s ease-in-out;
+  z-index: 0;
+}
+.tcompare-slide.is-active{
+  opacity: 1;
+  z-index: 1;
+}
+.tcompare-slide img{
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+}
+.tcompare-dots{
+  position: absolute;
+  bottom: 72px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+.tcompare-dot{
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.35);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  padding: 0;
+}
+.tcompare-dot:hover{
+  background: rgba(255,255,255,0.7);
+}
+.tcompare-dot.is-active{
+  background: var(--cyan-bright, #5ec4e0);
+  transform: scale(1.3);
+}
+/* keep tag above dots */
+.tcompare-image-tag{
+  z-index: 2;
+}
+.tadv-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 48px;
+}
+
+.tadv-card {
+  background: #fff;
+  border: 1px solid #eceae3;
+  border-radius: 16px;
+  padding: 32px 28px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.tadv-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1a7a4c, #4fae7d);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.tadv-card:hover {
+  border-color: transparent;
+  box-shadow: 0 12px 32px rgba(20, 60, 40, 0.1);
+  transform: translateY(-4px);
+}
+
+.tadv-card:hover::before {
+  transform: scaleX(1);
+}
+
+.tadv-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.tadv-icon {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: #eaf5ef;
+  color: #1a7a4c;
+  flex-shrink: 0;
+}
+
+.tadv-num {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #c3d9cd;
+}
+
+.tadv-card h3 {
+  font-size: 19px;
+  font-weight: 700;
+  color: #14251c;
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+
+.tadv-card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #5c6b63;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .tadv-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .tadv-grid { grid-template-columns: 1fr; }
+}

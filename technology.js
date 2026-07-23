@@ -60,7 +60,28 @@ const turbineData = {
       title: '2X250 KW Turbine Unit',
       desc: 'Dual 250 kW turbine configuration for mid-scale deployment sites.',
       media: [
-        { type: 'image', src: './img/Fixed_type_surface_hydro_kinetic_turbine.png', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: '2X250 KW Turbine Unit' },
+                {
+          type: 'video',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784792160/mega_wat_level_intalation_of_shk_turbine_online-video-cutter_online-video-cutter.com_ie4gyv.mp4',
+          poster: './img/250kw-unit.png',
+          thumb: './img/250kw-unit.png',
+          caption: '2X250 KW Turbine Unit'
+        },
+        { type: 'image', src: './img/250kw-unit.png', thumb: './img/250kw-unit.png', caption: '2X250 KW Turbine Unit angle 1' },
+        { type: 'image', src: './img/250kw-unit1.png', thumb: './img/250kw-unit1.png', caption: '2X250 KW Turbine Unit angle 2' },
+        { type: 'image', src: './img/250kw-unit2.png', thumb: './img/250kw-unit2.png', caption: '2X250 KW Turbine Unit angle 3' },
+        { type: 'image', src: './img/250kw-unit3.png', thumb: './img/250kw-unit3.png', caption: '2X250 KW Turbine Unit angle 4' },
+        { type: 'image', src: './img/250kw-unit4.png', thumb: './img/250kw-unit4.png', caption: '2X250 KW Turbine Unit angle 5' },
+        { type: 'image', src: './img/250kw-unit5.png', thumb: './img/250kw-unit5.png', caption: '2X250 KW Turbine Unit angle 6' },
+        { type: 'image', src: './img/250kw-unit6.png', thumb: './img/250kw-unit6.png', caption: '2X250 KW Turbine Unit angle 7' },
+        { type: 'image', src: './img/250kw-unit7.png', thumb: './img/250kw-unit7.png', caption: '2X250 KW Turbine Unit angle 8' },
+        { type: 'image', src: './img/250kw-unit8.png', thumb: './img/250kw-unit8.png', caption: '2X250 KW Turbine Unit angle 9' },
+        { type: 'image', src: './img/250kw-unit9.png', thumb: './img/250kw-unit9.png', caption: '2X250 KW Turbine Unit angle 10' },
+        { type: 'image', src: './img/250kw-unit10.png', thumb: './img/250kw-unit10.png', caption: '2X250 KW Turbine Unit angle 11' },
+        { type: 'image', src: './img/250kw-unit11.png', thumb: './img/250kw-unit11.png', caption: '2X250 KW Turbine Unit angle 12' },                                        
+        { type: 'image', src: './img/250kw-unit12.png', thumb: './img/250kw-unit12.png', caption: '2X250 KW Turbine Unit angle 13' },
+        { type: 'image', src: './img/250kw-unit13.png', thumb: './img/250kw-unit13.png', caption: '2X250 KW Turbine Unit angle 14' },                                                
+        { type: 'image', src: './img/250kw-unit14.png', thumb: './img/250kw-unit14.png', caption: '2X250 KW Turbine Unit angle 15' },   
         {
           type: 'video',
           src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784734353/hydropower_ch3fhu.mp4',
@@ -74,6 +95,20 @@ const turbineData = {
       title: '10 KW Upper Fixed Type Turbine',
       desc: 'Compact fixed-mount turbine for smaller canals and channels.',
       media: [
+              {
+          type: 'video',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784730424/Deployment_of_Fixed_Tye_SHK_Turbine_at_Jim_Corbett_bpdvdb.mp4',
+          poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          caption: '10kw-upper-fixed'
+        },
+              {
+          type: 'video',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784732823/MOV_0030_compressed_slhmlc.mp4',
+          poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          caption: '10kw-upper-fixed'
+        },
         { type: 'image', src: './img/Fixed_type_surface_hydro_kinetic_turbine.png', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: '10 KW Upper Fixed Type Turbine' }
       ]
     },
@@ -81,14 +116,17 @@ const turbineData = {
       title: '150 KW Floating Type Turbine',
       desc: 'Floating platform turbine engineered for variable water levels.',
       media: [
-        { type: 'image', src: './img/Fixed_type_surface_hydro_kinetic_turbine.png', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: '150 KW Floating Type Turbine' },
         {
           type: 'video',
           src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784732823/MOV_0030_compressed_slhmlc.mp4',
           poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
           thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
           caption: 'SHK Floating Turbine in operation — Ramgarh'
-        }
+        },
+        { type: 'image', src: './img/Isometric_water_View.jpg', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: '150 KW Floating Type Turbine' },
+        { type: 'image', src: './img/Isometric_water_View.jpg', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: '150 KW Floating Type Turbine' },
+        { type: 'image', src: './img/Isometric_water_View.jpg', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: '150 KW Floating Type Turbine' },
+        { type: 'image', src: './img/Isometric_water_View.jpg', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: '150 KW Floating Type Turbine' },                        
       ]
     },
     'industrial-cooling-canal': {
@@ -404,4 +442,46 @@ function closeGallery(){
     if (e.key === 'ArrowLeft') stepPhoto(-1);
     if (e.key === 'ArrowRight') stepPhoto(1);
   });
+})();
+
+
+(function(){
+  const slides = document.querySelectorAll('.tcompare-slide');
+  const dotsContainer = document.getElementById('tcompareDots');
+  if (!slides.length || !dotsContainer) return;
+
+  let current = 0;
+  let timer = null;
+  const interval = 4000; // 4 seconds per slide
+
+  // build dots
+  slides.forEach((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'tcompare-dot' + (i === 0 ? ' is-active' : '');
+    btn.setAttribute('aria-label', `Go to slide ${i + 1}`);
+    btn.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(btn);
+  });
+
+  const dots = dotsContainer.querySelectorAll('.tcompare-dot');
+
+  function goTo(index){
+    slides[current].classList.remove('is-active');
+    dots[current].classList.remove('is-active');
+    current = index;
+    slides[current].classList.add('is-active');
+    dots[current].classList.add('is-active');
+    resetTimer();
+  }
+
+  function next(){
+    goTo((current + 1) % slides.length);
+  }
+
+  function resetTimer(){
+    if (timer) clearInterval(timer);
+    timer = setInterval(next, interval);
+  }
+
+  resetTimer();
 })();
