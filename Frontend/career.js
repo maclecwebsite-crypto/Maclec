@@ -165,9 +165,25 @@ function renderJobs(jobs) {
 async function loadJobs() {
   jobCount.textContent = 'Loading open positions…';
   try {
-    const res = await fetch(`${API_BASE}/jobs`);
+    const res = await fetch(`${API_BASE}/careers?status=open&limit=100`);
     if (!res.ok) throw new Error(`Request failed with ${res.status}`);
-    allJobs = await res.json();
+    const body = await res.json();
+    // Backend wraps results as { success, message, data, meta } - unwrap it
+    const rawJobs = Array.isArray(body) ? body : (body.data || []);
+    // Map backend Career fields to the shape the job cards expect
+    allJobs = rawJobs.map(job => ({
+      id: job._id || job.id,
+      title: job.title,
+      department: job.department,
+      location: job.location,
+      employmentType: job.employmentType,
+      summary: job.summary || job.description,
+      responsibilities: job.responsibilities,
+      requirements: job.requirements,
+      keywords: job.keywords || (job.skills || []).join(', '),
+      postedDate: job.postedDate,
+      externalApplyUrl: job.externalApplyUrl
+    }));
     renderJobs(allJobs);
   } catch (err) {
     console.error('Failed to load job postings', err);

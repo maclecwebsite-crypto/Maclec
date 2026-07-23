@@ -10,23 +10,68 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ===== CONTACT FORM ===== */
+const API_BASE = 'https://maclec.onrender.com/api';
+
 const contactForm = document.getElementById('contactForm');
 const contactSuccess = document.getElementById('contactSuccess');
 const contactSubmitBtn = document.getElementById('contactSubmitBtn');
 
-contactForm.addEventListener('submit', (e) => {
-  e.preventDefault();
+let contactErrorEl = null;
+function showContactError(message) {
+  if (!contactErrorEl) {
+    contactErrorEl = document.createElement('p');
+    contactErrorEl.className = 'contact-form-error';
+    contactErrorEl.style.color = '#d9534f';
+    contactErrorEl.style.marginTop = '8px';
+    contactForm.querySelector('.form-actions').insertAdjacentElement('beforebegin', contactErrorEl);
+  }
+  contactErrorEl.textContent = message;
+}
+function clearContactError() {
+  if (contactErrorEl) contactErrorEl.textContent = '';
+}
 
-  // Simulate submission
+contactForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  clearContactError();
+
   contactSubmitBtn.textContent = 'Sending...';
   contactSubmitBtn.disabled = true;
 
-  setTimeout(() => {
+  const formData = new FormData(contactForm);
+  const firstName = (formData.get('first_name') || '').toString().trim();
+  const lastName = (formData.get('last_name') || '').toString().trim();
+
+  const payload = {
+    name: `${firstName} ${lastName}`.trim(),
+    email: formData.get('email'),
+    phone: formData.get('phone') || undefined,
+    company: formData.get('organization') || undefined,
+    subject: formData.get('subject'),
+    message: formData.get('message'),
+  };
+
+  try {
+    const res = await fetch(`${API_BASE}/contact-queries`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw new Error(body.message || 'Something went wrong while sending your message.');
+    }
+
     contactForm.style.display = 'none';
     contactSuccess.style.display = 'block';
+  } catch (err) {
+    console.error('Contact form submission failed', err);
+    showContactError(err.message || 'Something went wrong. Please try again.');
+  } finally {
     contactSubmitBtn.textContent = 'Send Message';
     contactSubmitBtn.disabled = false;
-  }, 1500);
+  }
 });
 
 // Send another message
