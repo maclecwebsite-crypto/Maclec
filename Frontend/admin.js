@@ -50,6 +50,7 @@ function showAdmin() {
   adminBody.classList.add('visible');
   loadJobs();
   loadApplications();
+  loadContactQueries();
 }
 
 function logout() {
@@ -123,7 +124,6 @@ function openJobModal(job = null) {
   document.getElementById('jobSummaryInput').value = job?.summary ?? '';
   document.getElementById('jobResponsibilitiesInput').value = (job?.responsibilities || []).join('\n');
   document.getElementById('jobRequirementsInput').value = (job?.requirements || []).join('\n');
-  document.getElementById('jobKeywordsInput').value = job?.keywords ?? '';
   document.getElementById('jobActiveInput').checked = job ? job.isActive : true;
   jobModalBackdrop.classList.add('open');
 }
@@ -155,7 +155,6 @@ jobForm.addEventListener('submit', async (e) => {
     summary: document.getElementById('jobSummaryInput').value.trim(),
     responsibilities: linesToList(document.getElementById('jobResponsibilitiesInput').value),
     requirements: linesToList(document.getElementById('jobRequirementsInput').value),
-    keywords: document.getElementById('jobKeywordsInput').value.trim(),
     isActive: document.getElementById('jobActiveInput').checked
   };
 
@@ -307,6 +306,53 @@ async function loadApplications() {
     tbody.innerHTML = '';
     applications.forEach(app => tbody.appendChild(buildApplicationRow(app)));
     emptyState.style.display = applications.length === 0 ? 'block' : 'none';
+  } catch (err) {
+    showToast(err.message, true);
+  }
+}
+
+// ===== Contact Queries =====
+function buildContactRow(query) {
+  const tr = document.createElement('tr');
+  const submittedDate = new Date(query.createdAt || query.submittedAt);
+  const submittedDay = submittedDate.toLocaleDateString();
+  const submittedTime = submittedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  tr.innerHTML = `
+    <td>${submittedDay}<br><span style="color:var(--text-muted); font-size:12px;">${submittedTime}</span></td>
+    <td>${escapeHtml(query.name)}</td>
+    <td>${escapeHtml(query.email)}</td>
+    <td>${escapeHtml(query.phone) || '—'}</td>
+    <td class="message-cell">${escapeHtml(query.message) || '—'}</td>
+    <td><button class="btn btn-danger btn-sm" data-action="delete">Delete</button></td>
+  `;
+
+  tr.querySelector('[data-action="delete"]').addEventListener('click', async () => {
+    if (!confirm(`Delete the contact query from ${query.name}? This cannot be undone.`)) return;
+    try {
+      const res = await adminFetch(`/admin/contact-queries/${query.id}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error('Failed to delete contact query.');
+      showToast('Contact query deleted.');
+      loadContactQueries();
+    } catch (err) {
+      showToast(err.message, true);
+    }
+  });
+
+  return tr;
+}
+
+async function loadContactQueries() {
+  const tbody = document.getElementById('contactsTableBody');
+  const emptyState = document.getElementById('contactsEmptyState');
+  try {
+    const res = await adminFetch('/admin/contact-queries');
+    if (!res.ok) throw new Error('Failed to load contact queries.');
+    const queries = await res.json();
+
+    tbody.innerHTML = '';
+    queries.forEach(q => tbody.appendChild(buildContactRow(q)));
+    emptyState.style.display = queries.length === 0 ? 'block' : 'none';
   } catch (err) {
     showToast(err.message, true);
   }
