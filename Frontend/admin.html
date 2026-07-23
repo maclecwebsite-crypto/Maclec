@@ -35,6 +35,7 @@
   <nav class="admin-tabs">
     <button class="admin-tab-btn active" data-tab="jobs">Job Postings</button>
     <button class="admin-tab-btn" data-tab="applications">Applications</button>
+    <button class="admin-tab-btn" data-tab="contacts">Contact Queries</button>
   </nav>
 
   <!-- JOB POSTINGS PANEL -->
@@ -80,6 +81,37 @@
       </table>
     </div>
     <div class="empty-state" id="applicationsEmptyState" style="display:none;">No applications submitted yet.</div>
+  </section>
+
+  <!-- CONTACT QUERIES PANEL -->
+  <section class="admin-panel" id="contactsPanel">
+    <div class="panel-toolbar">
+      <h2>Contact Queries</h2>
+    </div>
+    <div class="applications-table-wrap">
+      <table class="applications-table">
+        <colgroup>
+          <col style="width:100px">
+          <col style="width:150px">
+          <col style="width:160px">
+          <col style="width:110px">
+          <col style="width:260px">
+          <col style="width:90px">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Submitted</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Message</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="contactsTableBody"></tbody>
+      </table>
+    </div>
+    <div class="empty-state" id="contactsEmptyState" style="display:none;">No contact queries submitted yet.</div>
   </section>
 </div>
 
@@ -138,11 +170,6 @@
   <input type="url" id="jobExternalUrlInput" placeholder="e.g. https://forms.google.com/...">
   <p class="field-hint">If set, "Apply Now" will send candidates to this link (e.g. Google Form) instead of the built-in application form.</p>
 </div>
-      <div class="form-field">
-        <label for="jobKeywordsInput">Search Keywords</label>
-        <input type="text" id="jobKeywordsInput" placeholder="e.g. mechanical design cfd turbine blade">
-        <p class="field-hint">Helps candidates find this role via the search box on the careers page.</p>
-      </div>
       <div class="form-field">
         <label><input type="checkbox" id="jobActiveInput" style="width:auto; display:inline-block; margin-right:8px;" checked>Published (visible on careers page)</label>
       </div>
