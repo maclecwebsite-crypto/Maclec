@@ -1536,17 +1536,9 @@ a{ text-decoration:none; color:inherit; }
   height: 480px;
   z-index: 2;
   pointer-events: none;
-  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(15,23,42,0.12);
 }
-.hero-3d::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(255,255,255,0.9) 100%);
-  pointer-events:none;
-}
+
 
 /* ===== ABOUT CARD ARROW ===== */
 .about-card-arrow {
