@@ -207,68 +207,155 @@ document.querySelectorAll('.carousel-slide').forEach(slide => {
   const modalTitle = document.getElementById('timelineModalTitle');
   const modalBody = document.getElementById('timelineModalBody');
 
-  const cardData = {
-    '2008': {
-      year: '2008',
-      title: 'Technology Conceptualization',
-      text: 'First floating Turbine Picture Upper Ganga Canal UP',
-      image: './img/2008-ganga-canal.jpg',   // ← replace with your image path
-      hasImage: true
-    },
-    '2014': {
-      year: '2014',
-      title: 'MACLEC Incorporated',
-      text: 'MTPL Incorporation Certificate',
-      image: './img/award_forensic_lab_assocham_ict_cert.jpg',  // ← your image
-      hasImage: true
-    },
-    '2020': {
-      year: '2020',
-      title: 'First Commercial Demonstration',
-      text: 'Add Picture of Uttrakhand – Ramanagar Image & Rajasthan Project Image',
-      image: './img/Fixed_type_surface_hydro_kinetic_turbine.png',  // ← your image
-      hasImage: true
-    },
-    '2024-cea': {
-      year: '2024',
-      title: 'CEA TRL-9 Validation',
-      text: 'CEA TRL-9 Validation',
-      fullForm: 'Central Electricity Authority',
-      hasImage: false
-    },
-    '2024-mnre': {
-      year: '2024',
-      title: 'Hydro & Small Hydro Recognition',
-      text: 'Hydro & Small Hydro Recognition by MNRE',
-      fullForm: 'Ministry of New & Renewable Energy',
-      hasImage: false
-    },
-    '2025': {
-      year: '2025+',
-      title: 'Global Commercial Expansion',
-      text: '200+ MW SHK Turbine Power Generation Projects in hand and 50+ MW SHK PSP project in hand',
-      hasImage: false
-    },
-    '2026': {
-      year: '2026',
-      title: 'DSIR Recognition',
-      text: 'DSIR Recognition (in-house R & D Recognition)',
-      fullForm: 'Department of Scientific and Industrial Research',
-      table: {
-        left: 'R & D Recognition',
-        right: '250+ MW SHK Turbine Power Generation Projects in hand and 100+ MW SHK PSP project in hand'
+const cardData = {
+  '2008': {
+    year: '2008',
+    title: 'Technology Conceptualization',
+    text: 'First floating Turbine Picture Upper Ganga Canal UP',
+    image: './img/2008-ganga-canal.jpg',
+    hasImage: true
+  },
+  '2014': {
+    year: '2014',
+    title: 'MACLEC Incorporated',
+    text: 'MTPL Incorporation Certificate',
+    image: './img/award_forensic_lab_assocham_ict_cert.jpg',
+    hasImage: true
+  },
+  '2020': {
+    year: '2020',
+    title: 'First Commercial Demonstration',
+    text: 'Add Picture of Uttrakhand – Ramanagar Image & Rajasthan Project Image',
+    image: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+    hasImage: true
+  },
+  '2024': {
+    year: '2024',
+    title: '2024 — Major Regulatory Milestones',
+    items: [
+      {
+        badge: 'CEA Report Dated Oct 21',
+        fullForm: 'Central Electricity Authority',
+        subtitle: 'Technology Readiness Level 9 Certification',
+        text: 'Certified by the Central Electricity Authority (CEA), Ministry of Power, Government of India. SHKT became one of the few renewable energy technologies in India to achieve TRL-9, confirming successful operation under actual field conditions.',
+        highlights: [
+          'Commercially proven technology',
+          'Successful field deployment confirmed',
+          'Utility-scale deployment readiness',
+          'Highest technology maturity classification'
+        ],
+        image: './img/CEA_Report.png',
+        hasImage: true,
+        reportLink: './docs/CEA_Report_DatedOct_21.pdf'
       },
-      hasImage: false
-    }
-  };
+      {
+        badge: 'CEA · Policy',
+        fullForm: 'Central Electricity Authority',
+        subtitle: 'Inclusion Under Hydro & Small Hydro Sector',
+        text: 'The Central Electricity Authority formally recognized Surface Hydrokinetic Turbine Technology within India\'s Hydro and Small Hydro Power sector—establishing SHKT as a recognized renewable energy generation technology within the national regulatory framework.',
+        highlights: [
+          'Official Hydro Power classification',
+          'National regulatory recognition',
+          'Eligibility under hydro power initiatives',
+          'Policy integration pathway established'
+        ],
+        image: './img/regonization_by_cea.png',
+        hasImage: true
+      },
+      {
+        badge: 'MNRE',
+        fullForm: 'Ministry of New & Renewable Energy, Small Hydro Power Division',
+        subtitle: 'Office Memorandum — Hydro Category Recognition',
+        text: 'The Ministry of New & Renewable Energy\'s Small Hydro Power Division issued an Office Memorandum (File No. 19/28/2024-SHP, dated 09.12.2024) forwarding the Central Electricity Authority\'s recognition of Surface Hydrokinetic Turbine (SHKT) technology under the Hydro Category, directing all State Implementing Agencies and Departments responsible for Small Hydro Power development to consider it for necessary action.',
+        highlights: [
+          'Forwarded CEA\'s Hydro Category recognition of SHKT',
+          'Directed to all State Implementing Agencies for Small Hydro Power',
+          'Aimed at driving innovation toward net-zero emission targets'
+        ],
+        image: './img/MNRE_acceptance.png',
+        hasImage: true
+      }
+    ]
+  },
+  '2025': {
+    year: '2025+',
+    title: 'Global Commercial Expansion',
+    text: '200+ MW SHK Turbine Power Generation Projects in hand and 50+ MW SHK PSP project in hand',
+    hasImage: false
+  },
+  '2026': {
+    year: '2026',
+    title: 'DSIR Recognition',
+    text: 'DSIR Recognition (in-house R & D Recognition)',
+    fullForm: 'Department of Scientific and Industrial Research',
+    table: {
+      left: 'R & D Recognition',
+      right: '250+ MW SHK Turbine Power Generation Projects in hand and 100+ MW SHK PSP project in hand'
+    },
+    hasImage: false
+  }
+};
 
-  function openModal(data) {
-    modalTitle.textContent = data.title;
+// --- Click handler ---
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    const year = card.dataset.year;
+    openModal(cardData[year]);
+  });
+});
 
-    let html = '';
+// --- Updated openModal ---
+function openModal(data) {
+  if (!data) return;
+  modalTitle.textContent = data.title;
 
-    html += `<span class="timeline-modal-year-badge">${data.year}</span>`;
+  let html = '';
+  html += `<span class="timeline-modal-year-badge">${data.year}</span>`;
 
+  // Multi-item merged view (for 2024)
+  if (data.items && data.items.length) {
+    data.items.forEach((item, idx) => {
+      html += `<div class="timeline-modal-item" style="${idx > 0 ? 'margin-top:28px; padding-top:24px; border-top:1px solid rgba(255,255,255,0.08);' : ''}">`;
+      
+      html += `<div class="timeline-badge" style="display:inline-block; margin-bottom:10px;">${item.badge}</div>`;
+      
+      if (item.fullForm) {
+        html += `<span class="full-form" style="display:block; margin-bottom:4px;">${item.fullForm}</span>`;
+      }
+      
+      html += `<h4 style="margin:0 0 10px; font-size:17px; color:#fff;">${item.subtitle}</h4>`;
+      
+      if (item.hasImage && item.image) {
+        html += `
+          <div class="timeline-modal-image" style="margin:12px 0;">
+            <img src="${item.image}" alt="${item.subtitle}" style="width:100%; border-radius:8px;">
+          </div>
+        `;
+      }
+      
+      html += `<p style="margin:0 0 12px; line-height:1.6;">${item.text}</p>`;
+      
+      if (item.highlights && item.highlights.length) {
+        html += `<ul class="timeline-highlights" style="margin:0 0 12px;">`;
+        item.highlights.forEach(h => {
+          html += `<li>${h}</li>`;
+        });
+        html += `</ul>`;
+      }
+      
+      if (item.reportLink) {
+        html += `
+          <div style="margin-top:10px;">
+            <a class="tl-btn tl-btn--outline" href="${item.reportLink}" download="MACLEC-CEA-TRL9-Report.pdf" style="display:inline-block; padding:8px 16px; border:1px solid rgba(255,255,255,0.3); border-radius:6px; color:#fff; text-decoration:none; font-size:13px;">Download Report</a>
+          </div>
+        `;
+      }
+      
+      html += `</div>`;
+    });
+  } 
+  // Single-item view (for other years)
+  else {
     if (data.hasImage && data.image) {
       html += `
         <div class="timeline-modal-image">
@@ -276,16 +363,16 @@ document.querySelectorAll('.carousel-slide').forEach(slide => {
         </div>
       `;
     }
-
+    
     html += `<div class="timeline-modal-text">`;
     html += `<p>${data.text}</p>`;
-
+    
     if (data.fullForm) {
       html += `<span class="full-form">${data.fullForm}</span>`;
     }
-
+    
     html += `</div>`;
-
+    
     if (data.table) {
       html += `
         <div class="timeline-modal-table">
@@ -296,11 +383,12 @@ document.querySelectorAll('.carousel-slide').forEach(slide => {
         </div>
       `;
     }
-
-    modalBody.innerHTML = html;
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
   }
+
+  modalBody.innerHTML = html;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
 
   function closeModal() {
     modal.classList.remove('open');
