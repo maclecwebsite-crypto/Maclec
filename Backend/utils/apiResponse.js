@@ -1,6 +1,4 @@
-/**
- * Standardized success response
- */
+
 const sendSuccess = (res, statusCode = 200, message = "Success", data = null, meta = {}) => {
   return res.status(statusCode).json({
     success: true,
@@ -10,9 +8,7 @@ const sendSuccess = (res, statusCode = 200, message = "Success", data = null, me
   });
 };
 
-/**
- * Standardized error response
- */
+
 const sendError = (res, statusCode = 500, message = "Something went wrong", errors = null) => {
   return res.status(statusCode).json({
     success: false,
