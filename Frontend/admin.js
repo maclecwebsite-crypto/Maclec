@@ -1,4 +1,4 @@
-const API_BASE = 'https://maclec.onrender.com/api';
+const API_BASE = 'https://maclec-52zi.onrender.com/api';
 
 const DEPT_LABELS = {
   engineering: 'Engineering',

@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ===== CONTACT FORM ===== */
-const API_BASE = 'https://maclec.onrender.com/api';
+const API_BASE = 'https://maclec-52zi.onrender.com/api';
 
 const contactForm = document.getElementById('contactForm');
 const contactSuccess = document.getElementById('contactSuccess');
