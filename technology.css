@@ -1108,6 +1108,38 @@
   .twhere-modal-image-wrap img{ max-height: 38vh; }
 }
 
+.twhere-modal-image-wrap video{
+  max-width: 100%;
+  max-height: 50vh;
+  width: auto;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.twhere-thumb{ position: relative; }
+.twhere-thumb video{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+.twhere-thumb:hover video{ opacity: 0.9; }
+.twhere-thumb.active video{ opacity: 1; }
+.twhere-thumb-play{
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 0.9rem;
+  background: rgba(4,10,20,0.25);
+  pointer-events: none;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }

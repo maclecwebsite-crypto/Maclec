@@ -270,10 +270,32 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = 'hidden';
   }
 
+const modalImageWrap = document.getElementById('twhere-modal-image-wrap');
+  // (remove the old `modalImage` const — no longer needed)
+
+  function isVideoFile(file){
+    return /\.(mp4|webm|mov|m4v)$/i.test(file);
+  }
+
   function renderPhoto(){
     const file = galItem.files[galPhotoIdx];
-    modalImage.src = imgSrc(galCat.folder, galItem.name, file);
-    modalImage.alt = galItem.name + ' — ' + cleanName(file);
+    const src = imgSrc(galCat.folder, galItem.name, file);
+
+    modalImageWrap.innerHTML = '';
+    if (isVideoFile(file)) {
+      const video = document.createElement('video');
+      video.src = src;
+      video.controls = true;
+      video.autoplay = true;
+      video.playsInline = true;
+      modalImageWrap.appendChild(video);
+    } else {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = galItem.name + ' — ' + cleanName(file);
+      modalImageWrap.appendChild(img);
+    }
+
     modalCount.textContent = 'Photo ' + (galPhotoIdx + 1) + ' of ' + galItem.files.length;
     modalImageName.textContent = cleanName(file);
 
@@ -288,7 +310,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const thumb = document.createElement('button');
       thumb.type = 'button';
       thumb.className = 'twhere-thumb' + (i === 0 ? ' active' : '');
-      thumb.innerHTML = `<img src="${imgSrc(galCat.folder, galItem.name, file)}" alt="${esc(cleanName(file))}" loading="lazy">`;
+      const src = imgSrc(galCat.folder, galItem.name, file);
+
+      if (isVideoFile(file)) {
+        thumb.innerHTML = `<video src="${src}" muted preload="metadata"></video><span class="twhere-thumb-play">▶</span>`;
+      } else {
+        thumb.innerHTML = `<img src="${src}" alt="${esc(cleanName(file))}" loading="lazy">`;
+      }
+
       thumb.addEventListener('click', () => {
         galPhotoIdx = i;
         renderPhoto();
@@ -297,10 +326,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function closeGallery(){
+function closeGallery(){
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    modalImageWrap.innerHTML = ''; 
   }
 
   function stepPhoto(dir){
