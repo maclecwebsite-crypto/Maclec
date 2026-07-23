@@ -1506,11 +1506,7 @@ a{ text-decoration:none; color:inherit; }
   object-fit: cover; /* this crops the video to fill the box */
 }
 
-.hero-media .hero-video,
-.hero-video {
-  object-fit: contain;
-  background: #000; /* or var(--primary) to match brand */
-}
+
 
 
 .hero-3d{
