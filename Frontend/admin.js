@@ -150,6 +150,7 @@ jobForm.addEventListener('submit', async (e) => {
     title: document.getElementById('jobTitleInput').value.trim(),
     department: document.getElementById('jobDeptInput').value,
     location: document.getElementById('jobLocationInput').value.trim(),
+    externalApplyUrl: document.getElementById('jobExternalUrlInput').value.trim() || null,
     employmentType: document.getElementById('jobTypeInput').value,
     summary: document.getElementById('jobSummaryInput').value.trim(),
     responsibilities: linesToList(document.getElementById('jobResponsibilitiesInput').value),

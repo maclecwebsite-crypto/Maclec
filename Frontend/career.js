@@ -68,7 +68,7 @@ function buildJobCard(job) {
       </div>
       <div class="job-card-footer">
         <span class="job-posted">${timeAgo(job.postedDate)}</span>
-        <button class="btn-primary apply-btn" data-job="${escapeHtml(job.title)}">Apply Now</button>
+        <button class="btn-primary apply-btn" data-job="${escapeHtml(job.title)}" data-external-url="${escapeHtml(job.externalApplyUrl || '')}">Apply Now</button>
       </div>
     </div>
     <button class="job-card-toggle" aria-label="Expand job details">
@@ -105,10 +105,15 @@ function wireJobCard(card) {
     toggleCard();
   });
 
-  card.querySelector('.apply-btn').addEventListener('click', (e) => {
-    e.stopPropagation();
+card.querySelector('.apply-btn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  const url = e.currentTarget.dataset.externalUrl;
+  if (url) {
+    window.open(url, '_blank', 'noopener');
+  } else {
     openApplyModal(e.currentTarget.dataset.job);
-  });
+  }
+});
 }
 
 function updateJobCount() {
