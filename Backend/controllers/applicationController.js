@@ -4,30 +4,47 @@ const Career = require("../models/Career");
 const { sendSuccess, sendError } = require("../utils/apiResponse");
 
 
-const createApplication = asyncHandler(async (req, res) => {
-  const { job } = req.body;
+exports.createApplication = async (req, res, next) => {
+  try {
+    const { job_title, first_name, last_name, email, phone, linkedin, portfolio, message } = req.body;
 
-  const career = await Career.findById(job);
-  if (!career) {
-    return sendError(res, 404, "The job you are applying to does not exist");
+    const resumeFile = req.files?.resume?.[0];
+    const photoFile = req.files?.photo?.[0];
+
+    if (!resumeFile) {
+      return res.status(400).json({ error: "Resume file is required." });
+    }
+    if (!photoFile) {
+      return res.status(400).json({ error: "Photo is required." });
+    }
+
+    const job = await Career.findOne({ title: job_title });
+    if (!job && job_title !== "General Application") {
+      return res.status(404).json({ error: "This position is no longer available." });
+    }
+
+    const application = await Application.create({
+      job: job ? job._id : undefined,
+      fullName: `${first_name} ${last_name}`.trim(),
+      email,
+      phone,
+      resumeUrl: resumeFile.path,   // Cloudinary secure URL
+      photoUrl: photoFile.path,     // Cloudinary secure URL
+      coverLetter: message,
+      linkedInUrl: linkedin,
+      portfolioUrl: portfolio,
+    });
+
+    if (job) {
+      job.applicationsCount = (job.applicationsCount || 0) + 1;
+      await job.save();
+    }
+
+    res.status(201).json({ success: true, data: application });
+  } catch (err) {
+    next(err);
   }
-  if (!career.isOpen) {
-    return sendError(res, 400, "This job posting is no longer accepting applications");
-  }
-
-  // Duplicate application guard (also enforced at DB level via unique index)
-  const existing = await Application.findOne({ job, email: req.body.email });
-  if (existing) {
-    return sendError(res, 409, "You have already applied for this position");
-  }
-
-  const application = await Application.create(req.body);
-
-  career.applicationsCount = (career.applicationsCount || 0) + 1;
-  await career.save();
-
-  return sendSuccess(res, 201, "Application submitted successfully", application);
-});
+};
 
 
 const getApplications = asyncHandler(async (req, res) => {

@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-/**
- * Application Schema
- * Represents a candidate's application submitted against a Career (job posting).
- */
+
 const applicationSchema = new Schema(
   {
     job: {
@@ -26,6 +23,9 @@ const applicationSchema = new Schema(
       match: [/^\S+@\S+\.\S+$/, "Please provide a valid email address"],
       index: true,
     },
+    photoUrl: {
+  type: String, // Cloudinary secure URL of the applicant's photo
+},
     phone: {
       type: String,
       required: [true, "Phone number is required"],
@@ -53,6 +53,10 @@ const applicationSchema = new Schema(
       min: 0,
       default: 0,
     },
+    externalApplyUrl: {
+  type: String,
+  trim: true,
+},
     currentCompany: {
       type: String,
       trim: true,

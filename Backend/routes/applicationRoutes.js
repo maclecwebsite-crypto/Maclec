@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const upload = require("../middleware/upload");
 
 const {
   createApplication,
@@ -10,7 +11,16 @@ const {
   deleteApplication,
 } = require("../controllers/applicationController");
 
-router.route("/").post(createApplication).get(getApplications);
+router
+  .route("/")
+  .post(
+    upload.fields([
+      { name: "resume", maxCount: 1 },
+      { name: "photo", maxCount: 1 },
+    ]),
+    createApplication
+  )
+  .get(getApplications);
 
 router.route("/:id").get(getApplicationById).put(updateApplication).delete(deleteApplication);
 
