@@ -21,7 +21,6 @@ const careerSchema = new Schema(
       type: String,
       required: [true, "Department is required"],
       trim: true,
-      // e.g. Engineering, Sales, Marketing, HR, Design, Finance
     },
     location: {
       type: String,
@@ -47,10 +46,6 @@ const careerSchema = new Schema(
       type: Number,
       min: 0,
       default: 0,
-    },
-    description: {
-      type: String,
-      required: [true, "Job description is required"],
     },
     summary: {
       type: String,
