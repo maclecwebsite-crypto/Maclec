@@ -1,19 +1,13 @@
 const { sendError } = require("../utils/apiResponse");
 
-/**
- * Catch requests to routes that don't exist
- */
+
 const notFound = (req, res, next) => {
   const error = new Error(`Route not found - ${req.originalUrl}`);
   error.statusCode = 404;
   next(error);
 };
 
-/**
- * Centralized error handler.
- * Handles Mongoose validation errors, duplicate key errors,
- * cast errors (bad ObjectIds), and generic server errors.
- */
+
 const errorHandler = (err, req, res, next) => {
   let statusCode = err.statusCode && err.statusCode !== 200 ? err.statusCode : 500;
   let message = err.message || "Internal Server Error";

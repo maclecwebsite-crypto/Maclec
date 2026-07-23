@@ -3,12 +3,7 @@ const Application = require("../models/Application");
 const Career = require("../models/Career");
 const { sendSuccess, sendError } = require("../utils/apiResponse");
 
-/**
- * @desc    Submit a new job application against a career posting
- * @route   POST /api/applications
- * @access  Public
- * Body must include: job (Career ID), fullName, email, phone, resumeUrl, ...
- */
+
 const createApplication = asyncHandler(async (req, res) => {
   const { job } = req.body;
 
@@ -34,11 +29,7 @@ const createApplication = asyncHandler(async (req, res) => {
   return sendSuccess(res, 201, "Application submitted successfully", application);
 });
 
-/**
- * @desc    Get all applications (filter by job, status, search, pagination)
- * @route   GET /api/applications
- * @access  Private (Admin/HR)
- */
+
 const getApplications = asyncHandler(async (req, res) => {
   const {
     page = 1,
@@ -82,11 +73,7 @@ const getApplications = asyncHandler(async (req, res) => {
   });
 });
 
-/**
- * @desc    Get a single application by ID
- * @route   GET /api/applications/:id
- * @access  Private (Admin/HR)
- */
+
 const getApplicationById = asyncHandler(async (req, res) => {
   const application = await Application.findById(req.params.id).populate(
     "job",
@@ -121,11 +108,7 @@ const updateApplication = asyncHandler(async (req, res) => {
   return sendSuccess(res, 200, "Application updated successfully", application);
 });
 
-/**
- * @desc    Update only the status of an application (shortlist/reject/hire/etc.)
- * @route   PATCH /api/applications/:id/status
- * @access  Private (Admin/HR)
- */
+
 const updateApplicationStatus = asyncHandler(async (req, res) => {
   const { status } = req.body;
   const allowedStatuses = [
@@ -156,11 +139,7 @@ const updateApplicationStatus = asyncHandler(async (req, res) => {
   return sendSuccess(res, 200, "Application status updated", application);
 });
 
-/**
- * @desc    Delete an application
- * @route   DELETE /api/applications/:id
- * @access  Private (Admin/HR)
- */
+
 const deleteApplication = asyncHandler(async (req, res) => {
   const application = await Application.findByIdAndDelete(req.params.id);
 

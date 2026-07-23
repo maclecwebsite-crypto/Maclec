@@ -2,11 +2,7 @@ const asyncHandler = require("express-async-handler");
 const ContactQuery = require("../models/ContactQuery");
 const { sendSuccess, sendError } = require("../utils/apiResponse");
 
-/**
- * @desc    Submit a new contact / client query
- * @route   POST /api/contact-queries
- * @access  Public
- */
+
 const createContactQuery = asyncHandler(async (req, res) => {
   const payload = {
     ...req.body,
@@ -18,12 +14,7 @@ const createContactQuery = asyncHandler(async (req, res) => {
   return sendSuccess(res, 201, "Your query has been submitted successfully", query);
 });
 
-/**
- * @desc    Get all contact/client queries (filter, search, pagination)
- * @route   GET /api/contact-queries
- * @access  Private (Admin/Support)
- * Query params: page, limit, status, queryType, priority, search
- */
+
 const getContactQueries = asyncHandler(async (req, res) => {
   const {
     page = 1,
@@ -60,11 +51,7 @@ const getContactQueries = asyncHandler(async (req, res) => {
   });
 });
 
-/**
- * @desc    Get a single contact/client query by ID
- * @route   GET /api/contact-queries/:id
- * @access  Private (Admin/Support)
- */
+
 const getContactQueryById = asyncHandler(async (req, res) => {
   const query = await ContactQuery.findById(req.params.id);
 
@@ -81,11 +68,7 @@ const getContactQueryById = asyncHandler(async (req, res) => {
   return sendSuccess(res, 200, "Query fetched successfully", query);
 });
 
-/**
- * @desc    Update a contact/client query (status, priority, notes, etc.)
- * @route   PUT /api/contact-queries/:id
- * @access  Private (Admin/Support)
- */
+
 const updateContactQuery = asyncHandler(async (req, res) => {
   const query = await ContactQuery.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
@@ -99,11 +82,7 @@ const updateContactQuery = asyncHandler(async (req, res) => {
   return sendSuccess(res, 200, "Query updated successfully", query);
 });
 
-/**
- * @desc    Respond to a contact/client query
- * @route   PATCH /api/contact-queries/:id/respond
- * @access  Private (Admin/Support)
- */
+
 const respondToContactQuery = asyncHandler(async (req, res) => {
   const { response, respondedBy } = req.body;
 
@@ -129,11 +108,7 @@ const respondToContactQuery = asyncHandler(async (req, res) => {
   return sendSuccess(res, 200, "Response saved successfully", query);
 });
 
-/**
- * @desc    Update only the status of a query (new/in-progress/resolved/closed/spam)
- * @route   PATCH /api/contact-queries/:id/status
- * @access  Private (Admin/Support)
- */
+
 const updateContactQueryStatus = asyncHandler(async (req, res) => {
   const { status } = req.body;
   const allowedStatuses = ["new", "in-progress", "resolved", "closed", "spam"];
@@ -155,11 +130,7 @@ const updateContactQueryStatus = asyncHandler(async (req, res) => {
   return sendSuccess(res, 200, "Query status updated", query);
 });
 
-/**
- * @desc    Delete a contact/client query
- * @route   DELETE /api/contact-queries/:id
- * @access  Private (Admin/Support)
- */
+
 const deleteContactQuery = asyncHandler(async (req, res) => {
   const query = await ContactQuery.findByIdAndDelete(req.params.id);
 
@@ -170,11 +141,6 @@ const deleteContactQuery = asyncHandler(async (req, res) => {
   return sendSuccess(res, 200, "Query deleted successfully");
 });
 
-/**
- * @desc    Get contact query stats (counts by status/type/priority)
- * @route   GET /api/contact-queries/stats/summary
- * @access  Private (Admin/Support)
- */
 const getContactQueryStats = asyncHandler(async (req, res) => {
   const [byStatus, byType, unreadCount, total] = await Promise.all([
     ContactQuery.aggregate([{ $group: { _id: "$status", count: { $sum: 1 } } }]),

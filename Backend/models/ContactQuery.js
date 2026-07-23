@@ -1,11 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-/**
- * ContactQuery Schema
- * Represents a message submitted through the "Contact Us" form
- * or raised by a client (general inquiry, support, sales, partnership, etc.)
- */
+
 const contactQuerySchema = new Schema(
   {
     name: {
@@ -98,7 +94,6 @@ const contactQuerySchema = new Schema(
   }
 );
 
-// Text index to support keyword search across queries
 contactQuerySchema.index({
   name: "text",
   email: "text",

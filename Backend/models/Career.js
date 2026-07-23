@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-/**
- * Career Schema
- * Represents a job posting shown on the company's "Careers" page.
- */
+
 const careerSchema = new Schema(
   {
     title: {
