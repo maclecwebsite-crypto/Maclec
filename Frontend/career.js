@@ -202,7 +202,12 @@ const applyForm = document.getElementById('applyForm');
 const applySuccess = document.getElementById('applySuccess');
 const fileInput = document.getElementById('applyResume');
 const fileName = document.getElementById('fileName');
+const photoInput = document.getElementById('applyPhoto');
+const photoFileName = document.getElementById('photoFileName');
 
+photoInput.addEventListener('change', () => {
+  photoFileName.textContent = photoInput.files.length > 0 ? photoInput.files[0].name : '';
+});
 function openApplyModal(jobTitle) {
   applyModalTitle.textContent = jobTitle;
   applyJobTitle.value = jobTitle;
@@ -212,6 +217,7 @@ function openApplyModal(jobTitle) {
   document.body.style.overflow = 'hidden';
   applyForm.reset();
   fileName.textContent = '';
+  photoFileName.textContent = '';   
   clearFormError();
 }
 

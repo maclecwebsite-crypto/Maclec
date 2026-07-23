@@ -202,6 +202,17 @@
         </div>
       </div>
       <div class="form-group">
+  <label for="applyPhoto">Upload Your Photo (JPG, PNG) *</label>
+  <div class="file-upload-wrap">
+    <input type="file" id="applyPhoto" name="photo" accept="image/png, image/jpeg, image/webp" required>
+    <div class="file-upload-display" id="photoUploadDisplay">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+      <span>Drag & drop or click to upload</span>
+    </div>
+  </div>
+  <span class="file-name" id="photoFileName"></span>
+</div>
+      <div class="form-group">
         <label for="applyEmail">Email Address *</label>
         <input type="email" id="applyEmail" name="email" required placeholder="rahul.sharma@email.com">
       </div>
