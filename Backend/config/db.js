@@ -5,8 +5,7 @@ const connectDB = async () => {
     const uri = process.env.MONGO_DB_URL || "mongodb://127.0.0.1:27017/career_contact_db";
 
     const conn = await mongoose.connect(uri, {
-      // Modern mongoose (6+/8+) no longer needs useNewUrlParser / useUnifiedTopology
-      // but they are harmless if left in for older versions.
+
     });
 
     console.log(`MongoDB Connected: ${conn.connection.host}/${conn.connection.name}`);
