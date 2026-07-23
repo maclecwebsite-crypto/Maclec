@@ -219,7 +219,7 @@ const cardData = {
     year: '2014',
     title: 'MACLEC Incorporated',
     text: 'MTPL Incorporation Certificate',
-    image: './img/award_forensic_lab_assocham_ict_cert.jpg',
+    image: './img/MCA.jpeg',
     hasImage: true
   },
   '2020': {
