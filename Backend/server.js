@@ -10,6 +10,7 @@ const { notFound, errorHandler } = require("./middleware/errorHandler");
 const careerRoutes = require("./routes/careerRoutes");
 const applicationRoutes = require("./routes/applicationRoutes");
 const contactRoutes = require("./routes/contactRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 // Connect to MongoDB
 connectDB();
@@ -38,6 +39,7 @@ app.get("/api/health", (req, res) => {
 app.use("/api/careers", careerRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/contact-queries", contactRoutes);
+app.use("/api/admin", adminRoutes);
 
 // ---- 404 + error handling (must be last) ----
 app.use(notFound);

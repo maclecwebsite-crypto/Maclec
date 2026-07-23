@@ -52,6 +52,24 @@ const careerSchema = new Schema(
       type: String,
       required: [true, "Job description is required"],
     },
+    summary: {
+      type: String,
+      trim: true,
+      maxlength: [400, "Summary cannot exceed 400 characters"],
+    },
+    keywords: {
+      type: String,
+      trim: true,
+    },
+    externalApplyUrl: {
+      type: String,
+      trim: true,
+    },
+    isActive: {
+      type: Boolean,
+      default: true,
+      index: true,
+    },
     responsibilities: {
       type: [String],
       default: [],

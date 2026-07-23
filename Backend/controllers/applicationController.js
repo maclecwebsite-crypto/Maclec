@@ -4,7 +4,7 @@ const Career = require("../models/Career");
 const { sendSuccess, sendError } = require("../utils/apiResponse");
 
 
-exports.createApplication = async (req, res, next) => {
+const createApplication = async (req, res, next) => {
   try {
     const { job_title, first_name, last_name, email, phone, linkedin, portfolio, message } = req.body;
 
