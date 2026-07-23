@@ -1915,3 +1915,210 @@ a{ text-decoration:none; color:inherit; }
     font-size: 0.72rem;
   }
 }
+
+/* Founders */
+/* ===== Founders ===== */
+.founders-wrap { margin-top: 4.5rem; }
+
+.founders-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+}
+
+.founder-card {
+  display: flex;
+  gap: 1.75rem;
+  align-items: flex-start;
+  padding: 2rem 1.75rem;
+  border-radius: 16px;
+  background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.founder-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent, #f5a623);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+}
+
+.founder-photo-wrap { position: relative; flex: 0 0 auto; }
+.founder-photo {
+  width: 120px;
+  height: 148px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid rgba(245,166,35,0.35);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.3);
+}
+.founder-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.founder-quote-mark {
+  position: absolute;
+  bottom: -14px;
+  right: -14px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--accent, #f5a623);
+  color: #1a1a1a;
+  font-family: Georgia, serif;
+  font-size: 1.4rem;
+  line-height: 1;
+  font-weight: 700;
+  box-shadow: 0 6px 16px rgba(245,166,35,0.4);
+}
+
+.founder-info { flex: 1; min-width: 0; }
+.founder-role {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent, #f5a623);
+  margin-bottom: 0.35rem;
+}
+.founder-info h3 {
+  font-size: 1.3rem;
+  margin: 0 0 0.6rem;
+  font-family: "Space Grotesk", sans-serif;
+}
+.founder-divider {
+  display: block;
+  width: 36px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--accent, #f5a623);
+  margin-bottom: 0.9rem;
+  opacity: 0.6;
+}
+.founder-info p {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  opacity: 0.85;
+}
+
+@media (max-width: 720px) {
+  .founders-grid { grid-template-columns: 1fr; }
+  .founder-card { flex-direction: column; }
+  .founder-photo { width: 100%; height: 220px; }
+  .founder-quote-mark { bottom: -14px; right: 14px; }
+}
+
+/* ===== Recognition (PIB) ===== */
+.recognition-wrap { margin-top: 4.5rem; }
+
+.recognition-card {
+  position: relative;
+  border-radius: 18px;
+  padding: 2.5rem 2.25rem;
+  background: linear-gradient(160deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-top: 3px solid var(--accent, #f5a623);
+  overflow: hidden;
+}
+
+.recognition-topline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+.recognition-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(245,166,35,0.15);
+  color: var(--accent, #f5a623);
+}
+.recognition-logos { display: flex; gap: 0.85rem; align-items: center; }
+
+.recognition-logo-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 68px;
+  padding: 0.6rem 1.1rem;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+}
+
+.recognition-logo {
+  height: 48px;
+  width: auto;
+  max-width: 100px;
+  object-fit: contain;
+  display: block;
+}
+
+@media (max-width: 480px) {
+  .recognition-logo-box { height: 52px; padding: 0.5rem 0.8rem; }
+  .recognition-logo { height: 36px; max-width: 76px; }
+}
+.recognition-source {
+  display: block;
+  font-size: 0.82rem;
+  opacity: 0.65;
+  margin-bottom: 1.25rem;
+}
+
+.recognition-card h3 {
+  font-size: 1.4rem;
+  line-height: 1.35;
+  margin: 0 0 0.5rem;
+  font-family: "Space Grotesk", sans-serif;
+}
+.recognition-subhead {
+  font-weight: 600;
+  color: var(--accent, #f5a623);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.recognition-body p {
+  font-size: 0.94rem;
+  line-height: 1.7;
+  opacity: 0.85;
+  margin-bottom: 1rem;
+}
+
+.recognition-highlight {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  margin-top: 1.5rem;
+  padding: 1.1rem 1.3rem;
+  border-radius: 12px;
+  background: rgba(245,166,35,0.08);
+  border-left: 3px solid var(--accent, #f5a623);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+.recognition-highlight-icon {
+  flex: 0 0 auto;
+  color: var(--accent, #f5a623);
+  margin-top: 2px;
+}
+
+@media (max-width: 720px) {
+  .recognition-card { padding: 1.75rem 1.5rem; }
+  .recognition-card h3 { font-size: 1.15rem; }
+}

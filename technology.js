@@ -38,31 +38,66 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
 
   // ----- Turbine gallery data -----
-  const turbineData = {
+const turbineData = {
     'canal-series': {
       title: 'SHK-50 Canal Series',
-      desc: '50 kW modular turbine engineered for irrigation canal deployment.',
+      desc: '50 kW modular turbine engineered for irrigation canal and industrial channel deployment.',
       media: [
-        { type: 'image', src: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1400&q=80', thumb: 'https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=200&q=80', caption: 'Canal installation, front view' },
-        { type: 'image', src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1400&q=80', thumb: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=200&q=80', caption: 'Irrigation canal setting' },
-        { type: 'video', src: 'https://cdn.pixabay.com/video/2020/07/31/46264-446944099_large.mp4', poster: 'https://images.unsplash.com/photo-1444858291040-58add836fa2b?w=1400&q=80', thumb: 'https://images.unsplash.com/photo-1444858291040-58add836fa2b?w=200&q=80', caption: 'Turbine in operation' }
+        { type: 'image', src: './img/Fixed_type_surface_hydro_kinetic_turbine.png', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: 'Fixed-type SHK turbine, canal installation' },
+        {
+          type: 'video',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784731898/Industrial_Cooling_Water_Canal_compressed_sttl4y.mp4',
+          poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          caption: 'SHKT deployment concept — industrial cooling water canal'
+        },
+        {
+          type: 'video',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784732823/MOV_0030_compressed_slhmlc.mp4',
+          poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          caption: 'SHK Floating Turbine in operation — Ramgarh'
+        }
       ]
     },
     'river-series': {
       title: 'SHK-100 River Series',
       desc: '100 kW turbine engineered for open river conditions.',
       media: [
-        { type: 'image', src: 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=1400&q=80', thumb: 'https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=200&q=80', caption: 'River series turbine' },
-        { type: 'image', src: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?w=1400&q=80', thumb: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?w=200&q=80', caption: 'River deployment site' },
-        { type: 'video', src: 'https://cdn.pixabay.com/video/2022/09/02/129660-746150904_large.mp4', poster: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?w=1400&q=80', thumb: 'https://images.unsplash.com/photo-1439853949127-fa647821eba0?w=200&q=80', caption: 'Turbine field footage' }
+        {
+          type: 'video',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784730424/Deployment_of_Fixed_Tye_SHK_Turbine_at_Jim_Corbett_bpdvdb.mp4',
+          poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          caption: 'Deployment of fixed-type SHK turbine — Jim Corbett'
+        },
+        {
+          type: 'video',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784734353/hydropower_ch3fhu.mp4',
+          poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          caption: 'SHK Floating Turbine — Hanumangarh, Rajasthan'
+        }
       ]
     },
     'cluster-array': {
       title: 'SHK Cluster Array',
       desc: 'Multi-unit cluster configuration for MW-scale output.',
       media: [
-        { type: 'image', src: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1400&q=80', thumb: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=200&q=80', caption: 'Cluster array modules' },
-        { type: 'image', src: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1400&q=80', thumb: 'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=200&q=80', caption: 'Large-scale installation' }
+        {
+          type: 'video',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784732823/MOV_0030_compressed_slhmlc.mp4',
+          poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          caption: 'SHK Floating Turbine cluster in operation — Ramgarh'
+        },
+        {
+          type: 'video',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784730424/Deployment_of_Fixed_Tye_SHK_Turbine_at_Jim_Corbett_bpdvdb.mp4',
+          poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          caption: 'Field deployment — Jim Corbett'
+        }
       ]
     }
   };
