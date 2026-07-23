@@ -11,6 +11,7 @@
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32-v2.png">
 <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16-v2.png">
+<base target="_blank">
 </head>
 <body class="loading">
 <div class="loading-screen" id="loadingScreen">
@@ -663,9 +664,22 @@
     <div class="industries-footer">
       <p class="industries-tagline">One Technology. Multiple Industries. Unlimited Water-Energy Possibilities.</p>
       <div class="industries-cta">
-        <a class="btn-primary" href="/atlas.html">Request a Feasibility Study</a>
-        <a class="btn-outline" href="/contact.html">Talk to MACLEC Experts</a>
-      </div>
+  <a class="btn-primary" href="/atlas.html">Request a Feasibility Study</a>
+  <a class="btn-outline" href="/contact.html">Talk to MACLEC Experts</a>
+
+  <!-- NEW: Schedule a Meeting dropdown -->
+  <div class="meeting-dropdown" id="meetingDropdown" style="position:relative; display:inline-block;">
+    <button type="button" class="btn-outline meeting-cta-btn" id="meetingCtaBtn" style="cursor:pointer;">
+      Schedule A Meeting
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left:8px; vertical-align:-2px; transition:transform 0.2s;" id="meetingCtaArrow"><path d="M6 9l6 6 6-6"/></svg>
+    </button>
+
+    <div class="meeting-dropdown-menu" id="meetingDropdownMenu" style="display:none; position:absolute; top:calc(100% + 8px); left:0; background:#fff; border:1px solid #e2e5ea; border-radius:10px; box-shadow:0 12px 30px rgba(0,0,0,0.12); overflow:hidden; min-width:200px; z-index:20;">
+      <a href="/contact.html?type=virtual" class="meeting-option-link" style="display:block; padding:12px 18px; font-size:14px; font-weight:600; color:inherit; text-decoration:none; border-bottom:1px solid #eef0f3;"> Virtual</a>
+      <a href="/contact.html?type=in-person" class="meeting-option-link" style="display:block; padding:12px 18px; font-size:14px; font-weight:600; color:inherit; text-decoration:none;">In-Person</a>
+    </div>
+  </div>
+</div>
     </div>
   </div>
 </section>
@@ -685,26 +699,28 @@
     <div class="timeline-dot"></div>
     <div class="timeline-card">
       <div class="timeline-badge timeline-badge--blue">Govt. of India</div>
-      <h3>DSIR Recognition</h3>
+      <div class="timeline-card-header-row">
+        <div class="timeline-card-title-col">
+          <span class="timeline-full-form">Department of Scientific and Industrial Research</span>
+          <h3>DSIR Recognition</h3>
+        </div>
+        <div class="timeline-card-image-col">
+          <button class="timeline-cert-thumb" 
+                  data-view-src="./img/DSIR_recognition.png"
+                  data-view-type="image"
+                  data-view-title="DSIR Recognition Certificate"
+                  aria-label="View DSIR Certificate">
+            <img src="./img/DSIR_recognition.png" alt="DSIR Recognition Certificate">
+            <span class="cert-thumb-overlay">View</span>
+          </button>
+        </div>
+      </div>
       <p>Recognized by the Department of Scientific and Industrial Research (DSIR), Ministry of Science &amp; Technology, Government of India as a Research &amp; Development Institution.</p>
       <ul class="timeline-highlights">
         <li>Government-recognized R&amp;D organization</li>
         <li>Advanced renewable energy research</li>
         <li>Technology development and innovation ecosystem</li>
       </ul>
-      <div class="timeline-actions">
-        <a class="tl-btn"
-           data-view-src="./img/DSIR_recognition.png"
-           data-view-type="image"
-           data-view-title="Startup India Certificate">
-          View Certificate
-        </a>
-        <!-- <a class="tl-btn tl-btn--outline"
-           href="./docs/startup-india-certificate.pdf"
-           download="MACLEC-StartupIndia-Certificate.pdf">
-          Download
-        </a> -->
-      </div>
     </div>
   </div>
 
@@ -713,8 +729,23 @@
     <div class="timeline-year">2024</div>
     <div class="timeline-dot timeline-dot--accent"></div>
     <div class="timeline-card timeline-card--accent">
-      <div class="timeline-badge timeline-badge--cyan">CEA · TRL-9</div>
-      <h3>Technology Readiness Level 9 Certification</h3>
+      <div class="timeline-badge timeline-badge--cyan">CEA Report Dated Oct 21</div>
+      <div class="timeline-card-header-row">
+        <div class="timeline-card-title-col">
+          <span class="timeline-full-form">Central Electricity Authority</span>
+          <h3>Technology Readiness Level 9 Certification</h3>
+        </div>
+        <div class="timeline-card-image-col">
+          <button class="timeline-cert-thumb" 
+                  data-view-src="./docs/CEA_Report_DatedOct_21.pdf"
+                  data-view-type="pdf"
+                  data-view-title="CEA Report Dated Oct 21"
+                  aria-label="View CEA Report Dated Oct 21">
+            <img src="./img/CEA_Report.png" alt="CEA Report Dated Oct 21">
+            <span class="cert-thumb-overlay">View</span>
+          </button>
+        </div>
+      </div>
       <p>Certified by the Central Electricity Authority (CEA), Ministry of Power, Government of India. SHKT became one of the few renewable energy technologies in India to achieve TRL-9, confirming successful operation under actual field conditions.</p>
       <ul class="timeline-highlights">
         <li>Commercially proven technology</li>
@@ -722,170 +753,174 @@
         <li>Utility-scale deployment readiness</li>
         <li>Highest technology maturity classification</li>
       </ul>
-      <div class="timeline-actions">
-        <a class="tl-btn"
-           data-view-src="./docs/startup-india-certificate.pdf"
-           data-view-type="image"
-           data-view-title="Startup India Certificate">
-          View Certificate
+      <div class="timeline-actions timeline-actions--report">
+        <a class="tl-btn tl-btn--outline"
+           href="./docs/CEA_Report_DatedOct_21.pdf"
+           download="MACLEC-CEA-TRL9-Report.pdf">
+          Download Report
         </a>
-        <!-- <a class="tl-btn tl-btn--outline"
-           href="./docs/startup-india-certificate.pdf"
-           download="MACLEC-StartupIndia-Certificate.pdf">
-          Download
-        </a> -->
       </div>
     </div>
   </div>
 
   <!-- 2024 Hydro Policy -->
-  <div class="timeline-item">
-    <div class="timeline-year">2024</div>
-    <div class="timeline-dot timeline-dot--accent"></div>
-    <div class="timeline-card timeline-card--accent">
-      <div class="timeline-badge timeline-badge--cyan">CEA · Policy</div>
-      <h3>Inclusion Under Hydro &amp; Small Hydro Sector</h3>
-      <p>The Central Electricity Authority formally recognized Surface Hydrokinetic Turbine Technology within India's Hydro and Small Hydro Power sector—establishing SHKT as a recognized renewable energy generation technology within the national regulatory framework.</p>
-      <ul class="timeline-highlights">
-        <li>Official Hydro Power classification</li>
-        <li>National regulatory recognition</li>
-        <li>Eligibility under hydro power initiatives</li>
-        <li>Policy integration pathway established</li>
-      </ul>
-      <div class="timeline-actions">
-        <a class="tl-btn"
-           data-view-src="./docs/startup-india-certificate.pdf"
-           data-view-type="pdf"
-           data-view-title="Startup India Certificate">
-          View Certificate
-        </a>
-        <!-- <a class="tl-btn tl-btn--outline"
-           href="./docs/startup-india-certificate.pdf"
-           download="MACLEC-StartupIndia-Certificate.pdf">
-          Download
-        </a> -->
+<div class="timeline-item">
+  <div class="timeline-year">2024</div>
+  <div class="timeline-dot timeline-dot--accent"></div>
+  <div class="timeline-card timeline-card--accent">
+    <div class="timeline-badge timeline-badge--cyan">CEA · Policy</div>
+    <div class="timeline-card-header-row">
+      <div class="timeline-card-title-col">
+        <span class="timeline-full-form">Central Electricity Authority</span>
+        <h3>Inclusion Under Hydro &amp; Small Hydro Sector</h3>
+      </div>
+      <div class="timeline-card-image-col">
+        <button class="timeline-cert-thumb"
+                data-view-src="./img/regonization_by_cea.png"
+                data-view-type="image"
+                data-view-title="CEA Hydro & Small Hydro Policy Recognition"
+                aria-label="View CEA Policy Certificate">
+          <img src="./img/regonization_by_cea.png" alt="CEA Hydro & Small Hydro Policy Recognition">
+          <span class="cert-thumb-overlay">View</span>
+        </button>
       </div>
     </div>
+    <p>The Central Electricity Authority formally recognized Surface Hydrokinetic Turbine Technology within India's Hydro and Small Hydro Power sector—establishing SHKT as a recognized renewable energy generation technology within the national regulatory framework.</p>
+    <ul class="timeline-highlights">
+      <li>Official Hydro Power classification</li>
+      <li>National regulatory recognition</li>
+      <li>Eligibility under hydro power initiatives</li>
+      <li>Policy integration pathway established</li>
+    </ul>
   </div>
+</div>
 
   <!-- 2024 MNRE -->
-  <div class="timeline-item">
-    <div class="timeline-year">2024</div>
-    <div class="timeline-dot"></div>
-    <div class="timeline-card">
-      <div class="timeline-badge timeline-badge--amber">MNRE</div>
-      <h3>Ministry of New &amp; Renewable Energy Acceptance</h3>
-      <p>MNRE acknowledged SHKT technology under the Small Hydro Power ecosystem and advised State Nodal Agencies to explore deployment opportunities.</p>
-      <ul class="timeline-highlights">
-        <li>National renewable energy recognition</li>
-        <li>State-level deployment encouragement</li>
-        <li>Alignment with India's Net Zero objectives</li>
-      </ul>
-      <div class="timeline-actions">
-        <a class="tl-btn"
-           data-view-src="./docs/startup-india-certificate.pdf"
-           data-view-type="pdf"
-           data-view-title="Startup India Certificate">
-          View Certificate
-        </a>
-        <!-- <a class="tl-btn tl-btn--outline"
-           href="./docs/startup-india-certificate.pdf"
-           download="MACLEC-StartupIndia-Certificate.pdf">
-          Download
-        </a> -->
+<div class="timeline-item">
+  <div class="timeline-year">2024</div>
+  <div class="timeline-dot"></div>
+  <div class="timeline-card">
+    <div class="timeline-badge timeline-badge--amber">MNRE</div>
+    <div class="timeline-card-header-row">
+      <div class="timeline-card-title-col">
+        <span class="timeline-full-form">Ministry of New &amp; Renewable Energy</span>
+        <h3>MNRE Acceptance</h3>
+      </div>
+      <div class="timeline-card-image-col">
+        <button class="timeline-cert-thumb"
+                data-view-src="./img/MNRE_recognition.png"
+                data-view-type="image"
+                data-view-title="MNRE Acceptance Certificate"
+                aria-label="View MNRE Certificate">
+          <img src="./img/MNRE_recognition.png" alt="MNRE Acceptance Certificate">
+          <span class="cert-thumb-overlay">View</span>
+        </button>
       </div>
     </div>
+    <p>MNRE acknowledged SHKT technology under the Small Hydro Power ecosystem and advised State Nodal Agencies to explore deployment opportunities.</p>
+    <ul class="timeline-highlights">
+      <li>National renewable energy recognition</li>
+      <li>State-level deployment encouragement</li>
+      <li>Alignment with India's Net Zero objectives</li>
+    </ul>
   </div>
+</div>
 
   <!-- 2014 -->
-  <div class="timeline-item">
-    <div class="timeline-year">2014</div>
-    <div class="timeline-dot"></div>
-    <div class="timeline-card">
-      <div class="timeline-badge timeline-badge--green">Startup India</div>
-      <h3>Startup India Recognition</h3>
-      <p>Recognized as an Innovative Technology Startup under the Government of India's flagship Startup India initiative for developing indigenous renewable energy technologies.</p>
-      <ul class="timeline-highlights">
-        <li>Indigenous technology development</li>
-        <li>Renewable energy innovation</li>
-        <li>National startup ecosystem recognition</li>
-      </ul>
-      <div class="timeline-actions">
-        <a class="tl-btn"
-           data-view-src="./docs/6_7_26_awards_and_recognitions.pdf"
-           data-view-type="pdf"
-           data-view-title="Startup India Certificate">
-          View Certificate
-        </a>
-        <!-- <a class="tl-btn tl-btn--outline"
-           href="./docs/startup-india-certificate.pdf"
-           download="MACLEC-StartupIndia-Certificate.pdf">
-          Download
-        </a> -->
+<div class="timeline-item">
+  <div class="timeline-year">2014</div>
+  <div class="timeline-dot"></div>
+  <div class="timeline-card">
+    <div class="timeline-badge timeline-badge--green">Startup India</div>
+    <div class="timeline-card-header-row">
+      <div class="timeline-card-title-col">
+        <span class="timeline-full-form">Government of India Initiative</span>
+        <h3>Startup India Recognition</h3>
+      </div>
+      <div class="timeline-card-image-col">
+        <button class="timeline-cert-thumb"
+                data-view-src="./img/startup_india_recognition.png"
+                data-view-type="image"
+                data-view-title="Startup India Recognition Certificate"
+                aria-label="View Startup India Certificate">
+          <img src="./img/startup_india_recognition.png" alt="Startup India Recognition Certificate">
+          <span class="cert-thumb-overlay">View</span>
+        </button>
       </div>
     </div>
+    <p>Recognized as an Innovative Technology Startup under the Government of India's flagship Startup India initiative for developing indigenous renewable energy technologies.</p>
+    <ul class="timeline-highlights">
+      <li>Indigenous technology development</li>
+      <li>Renewable energy innovation</li>
+      <li>National startup ecosystem recognition</li>
+    </ul>
   </div>
+</div>
 
   <!-- Academic -->
-  <div class="timeline-item">
-    <div class="timeline-year">IIT</div>
-    <div class="timeline-dot"></div>
-    <div class="timeline-card">
-      <div class="timeline-badge timeline-badge--violet">Academic</div>
-      <h3>Academic &amp; Technical Validation</h3>
-      <p>MACLEC's technology has undergone technical reviews, performance assessments, CFD validation studies and academic evaluations by leading institutions including IIT Roorkee and government research agencies.</p>
-      <ul class="timeline-highlights">
-        <li>Hydrodynamic performance assessed</li>
-        <li>Wake recovery analysis conducted</li>
-        <li>Environmental impact validated</li>
-        <li>Grid integration feasibility confirmed</li>
-      </ul>
-      <div class="timeline-actions">
-        <a class="tl-btn"
-           data-view-src="./docs/startup-india-certificate.pdf"
-           data-view-type="pdf"
-           data-view-title="Startup India Certificate">
-          View Certificate
-        </a>
-        <!-- <a class="tl-btn tl-btn--outline"
-           href="./docs/startup-india-certificate.pdf"
-           download="MACLEC-StartupIndia-Certificate.pdf">
-          Download
-        </a> -->
+<div class="timeline-item">
+  <div class="timeline-year">IIT</div>
+  <div class="timeline-dot"></div>
+  <div class="timeline-card">
+    <div class="timeline-badge timeline-badge--violet">Academic</div>
+    <div class="timeline-card-header-row">
+      <div class="timeline-card-title-col">
+        <span class="timeline-full-form">Indian Institute of Technology Roorkee</span>
+        <h3>Academic &amp; Technical Validation</h3>
+      </div>
+      <div class="timeline-card-image-col">
+        <button class="timeline-cert-thumb"
+                data-view-src="./img/award_ajay_bhatt_dhami_inauguration.jpg"
+                data-view-type="image"
+                data-view-title="IIT Roorkee Technical Validation"
+                aria-label="View Academic Validation Certificate">
+          <img src="./img/award_ajay_bhatt_dhami_inauguration.jpg" alt="IIT Roorkee Technical Validation">
+          <span class="cert-thumb-overlay">View</span>
+        </button>
       </div>
     </div>
+    <p>MACLEC's technology has undergone technical reviews, performance assessments, CFD validation studies and academic evaluations by leading institutions including IIT Roorkee and government research agencies.</p>
+    <ul class="timeline-highlights">
+      <li>Hydrodynamic performance assessed</li>
+      <li>Wake recovery analysis conducted</li>
+      <li>Environmental impact validated</li>
+      <li>Grid integration feasibility confirmed</li>
+    </ul>
   </div>
+</div>
 
   <!-- International -->
-  <div class="timeline-item">
-    <div class="timeline-year">🌐</div>
-    <div class="timeline-dot"></div>
-    <div class="timeline-card">
-      <div class="timeline-badge timeline-badge--magenta">International</div>
-      <h3>International Recognition</h3>
-      <p>MACLEC's pioneering work in hydrokinetic energy has been acknowledged and showcased by several international organizations, innovation platforms and sustainability initiatives worldwide.</p>
-      <ul class="timeline-highlights">
-        <li>NASA Innovation Platforms</li>
-        <li>European Union Innovation Ecosystems</li>
-        <li>United Nations Development Programme (UNDP)</li>
-        <li>World Wide Fund for Nature (WWF)</li>
-        <li>BRICS Innovation Platforms</li>
-      </ul>
-      <div class="timeline-actions">
-        <a class="tl-btn"
-           data-view-src="./docs/startup-india-certificate.pdf"
-           data-view-type="pdf"
-           data-view-title="Startup India Certificate">
-          View Certificate
-        </a>
-        <!-- <a class="tl-btn tl-btn--outline"
-           href="./docs/startup-india-certificate.pdf"
-           download="MACLEC-StartupIndia-Certificate.pdf">
-          Download
-        </a> -->
+<div class="timeline-item">
+  <div class="timeline-year">🌐</div>
+  <div class="timeline-dot"></div>
+  <div class="timeline-card">
+    <div class="timeline-badge timeline-badge--magenta">International</div>
+    <div class="timeline-card-header-row">
+      <div class="timeline-card-title-col">
+        <span class="timeline-full-form">Global Innovation &amp; Sustainability Platforms</span>
+        <h3>International Recognition</h3>
+      </div>
+      <div class="timeline-card-image-col">
+        <button class="timeline-cert-thumb"
+                data-view-src="./img/international_recognition.png"
+                data-view-type="image"
+                data-view-title="International Recognition"
+                aria-label="View International Recognition">
+          <img src="./img/international_recognition.png" alt="International Recognition">
+          <span class="cert-thumb-overlay">View</span>
+        </button>
       </div>
     </div>
+    <p>MACLEC's pioneering work in hydrokinetic energy has been acknowledged and showcased by several international organizations, innovation platforms and sustainability initiatives worldwide.</p>
+    <ul class="timeline-highlights">
+      <li>NASA Innovation Platforms</li>
+      <li>European Union Innovation Ecosystems</li>
+      <li>United Nations Development Programme (UNDP)</li>
+      <li>World Wide Fund for Nature (WWF)</li>
+      <li>BRICS Innovation Platforms</li>
+    </ul>
   </div>
+</div>
 
 </div>
 

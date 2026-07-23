@@ -323,3 +323,35 @@ document.querySelectorAll('.carousel-slide').forEach(slide => {
     }
   });
 })();
+
+
+
+// --- SCHEDULE A MEETING DROPDOWN ---
+(function () {
+  const btn = document.getElementById('meetingCtaBtn');
+  const menu = document.getElementById('meetingDropdownMenu');
+  const arrow = document.getElementById('meetingCtaArrow');
+  const wrap = document.getElementById('meetingDropdown');
+
+  if (!btn || !menu) return;
+
+  function closeMenu() {
+    menu.style.display = 'none';
+    arrow.style.transform = 'rotate(0deg)';
+  }
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = menu.style.display === 'block';
+    menu.style.display = isOpen ? 'none' : 'block';
+    arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!wrap.contains(e.target)) closeMenu();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+})();
