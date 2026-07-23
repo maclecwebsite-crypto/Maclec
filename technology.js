@@ -37,20 +37,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ----- Turbine gallery data -----
 const turbineData = {
-    'canal-series': {
-      title: 'SHK-50 Canal Series',
-      desc: '50 kW modular turbine engineered for irrigation canal and industrial channel deployment.',
+'1mw-unit': {
+      title: '1 MW SHK Turbine Unit',
+      desc: 'Utility-scale single-unit turbine engineered for MW-level output.',
       media: [
-        { type: 'image', src: './img/Fixed_type_surface_hydro_kinetic_turbine.png', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: 'Fixed-type SHK turbine, canal installation' },
         {
           type: 'video',
-          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784731898/Industrial_Cooling_Water_Canal_compressed_sttl4y.mp4',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784713791/1_MW_SHK_turbine_unit_compressed_aalgnk.mp4',
+          poster: './img/anemometer_lights_cctv.0001.00_00_00_00.Still003.png',
+          thumb: './img/anemometer_lights_cctv.0001.00_00_00_00.Still003.png',
+          caption: '1 MW SHK Turbine Unit — field footage'
+        },
+        { type: 'image', src: './img/anemometer_lights_cctv.0001.00_00_00_00.Still003.png', thumb: './img/anemometer_lights_cctv.0001.00_00_00_00.Still003.png', caption: '1 MW SHK Turbine Unit — overhead view with anemometer & CCTV' },
+        { type: 'image', src: './img/anemometer_lights_cctv.0001.00_00_02_26.Still004.png', thumb: './img/anemometer_lights_cctv.0001.00_00_02_26.Still004.png', caption: '1 MW SHK Turbine Unit — deployment angle 2' },
+        { type: 'image', src: './img/anemometer_lights_cctv.0001.00_00_04_20.Still007.png', thumb: './img/anemometer_lights_cctv.0001.00_00_04_20.Still007.png', caption: '1 MW SHK Turbine Unit — deployment angle 3' },
+        { type: 'image', src: './img/anemometer_lights_cctv.0001.00_00_05_19.Still010.png', thumb: './img/anemometer_lights_cctv.0001.00_00_05_19.Still010.png', caption: '1 MW SHK Turbine Unit — deployment angle 4' },
+        { type: 'image', src: './img/anemometer_lights_cctv.0001.00_00_06_11.Still011.png', thumb: './img/anemometer_lights_cctv.0001.00_00_06_11.Still011.png', caption: '1 MW SHK Turbine Unit — deployment angle 5' },
+      ]
+    },
+    '2x250kw-unit': {
+      title: '2X250 KW Turbine Unit',
+      desc: 'Dual 250 kW turbine configuration for mid-scale deployment sites.',
+      media: [
+        { type: 'image', src: './img/Fixed_type_surface_hydro_kinetic_turbine.png', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: '2X250 KW Turbine Unit' },
+        {
+          type: 'video',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784734353/hydropower_ch3fhu.mp4',
           poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
           thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
-          caption: 'SHKT deployment concept — industrial cooling water canal'
-        },
+          caption: '2X250 KW turbine — field footage'
+        }
+      ]
+    },
+    '10kw-upper-fixed': {
+      title: '10 KW Upper Fixed Type Turbine',
+      desc: 'Compact fixed-mount turbine for smaller canals and channels.',
+      media: [
+        { type: 'image', src: './img/Fixed_type_surface_hydro_kinetic_turbine.png', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: '10 KW Upper Fixed Type Turbine' }
+      ]
+    },
+    '150kw-floating': {
+      title: '150 KW Floating Type Turbine',
+      desc: 'Floating platform turbine engineered for variable water levels.',
+      media: [
+        { type: 'image', src: './img/Fixed_type_surface_hydro_kinetic_turbine.png', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: '150 KW Floating Type Turbine' },
         {
           type: 'video',
           src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784732823/MOV_0030_compressed_slhmlc.mp4',
@@ -60,44 +91,25 @@ const turbineData = {
         }
       ]
     },
-    'river-series': {
-      title: 'SHK-100 River Series',
-      desc: '100 kW turbine engineered for open river conditions.',
+    'industrial-cooling-canal': {
+      title: 'Industrial Cooling Water Canal SHK Turbine Unit',
+      desc: 'Turbine unit purpose-built for thermal plant cooling water channels.',
       media: [
+        { type: 'image', src: './img/Fixed_type_surface_hydro_kinetic_turbine.png', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: 'Industrial Cooling Water Canal SHK Turbine Unit' },
         {
           type: 'video',
-          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784730424/Deployment_of_Fixed_Tye_SHK_Turbine_at_Jim_Corbett_bpdvdb.mp4',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784731898/Industrial_Cooling_Water_Canal_compressed_sttl4y.mp4',
           poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
           thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
-          caption: 'Deployment of fixed-type SHK turbine — Jim Corbett'
-        },
-        {
-          type: 'video',
-          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784734353/hydropower_ch3fhu.mp4',
-          poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
-          thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
-          caption: 'SHK Floating Turbine — Hanumangarh, Rajasthan'
+          caption: 'Deployment — industrial cooling water canal'
         }
       ]
     },
-    'cluster-array': {
-      title: 'SHK Cluster Array',
-      desc: 'Multi-unit cluster configuration for MW-scale output.',
+    'low-head-psp': {
+      title: 'Low Head (2mtr – 10mtr head) SHK PSP System',
+      desc: 'Pumped storage system engineered for low-head sites between 2m and 10m.',
       media: [
-        {
-          type: 'video',
-          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784732823/MOV_0030_compressed_slhmlc.mp4',
-          poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
-          thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
-          caption: 'SHK Floating Turbine cluster in operation — Ramgarh'
-        },
-        {
-          type: 'video',
-          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784730424/Deployment_of_Fixed_Tye_SHK_Turbine_at_Jim_Corbett_bpdvdb.mp4',
-          poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
-          thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
-          caption: 'Field deployment — Jim Corbett'
-        }
+        { type: 'image', src: './img/Fixed_type_surface_hydro_kinetic_turbine.png', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: 'Low Head SHK PSP System' }
       ]
     }
   };

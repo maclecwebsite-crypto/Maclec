@@ -922,14 +922,14 @@
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.12);
   background: transparent;
-  color: var(--muted);
+  color: black;
   font-family: var(--font-display);
   font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
-.twhere-tab:hover{ border-color: rgba(94,196,224,0.35); color: #fff; }
+.twhere-tab:hover{ border-color: rgba(94,196,224,0.35); color: rgb(0, 204, 255); }
 .twhere-tab.active{
   background: var(--cyan);
   border-color: var(--cyan);
