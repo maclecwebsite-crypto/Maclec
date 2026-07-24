@@ -210,7 +210,7 @@ const cardData = {
   '2020': {
     year: '2020',
     title: 'First Commercial Demonstration',
-    text: 'Add Picture of Uttrakhand – Ramanagar Image & Rajasthan Project Image',
+    text: 'Uttrakhand – Ramanagar Image & Rajasthan Project Image',
     image: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
     hasImage: true
   },
