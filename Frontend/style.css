@@ -130,7 +130,7 @@ a{ text-decoration:none; color:inherit; }
 }
 
 .main-nav a{
-  color: var(--text-secondary);
+  color: #ef7f1b;
   transition: color 0.2s;
   white-space: nowrap;
 }
