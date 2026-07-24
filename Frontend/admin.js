@@ -354,6 +354,6 @@ async function loadContactQueries() {
     queries.forEach(q => tbody.appendChild(buildContactRow(q)));
     emptyState.style.display = queries.length === 0 ? 'block' : 'none';
   } catch (err) {
-    showToast(err.message, true);
+    showToast(err.message, true); 
   }
 }
