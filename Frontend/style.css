@@ -85,6 +85,7 @@ a{ text-decoration:none; color:inherit; }
   top:0; left:0; right:0;
   z-index: 50;
   padding: 18px 0;
+  background-color: white;
 }
 
 .header-inner{
@@ -94,6 +95,7 @@ a{ text-decoration:none; color:inherit; }
   align-items:center;
   gap: 32px;
   padding: 0 32px;
+  background-color: white;
 }
 
 .logo-text{
