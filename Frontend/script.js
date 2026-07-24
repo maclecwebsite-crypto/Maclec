@@ -15,31 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (toggle && nav) {
     toggle.addEventListener('click', () => {
-      const isOpen = nav.classList.toggle('open');
+      const isOpen = nav.classList.toggle('mobile-open');
       toggle.setAttribute('aria-expanded', isOpen);
-
-      if (isOpen) {
-        nav.style.display = 'flex';
-        nav.style.flexDirection = 'column';
-        nav.style.position = 'absolute';
-        nav.style.top = '100%';
-        nav.style.left = '0';
-        nav.style.right = '0';
-        nav.style.background = 'rgba(6,13,23,0.97)';
-        nav.style.padding = '20px 24px';
-        nav.style.gap = '16px';
-      } else {
-        nav.style.display = 'none';
-      }
     });
   }
 
   // Close mobile nav after clicking a link
   document.querySelectorAll('.main-nav a').forEach(link => {
     link.addEventListener('click', () => {
-      if (window.innerWidth <= 1100 && nav.classList.contains('open')) {
-        nav.classList.remove('open');
-        nav.style.display = 'none';
+      if (window.innerWidth <= 1100 && nav.classList.contains('mobile-open')) {
+        nav.classList.remove('mobile-open');
         toggle.setAttribute('aria-expanded', 'false');
       }
     });

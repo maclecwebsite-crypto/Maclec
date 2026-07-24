@@ -2,7 +2,7 @@
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: white;
+    background: var(--bg);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -15,7 +15,7 @@
     pointer-events: none;
   }
   .loading-logo {
-    width: 400px;
+    width: min(400px, 60vw);
     height: auto;
     animation: loadingPulse 2s ease-in-out forwards;
   }
@@ -60,6 +60,10 @@
   
   --font-display: "Space Grotesk", sans-serif;
   --font-body: "Manrope", sans-serif;
+
+  /* Accent used by technology/feasibility/projects pages for active nav
+     states, highlighted borders, and callouts on dark sections */
+  --cyan-bright: #5ec4e0;
 }
 
 *{ margin:0; padding:0; box-sizing:border-box; }
@@ -81,7 +85,6 @@ a{ text-decoration:none; color:inherit; }
   top:0; left:0; right:0;
   z-index: 50;
   padding: 18px 0;
-  background-color: antiquewhite;
 }
 
 .header-inner{
@@ -185,6 +188,30 @@ a{ text-decoration:none; color:inherit; }
   height:2px;
   background: var(--primary);
   border-radius:1px;
+}
+
+/* Mobile nav dropdown panel - shown when hamburger is toggled open.
+   Only takes effect below the breakpoint where .main-nav is hidden. */
+@media (max-width: 1100px) {
+  .main-nav.mobile-open {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg-surface, #ffffff);
+    padding: 20px 24px;
+    gap: 16px;
+    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+    border-top: 1px solid var(--border);
+  }
+  .main-nav.mobile-open a { white-space: normal; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .nav-toggle span { transition: transform 0.2s ease, opacity 0.2s ease; }
 }
 
 /* ===== HERO ===== */
@@ -2110,4 +2137,77 @@ a{ text-decoration:none; color:inherit; }
 @media (max-width: 720px) {
   .recognition-card { padding: 1.75rem 1.5rem; }
   .recognition-card h3 { font-size: 1.15rem; }
+}
+/* ===== SITE FOOTER =====
+   Kept in sync with career.css / contact.css / gallery.css so the footer
+   looks and behaves identically on every page of the site. */
+.site-footer {
+  background: var(--text);
+  color: rgba(255,255,255,0.7);
+  padding: 60px 40px 24px;
+}
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 48px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.footer-brand {
+  flex: 0 0 220px;
+}
+.footer-logo {
+  width: 140px;
+  height: auto;
+  margin-bottom: 12px;
+  filter: brightness(0) invert(1);
+  opacity: 0.9;
+}
+.footer-brand p {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.05em;
+}
+.footer-links {
+  display: flex;
+  gap: 64px;
+  flex-wrap: wrap;
+}
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer-col strong {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.footer-col a {
+  font-size: 0.84rem;
+  color: rgba(255,255,255,0.6);
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--energy-light); }
+.footer-bottom {
+  max-width: 1280px;
+  margin: 0 auto;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 20px;
+  text-align: center;
+}
+.footer-bottom p {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.4);
+}
+
+@media (max-width: 768px) {
+  .footer-inner { flex-direction: column; gap: 32px; }
+  .footer-links { gap: 40px; }
 }

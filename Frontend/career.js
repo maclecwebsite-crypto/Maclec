@@ -1,4 +1,4 @@
-const API_BASE = 'https://maclec-52zi.onrender.com/api';
+const API_BASE = 'https://maclec.onrender.com/api';
 
 const DEPT_LABELS = {
   engineering: 'Engineering',
@@ -126,23 +126,20 @@ function updateJobCount() {
 function filterJobs() {
   const activeDept = document.querySelector('.job-filter-btn.active')?.dataset.dept || 'all';
   const searchTerm = searchInput.value.toLowerCase().trim();
-  const searchWords = searchTerm.split(/\s+/).filter(Boolean);
 
   document.querySelectorAll('.job-card').forEach(card => {
     const dept = card.dataset.dept;
-    const keywords = (card.dataset.keywords || '').toLowerCase();
+    const keywords = card.dataset.keywords || '';
     const title = card.querySelector('.job-card-title').textContent.toLowerCase();
     const summary = card.querySelector('.job-card-summary').textContent.toLowerCase();
     const location = card.querySelector('.job-card-location').textContent.toLowerCase();
-    const responsibilities = card.querySelector('.job-detail-col:nth-child(1) ul')?.textContent.toLowerCase() || '';
-    const requirements = card.querySelector('.job-detail-col:nth-child(2) ul')?.textContent.toLowerCase() || '';
-    const employmentType = card.querySelector('.job-card-type')?.textContent.toLowerCase() || '';
-
-    const haystack = [title, summary, keywords, location, responsibilities, requirements, employmentType].join(' ');
 
     const matchesDept = activeDept === 'all' || dept === activeDept;
-    const matchesSearch = searchWords.length === 0 ||
-      searchWords.every(word => haystack.includes(word));
+    const matchesSearch = !searchTerm ||
+      title.includes(searchTerm) ||
+      summary.includes(searchTerm) ||
+      keywords.includes(searchTerm) ||
+      location.includes(searchTerm);
 
     if (matchesDept && matchesSearch) {
       card.classList.remove('hidden');
