@@ -330,7 +330,7 @@ function buildContactRow(query) {
   tr.querySelector('[data-action="delete"]').addEventListener('click', async () => {
     if (!confirm(`Delete the contact query from ${query.name}? This cannot be undone.`)) return;
     try {
-      const res = await adminFetch(`/admin/contact-queries/${query.id}`, { method: 'DELETE' });
+      const res = await adminFetch(`/contact-queries/${query.id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Failed to delete contact query.');
       showToast('Contact query deleted.');
       loadContactQueries();
