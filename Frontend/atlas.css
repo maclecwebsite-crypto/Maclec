@@ -14,7 +14,37 @@
   background: radial-gradient(ellipse at 30% 50%, rgba(247,249,252,0.55) 0%, rgba(247,249,252,0.92) 65%),
               linear-gradient(180deg, rgba(247,249,252,0.4) 0%, rgba(255,255,255,0.95) 100%);
 }
-
+.site-header{
+  position: absolute;
+  top:0; left:0; right:0;
+  z-index: 50;
+  padding: 18px 0;
+}
+.btn-contact-nav{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  background-color: #b91c03;
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 11px 22px;
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(42,59,126,0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.header-inner{
+  max-width: 1480px;
+  margin: 0 auto;
+  display:flex;
+  align-items:center;
+  gap: 32px;
+  padding: 0 32px;
+}
 .atlas-globe-stage{
   position: absolute;
   right: -2%;
