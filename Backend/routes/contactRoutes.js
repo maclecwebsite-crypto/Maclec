@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+const { requireAdmin } = require("../middleware/adminAuth");
 const {
   createContactQuery,
   getContactQueries,
@@ -12,10 +13,14 @@ const {
   getContactQueryStats,
 } = require("../controllers/contactController");
 
-// Stats route must come before the dynamic ":id" route
+// Public: anyone can submit the contact form
+router.post("/", createContactQuery);
+
+router.use(requireAdmin);
+
 router.get("/stats/summary", getContactQueryStats);
 
-router.route("/").post(createContactQuery).get(getContactQueries);
+router.get("/", getContactQueries);
 
 router.route("/:id").get(getContactQueryById).put(updateContactQuery).delete(deleteContactQuery);
 
