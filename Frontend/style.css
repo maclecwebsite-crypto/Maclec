@@ -2219,3 +2219,49 @@ a{ text-decoration:none; color:inherit; }
     background: #000;
   }
 }
+
+@media (max-width: 640px){
+  .hero{
+    min-height: unset;
+    height: auto;
+  }
+
+  .hero-media{
+    position: relative; /* no longer absolute/inset:0 on mobile */
+    height: auto;
+  }
+
+  .hero-media .hero-video{
+    position: relative; /* not absolute */
+    inset: auto;
+    width: 100%;
+    height: auto;        /* let it size to its own aspect ratio */
+    object-fit: initial; /* not needed once it's sized naturally */
+    display: block;
+  }
+
+  .hero-overlay,
+  .hero-water-ripple{
+    display: none; /* these were sized for a full-bleed absolute video; not needed once video is inline-sized */
+  }
+}
+
+@media (max-width: 640px){
+  .hero-video-fallback{
+    display: none;
+  }
+}
+
+.header-inner{
+  max-width: 1480px;
+  margin: 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content: space-between; /* add this line */
+  gap: 32px;
+  padding: 0 32px;
+}
+
+@media (min-width: 300px) and (max-width: 750px){
+  .nav-toggle{ width: 20px;}
+}
