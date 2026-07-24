@@ -215,54 +215,54 @@ const cardData = {
     image: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
     hasImage: true
   },
-  '2024': {
-    year: '2024',
-    title: '2024 — Major Regulatory Milestones',
-    items: [
-      {
-        badge: 'CEA Report Dated Oct 21',
-        fullForm: 'Central Electricity Authority',
-        subtitle: 'Technology Readiness Level 9 Certification',
-        text: 'Certified by the Central Electricity Authority (CEA), Ministry of Power, Government of India. SHKT became one of the few renewable energy technologies in India to achieve TRL-9, confirming successful operation under actual field conditions.',
-        highlights: [
-          'Commercially proven technology',
-          'Successful field deployment confirmed',
-          'Utility-scale deployment readiness',
-          'Highest technology maturity classification'
-        ],
-        image: './img/CEA_Report.png',
-        hasImage: true,
-        reportLink: './docs/CEA_Report_DatedOct_21.pdf'
-      },
-      {
-        badge: 'CEA · Policy',
-        fullForm: 'Central Electricity Authority',
-        subtitle: 'Inclusion Under Hydro & Small Hydro Sector',
-        text: 'The Central Electricity Authority formally recognized Surface Hydrokinetic Turbine Technology within India\'s Hydro and Small Hydro Power sector—establishing SHKT as a recognized renewable energy generation technology within the national regulatory framework.',
-        highlights: [
-          'Official Hydro Power classification',
-          'National regulatory recognition',
-          'Eligibility under hydro power initiatives',
-          'Policy integration pathway established'
-        ],
-        image: './img/regonization_by_cea.png',
-        hasImage: true
-      },
-      {
-        badge: 'MNRE',
-        fullForm: 'Ministry of New & Renewable Energy, Small Hydro Power Division',
-        subtitle: 'Office Memorandum — Hydro Category Recognition',
-        text: 'The Ministry of New & Renewable Energy\'s Small Hydro Power Division issued an Office Memorandum (File No. 19/28/2024-SHP, dated 09.12.2024) forwarding the Central Electricity Authority\'s recognition of Surface Hydrokinetic Turbine (SHKT) technology under the Hydro Category, directing all State Implementing Agencies and Departments responsible for Small Hydro Power development to consider it for necessary action.',
-        highlights: [
-          'Forwarded CEA\'s Hydro Category recognition of SHKT',
-          'Directed to all State Implementing Agencies for Small Hydro Power',
-          'Aimed at driving innovation toward net-zero emission targets'
-        ],
-        image: './img/MNRE_acceptance.png',
-        hasImage: true
-      }
-    ]
-  },
+  // '2024': {
+  //   year: '2024',
+  //   title: '2024 — Major Regulatory Milestones',
+  //   items: [
+  //     {
+  //       badge: 'CEA Report Dated Oct 21',
+  //       fullForm: 'Central Electricity Authority',
+  //       subtitle: 'Technology Readiness Level 9 Certification',
+  //       text: 'Certified by the Central Electricity Authority (CEA), Ministry of Power, Government of India. SHKT became one of the few renewable energy technologies in India to achieve TRL-9, confirming successful operation under actual field conditions.',
+  //       highlights: [
+  //         'Commercially proven technology',
+  //         'Successful field deployment confirmed',
+  //         'Utility-scale deployment readiness',
+  //         'Highest technology maturity classification'
+  //       ],
+  //       image: './img/CEA_Report.png',
+  //       hasImage: true,
+  //       reportLink: './docs/CEA_Report_DatedOct_21.pdf'
+  //     },
+  //     {
+  //       badge: 'CEA · Policy',
+  //       fullForm: 'Central Electricity Authority',
+  //       subtitle: 'Inclusion Under Hydro & Small Hydro Sector',
+  //       text: 'The Central Electricity Authority formally recognized Surface Hydrokinetic Turbine Technology within India\'s Hydro and Small Hydro Power sector—establishing SHKT as a recognized renewable energy generation technology within the national regulatory framework.',
+  //       highlights: [
+  //         'Official Hydro Power classification',
+  //         'National regulatory recognition',
+  //         'Eligibility under hydro power initiatives',
+  //         'Policy integration pathway established'
+  //       ],
+  //       image: './img/regonization_by_cea.png',
+  //       hasImage: true
+  //     },
+  //     {
+  //       badge: 'MNRE',
+  //       fullForm: 'Ministry of New & Renewable Energy, Small Hydro Power Division',
+  //       subtitle: 'Office Memorandum — Hydro Category Recognition',
+  //       text: 'The Ministry of New & Renewable Energy\'s Small Hydro Power Division issued an Office Memorandum (File No. 19/28/2024-SHP, dated 09.12.2024) forwarding the Central Electricity Authority\'s recognition of Surface Hydrokinetic Turbine (SHKT) technology under the Hydro Category, directing all State Implementing Agencies and Departments responsible for Small Hydro Power development to consider it for necessary action.',
+  //       highlights: [
+  //         'Forwarded CEA\'s Hydro Category recognition of SHKT',
+  //         'Directed to all State Implementing Agencies for Small Hydro Power',
+  //         'Aimed at driving innovation toward net-zero emission targets'
+  //       ],
+  //       image: './img/MNRE_acceptance.png',
+  //       hasImage: true
+  //     }
+  //   ]
+  // },
   '2025': {
     year: '2025',
     title: 'Global Commercial Expansion',
