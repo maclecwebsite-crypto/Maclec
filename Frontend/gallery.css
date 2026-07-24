@@ -33,6 +33,11 @@
   box-shadow: 0 6px 18px rgba(42,59,126,0.25);
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
+.main-nav a{
+  color: #ef7f1b;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
 .header-inner{
   max-width: 1480px;
   margin: 0 auto;

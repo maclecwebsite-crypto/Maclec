@@ -14,6 +14,11 @@
   align-items: center;
   overflow: hidden;
 }
+.main-nav a{
+  color: #ef7f1b;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
 .btn-contact-nav{
   display: inline-flex;
   align-items: center;
