@@ -346,7 +346,7 @@ async function loadContactQueries() {
   const tbody = document.getElementById('contactsTableBody');
   const emptyState = document.getElementById('contactsEmptyState');
   try {
-    const res = await adminFetch('/admin/contact-queries');
+    const res = await adminFetch('/contact-queries');
     if (!res.ok) throw new Error('Failed to load contact queries.');
     const queries = await res.json();
 
