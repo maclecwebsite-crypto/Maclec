@@ -2518,3 +2518,37 @@ a{ text-decoration:none; color:inherit; }
     animation: none;
   }
 }
+
+.btn-contact-nav{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 11px 22px;
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(42,59,126,0.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.btn-contact-nav svg{
+  transition: transform 0.2s ease;
+}
+.btn-contact-nav:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(42,59,126,0.32);
+}
+.btn-contact-nav:hover svg{
+  transform: translateX(3px);
+}
+
+@media (max-width: 1100px){
+  .btn-contact-nav{
+    display: none; /* hidden on mobile; hamburger menu takes over */
+  }
+}
