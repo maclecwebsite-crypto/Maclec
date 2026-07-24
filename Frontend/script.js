@@ -6,6 +6,7 @@
     setTimeout(function() {
       loader.classList.add('done');
       body.classList.remove('loading');
+       document.dispatchEvent(new Event('siteReady'));
     }, 2000);
   })();
 
@@ -122,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fileModal.classList.add('open');
   }
-
+window.openFileModal = openFileModal;
   function closeFileModal() {
     fileModal.classList.remove('open');
     fileModalBody.innerHTML = '';
@@ -197,7 +198,7 @@ const cardData = {
     year: '2008',
     title: 'Technology Conceptualization',
     text: 'First floating Turbine Picture Upper Ganga Canal UP',
-    image: './img/2008-ganga-canal.jpg',
+    image: './img/easy_install.png',
     hasImage: true
   },
   '2014': {
@@ -268,17 +269,18 @@ const cardData = {
     text: '200+ MW SHK Turbine Power Generation Projects in hand and 50+ MW SHK PSP project in hand',
     hasImage: false
   },
-  '2026': {
+ '2026': {
     year: '2026',
     title: 'DSIR Recognition',
     text: 'DSIR Recognition (in-house R & D Recognition)',
     fullForm: 'Department of Scientific and Industrial Research',
+    image: './img/DSIR_recognition.png',
+    hasImage: true,
     table: {
       left: 'R & D Recognition',
       right: '250+ MW SHK Turbine Power Generation Projects in hand and 100+ MW SHK PSP project in hand'
-    },
-    hasImage: false
-  }
+    }
+  },
 };
 
 // --- Click handler ---
@@ -293,33 +295,45 @@ cards.forEach(card => {
 function openModal(data) {
   if (!data) return;
   modalTitle.textContent = data.title;
-
+const modalContent = modal.querySelector('.timeline-modal-content');
+  if (data.items && data.items.length) {
+    modalContent.classList.add('timeline-modal-content--wide');
+  } else {
+    modalContent.classList.remove('timeline-modal-content--wide');
+  }
   let html = '';
   html += `<span class="timeline-modal-year-badge">${data.year}</span>`;
 
   // Multi-item merged view (for 2024)
   if (data.items && data.items.length) {
-    data.items.forEach((item, idx) => {
-      html += `<div class="timeline-modal-item" style="${idx > 0 ? 'margin-top:28px; padding-top:24px; border-top:1px solid rgba(255,255,255,0.08);' : ''}">`;
-      
+    html += `<div class="timeline-modal-grid">`;
+    data.items.forEach((item) => {
+      html += `<div class="timeline-modal-grid-item">`;
+
       html += `<div class="timeline-badge" style="display:inline-block; margin-bottom:10px;">${item.badge}</div>`;
-      
+
       if (item.fullForm) {
         html += `<span class="full-form" style="display:block; margin-bottom:4px;">${item.fullForm}</span>`;
       }
-      
-      html += `<h4 style="margin:0 0 10px; font-size:17px; color:#fff;">${item.subtitle}</h4>`;
-      
-      if (item.hasImage && item.image) {
+
+      html += `<h4 style="margin:0 0 10px; font-size:16px; color:var(--text);">${item.subtitle}</h4>`;
+
+if (item.hasImage && item.image) {
         html += `
-          <div class="timeline-modal-image" style="margin:12px 0;">
-            <img src="${item.image}" alt="${item.subtitle}" style="width:100%; border-radius:8px;">
+          <div class="timeline-modal-grid-image">
+            <img src="${item.image}" alt="${item.subtitle}">
+            <button type="button" class="cert-view-btn"
+                    data-view-src="${item.image}"
+                    data-view-type="image"
+                    data-view-title="${item.subtitle}">
+              View Certificate
+            </button>
           </div>
         `;
       }
-      
-      html += `<p style="margin:0 0 12px; line-height:1.6;">${item.text}</p>`;
-      
+
+      html += `<p style="margin:0 0 12px; line-height:1.6; font-size:13.5px;">${item.text}</p>`;
+
       if (item.highlights && item.highlights.length) {
         html += `<ul class="timeline-highlights" style="margin:0 0 12px;">`;
         item.highlights.forEach(h => {
@@ -327,24 +341,31 @@ function openModal(data) {
         });
         html += `</ul>`;
       }
-      
+
       if (item.reportLink) {
         html += `
-          <div style="margin-top:10px;">
-            <a class="tl-btn tl-btn--outline" href="${item.reportLink}" download="MACLEC-CEA-TRL9-Report.pdf" style="display:inline-block; padding:8px 16px; border:1px solid rgba(255,255,255,0.3); border-radius:6px; color:#fff; text-decoration:none; font-size:13px;">Download Report</a>
+          <div style="margin-top:auto; padding-top:10px;">
+            <a class="tl-btn tl-btn--outline" href="${item.reportLink}" download="MACLEC-CEA-TRL9-Report.pdf">Download Report</a>
           </div>
         `;
       }
-      
+
       html += `</div>`;
     });
+    html += `</div>`;
   } 
   // Single-item view (for other years)
   else {
-    if (data.hasImage && data.image) {
+  if (data.hasImage && data.image) {
       html += `
         <div class="timeline-modal-image">
           <img src="${data.image}" alt="${data.title}">
+          <button type="button" class="cert-view-btn"
+                  data-view-src="${data.image}"
+                  data-view-type="image"
+                  data-view-title="${data.title}">
+            View Certificate
+          </button>
         </div>
       `;
     }
@@ -371,6 +392,19 @@ function openModal(data) {
   }
 
   modalBody.innerHTML = html;
+   modalBody.querySelectorAll('.cert-view-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const src = btn.getAttribute('data-view-src');
+      const type = btn.getAttribute('data-view-type') || 'image';
+      const title = btn.getAttribute('data-view-title') || '';
+
+      closeModal(); // close the timeline modal first
+
+      if (window.openFileModal) window.openFileModal(src, type, title);
+    });
+  });
+
   modal.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -427,4 +461,25 @@ function openModal(data) {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMenu();
   });
+})();
+
+// --- SCROLL-TRIGGERED ENTRANCE ANIMATIONS (advantage cards) ---
+(function () {
+  const cards = document.querySelectorAll('.adv-card');
+  if (!cards.length) return;
+
+  function startObserving() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    cards.forEach(card => observer.observe(card));
+  }
+
+  document.addEventListener('siteReady', startObserving);
 })();
