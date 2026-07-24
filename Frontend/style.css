@@ -245,6 +245,7 @@ a{ text-decoration:none; color:inherit; }
   z-index:1;
   width:100%;
   height:100%;
+  object-fit:cover;
   display:block;
 }
 
@@ -1524,7 +1525,13 @@ a{ text-decoration:none; color:inherit; }
   -ms-overflow-style: none;
 }
 
-
+.hero-media, .hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* this crops the video to fill the box */
+}
 
 
 
@@ -2206,26 +2213,9 @@ a{ text-decoration:none; color:inherit; }
 }
 
 
-.hero-media .hero-video{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 35%; /* shift focal point up/down — tweak to frame the turbine */
-  display: block;
-}
-
-.hero{
-  min-height: 100vh;
-  min-height: 100dvh; /* dynamic viewport height, fixes mobile browser chrome jumps */
-}
-
 @media (max-width: 640px){
-  .hero{
-    min-height: 70vh;
-    min-height: 70dvh; /* shorter box on mobile = less extreme cropping */
-  }
   .hero-media .hero-video{
-    object-position: center 40%; /* re-tune for portrait framing */
+    object-fit: contain;
+    background: #000;
   }
 }

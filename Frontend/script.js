@@ -263,7 +263,7 @@ const cardData = {
     ]
   },
   '2025': {
-    year: '2025+',
+    year: '2025',
     title: 'Global Commercial Expansion',
     text: '200+ MW SHK Turbine Power Generation Projects in hand and 50+ MW SHK PSP project in hand',
     hasImage: false
