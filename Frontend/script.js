@@ -215,61 +215,61 @@ const cardData = {
     image: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
     hasImage: true
   },
-  // '2024': {
-  //   year: '2024',
-  //   title: '2024 — Major Regulatory Milestones',
-  //   items: [
-  //     {
-  //       badge: 'CEA Report Dated Oct 21',
-  //       fullForm: 'Central Electricity Authority',
-  //       subtitle: 'Technology Readiness Level 9 Certification',
-  //       text: 'Certified by the Central Electricity Authority (CEA), Ministry of Power, Government of India. SHKT became one of the few renewable energy technologies in India to achieve TRL-9, confirming successful operation under actual field conditions.',
-  //       highlights: [
-  //         'Commercially proven technology',
-  //         'Successful field deployment confirmed',
-  //         'Utility-scale deployment readiness',
-  //         'Highest technology maturity classification'
-  //       ],
-  //       image: './img/CEA_Report.png',
-  //       hasImage: true,
-  //       reportLink: './docs/CEA_Report_DatedOct_21.pdf'
-  //     },
-  //     {
-  //       badge: 'CEA · Policy',
-  //       fullForm: 'Central Electricity Authority',
-  //       subtitle: 'Inclusion Under Hydro & Small Hydro Sector',
-  //       text: 'The Central Electricity Authority formally recognized Surface Hydrokinetic Turbine Technology within India\'s Hydro and Small Hydro Power sector—establishing SHKT as a recognized renewable energy generation technology within the national regulatory framework.',
-  //       highlights: [
-  //         'Official Hydro Power classification',
-  //         'National regulatory recognition',
-  //         'Eligibility under hydro power initiatives',
-  //         'Policy integration pathway established'
-  //       ],
-  //       image: './img/regonization_by_cea.png',
-  //       hasImage: true
-  //     },
-  //     {
-  //       badge: 'MNRE',
-  //       fullForm: 'Ministry of New & Renewable Energy, Small Hydro Power Division',
-  //       subtitle: 'Office Memorandum — Hydro Category Recognition',
-  //       text: 'The Ministry of New & Renewable Energy\'s Small Hydro Power Division issued an Office Memorandum (File No. 19/28/2024-SHP, dated 09.12.2024) forwarding the Central Electricity Authority\'s recognition of Surface Hydrokinetic Turbine (SHKT) technology under the Hydro Category, directing all State Implementing Agencies and Departments responsible for Small Hydro Power development to consider it for necessary action.',
-  //       highlights: [
-  //         'Forwarded CEA\'s Hydro Category recognition of SHKT',
-  //         'Directed to all State Implementing Agencies for Small Hydro Power',
-  //         'Aimed at driving innovation toward net-zero emission targets'
-  //       ],
-  //       image: './img/MNRE_acceptance.png',
-  //       hasImage: true
-  //     }
-  //   ]
-  // },
+  '2024': {
+    year: '2024',
+    title: '2024 — Major Regulatory Milestones',
+    items: [
+      {
+        badge: 'CEA Report Dated Oct 21',
+        fullForm: 'Central Electricity Authority',
+        subtitle: 'Technology Readiness Level 9 Certification',
+        text: 'Certified by the Central Electricity Authority (CEA), Ministry of Power, Government of India. SHKT became one of the few renewable energy technologies in India to achieve TRL-9, confirming successful operation under actual field conditions.',
+        highlights: [
+          'Commercially proven technology',
+          'Successful field deployment confirmed',
+          'Utility-scale deployment readiness',
+          'Highest technology maturity classification'
+        ],
+        image: './img/CEA_Report.png',
+        hasImage: true,
+        reportLink: './docs/CEA_Report_DatedOct_21.pdf'
+      },
+      {
+        badge: 'CEA · Policy',
+        fullForm: 'Central Electricity Authority',
+        subtitle: 'Inclusion Under Hydro & Small Hydro Sector',
+        text: 'The Central Electricity Authority formally recognized Surface Hydrokinetic Turbine Technology within India\'s Hydro and Small Hydro Power sector—establishing SHKT as a recognized renewable energy generation technology within the national regulatory framework.',
+        highlights: [
+          'Official Hydro Power classification',
+          'National regulatory recognition',
+          'Eligibility under hydro power initiatives',
+          'Policy integration pathway established'
+        ],
+        image: './img/regonization_by_cea.png',
+        hasImage: true
+      },
+      {
+        badge: 'MNRE',
+        fullForm: 'Ministry of New & Renewable Energy, Small Hydro Power Division',
+        subtitle: 'Office Memorandum — Hydro Category Recognition',
+        text: 'The Ministry of New & Renewable Energy\'s Small Hydro Power Division issued an Office Memorandum (File No. 19/28/2024-SHP, dated 09.12.2024) forwarding the Central Electricity Authority\'s recognition of Surface Hydrokinetic Turbine (SHKT) technology under the Hydro Category, directing all State Implementing Agencies and Departments responsible for Small Hydro Power development to consider it for necessary action.',
+        highlights: [
+          'Forwarded CEA\'s Hydro Category recognition of SHKT',
+          'Directed to all State Implementing Agencies for Small Hydro Power',
+          'Aimed at driving innovation toward net-zero emission targets'
+        ],
+        image: './img/MNRE_acceptance.png',
+        hasImage: true
+      }
+    ]
+  },
   '2025': {
     year: '2025',
     title: 'Global Commercial Expansion',
     text: '200+ MW SHK Turbine Power Generation Projects in hand and 50+ MW SHK PSP project in hand',
     hasImage: false
   },
- '2026': {
+  '2026': {
     year: '2026',
     title: 'DSIR Recognition',
     text: 'DSIR Recognition (in-house R & D Recognition)',
@@ -280,83 +280,68 @@ const cardData = {
       left: 'R & D Recognition',
       right: '250+ MW SHK Turbine Power Generation Projects in hand and 100+ MW SHK PSP project in hand'
     }
-  },
+  }
 };
 
-// --- Click handler ---
-cards.forEach(card => {
-  card.addEventListener('click', () => {
-    const year = card.dataset.year;
-    openModal(cardData[year]);
-  });
-});
+  function openModal(data) {
+    if (!data) return; // guards against cards with no modal-worthy content (e.g. 2025)
 
-// --- Updated openModal ---
-function openModal(data) {
-  if (!data) return;
-  modalTitle.textContent = data.title;
-const modalContent = modal.querySelector('.timeline-modal-content');
-  if (data.items && data.items.length) {
-    modalContent.classList.add('timeline-modal-content--wide');
-  } else {
-    modalContent.classList.remove('timeline-modal-content--wide');
-  }
-  let html = '';
-  html += `<span class="timeline-modal-year-badge">${data.year}</span>`;
+    modalTitle.textContent = data.title;
+    const modalContent = modal.querySelector('.timeline-modal-content');
+    if (data.items && data.items.length) {
+      modalContent.classList.add('timeline-modal-content--wide');
+    } else {
+      modalContent.classList.remove('timeline-modal-content--wide');
+    }
 
-  // Multi-item merged view (for 2024)
-  if (data.items && data.items.length) {
-    html += `<div class="timeline-modal-grid">`;
-    data.items.forEach((item) => {
-      html += `<div class="timeline-modal-grid-item">`;
+    let html = '';
+    html += `<span class="timeline-modal-year-badge">${data.year}</span>`;
 
-      html += `<div class="timeline-badge" style="display:inline-block; margin-bottom:10px;">${item.badge}</div>`;
-
-      if (item.fullForm) {
-        html += `<span class="full-form" style="display:block; margin-bottom:4px;">${item.fullForm}</span>`;
-      }
-
-      html += `<h4 style="margin:0 0 10px; font-size:16px; color:var(--text);">${item.subtitle}</h4>`;
-
-if (item.hasImage && item.image) {
-        html += `
-          <div class="timeline-modal-grid-image">
-            <img src="${item.image}" alt="${item.subtitle}">
-            <button type="button" class="cert-view-btn"
-                    data-view-src="${item.image}"
-                    data-view-type="image"
-                    data-view-title="${item.subtitle}">
-              View Certificate
-            </button>
-          </div>
-        `;
-      }
-
-      html += `<p style="margin:0 0 12px; line-height:1.6; font-size:13.5px;">${item.text}</p>`;
-
-      if (item.highlights && item.highlights.length) {
-        html += `<ul class="timeline-highlights" style="margin:0 0 12px;">`;
-        item.highlights.forEach(h => {
-          html += `<li>${h}</li>`;
-        });
-        html += `</ul>`;
-      }
-
-      if (item.reportLink) {
-        html += `
-          <div style="margin-top:auto; padding-top:10px;">
-            <a class="tl-btn tl-btn--outline" href="${item.reportLink}" download="MACLEC-CEA-TRL9-Report.pdf">Download Report</a>
-          </div>
-        `;
-      }
-
+    if (data.items && data.items.length) {
+      html += `<div class="timeline-modal-grid">`;
+      data.items.forEach((item) => {
+        html += `<div class="timeline-modal-grid-item">`;
+        html += `<div class="timeline-badge" style="display:inline-block; margin-bottom:10px;">${item.badge}</div>`;
+        if (item.fullForm) {
+          html += `<span class="full-form" style="display:block; margin-bottom:4px;">${item.fullForm}</span>`;
+        }
+        html += `<h4 style="margin:0 0 10px; font-size:16px; color:var(--text);">${item.subtitle}</h4>`;
+        if (item.hasImage && item.image) {
+          html += `
+            <div class="timeline-modal-grid-image">
+              <img src="${item.image}" alt="${item.subtitle}">
+              <button type="button" class="cert-view-btn"
+                      data-view-src="${item.image}"
+                      data-view-type="image"
+                      data-view-title="${item.subtitle}">
+                View Certificate
+              </button>
+            </div>
+          `;
+        }
+        html += `<p style="margin:0 0 12px; line-height:1.6; font-size:13.5px;">${item.text}</p>`;
+        if (item.highlights && item.highlights.length) {
+          html += `<ul class="timeline-highlights" style="margin:0 0 12px;">`;
+          item.highlights.forEach(h => { html += `<li>${h}</li>`; });
+          html += `</ul>`;
+        }
+        if (item.reportLink) {
+          html += `
+            <div style="margin-top:auto; padding-top:10px;">
+              <a class="tl-btn tl-btn--outline" href="${item.reportLink}" download="MACLEC-CEA-TRL9-Report.pdf">Download Report</a>
+            </div>
+          `;
+        }
+        html += `</div>`;
+      });
       html += `</div>`;
-    });
-    html += `</div>`;
-  } 
-  // Single-item view (for other years)
+    } // Single-item view (for other years)
   else {
-  if (data.hasImage && data.image) {
+    const hasImg = data.hasImage && data.image;
+
+    if (hasImg) html += `<div class="timeline-modal-columns">`;
+
+    if (hasImg) {
       html += `
         <div class="timeline-modal-image">
           <img src="${data.image}" alt="${data.title}">
@@ -369,16 +354,18 @@ if (item.hasImage && item.image) {
         </div>
       `;
     }
-    
+
+    html += `<div class="timeline-modal-col-right">`;
+
     html += `<div class="timeline-modal-text">`;
     html += `<p>${data.text}</p>`;
-    
+
     if (data.fullForm) {
       html += `<span class="full-form">${data.fullForm}</span>`;
     }
-    
+
     html += `</div>`;
-    
+
     if (data.table) {
       html += `
         <div class="timeline-modal-table">
@@ -389,35 +376,38 @@ if (item.hasImage && item.image) {
         </div>
       `;
     }
+
+    html += `</div>`; // close .timeline-modal-col-right
+
+    if (hasImg) html += `</div>`; // close .timeline-modal-columns
   }
 
-  modalBody.innerHTML = html;
-   modalBody.querySelectorAll('.cert-view-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const src = btn.getAttribute('data-view-src');
-      const type = btn.getAttribute('data-view-type') || 'image';
-      const title = btn.getAttribute('data-view-title') || '';
-
-      closeModal(); // close the timeline modal first
-
-      if (window.openFileModal) window.openFileModal(src, type, title);
+    modalBody.innerHTML = html;
+    modalBody.querySelectorAll('.cert-view-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const src = btn.getAttribute('data-view-src');
+        const type = btn.getAttribute('data-view-type') || 'image';
+        const title = btn.getAttribute('data-view-title') || '';
+        closeModal();
+        if (window.openFileModal) window.openFileModal(src, type, title);
+      });
     });
-  });
 
-  modal.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
 
   function closeModal() {
     modal.classList.remove('open');
     document.body.style.overflow = '';
   }
 
+  // Single click handler (was previously bound twice)
   cards.forEach(card => {
     card.addEventListener('click', () => {
       const year = card.dataset.year;
-      openModal(cardData[year]);
+      openModal(cardData[year]); // undefined for '2025' → openModal returns early, no modal opens
     });
   });
 
@@ -483,3 +473,4 @@ if (item.hasImage && item.image) {
 
   document.addEventListener('siteReady', startObserving);
 })();
+

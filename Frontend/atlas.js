@@ -335,93 +335,227 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ===== GEOTAG LOCATION (actual coordinates) ===== */
-  (function initGeotagLocation(){
-    const latInput = document.getElementById('f-geo-lat');
-    const lngInput = document.getElementById('f-geo-lng');
-    const detectBtn = document.getElementById('geo-detect-btn');
-    const readout = document.getElementById('geo-readout');
-    const mapLink = document.getElementById('geo-map-link');
-    const latHidden = document.getElementById('f-geo-lat-value');
-    const lngHidden = document.getElementById('f-geo-lng-value');
+(function initSiteCapture(){
+  const videoBtn      = document.getElementById('capture-video-btn');
+  const photoBtn       = document.getElementById('capture-photo-btn');
+  const videoInput     = document.getElementById('capture-video-input');
+  const photoInput      = document.getElementById('capture-photo-input');
+  const previewGrid     = document.getElementById('capture-preview-grid');
+  const readout         = document.getElementById('geo-readout');
+  const mapLink         = document.getElementById('geo-map-link');
+  const submitBtn       = document.getElementById('capture-submit-btn');
+  const submitStatus    = document.getElementById('capture-submit-status');
+  const latManual       = document.getElementById('f-geo-lat');
+  const lngManual       = document.getElementById('f-geo-lng');
+  const latHidden       = document.getElementById('f-geo-lat-value');
+  const lngHidden       = document.getElementById('f-geo-lng-value');
 
-    if (!latInput || !lngInput) return;
+  if (!videoBtn || !photoBtn || !videoInput || !photoInput) return;
 
-    function isValidCoord(lat, lng) {
-      return Number.isFinite(lat) && Number.isFinite(lng) &&
-             lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180;
+  // In-memory store of captured media (File objects) — never touches localStorage
+  const captured = { video: null, photos: [] };
+  let coords = { lat: null, lng: null };
+
+  function isValidCoord(lat, lng){
+    return Number.isFinite(lat) && Number.isFinite(lng) &&
+           lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180;
+  }
+
+  function setReadout(msg, state){
+    if (!readout) return;
+    readout.textContent = msg;
+    readout.classList.remove('geo-readout--ok', 'geo-readout--err');
+    if (state === 'ok') readout.classList.add('geo-readout--ok');
+    if (state === 'err') readout.classList.add('geo-readout--err');
+  }
+
+  function commitCoords(lat, lng, source){
+    coords = { lat, lng };
+    const latFixed = lat.toFixed(6);
+    const lngFixed = lng.toFixed(6);
+    if (latHidden) latHidden.value = latFixed;
+    if (lngHidden) lngHidden.value = lngFixed;
+    if (latManual) latManual.value = latFixed;
+    if (lngManual) lngManual.value = lngFixed;
+
+    setReadout(`Geotag captured (${source}): ${latFixed}, ${lngFixed}`, 'ok');
+    if (mapLink){
+      mapLink.href = `https://www.google.com/maps?q=${latFixed},${lngFixed}`;
+      mapLink.style.display = 'inline-block';
     }
+    updateSubmitState();
+  }
 
-    function commitCoords(lat, lng, source) {
-      const latFixed = lat.toFixed(6);
-      const lngFixed = lng.toFixed(6);
-      latInput.value = latFixed;
-      lngInput.value = lngFixed;
-      if (latHidden) latHidden.value = latFixed;
-      if (lngHidden) lngHidden.value = lngFixed;
-
-      if (readout) {
-        readout.textContent = `Geotag captured (${source}): ${latFixed}, ${lngFixed}`;
-        readout.classList.add('geo-readout--ok');
-        readout.classList.remove('geo-readout--err');
+  function requestGeolocation(){
+    return new Promise((resolve) => {
+      if (!('geolocation' in navigator)){
+        setReadout('Geolocation not supported on this device — enter coordinates manually below.', 'err');
+        resolve(null);
+        return;
       }
-      if (mapLink) {
-        mapLink.href = `https://www.google.com/maps?q=${latFixed},${lngFixed}`;
-        mapLink.style.display = 'inline-block';
+      setReadout('Detecting your current location…');
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          commitCoords(pos.coords.latitude, pos.coords.longitude, 'auto-detected at capture');
+          resolve(pos.coords);
+        },
+        (err) => {
+          setReadout('Could not detect location automatically (' + (err.message || 'permission denied') + '). Enter it manually below.', 'err');
+          resolve(null);
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      );
+    });
+  }
+
+  // Manual entry fallback still works and feeds the same `coords` state
+  function handleManualInput(){
+    const lat = parseFloat(latManual.value);
+    const lng = parseFloat(lngManual.value);
+    if (isValidCoord(lat, lng)){
+      commitCoords(lat, lng, 'entered manually');
+    } else {
+      setReadout('Enter a valid latitude (-90 to 90) and longitude (-180 to 180).', 'err');
+      if (mapLink) mapLink.style.display = 'none';
+    }
+  }
+  if (latManual) latManual.addEventListener('change', handleManualInput);
+  if (lngManual) lngManual.addEventListener('change', handleManualInput);
+
+  // --- Capture buttons: grab location first, then open the camera ---
+  videoBtn.addEventListener('click', async () => {
+    await requestGeolocation();
+    videoInput.click();
+  });
+  photoBtn.addEventListener('click', async () => {
+    await requestGeolocation();
+    photoInput.click();
+  });
+
+  videoInput.addEventListener('change', () => {
+    const file = videoInput.files && videoInput.files[0];
+    if (!file) return;
+    captured.video = file;
+    renderPreview();
+    updateSubmitState();
+    videoInput.value = ''; // allow re-capturing the same filename
+  });
+
+  photoInput.addEventListener('change', () => {
+    const files = Array.from(photoInput.files || []);
+    captured.photos.push(...files);
+    renderPreview();
+    updateSubmitState();
+    photoInput.value = '';
+  });
+
+  function renderPreview(){
+    if (!previewGrid) return;
+    previewGrid.innerHTML = '';
+
+    if (captured.video){
+      const item = document.createElement('div');
+      item.className = 'capture-preview-item';
+      const url = URL.createObjectURL(captured.video);
+      item.innerHTML = `
+        <video src="${url}" muted playsinline></video>
+        <span class="capture-kind-tag">Video</span>
+        <button type="button" class="capture-remove" data-kind="video" aria-label="Remove video">×</button>
+      `;
+      previewGrid.appendChild(item);
+    }
+
+    captured.photos.forEach((file, idx) => {
+      const item = document.createElement('div');
+      item.className = 'capture-preview-item';
+      const url = URL.createObjectURL(file);
+      item.innerHTML = `
+        <img src="${url}" alt="Site photo ${idx + 1}">
+        <span class="capture-kind-tag">Photo</span>
+        <button type="button" class="capture-remove" data-kind="photo" data-idx="${idx}" aria-label="Remove photo">×</button>
+      `;
+      previewGrid.appendChild(item);
+    });
+  }
+
+  previewGrid?.addEventListener('click', (e) => {
+    const btn = e.target.closest('.capture-remove');
+    if (!btn) return;
+    if (btn.dataset.kind === 'video'){
+      captured.video = null;
+    } else {
+      const idx = parseInt(btn.dataset.idx, 10);
+      captured.photos.splice(idx, 1);
+    }
+    renderPreview();
+    updateSubmitState();
+  });
+
+  function updateSubmitState(){
+    const hasMedia = !!captured.video || captured.photos.length > 0;
+    const hasCoords = isValidCoord(coords.lat, coords.lng);
+    if (submitBtn) submitBtn.disabled = !(hasMedia && hasCoords);
+  }
+
+  // --- Submit: bundle media + coords + current site parameters to the backend ---
+  function collectSiteParameters(){
+    const getRaw = (id) => document.getElementById(id)?.value ?? '';
+    return {
+      country: getRaw('f-country'),
+      state: getRaw('f-state'),
+      watertype: document.querySelector('input[name="watertype"]:checked')?.value || '',
+      width_m: getRaw('f-width'),
+      depth_m: getRaw('f-depth'),
+      velocity_mps: getRaw('f-velocity'),
+      discharge_cumecs: getRaw('f-discharge'),
+      variation_m: getRaw('f-variation'),
+      length_raw_slider: getRaw('f-length'),
+    };
+  }
+
+  if (submitBtn){
+    submitBtn.addEventListener('click', async () => {
+      if (!isValidCoord(coords.lat, coords.lng)){
+        submitStatus.textContent = 'Please capture or enter a valid location first.';
+        submitStatus.classList.add('geo-readout--err');
+        return;
       }
-    }
 
-    // Manual typing of coordinates
-    function handleManualInput() {
-      const lat = parseFloat(latInput.value);
-      const lng = parseFloat(lngInput.value);
-      if (isValidCoord(lat, lng)) {
-        commitCoords(lat, lng, 'entered manually');
-      } else if (readout) {
-        readout.textContent = 'Enter a valid latitude (-90 to 90) and longitude (-180 to 180).';
-        readout.classList.remove('geo-readout--ok');
-        readout.classList.add('geo-readout--err');
-        if (mapLink) mapLink.style.display = 'none';
+      submitBtn.disabled = true;
+      submitStatus.classList.remove('geo-readout--err', 'geo-readout--ok');
+      submitStatus.textContent = 'Uploading site media and location…';
+
+      try {
+        const formData = new FormData();
+        formData.append('latitude', coords.lat.toFixed(6));
+        formData.append('longitude', coords.lng.toFixed(6));
+
+        const params = collectSiteParameters();
+        Object.entries(params).forEach(([key, val]) => formData.append(key, val));
+
+        if (captured.video) formData.append('site_video', captured.video, captured.video.name || 'site-video.mp4');
+        captured.photos.forEach((file, i) => {
+          formData.append('site_photos', file, file.name || `site-photo-${i + 1}.jpg`);
+        });
+
+        const res = await fetch('/api/site-parameter', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!res.ok) throw new Error(`Server responded ${res.status}`);
+
+        submitStatus.textContent = 'Site media and location submitted successfully.';
+        submitStatus.classList.add('geo-readout--ok');
+      } catch (err) {
+        submitStatus.textContent = 'Upload failed: ' + (err.message || 'network error') + '. Please try again.';
+        submitStatus.classList.add('geo-readout--err');
+      } finally {
+        updateSubmitState(); // re-enable if still valid, so user can retry
       }
-    }
-    latInput.addEventListener('change', handleManualInput);
-    lngInput.addEventListener('change', handleManualInput);
-
-    // Auto-detect using the browser Geolocation API
-    if (detectBtn) {
-      detectBtn.addEventListener('click', () => {
-        if (!('geolocation' in navigator)) {
-          if (readout) {
-            readout.textContent = 'Geolocation is not supported on this device/browser — please enter coordinates manually.';
-            readout.classList.add('geo-readout--err');
-          }
-          return;
-        }
-        if (readout) {
-          readout.textContent = 'Detecting your current location…';
-          readout.classList.remove('geo-readout--ok', 'geo-readout--err');
-        }
-        detectBtn.disabled = true;
-
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            detectBtn.disabled = false;
-            const { latitude, longitude } = position.coords;
-            commitCoords(latitude, longitude, 'auto-detected');
-          },
-          (err) => {
-            detectBtn.disabled = false;
-            if (readout) {
-              readout.textContent = 'Could not detect location automatically (' + (err.message || 'permission denied') + '). Please enter coordinates manually.';
-              readout.classList.add('geo-readout--err');
-              readout.classList.remove('geo-readout--ok');
-            }
-          },
-          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-        );
-      });
-    }
-  })();
+    });
+  }
+})();
 
   /* ===== SAMPLE VIDEOS: recorded river / canal upload readout ===== */
   (function initSampleVideoUpload(){

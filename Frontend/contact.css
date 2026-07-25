@@ -745,7 +745,7 @@ a { text-decoration:none; color:inherit; }
 
 /* ===== FOOTER ===== */
 .site-footer {
-  background: var(--text);
+  background: #3d64c1;
   color: rgba(255,255,255,0.7);
   padding: 60px 40px 24px;
 }
@@ -765,9 +765,22 @@ a { text-decoration:none; color:inherit; }
   width: 140px;
   height: auto;
   margin-bottom: 12px;
-  filter: brightness(0) invert(1);
+  
   opacity: 0.9;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+* {
+  -ms-overflow-style: none;
+}
+
 .footer-brand p {
   font-size: 0.85rem;
   color: rgba(255,255,255,0.5);

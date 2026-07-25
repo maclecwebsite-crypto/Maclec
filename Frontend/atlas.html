@@ -225,16 +225,47 @@
 
 <!-- Geotag Location: pinpoint coordinates for the exact site -->
 <div class="form-field form-field--full">
-  <span>Geotag Location <em class="field-optional">(actual site coordinates)</em></span>
-  <div class="geo-field">
-    <div class="geo-field-inputs">
+  <span>Site Video / Photos <em class="field-optional">(captured with automatic geotag)</em></span>
+  <p class="watertype-hint">
+    Tap a button below to open your camera. Your device location is captured automatically at the same moment,
+    so the coordinates and the media are always tied together.
+  </p>
+ 
+  <div class="capture-actions">
+    <button type="button" class="btn-outline capture-btn" id="capture-video-btn">
+      🎥 Record Site Video
+    </button>
+    <button type="button" class="btn-outline capture-btn" id="capture-photo-btn">
+      📸 Capture Site Photos
+    </button>
+  </div>
+ 
+  <!-- Hidden native inputs — capture="environment" opens the rear camera directly on mobile -->
+  <input type="file" id="capture-video-input" accept="video/*" capture="environment" hidden>
+  <input type="file" id="capture-photo-input" accept="image/*" capture="environment" multiple hidden>
+ 
+  <p class="geo-readout" id="geo-readout">
+    No coordinates captured yet — tap a button above to capture your site with location tagging.
+  </p>
+  <a class="geo-map-link" id="geo-map-link" href="#" target="_blank" rel="noopener" style="display:none;">
+    View captured location on map ↗
+  </a>
+ 
+  <div class="capture-preview-grid" id="capture-preview-grid"></div>
+ 
+  <button type="button" class="btn-primary capture-submit-btn" id="capture-submit-btn" disabled>
+    Submit Site Media &amp; Location →
+  </button>
+  <p class="geo-readout" id="capture-submit-status"></p>
+ 
+  <details class="geo-manual-toggle">
+    <summary>No camera available? Enter coordinates manually</summary>
+    <div class="geo-field-inputs" style="margin-top:.6rem;">
       <input type="text" id="f-geo-lat" class="geo-coord-input" placeholder="Latitude — e.g. 25.276987" inputmode="decimal" autocomplete="off">
       <input type="text" id="f-geo-lng" class="geo-coord-input" placeholder="Longitude — e.g. 55.296249" inputmode="decimal" autocomplete="off">
-      <button type="button" class="btn-outline geo-detect-btn" id="geo-detect-btn">📍 Track my site Location</button>
     </div>
-    <p class="geo-readout" id="geo-readout">No coordinates captured yet — enter manually or tap "Use My Current Location".</p>
-    <a class="geo-map-link" id="geo-map-link" href="#" target="_blank" rel="noopener" style="display:none;">View pinned location on map ↗</a>
-  </div>
+  </details>
+ 
   <input type="hidden" id="f-geo-lat-value" value="">
   <input type="hidden" id="f-geo-lng-value" value="">
 </div>
@@ -516,14 +547,25 @@
  
 <!-- ===== GLOBAL PROJECTS LAYER TEASER ===== -->
 <section class="atlas-layers">
-  <div class="atlas-layers-media" aria-hidden="true">
-    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80" alt="World map showing global project layers">
-    <div class="atlas-layers-overlay"></div>
-  </div>
   <div class="atlas-layers-inner">
-    <div class="about-tag">Global Projects Presence around the globe</div>
-    <h2 class="about-title">  Maclec <span class="accent">around the World</span></h2>
-    <a class="btn-primary" href="gallery.html">Open Project Explorer →</a>
+    <div class="layers-content">
+      <div class="about-tag">Global Projects Presence around the globe</div>
+      <h2 class="about-title">Maclec <span class="accent">around the World</span></h2>
+      <p class="about-intro">From North America to the Middle East, our engineering solutions power infrastructure across continents.</p>
+
+      <div class="layers-countries">
+        <span>United States</span><span>Canada</span><span>United Kingdom</span>
+        <span>Germany</span><span>France</span><span>UAE</span><span>India</span>
+        <span>Australia</span><span>Singapore</span><span>Saudi Arabia</span>
+        <span>Qatar</span><span>Kuwait</span>
+      </div>
+
+      <a class="btn-primary" href="gallery.html">Open Project Explorer →</a>
+    </div>
+
+    <div class="layers-map" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80" alt="World map showing global project layers">
+    </div>
   </div>
 </section>
  
