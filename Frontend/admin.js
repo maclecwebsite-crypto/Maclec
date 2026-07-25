@@ -348,12 +348,13 @@ async function loadContactQueries() {
   try {
     const res = await adminFetch('/contact-queries');
     if (!res.ok) throw new Error('Failed to load contact queries.');
-    const queries = await res.json();
+    const body = await res.json();
+    const queries = Array.isArray(body) ? body : (body.data || []);
 
     tbody.innerHTML = '';
     queries.forEach(q => tbody.appendChild(buildContactRow(q)));
     emptyState.style.display = queries.length === 0 ? 'block' : 'none';
   } catch (err) {
-    showToast(err.message, true); 
+    showToast(err.message, true);
   }
 }
