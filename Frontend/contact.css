@@ -107,7 +107,7 @@ a { text-decoration:none; color:inherit; }
   top:0; left:0; right:0;
   z-index: 50;
   padding: 18px 0;
-   background-color: #0F172A;
+   background-color: white;
 }
 .header-inner {
   max-width: 1480px;
@@ -129,7 +129,7 @@ a { text-decoration:none; color:inherit; }
   flex-wrap: wrap;
 }
 .main-nav a {
-  color: var(--text-secondary);
+  color: #ef7f1b;
   transition: color 0.2s;
   white-space: nowrap;
 }
