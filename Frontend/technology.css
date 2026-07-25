@@ -41,8 +41,9 @@
   top:0; left:0; right:0;
   z-index: 50;
   padding: 18px 0;
-   background-color: #0F172A;
+  background-color: white;
 }
+
 
 .header-inner{
   max-width: 1480px;
@@ -393,9 +394,9 @@
   line-height: 1.5;
   padding: 0 8px;
 }
-.tvalid-item--accent .tvalid-year{ color: var(--cyan-bright); }
+.tvalid-item--accent .tvalid-year{ color: black; }
 .tvalid-item--glow .tvalid-year{
-  color: #fff;
+  color: var(--cyan-bright);
   text-shadow: 0 0 16px rgba(94,196,224,0.6);
 }
 
@@ -1337,3 +1338,4 @@
 @media (max-width: 600px) {
   .tadv-grid { grid-template-columns: 1fr; }
 }
+
