@@ -355,6 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // In-memory store of captured media (File objects) — never touches localStorage
   const captured = { video: null, photos: [] };
   let coords = { lat: null, lng: null };
+  let geoRequestInFlight = false;
 
   function isValidCoord(lat, lng){
     return Number.isFinite(lat) && Number.isFinite(lng) &&
@@ -387,19 +388,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function requestGeolocation(){
+    // Guard against overlapping calls (e.g. warm-up call + focus-return call firing close together)
+    if (geoRequestInFlight) return Promise.resolve(null);
     return new Promise((resolve) => {
       if (!('geolocation' in navigator)){
         setReadout('Geolocation not supported on this device — enter coordinates manually below.', 'err');
         resolve(null);
         return;
       }
+      geoRequestInFlight = true;
       setReadout('Detecting your current location…');
       navigator.geolocation.getCurrentPosition(
         (pos) => {
-          commitCoords(pos.coords.latitude, pos.coords.longitude, 'auto-detected at capture');
+          geoRequestInFlight = false;
+          commitCoords(pos.coords.latitude, pos.coords.longitude, 'auto-detected');
           resolve(pos.coords);
         },
         (err) => {
+          geoRequestInFlight = false;
           setReadout('Could not detect location automatically (' + (err.message || 'permission denied') + '). Enter it manually below.', 'err');
           resolve(null);
         },
@@ -422,15 +428,37 @@ document.addEventListener('DOMContentLoaded', () => {
   if (latManual) latManual.addEventListener('change', handleManualInput);
   if (lngManual) lngManual.addEventListener('change', handleManualInput);
 
-  // --- Capture buttons: grab location first, then open the camera ---
-  videoBtn.addEventListener('click', async () => {
-    await requestGeolocation();
-    videoInput.click();
+  // --- Capture buttons ---
+  // IMPORTANT: opening the camera must be the ONLY synchronous action inside these
+  // click handlers. Calling requestGeolocation() here too used to fire the native
+  // "Allow location access?" permission dialog in the same tick as the file-input
+  // camera intent — on mobile, only one native dialog wins that race, and the
+  // location prompt was winning, silently cancelling the camera picker. So the user
+  // only ever saw location capture happen, never the camera.
+  //
+  // Fix: geolocation is requested separately — once up front (warm-up, below) and
+  // again on window focus if we still don't have coords — so it never competes with
+  // the click that has to open the camera.
+  videoBtn.addEventListener('click', () => {
+    videoInput.click(); // must happen synchronously and alone inside the click handler
   });
-  photoBtn.addEventListener('click', async () => {
-    await requestGeolocation();
-    photoInput.click();
+  photoBtn.addEventListener('click', () => {
+    photoInput.click(); // must happen synchronously and alone inside the click handler
   });
+
+  // Warm up geolocation as soon as the capture UI is available, decoupled from the
+  // camera-opening click. By the time the user taps Record/Capture, permission has
+  // already been resolved (granted/denied), so it won't pop a competing dialog.
+  requestGeolocation();
+
+  // If we still don't have valid coords (e.g. the warm-up call hadn't resolved yet,
+  // or the user denied it and later changed the OS permission), try again whenever
+  // the page regains focus — such as when returning from the camera app.
+  window.addEventListener('focus', () => {
+    if (!isValidCoord(coords.lat, coords.lng)) {
+      requestGeolocation();
+    }
+  }, { passive: true });
 
   videoInput.addEventListener('change', () => {
     const file = videoInput.files && videoInput.files[0];
