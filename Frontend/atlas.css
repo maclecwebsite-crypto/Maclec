@@ -1621,3 +1621,143 @@
 .geo-confirm-actions .btn-primary {
   flex: 1;
 }
+
+/* ===== LAYERS SECTION — full-bleed right image ===== */
+.atlas-layers{
+  position: relative;
+  overflow: hidden;
+  background: #f7f9fc;
+  padding: 0;
+  min-height: 620px;
+}
+
+.atlas-layers-inner{
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.layers-content{
+  max-width: 560px;
+  padding: 100px 0;
+  text-align: left;
+}
+
+.layers-content .about-tag{ display: inline-block; margin-bottom: 14px; }
+.layers-content .about-title{ margin-bottom: 16px; color: #0f172a; }
+.layers-content .about-intro{
+  margin: 0 0 24px;
+  color: #475569;
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 460px;
+}
+
+.layers-countries{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.layers-countries span{
+  display: inline-block;
+  padding: 6px 14px;
+  background: #e8ecf8;
+  border: 1px solid rgba(42,59,126,0.18);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #2a3b7e;
+}
+
+.layers-map{
+  position: absolute !important;
+  inset: 0 0 0 54% !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  aspect-ratio: auto !important;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.layers-map img{
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: cover !important;
+  display: block;
+  border-radius: 0 !important;
+  z-index: 1;
+
+  /* fades the image itself to transparent on the left, revealing the page bg */
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 22%);
+  mask-image: linear-gradient(90deg, transparent 0%, black 22%);
+}
+
+/* Blurred, softened duplicate sitting just under the sharp image,
+   only visible in the fade zone — this is what gives the "blur" feel */
+.layers-map::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: inherit; /* fallback, overridden below via JS-free trick */
+}
+
+/* Simplest reliable way: duplicate the <img> as a background-image blur layer */
+.layers-map{
+  background-image: var(--layers-bg-url);
+  background-size: cover;
+  background-position: center;
+}
+.layers-map::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  -webkit-mask-image: linear-gradient(90deg, black 0%, black 20%, transparent 40%);
+  mask-image: linear-gradient(90deg, black 0%, black 20%, transparent 40%);
+}
+
+/* Soft color wash to finish the blend into the page background */
+.layers-map::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(90deg,
+    #f7f9fc 0%,
+    rgba(247,249,252,0.85) 8%,
+    rgba(247,249,252,0.4) 18%,
+    rgba(247,249,252,0) 32%
+  );
+  pointer-events: none;
+}
+@media (max-width: 1100px){
+  .atlas-layers{ min-height: auto; }
+  .layers-content{
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 60px 0 40px;
+    text-align: center;
+  }
+  .layers-content .about-intro{ margin: 0 auto 24px; }
+  .layers-countries{ justify-content: center; }
+  .layers-map{
+    position: relative !important;
+    inset: auto !important;
+    left: auto; right: auto; top: auto; bottom: auto;
+    width: 100%;
+    height: 320px;
+  }
+}
+@media (max-width: 768px){
+  .atlas-layers-inner{ padding: 0 18px; }
+}
