@@ -3,25 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Global Hydrokinetic Potential Atlas™ — MACLEC</title>
+<title>MACLEC — Energy Through Innovation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="technology.css">
-<link rel="stylesheet" href="atlas.css">
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-  }
-}
-</script>
+<link rel="icon" type="image/x-icon" href="img/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32-v2.png">
+<link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16-v2.png">
 </head>
-<body>
- 
-<!-- ===== HEADER ===== -->
+<body class="loading">
+<div class="loading-screen" id="loadingScreen">
+  <img src="img/logo.png" alt="MACLEC" class="loading-logo">
+</div>
+<!--  HEADER  -->
 <header class="site-header">
   <div class="header-inner">
     <a style="width: 18%;" class="logo" href="#">
@@ -29,13 +24,13 @@
     </a>
 
     <nav class="main-nav" aria-label="Primary">
-      <a href="#about">About</a>
-      <a href="/technology.html">Technology</a>
-      <a href="/atlas.html">Potential Calculator</a>
-      <a href="/projects.html">Projects</a>
-      <a href="/gallery.html">Gallery</a>
-      <a href="/career.html">Careers</a>
-      <a href="/contact.html">Contact</a>
+      <a href="about.html">About</a>
+      <a href="technology.html">Technology</a>
+      <a href="atlas.html">Potential Calculator</a>
+      <a href="projects.html">Projects</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="career.html">Careers</a>
+      <a href="contact.html">Contact</a>
     </nav>
 
     <a class="btn-contact-nav" href="/contact.html">
@@ -149,12 +144,12 @@
       <!-- FORM PANEL -->
       <div class="console-form-panel">
  
-        <!-- STEP 1 -->
-        <div class="console-panel-block active" data-panel="1">
-          <h3>Select Your Location</h3>
-          <div class="form-grid">
+<!-- STEP 1 -->
+<div class="console-panel-block active" data-panel="1">
+  <h3>Select Your Location</h3>
+  <div class="form-grid">
 
- <!-- Country: custom scrollable dropdown, populated from CountriesNow API -->
+<!-- Country: custom scrollable dropdown, populated from CountriesNow API -->
 <div class="form-field">
   <span>Country</span>
   <div class="loc-dropdown" id="loc-country-dropdown">
@@ -237,19 +232,6 @@
   <input type="hidden" id="f-geo-lng-value" value="">
 </div>
 
-<label class="form-field form-field--full">
-  <span>Water Source Type</span>
- 
-  <div class="watertype-tabs" id="watertype-tabs" role="tablist" aria-label="Water source category">
-    <button type="button" class="watertype-tab active" data-cat="hydro" role="tab" aria-selected="true"> SHK Turbine Feasible Flowing Water Sites </button>
-    <button type="button" class="watertype-tab" data-cat="psp" role="tab" aria-selected="false">Low Head (2mtr to 25 mtr) SHK PSP Feasible Site</button>
-  </div>
- 
-  <p class="watertype-hint">Tap a card to browse its full photo set · tap <span class="watertype-hint-icon">Select</span> to choose that water source type</p>
- 
-  <div class="radio-grid radio-grid--visual" id="watertype-grid" role="radiogroup" aria-label="Water source type options"></div>
-</label>
-
 <!-- Sample recording videos: guidance on how to film your river / canal for submission -->
 <div class="form-field form-field--full">
   <span>Record &amp; Share Your Site <em class="field-optional">(sample videos)</em></span>
@@ -286,61 +268,71 @@
 
   </div>
 
-  <label class="form-field form-field--full sample-video-upload">
-    <span>Upload Your Recorded Video</span>
-    <input type="file" id="f-site-video" accept="video/*">
-    <small class="geo-readout" id="site-video-readout">No file selected yet.</small>
-  </label>
+ 
+</div>
+
+
+  </div>
+  <div class="console-nav">
+    <span></span>
+    <button class="btn-primary console-next" data-goto="2">Next: Site Parameters →</button>
+  </div>
 </div>
  
- 
-          </div>
-          <div class="console-nav">
-            <span></span>
-            <button class="btn-primary console-next" data-goto="2">Next: Site Parameters →</button>
-          </div>
-        </div>
- 
-        <!-- STEP 2 -->
-        <div class="console-panel-block" data-panel="2">
-          <h3>Enter Site Parameters</h3>
-          <div class="form-grid">
-            <label class="form-field">
-              <span>Approximate Water Width (m)</span>
-              <input type="range" id="f-width" min="12" max="60" value="12" step="0.5">
-              <output class="range-out" id="f-width-out">12 m</output>
-            </label>
-            <label class="form-field">
-              <span>Approximate Water Depth (m)</span>
-              <input type="range" id="f-depth" min="2" max="20" value="2" step="0.1">
-              <output class="range-out" id="f-depth-out">2.0 m</output>
-            </label>
-            <label class="form-field">
-              <span>Average Water Velocity (m/sec)</span>
-              <input type="range" id="f-velocity" min="0.3" max="4" value="1.5" step="0.1">
-              <output class="range-out" id="f-velocity-out">1.5 m/s</output>
-            </label>
-            <label class="form-field">
-              <span>Average Discharge (cumecs)</span>
-              <input type="range" id="f-discharge" min="1" max="500" value="40" step="1">
-              <output class="range-out" id="f-discharge-out">40 cumecs</output>
-            </label>
-            <label class="form-field">
-              <span>Water Level Variation (m)</span>
-              <input type="range" id="f-variation" min="0" max="5" value="0.8" step="0.1">
-              <output class="range-out" id="f-variation-out">0.8 m</output>
-            </label>
-            <label class="form-field">
-              <span>Length Available for Installation (m)</span>
-             <input type="range" id="f-length" min="0" max="100" value="0" step="1">
+<!-- STEP 2 -->
+<div class="console-panel-block" data-panel="2">
+  <h3>Enter Site Parameters</h3>
+
+  <label class="form-field form-field--full">
+    <span>Water Source Type</span>
+
+    <div class="watertype-tabs" id="watertype-tabs" role="tablist" aria-label="Water source category">
+      <button type="button" class="watertype-tab active" data-cat="hydro" role="tab" aria-selected="true"> SHK Turbine Feasible Flowing Water Sites </button>
+      <button type="button" class="watertype-tab" data-cat="psp" role="tab" aria-selected="false">Low Head (2mtr to 25 mtr) SHK PSP Feasible Site</button>
+    </div>
+
+    <p class="watertype-hint">Tap a card to browse its full photo set · tap <span class="watertype-hint-icon">Select</span> to choose that water source type</p>
+
+    <div class="radio-grid radio-grid--visual" id="watertype-grid" role="radiogroup" aria-label="Water source type options"></div>
+  </label>
+
+  <div class="form-grid">
+    <label class="form-field">
+      <span>Approximate Water Width (m)</span>
+      <input type="range" id="f-width" min="12" max="60" value="12" step="0.5">
+      <output class="range-out" id="f-width-out">12 m</output>
+    </label>
+    <label class="form-field">
+      <span>Approximate Water Depth (m)</span>
+      <input type="range" id="f-depth" min="2" max="20" value="2" step="0.1">
+      <output class="range-out" id="f-depth-out">2.0 m</output>
+    </label>
+    <label class="form-field">
+      <span>Average Water Velocity (m/sec)</span>
+      <input type="range" id="f-velocity" min="0.3" max="4" value="1.5" step="0.1">
+      <output class="range-out" id="f-velocity-out">1.5 m/s</output>
+    </label>
+    <label class="form-field">
+      <span>Average Discharge (cumecs)</span>
+      <input type="range" id="f-discharge" min="1" max="500" value="40" step="1">
+      <output class="range-out" id="f-discharge-out">40 cumecs</output>
+    </label>
+    <label class="form-field">
+      <span>Water Level Variation (m)</span>
+      <input type="range" id="f-variation" min="0" max="5" value="0.8" step="0.1">
+      <output class="range-out" id="f-variation-out">0.8 m</output>
+    </label>
+    <label class="form-field">
+      <span>Length Available for Installation (m)</span>
+     <input type="range" id="f-length" min="0" max="100" value="0" step="1">
 <output class="range-out" id="f-length-out">250 m</output>
-            </label>
-          </div>
-          <div class="console-nav">
-            <button class="btn-outline console-prev" data-goto="1">← Back</button>
-            <button class="btn-primary console-next" data-goto="3">Next: AI Location Assist →</button>
-          </div>
-        </div>
+    </label>
+  </div>
+  <div class="console-nav">
+    <button class="btn-outline console-prev" data-goto="1">← Back</button>
+    <button class="btn-primary console-next" data-goto="3">Next: AI Location Assist →</button>
+  </div>
+</div>
  
         <!-- STEP 3 -->
         <div class="console-panel-block" data-panel="3">
@@ -591,7 +583,23 @@
     <button type="button" class="btn-primary wt-modal-select" id="wt-modal-select">Use this Water Source Type</button>
   </div>
 </div>
- 
+ <!-- ===== LOCATION CONFIRMATION MODAL — shown before camera opens ===== -->
+<div class="geo-confirm-modal" id="geo-confirm-modal" aria-hidden="true">
+  <div class="geo-confirm-backdrop" id="geo-confirm-backdrop"></div>
+  <div class="geo-confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="geo-confirm-title">
+    <div class="geo-confirm-icon" aria-hidden="true">📍</div>
+    <h4 id="geo-confirm-title">Confirm Your Location</h4>
+    <p class="geo-confirm-text">
+      Please make sure you are physically present at your site before continuing.
+      Your device's current location will be recorded alongside the media you capture,
+      so it's important that you are on-site for accurate coordinates.
+    </p>
+    <div class="geo-confirm-actions">
+      <button type="button" class="btn-outline" id="geo-confirm-cancel">Cancel</button>
+      <button type="button" class="btn-primary" id="geo-confirm-ok">OK, Continue</button>
+    </div>
+  </div>
+</div>
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">

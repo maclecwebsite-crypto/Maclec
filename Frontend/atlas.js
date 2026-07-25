@@ -428,32 +428,67 @@ document.addEventListener('DOMContentLoaded', () => {
   if (latManual) latManual.addEventListener('change', handleManualInput);
   if (lngManual) lngManual.addEventListener('change', handleManualInput);
 
+  // --- Location confirmation modal ---
+  // Shown before the camera opens, so the user is reminded to be physically on-site.
+  const geoConfirmModal    = document.getElementById('geo-confirm-modal');
+  const geoConfirmBackdrop = document.getElementById('geo-confirm-backdrop');
+  const geoConfirmOk       = document.getElementById('geo-confirm-ok');
+  const geoConfirmCancel   = document.getElementById('geo-confirm-cancel');
+
+  // Tracks which input (video or photo) should open once the user confirms
+  let pendingCaptureInput = null;
+
+  function openGeoConfirm(targetInput){
+    pendingCaptureInput = targetInput;
+    if (!geoConfirmModal) {
+      // Fallback: no modal markup present, just open the camera directly
+      targetInput.click();
+      return;
+    }
+    geoConfirmModal.classList.add('open');
+    geoConfirmModal.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeGeoConfirm(){
+    if (!geoConfirmModal) return;
+    geoConfirmModal.classList.remove('open');
+    geoConfirmModal.setAttribute('aria-hidden', 'true');
+    pendingCaptureInput = null;
+  }
+
+  if (geoConfirmOk){
+    geoConfirmOk.addEventListener('click', () => {
+      const target = pendingCaptureInput;
+      closeGeoConfirm();
+      // Opening the camera must happen synchronously inside this click handler —
+      // nothing else (like requestGeolocation) runs alongside it, so the native
+      // camera intent isn't interrupted by another permission dialog.
+      if (target) target.click();
+    });
+  }
+  if (geoConfirmCancel) geoConfirmCancel.addEventListener('click', closeGeoConfirm);
+  if (geoConfirmBackdrop) geoConfirmBackdrop.addEventListener('click', closeGeoConfirm);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && geoConfirmModal?.classList.contains('open')) closeGeoConfirm();
+  });
+
   // --- Capture buttons ---
-  // IMPORTANT: opening the camera must be the ONLY synchronous action inside these
-  // click handlers. Calling requestGeolocation() here too used to fire the native
-  // "Allow location access?" permission dialog in the same tick as the file-input
-  // camera intent — on mobile, only one native dialog wins that race, and the
-  // location prompt was winning, silently cancelling the camera picker. So the user
-  // only ever saw location capture happen, never the camera.
-  //
-  // Fix: geolocation is requested separately — once up front (warm-up, below) and
-  // again on window focus if we still don't have coords — so it never competes with
-  // the click that has to open the camera.
+  // Tapping Record/Capture shows the location-confirmation modal first;
+  // the camera only opens once the user taps "OK, Continue" in that modal.
   videoBtn.addEventListener('click', () => {
-    videoInput.click(); // must happen synchronously and alone inside the click handler
+    openGeoConfirm(videoInput);
   });
   photoBtn.addEventListener('click', () => {
-    photoInput.click(); // must happen synchronously and alone inside the click handler
+    openGeoConfirm(photoInput);
   });
 
   // Warm up geolocation as soon as the capture UI is available, decoupled from the
-  // camera-opening click. By the time the user taps Record/Capture, permission has
-  // already been resolved (granted/denied), so it won't pop a competing dialog.
+  // camera-opening click. By the time the user confirms and the camera opens,
+  // permission has already been resolved, so it won't pop a competing dialog.
   requestGeolocation();
 
-  // If we still don't have valid coords (e.g. the warm-up call hadn't resolved yet,
-  // or the user denied it and later changed the OS permission), try again whenever
-  // the page regains focus — such as when returning from the camera app.
+  // If we still don't have valid coords, retry whenever the page regains focus —
+  // such as when returning from the camera app.
   window.addEventListener('focus', () => {
     if (!isValidCoord(coords.lat, coords.lng)) {
       requestGeolocation();
@@ -585,7 +620,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })();
 
-  /* ===== SAMPLE VIDEOS: recorded river / canal upload readout ===== */
   (function initSampleVideoUpload(){
     const fileInput = document.getElementById('f-site-video');
     const readout = document.getElementById('site-video-readout');

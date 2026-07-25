@@ -474,3 +474,18 @@ const cardData = {
   document.addEventListener('siteReady', startObserving);
 })();
 
+(function () {
+  const video = document.getElementById('heroVideo');
+  if (!video) return;
+
+  const src1 = 'https://res.cloudinary.com/a07iptoj/video/upload/v1784792160/mega_wat_level_intalation_of_shk_turbine_online-video-cutter_online-video-cutter.com_ie4gyv.mp4';
+  const src2 = 'https://res.cloudinary.com/a07iptoj/video/upload/v1784881405/Video_Project_8_wwqhj1.mp4';
+
+  let current = 1;
+
+  video.addEventListener('ended', () => {
+    current = current === 1 ? 2 : 1;
+    video.src = current === 1 ? src1 : src2;
+    video.play();
+  });
+})();

@@ -127,7 +127,6 @@ a { text-decoration:none; color:inherit; }
   flex-wrap: wrap;
 }
 .main-nav a {
-  color: var(--text-secondary);
   transition: color 0.2s;
   white-space: nowrap;
 }
