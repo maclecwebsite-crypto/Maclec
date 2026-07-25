@@ -42,6 +42,7 @@
   top:0; left:0; right:0;
   z-index: 50;
   padding: 18px 0;
+   background-color: #0F172A;
 }
 
 .header-inner{
@@ -106,6 +107,7 @@ a { text-decoration:none; color:inherit; }
   top:0; left:0; right:0;
   z-index: 50;
   padding: 18px 0;
+   background-color: #0F172A;
 }
 .header-inner {
   max-width: 1480px;

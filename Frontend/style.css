@@ -85,6 +85,7 @@ a{ text-decoration:none; color:inherit; }
   top:0; left:0; right:0;
   z-index: 50;
   padding: 18px 0;
+  background-color: #0F172A;
 }
 
 .header-inner{
@@ -271,6 +272,7 @@ a{ text-decoration:none; color:inherit; }
   width:100%;
   height:100%;
   object-fit:cover;
+  object-position: center top;
   display:block;
 }
 .hero-water-ripple {
@@ -366,12 +368,26 @@ a{ text-decoration:none; color:inherit; }
 .hero-desc::first-line{ color: var(--primary); font-weight:600; }
 
 .hero-actions{
-  display:grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  max-width: 1100px;
+  position: absolute;
+  top: 120px;
+  right: 32px;
+  z-index: 5;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;   /* cards hug their own width, right-aligned */
+  gap: 12px;
+  width: auto;
+  max-width: 90vw;
 }
 
+.hero-actions .action-card{
+  width: max-content;      /* size to content, don't force 280px */
+  white-space: nowrap;     /* keep "Explore" / "The Technology" on one line */
+}
+
+.hero-actions .action-text{
+  white-space: nowrap;
+}
 .action-card{
   display:flex;
   align-items:center;
@@ -1698,7 +1714,15 @@ a{ text-decoration:none; color:inherit; }
 @media (max-width: 1100px){
   .main-nav{ display:none; }
   .nav-toggle{ display:flex; }
-  .hero-actions{ grid-template-columns: repeat(2, 1fr); }
+.hero-actions{
+  position: static;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: auto;
+  max-width: 100%;
+  margin-top: 24px;
+}
+.hero-actions .action-card{ flex: 1 1 220px; }
   .feature-strip-inner{ grid-template-columns: repeat(3, 1fr); }
   .stats-grid{ grid-template-columns: repeat(3, 1fr); }
   .hero-globe{ display:none; }
@@ -1729,7 +1753,7 @@ a{ text-decoration:none; color:inherit; }
 @media (max-width: 640px){
   .header-inner{ padding: 0 18px; }
   .hero-content{ padding: 110px 18px 48px; }
-  .hero-actions{ grid-template-columns: 1fr; }
+  .hero-actions{ position: static; flex-direction: column; }
   .feature-strip-inner{ grid-template-columns: repeat(2, 1fr); padding: 22px 18px; }
   .feature-item:not(:last-child)::after{ display:none; }
   .stats-grid{ grid-template-columns: 1fr; padding: 0 18px; }
