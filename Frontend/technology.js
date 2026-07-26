@@ -266,7 +266,8 @@ const turbineData = {
     return parts.map(p => encodeURIComponent(p)).join('/');
   }
   function imgSrc(folder, sub, file){
-    return 'img/' + encPath([folder, sub, file]);
+    // Images now live flat in img/ (no more nested category/item subfolders)
+    return 'img/' + encodeURIComponent(file);
   }
   function cleanName(file){
     return file

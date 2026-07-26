@@ -107,7 +107,7 @@ a { text-decoration:none; color:inherit; }
   top:0; left:0; right:0;
   z-index: 50;
   padding: 18px 0;
-   background-color: #ffffff;
+   background-color: #0F172A;
 }
 .header-inner {
   max-width: 1480px;
@@ -600,7 +600,7 @@ a { text-decoration:none; color:inherit; }
 
 /* ===== FOOTER ===== */
 .site-footer {
-  background: #607dc1;
+  background: #3d64c1;
   color: rgba(255,255,255,0.7);
   padding: 60px 40px 24px;
 }

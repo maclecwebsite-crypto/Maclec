@@ -1155,22 +1155,22 @@ a{ text-decoration:none; color:inherit; }
 
 /* Per-industry background photos, matched to content */
 .industry-card[data-industry="canals"]{
-  background-image: url('img/Hydro%20Power%20Generationt%20through%20flowing%20water/Irrigation%20Canal/Small%20Irrigation%20canal.jfif');
+  background-image: url('img/Small%20Irrigation%20canal.jfif');
 }
 .industry-card[data-industry="hydro"]{
-  background-image: url('img/Hydro%20Power%20Generationt%20through%20flowing%20water/Tailrace%20Hydropower%20Dam%20Canal/Tailrace%20Hydropower%20Dam%20Canal%201.jfif');
+  background-image: url('img/Tailrace%20Hydropower%20Dam%20Canal%201.jfif');
 }
 .industry-card[data-industry="thermal"]{
-  background-image: url('img/Hydro%20Power%20Generationt%20through%20flowing%20water/Thermal%20Power%20Plant%20Cooling%20Water%20Channels/Thermal%20Power%20Plant%20Cooling%20Water%20Channels%201.jfif');
+  background-image: url('img/Thermal%20Power%20Plant%20Cooling%20Water%20Channels%201.jfif');
 }
 .industry-card[data-industry="rivers"]{
-  background-image: url('img/Hydro%20Power%20Generationt%20through%20flowing%20water/Rivers/Mountain%20River%201.jfif');
+  background-image: url('img/Mountain%20River%201.jfif');
 }
 .industry-card[data-industry="ports"]{
-  background-image: url('img/Hydro%20Power%20Generationt%20through%20flowing%20water/Bidirectional%20Tidal%20Channels/Bidirectional%20tidal%20channels%201.jfif');
+  background-image: url('img/Bidirectional%20tidal%20channels%201.jfif');
 }
 .industry-card[data-industry="storage"]{
-  background-image: url('img/PSP/Uptream%20and%20Lowerstream%20Reservior/Upstream%20Reservoir%201.jfif');
+  background-image: url('img/Upstream%20Reservoir%201.jfif');
 }
 
 .industries-footer{ text-align: center; }

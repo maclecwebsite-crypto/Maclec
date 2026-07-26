@@ -17,32 +17,8 @@
   <img src="img/logo.png" alt="MACLEC" class="loading-logo">
 </div>
 <!--  HEADER  -->
-<header class="site-header">
-  <div class="header-inner">
-    <a style="width: 18%;" class="logo" href="/index.html">
-      <img style="width: 100%;" src="img/logo.png" alt="MACLEC Logo">
-    </a>
-
-    <nav class="main-nav" aria-label="Primary">
-      <a href="about.html">About</a>
-      <a href="technology.html">Technology</a>
-      <a href="atlas.html">Potential Calculator</a>
-      
-      <a href="gallery.html">Gallery</a>
-      <a href="career.html">Careers</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-
-    <a class="btn-contact-nav" href="/contact.html">
-      Contact Us
-      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>
-    </a>
-
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
+<header id="site-header-root"></header>
+<script src="partials.js"></script>
 
 <section class="hero">
 <div class="hero-media" aria-hidden="true">
@@ -758,16 +734,6 @@
         <span class="timeline-full-form">Indian Institute of Technology Roorkee</span>
         <h3>Academic &amp; Technical Validation</h3>
       </div>
-      <div class="timeline-card-image-col">
-        <button class="timeline-cert-thumb"
-                data-view-src="./img/award_ajay_bhatt_dhami_inauguration.jpg"
-                data-view-type="image"
-                data-view-title="IIT Roorkee Technical Validation"
-                aria-label="View Academic Validation Certificate">
-          <img src="./img/award_ajay_bhatt_dhami_inauguration.jpg" alt="IIT Roorkee Technical Validation">
-          <span class="cert-thumb-overlay">View</span>
-        </button>
-      </div>
     </div>
     <p>MACLEC's technology has undergone technical reviews, performance assessments, CFD validation studies and academic evaluations by leading institutions including IIT Roorkee and government research agencies.</p>
     <ul class="timeline-highlights">
@@ -839,37 +805,8 @@
     </div>
   </div>
 </div>
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <img src="img/logo.png" alt="MACLEC" class="footer-logo">
-        
-      </div>
-      <div class="footer-links">
-        <div class="footer-col">
-          <strong>Company</strong>
-          <a href="index.html#about">About</a>
-          <a href="technology.html">Technology</a>
-          <a href="gallery.html">Gallery</a>
-        </div>
-        <div class="footer-col">
-          <strong>Resources</strong>
-          <a href="atlas.html">Potential Calculator</a>
-          <a href="index.html#knowledge">Knowledge Centre</a>
-          <a href="#">Investor Desk</a>
-        </div>
-        <div class="footer-col">
-          <strong>Connect</strong>
-          <a href="contact.html">Contact</a>
-          <a href="career.html">Careers</a>
-          <a href="#">Media</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 MACLEC. All rights reserved.</p>
-    </div>
-  </footer>
+  <footer id="site-footer-root"></footer>
+<script src="partials.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="turbine3d.js"></script>
 <script src="script.js"></script>
