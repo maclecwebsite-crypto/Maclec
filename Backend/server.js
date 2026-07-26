@@ -10,6 +10,7 @@ const { notFound, errorHandler } = require("./middleware/errorHandler");
 const careerRoutes = require("./routes/careerRoutes");
 const applicationRoutes = require("./routes/applicationRoutes");
 const contactRoutes = require("./routes/contactRoutes");
+const siteQueryRoutes = require("./routes/siteQueryRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 
 // Connect to MongoDB
@@ -17,13 +18,14 @@ connectDB();
 
 const app = express();
 
+// ---- Core middleware ----
 app.use(
   cors({
     origin: [
       ...(process.env.CLIENT_ORIGIN
         ? process.env.CLIENT_ORIGIN.split(",")
         : []),
-      "http://127.0.0.1:5500/",
+      "http://127.0.0.1:5500",
     ],
   })
 );
@@ -43,6 +45,7 @@ app.get("/api/health", (req, res) => {
 app.use("/api/careers", careerRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/contact-queries", contactRoutes);
+app.use("/api/site-queries", siteQueryRoutes);
 app.use("/api/admin", adminRoutes);
 
 // ---- 404 + error handling (must be last) ----
