@@ -1,24 +1,3 @@
-/* ===================================================================
-   MACLEC — Shared site navbar & footer
-   Edit the HEADER_HTML / FOOTER_HTML strings below to update the
-   navbar or footer across EVERY page on the site at once.
-
-   How it's wired up on each page:
-     1. <div id="site-header-root"></div>  sits where <header> used to be
-     2. <div id="site-footer-root"></div>  sits where <footer> used to be
-     3. <script src="partials.js"></script> is included TWICE per page:
-          - once right after the header placeholder (so the header
-            appears immediately, before the rest of the page parses)
-          - once right after the footer placeholder (so the footer
-            is filled in once it exists in the DOM)
-        Each run only fills in whichever placeholder is present and
-        still empty, so including it twice is safe and intentional.
-
-     Optional per-page flag (set BEFORE partials.js loads):
-       <script>window.SITE_HEADER_SOLID = true;</script>
-     Adds the "site-header--solid" modifier class (opaque header
-     background) for pages without a hero image behind the header.
-   =================================================================== */
 
 (function () {
   var HEADER_HTML =
