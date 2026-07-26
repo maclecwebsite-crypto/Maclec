@@ -123,7 +123,7 @@ body {
 }
 .admin-tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
 
-.admin-panel { display: none; padding: 24px 28px 60px; max-width: 1100px; margin: 0 auto; }
+.admin-panel { display: none; padding: 24px 28px 60px; max-width: 100%; margin: 0 auto; }
 .admin-panel.visible { display: block; }
 
 .panel-toolbar {
