@@ -1,5 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* ===== SHARED SITE QUERY STATE =====
+     Populated by the Step 1 capture flow (initSiteCapture below) and read
+     back out when the Step 3 "Request Virtual Meeting" button submits the
+     combined Location + Site Parameters + Consultation data as one record. */
+  const siteQueryMedia = { video: null, photos: [] };
+  let siteQueryCoords = { lat: null, lng: null };
+
+  // Reads the Select Location + Site Parameters fields straight from the DOM
+  // (no closure state needed), used both for Step 1's local confirmation and
+  // for the combined submission fired from Step 3.
+  function collectSiteParameters(){
+    const getRaw = (id) => document.getElementById(id)?.value ?? '';
+    const checkedWatertype = document.querySelector('input[name="watertype"]:checked');
+    return {
+      country: getRaw('f-country'),
+      state: getRaw('f-state'),
+      watertype: checkedWatertype?.value || '',
+      waterSourceCategory: checkedWatertype?.dataset.category || '',
+      width_m: getVal('f-width'),
+      depth_m: getVal('f-depth'),
+      velocity_mps: getVal('f-velocity'),
+      discharge_cumecs: getVal('f-discharge'),
+      variation_m: getVal('f-variation'),
+      length_m: getVal('f-length'),
+    };
+  }
+
   /* ===== STEP NAVIGATION ===== */
   const tabs = document.querySelectorAll('.console-step-tab');
   const panels = document.querySelectorAll('.console-panel-block');
@@ -352,9 +379,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!videoBtn || !photoBtn || !videoInput || !photoInput) return;
 
-  // In-memory store of captured media (File objects) — never touches localStorage
-  const captured = { video: null, photos: [] };
-  let coords = { lat: null, lng: null };
+  // In-memory store of captured media (File objects) — never touches localStorage.
+  // Aliased to the outer shared state so Step 3's submission can read them.
+  const captured = siteQueryMedia;
   let geoRequestInFlight = false;
 
   function isValidCoord(lat, lng){
@@ -371,7 +398,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function commitCoords(lat, lng, source){
-    coords = { lat, lng };
+    siteQueryCoords = { lat, lng };
     const latFixed = lat.toFixed(6);
     const lngFixed = lng.toFixed(6);
     if (latHidden) latHidden.value = latFixed;
@@ -490,7 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // If we still don't have valid coords, retry whenever the page regains focus —
   // such as when returning from the camera app.
   window.addEventListener('focus', () => {
-    if (!isValidCoord(coords.lat, coords.lng)) {
+    if (!isValidCoord(siteQueryCoords.lat, siteQueryCoords.lng)) {
       requestGeolocation();
     }
   }, { passive: true });
@@ -556,69 +583,112 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateSubmitState(){
     const hasMedia = !!captured.video || captured.photos.length > 0;
-    const hasCoords = isValidCoord(coords.lat, coords.lng);
+    const hasCoords = isValidCoord(siteQueryCoords.lat, siteQueryCoords.lng);
     if (submitBtn) submitBtn.disabled = !(hasMedia && hasCoords);
   }
 
-  // --- Submit: bundle media + coords + current site parameters to the backend ---
-  function collectSiteParameters(){
-    const getRaw = (id) => document.getElementById(id)?.value ?? '';
-    return {
-      country: getRaw('f-country'),
-      state: getRaw('f-state'),
-      watertype: document.querySelector('input[name="watertype"]:checked')?.value || '',
-      width_m: getRaw('f-width'),
-      depth_m: getRaw('f-depth'),
-      velocity_mps: getRaw('f-velocity'),
-      discharge_cumecs: getRaw('f-discharge'),
-      variation_m: getRaw('f-variation'),
-      length_raw_slider: getRaw('f-length'),
-    };
-  }
-
+  // Step 1's "Submit Site Media & Location" button locks in the captured
+  // media + coordinates locally. The actual network submission happens once
+  // at the end of Step 3, when Location + Site Parameters + Consultation
+  // details are all sent together as a single site query (see
+  // "Request Virtual Meeting" handler further down).
   if (submitBtn){
-    submitBtn.addEventListener('click', async () => {
-      if (!isValidCoord(coords.lat, coords.lng)){
+    submitBtn.addEventListener('click', () => {
+      if (!isValidCoord(siteQueryCoords.lat, siteQueryCoords.lng)){
         submitStatus.textContent = 'Please capture or enter a valid location first.';
         submitStatus.classList.add('geo-readout--err');
         return;
       }
 
-      submitBtn.disabled = true;
-      submitStatus.classList.remove('geo-readout--err', 'geo-readout--ok');
-      submitStatus.textContent = 'Uploading site media and location…';
+      submitStatus.classList.remove('geo-readout--err');
+      submitStatus.classList.add('geo-readout--ok');
+      submitStatus.textContent = 'Site media and location ready — continue to Site Parameters, then Book Consultation to submit your request.';
+    });
+  }
+})();
+
+  /* ===== SUBMIT COMBINED SITE QUERY (Location + Site Parameters + Consultation) ===== */
+  (function initSiteQuerySubmission(){
+    const SITE_QUERY_API = 'https://maclec-52zi.onrender.com/api';
+
+    const scheduleBtn = document.getElementById('schedule-meeting');
+    const statusEl = document.getElementById('consultation-submit-status');
+    if (!scheduleBtn) return;
+
+    function setStatus(msg, state){
+      if (!statusEl) return;
+      statusEl.textContent = msg;
+      statusEl.classList.remove('geo-readout--ok', 'geo-readout--err');
+      if (state === 'ok') statusEl.classList.add('geo-readout--ok');
+      if (state === 'err') statusEl.classList.add('geo-readout--err');
+    }
+
+    scheduleBtn.addEventListener('click', async () => {
+      const nameEl = document.getElementById('m-name');
+      const emailEl = document.getElementById('m-email');
+      const orgEl = document.getElementById('m-org');
+      const dateEl = document.getElementById('m-date');
+      const timeEl = document.getElementById('m-time');
+      const messageEl = document.getElementById('m-message');
+
+      const fullName = nameEl?.value.trim() || '';
+      const email = emailEl?.value.trim() || '';
+
+      if (!fullName) {
+        setStatus('Please enter your full name.', 'err');
+        nameEl?.focus();
+        return;
+      }
+      if (!email) {
+        setStatus('Please enter your email address.', 'err');
+        emailEl?.focus();
+        return;
+      }
+
+      scheduleBtn.disabled = true;
+      setStatus('Submitting your site query and consultation request…');
 
       try {
         const formData = new FormData();
-        formData.append('latitude', coords.lat.toFixed(6));
-        formData.append('longitude', coords.lng.toFixed(6));
 
-        const params = collectSiteParameters();
-        Object.entries(params).forEach(([key, val]) => formData.append(key, val));
-
-        if (captured.video) formData.append('site_video', captured.video, captured.video.name || 'site-video.mp4');
-        captured.photos.forEach((file, i) => {
+        // Step 1: Select Location (+ captured media)
+        formData.append('latitude', siteQueryCoords.lat ?? '');
+        formData.append('longitude', siteQueryCoords.lng ?? '');
+        if (siteQueryMedia.video) {
+          formData.append('site_video', siteQueryMedia.video, siteQueryMedia.video.name || 'site-video.mp4');
+        }
+        siteQueryMedia.photos.forEach((file, i) => {
           formData.append('site_photos', file, file.name || `site-photo-${i + 1}.jpg`);
         });
 
-        const res = await fetch('/api/site-parameter', {
+        // Step 2: Site Parameters
+        const params = collectSiteParameters();
+        Object.entries(params).forEach(([key, val]) => formData.append(key, val));
+
+        // Step 3: Book Consultation
+        formData.append('fullName', fullName);
+        formData.append('email', email);
+        formData.append('organization', orgEl?.value.trim() || '');
+        formData.append('preferredDate', dateEl?.value || '');
+        formData.append('preferredTime', timeEl?.value || '');
+        formData.append('message', messageEl?.value.trim() || '');
+
+        const res = await fetch(`${SITE_QUERY_API}/site-queries`, {
           method: 'POST',
           body: formData,
         });
 
-        if (!res.ok) throw new Error(`Server responded ${res.status}`);
+        const body = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(body.message || `Server responded ${res.status}`);
 
-        submitStatus.textContent = 'Site media and location submitted successfully.';
-        submitStatus.classList.add('geo-readout--ok');
+        setStatus('Your site query and consultation request have been submitted. Team MACLEC will respond within 7 working days.', 'ok');
       } catch (err) {
-        submitStatus.textContent = 'Upload failed: ' + (err.message || 'network error') + '. Please try again.';
-        submitStatus.classList.add('geo-readout--err');
+        setStatus('Submission failed: ' + (err.message || 'network error') + '. Please try again.', 'err');
       } finally {
-        updateSubmitState(); // re-enable if still valid, so user can retry
+        scheduleBtn.disabled = false;
       }
     });
-  }
-})();
+  })();
 
   (function initSampleVideoUpload(){
     const fileInput = document.getElementById('f-site-video');
@@ -651,7 +721,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function imgSrc(folder, sub, file){
-    // Images now live flat in img/ (no more nested category/item subfolders)
     return 'img/' + encodeURIComponent(file);
   }
 

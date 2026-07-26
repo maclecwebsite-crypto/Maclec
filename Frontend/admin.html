@@ -36,6 +36,7 @@
     <button class="admin-tab-btn active" data-tab="jobs">Job Postings</button>
     <button class="admin-tab-btn" data-tab="applications">Applications</button>
     <button class="admin-tab-btn" data-tab="contacts">Contact Queries</button>
+    <button class="admin-tab-btn" data-tab="siteQueries">Site Queries</button>
   </nav>
 
   <!-- JOB POSTINGS PANEL -->
@@ -112,6 +113,41 @@
       </table>
     </div>
     <div class="empty-state" id="contactsEmptyState" style="display:none;">No contact queries submitted yet.</div>
+  </section>
+
+  <!-- SITE QUERIES PANEL -->
+  <section class="admin-panel" id="siteQueriesPanel">
+    <div class="panel-toolbar">
+      <h2>Site Queries</h2>
+    </div>
+    <div class="applications-table-wrap">
+      <table class="applications-table">
+        <colgroup>
+          <col style="width:100px">
+          <col style="width:170px">
+          <col style="width:150px">
+          <col style="width:190px">
+          <col style="width:150px">
+          <col style="width:130px">
+          <col style="width:110px">
+          <col style="width:90px">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Submitted</th>
+            <th>Contact</th>
+            <th>Location</th>
+            <th>Site Parameters</th>
+            <th>Preferred Slot</th>
+            <th>Media</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="siteQueriesTableBody"></tbody>
+      </table>
+    </div>
+    <div class="empty-state" id="siteQueriesEmptyState" style="display:none;">No site queries submitted yet.</div>
   </section>
 </div>
 

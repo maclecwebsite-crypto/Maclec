@@ -51,6 +51,7 @@ function showAdmin() {
   loadJobs();
   loadApplications();
   loadContactQueries();
+  loadSiteQueries();
 }
 
 function logout() {
@@ -348,12 +349,116 @@ async function loadContactQueries() {
   try {
     const res = await adminFetch('/contact-queries');
     if (!res.ok) throw new Error('Failed to load contact queries.');
-    const queries = await res.json();
+    const body = await res.json();
+    const queries = Array.isArray(body) ? body : (body.data || []);
 
     tbody.innerHTML = '';
     queries.forEach(q => tbody.appendChild(buildContactRow(q)));
     emptyState.style.display = queries.length === 0 ? 'block' : 'none';
   } catch (err) {
     showToast(err.message, true); 
+  }
+}
+
+// ===== Site Queries =====
+const SITE_QUERY_STATUSES = ['new', 'reviewed', 'scheduled', 'completed', 'cancelled'];
+
+function buildSiteQueryRow(query) {
+  const tr = document.createElement('tr');
+  const submittedDate = new Date(query.createdAt);
+  const submittedDay = submittedDate.toLocaleDateString();
+  const submittedTime = submittedDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  const lat = query.location?.latitude;
+  const lng = query.location?.longitude;
+  const hasCoords = typeof lat === 'number' && typeof lng === 'number';
+  const locationLine = [query.country, query.state].filter(Boolean).map(escapeHtml).join(', ') || '—';
+  const coordsLine = hasCoords
+    ? `<a href="https://www.google.com/maps?q=${lat},${lng}" target="_blank" rel="noopener">${lat.toFixed(4)}, ${lng.toFixed(4)}</a>`
+    : '';
+
+  const paramLine = [
+    query.waterSourceType ? escapeHtml(query.waterSourceType) : null,
+    (query.widthM != null) ? `W: ${query.widthM} m` : null,
+    (query.depthM != null) ? `D: ${query.depthM} m` : null,
+    (query.velocityMps != null) ? `V: ${query.velocityMps} m/s` : null,
+    (query.dischargeCumecs != null) ? `Q: ${query.dischargeCumecs} cumecs` : null,
+  ].filter(Boolean).join('<br>') || '—';
+
+  const slotLine = [
+    query.preferredDate ? escapeHtml(query.preferredDate) : null,
+    query.preferredTime ? escapeHtml(query.preferredTime) : null,
+  ].filter(Boolean).join('<br>') || '—';
+
+  const photoCount = (query.siteMedia?.photoUrls || []).length;
+  const mediaLinks = [
+    query.siteMedia?.videoUrl ? `<a href="${query.siteMedia.videoUrl}" target="_blank" rel="noopener">Video</a>` : null,
+    photoCount > 0 ? `<a href="${query.siteMedia.photoUrls[0]}" target="_blank" rel="noopener">${photoCount} photo${photoCount > 1 ? 's' : ''}</a>` : null,
+  ].filter(Boolean).join('<br>') || '—';
+
+  const statusOptions = SITE_QUERY_STATUSES
+    .map(s => `<option value="${s}" ${s === query.status ? 'selected' : ''}>${s}</option>`)
+    .join('');
+
+  tr.innerHTML = `
+    <td>${submittedDay}<br><span style="color:var(--text-muted); font-size:12px;">${submittedTime}</span></td>
+    <td>
+      ${escapeHtml(query.fullName)}<br>
+      <span style="color:var(--text-muted); font-size:12px;">${escapeHtml(query.email)}</span>
+      ${query.organization ? `<br><span style="color:var(--text-muted); font-size:12px;">${escapeHtml(query.organization)}</span>` : ''}
+    </td>
+    <td>${locationLine}${coordsLine ? `<br><span style="font-size:12px;">${coordsLine}</span>` : ''}</td>
+    <td style="font-size:13px;">${paramLine}</td>
+    <td>${slotLine}</td>
+    <td style="font-size:13px;">${mediaLinks}</td>
+    <td><select class="status-select" data-action="status">${statusOptions}</select></td>
+    <td><button class="btn btn-danger btn-sm" data-action="delete">Delete</button></td>
+  `;
+
+  tr.querySelector('[data-action="status"]').addEventListener('change', async (e) => {
+    const newStatus = e.target.value;
+    try {
+      const res = await adminFetch(`/site-queries/${query.id}/status`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus }),
+      });
+      if (!res.ok) throw new Error('Failed to update status.');
+      showToast('Site query status updated.');
+    } catch (err) {
+      showToast(err.message, true);
+      e.target.value = query.status; // revert on failure
+    }
+  });
+
+  tr.querySelector('[data-action="delete"]').addEventListener('click', async () => {
+    if (!confirm(`Delete the site query from ${query.fullName}? This cannot be undone.`)) return;
+    try {
+      const res = await adminFetch(`/site-queries/${query.id}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error('Failed to delete site query.');
+      showToast('Site query deleted.');
+      loadSiteQueries();
+    } catch (err) {
+      showToast(err.message, true);
+    }
+  });
+
+  return tr;
+}
+
+async function loadSiteQueries() {
+  const tbody = document.getElementById('siteQueriesTableBody');
+  const emptyState = document.getElementById('siteQueriesEmptyState');
+  try {
+    const res = await adminFetch('/site-queries');
+    if (!res.ok) throw new Error('Failed to load site queries.');
+    const body = await res.json();
+    const queries = Array.isArray(body) ? body : (body.data || []);
+
+    tbody.innerHTML = '';
+    queries.forEach(q => tbody.appendChild(buildSiteQueryRow(q)));
+    emptyState.style.display = queries.length === 0 ? 'block' : 'none';
+  } catch (err) {
+    showToast(err.message, true);
   }
 }
