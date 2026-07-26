@@ -21,7 +21,12 @@ const app = express();
 // ---- Core middleware ----
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN ? process.env.CLIENT_ORIGIN.split(",") : "*",
+    origin: [
+      ...(process.env.CLIENT_ORIGIN
+        ? process.env.CLIENT_ORIGIN.split(",")
+        : []),
+      "http://127.0.0.1:5500",
+    ],
   })
 );
 app.use(express.json({ limit: "2mb" }));
