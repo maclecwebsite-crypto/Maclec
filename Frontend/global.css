@@ -120,10 +120,10 @@
 }
 
 .maclec-site-footer {
-  background: #f0f4ff;
-  color: #1e3a8a;
+  background: linear-gradient(135deg, #1e3a8a 0%, #16306e 45%, #0f4c3a 75%, #b45309 100%);
+  color: #f8fafc;
   padding: 4rem 2rem 0;
-  border-top: 1px solid #c7d2fe;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .maclec-footer-inner {
@@ -144,6 +144,11 @@
   max-height: 52px;
   width: auto;
   display: block;
+  /* keeps the logo crisp/legible against the dark gradient */
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+  background: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
 }
 
 .maclec-footer-links {
@@ -161,7 +166,7 @@
   display: block;
   font-size: 0.9rem;
   font-weight: 700;
-  color: #1e3a8a;
+  color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 1rem;
@@ -170,14 +175,14 @@
 .maclec-footer-col a {
   display: block;
   font-size: 0.9rem;
-  color: #475569;
+  color: rgba(255, 255, 255, 0.82);
   text-decoration: none;
   margin-bottom: 0.6rem;
   transition: color 0.2s ease, padding-left 0.2s ease;
 }
 
 .maclec-footer-col a:hover {
-  color: #f59e0b;
+  color: #fbbf24;
   padding-left: 4px;
 }
 
@@ -185,12 +190,11 @@
   max-width: 1280px;
   margin: 3rem auto 0;
   padding: 1.5rem 0;
-  border-top: 1px solid #c7d2fe;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   text-align: center;
   font-size: 0.85rem;
-  color: #64748b;
+  color: rgba(255, 255, 255, 0.65);
 }
-
 @media (max-width: 768px) {
   .maclec-main-nav {
     position: fixed;
