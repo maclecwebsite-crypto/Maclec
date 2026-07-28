@@ -1,0 +1,316 @@
+/* ===== ABOUT PILLARS ===== */
+.about-pillars {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 64px;
+}
+
+.about-pillar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  padding: 32px 28px;
+  overflow: hidden;
+  isolation: isolate;
+  transition: all 0.5s cubic-bezier(0.34, 1.8, 0.64, 1);
+  opacity: 0;
+  transform: translateY(40px) scale(0.9);
+  border: 2px solid transparent;
+}
+
+.about-pillar.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.about-pillar:nth-child(1) { transition-delay: 0.06s; }
+.about-pillar:nth-child(2) { transition-delay: 0.14s; }
+.about-pillar:nth-child(3) { transition-delay: 0.22s; }
+.about-pillar:nth-child(4) { transition-delay: 0.30s; }
+
+/* colored background layer */
+.about-pillar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  opacity: 0.88;
+  transition: opacity 0.4s ease, transform 0.6s ease;
+}
+.about-pillar:hover::after {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* ambient glow orb */
+.about-pillar .glow-orb {
+  position: absolute;
+  top: -50px; right: -50px;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(30px);
+  opacity: 0.5;
+  transition: all 0.6s ease;
+}
+.about-pillar:hover .glow-orb {
+  transform: scale(1.8) translate(-20px, 20px);
+  opacity: 0.9;
+}
+
+/* shimmer sweep on hover */
+.about-pillar::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255,255,255,0) 35%,
+    rgba(255,255,255,0.6) 50%,
+    rgba(255,255,255,0) 65%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+}
+.about-pillar:hover::before {
+  animation: pillarShimmer 1s ease forwards;
+  opacity: 1;
+}
+@keyframes pillarShimmer {
+  0%   { left: -100%; }
+  100% { left: 200%; }
+}
+
+/* pop on hover */
+.about-pillar:hover {
+  transform: translateY(-12px) scale(1.06) rotate(-1deg);
+  box-shadow:
+    0 25px 60px -15px var(--pillar-shadow),
+    0 0 0 3px var(--pillar-border-glow),
+    0 0 60px -10px var(--pillar-outer-glow),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+}
+
+/* ---- Icon ---- */
+.pillar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px; height: 56px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  box-shadow: 0 8px 24px var(--icon-shadow);
+  animation: pillarIconBounce 2.5s ease-in-out infinite;
+}
+.pillar-icon svg {
+  width: 26px; height: 26px;
+  stroke-width: 1.8;
+  stroke: currentColor;
+  fill: none;
+}
+
+.about-pillar:nth-child(1) .pillar-icon { animation-delay: 0s; }
+.about-pillar:nth-child(2) .pillar-icon { animation-delay: 0.4s; }
+.about-pillar:nth-child(3) .pillar-icon { animation-delay: 0.8s; }
+.about-pillar:nth-child(4) .pillar-icon { animation-delay: 1.2s; }
+
+@keyframes pillarIconBounce {
+  0%, 100% { transform: scale(1) translateY(0); }
+  20%      { transform: scale(1.12) translateY(-5px); }
+  40%      { transform: scale(0.95) translateY(2px); }
+  60%      { transform: scale(1.06) translateY(-2px); }
+  80%      { transform: scale(1) translateY(0); }
+}
+
+/* icon spinning glow ring on hover */
+.pillar-icon::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 20px;
+  background: conic-gradient(from 0deg, var(--icon-ring-1), var(--icon-ring-2), var(--icon-ring-1));
+  z-index: -2;
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 0.3s ease;
+}
+.about-pillar:hover .pillar-icon::before {
+  opacity: 0.7;
+  animation: pillarIconSpin 2s linear infinite;
+}
+@keyframes pillarIconSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* icon burst pulse */
+.pillar-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  z-index: -1;
+  opacity: 0;
+}
+.about-pillar:hover .pillar-icon::after {
+  animation: pillarIconBurst 1.2s ease-out infinite;
+}
+@keyframes pillarIconBurst {
+  0%   { opacity: 0.5; transform: scale(1);   filter: blur(0px); }
+  100% { opacity: 0;   transform: scale(2.4); filter: blur(6px); }
+}
+
+/* ---- Typography ---- */
+.about-pillar strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+.about-pillar:hover strong {
+  transform: scale(1.05) translateX(2px);
+}
+
+.about-pillar p {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   COLOR VARIANTS — EXPLICIT PER-PILLAR STYLES
+   ============================================ */
+
+/* ---- PILLAR 1: INDIGO (Indigenous IP) ---- */
+.about-pillar:nth-child(1) {
+  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 50%, #a5b4fc 100%);
+  --pillar-shadow: rgba(42,59,126,0.35);
+  --pillar-border-glow: rgba(42,59,126,0.3);
+  --pillar-outer-glow: rgba(79,70,229,0.2);
+}
+.about-pillar:nth-child(1)::after {
+  background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+}
+.about-pillar:nth-child(1) .glow-orb {
+  background: radial-gradient(circle, #6366f1 0%, transparent 70%);
+}
+.about-pillar:nth-child(1) .pillar-icon {
+  background: linear-gradient(135deg, #2a3b7e, #4f46e5);
+  --icon-shadow: rgba(42,59,126,0.45);
+  --icon-ring-1: #2a3b7e;
+  --icon-ring-2: #818cf8;
+}
+.about-pillar:nth-child(1) strong { color: #1e1b4b; }
+.about-pillar:nth-child(1) p { color: #3730a3; }
+.about-pillar:nth-child(1):hover {
+  border-color: #4f46e5;
+}
+
+/* ---- PILLAR 2: EMERALD (Global Reach) ---- */
+.about-pillar:nth-child(2) {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%);
+  --pillar-shadow: rgba(3,152,70,0.35);
+  --pillar-border-glow: rgba(3,152,70,0.3);
+  --pillar-outer-glow: rgba(16,185,129,0.2);
+}
+.about-pillar:nth-child(2)::after {
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+}
+.about-pillar:nth-child(2) .glow-orb {
+  background: radial-gradient(circle, #10b981 0%, transparent 70%);
+}
+.about-pillar:nth-child(2) .pillar-icon {
+  background: linear-gradient(135deg, #039846, #059669);
+  --icon-shadow: rgba(3,152,70,0.45);
+  --icon-ring-1: #039846;
+  --icon-ring-2: #34d399;
+}
+.about-pillar:nth-child(2) strong { color: #064e3b; }
+.about-pillar:nth-child(2) p { color: #065f46; }
+.about-pillar:nth-child(2):hover {
+  border-color: #10b981;
+}
+
+/* ---- PILLAR 3: AMBER (Utility Scale) ---- */
+.about-pillar:nth-child(3) {
+  background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 50%, #fdba74 100%);
+  --pillar-shadow: rgba(239,127,27,0.35);
+  --pillar-border-glow: rgba(239,127,27,0.3);
+  --pillar-outer-glow: rgba(249,115,22,0.2);
+}
+.about-pillar:nth-child(3)::after {
+  background: linear-gradient(135deg, #ffedd5, #fed7aa);
+}
+.about-pillar:nth-child(3) .glow-orb {
+  background: radial-gradient(circle, #f97316 0%, transparent 70%);
+}
+.about-pillar:nth-child(3) .pillar-icon {
+  background: linear-gradient(135deg, #ea580c, #f97316);
+  --icon-shadow: rgba(239,127,27,0.45);
+  --icon-ring-1: #ea580c;
+  --icon-ring-2: #fb923c;
+}
+.about-pillar:nth-child(3) strong { color: #7c2d12; }
+.about-pillar:nth-child(3) p { color: #9a3412; }
+.about-pillar:nth-child(3):hover {
+  border-color: #f97316;
+}
+
+/* ---- PILLAR 4: SKY (Climate Aligned) ---- */
+.about-pillar:nth-child(4) {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%);
+  --pillar-shadow: rgba(37,99,235,0.35);
+  --pillar-border-glow: rgba(37,99,235,0.3);
+  --pillar-outer-glow: rgba(59,130,246,0.2);
+}
+.about-pillar:nth-child(4)::after {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+}
+.about-pillar:nth-child(4) .glow-orb {
+  background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+}
+.about-pillar:nth-child(4) .pillar-icon {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  --icon-shadow: rgba(37,99,235,0.45);
+  --icon-ring-1: #2563eb;
+  --icon-ring-2: #60a5fa;
+}
+.about-pillar:nth-child(4) strong { color: #1e3a8a; }
+.about-pillar:nth-child(4) p { color: #1e40af; }
+.about-pillar:nth-child(4):hover {
+  border-color: #3b82f6;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1100px) {
+  .about-pillars { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .about-pillars { grid-template-columns: 1fr; gap: 18px; }
+  .about-pillar { padding: 28px 24px; }
+  .about-pillar:hover { transform: translateY(-8px) scale(1.04) rotate(0deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .about-pillar, .pillar-icon,
+  .about-pillar::before, .about-pillar::after,
+  .pillar-icon::before, .pillar-icon::after { animation: none !important; transition: none !important; }
+  .about-pillar { opacity: 1; transform: none; }
+}

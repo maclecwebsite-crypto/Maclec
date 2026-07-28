@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="global.css">
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32-v2.png">
 <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16-v2.png">
@@ -116,17 +117,19 @@
   <h2 class="stats-heading">Driving the Global Transition Towards Dam-Free Hydropower</h2>
 
   <div class="stats-grid">
-    <div class="stat-card stat-card--cyan">
-      <span class="stat-icon">
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
-      </span>
-      <div>
-        <p class="stat-num">50+ <span class="stat-unit">MW</span></p>
-        <p class="stat-label">Projects Executed </p>
-      </div>
-    </div>
+<div class="stat-card stat-card--cyan">
+  <div class="glow-orb"></div>
+  <span class="stat-icon">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+  </span>
+  <div>
+    <p class="stat-num">100+ <span class="stat-unit">MW</span></p>
+    <p class="stat-label">Projects in Execution</p>
+  </div>
+</div>
 
     <div class="stat-card stat-card--green">
+      <div class="glow-orb"></div>
       <span class="stat-icon">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 9.5 22 4c0 9-5 16-13 16z"/></svg>
       </span>
@@ -137,6 +140,7 @@
     </div>
 
     <div class="stat-card stat-card--amber">
+      <div class="glow-orb"></div>
       <span class="stat-icon">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 4 6.2 4 9s-1.5 6.3-4 9c-2.5-2.7-4-6.2-4-9s1.5-6.3 4-9z"/></svg>
       </span>
@@ -147,16 +151,18 @@
     </div>
 
     <div class="stat-card stat-card--blue">
+      <div class="glow-orb"></div>
       <span class="stat-icon">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-7"/></svg>
       </span>
       <div>
-        <p class="stat-num">100+ <span class="stat-unit">GW</span></p>
-        <p class="stat-label">Hydrokinetic Potential Identified</p>
+        <p class="stat-num">10000 <span class="stat-unit">Twh</span></p>
+        <p class="stat-label">Self identified potential in World wide</p>
       </div>
     </div>
 
     <div class="stat-card stat-card--white">
+      <div class="glow-orb"></div>
       <span class="stat-icon">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 4 5v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V5l-8-3z"/></svg>
       </span>
@@ -167,6 +173,7 @@
     </div>
 
     <div class="stat-card stat-card--magenta">
+      <div class="glow-orb"></div>
       <span class="stat-icon">₹</span>
       <div>
         <p class="stat-num">₹1,600+ <span class="stat-unit">Cr</span></p>
@@ -217,6 +224,10 @@
           <strong>Ministry of Coal India</strong>
         </div>
         <div class="partner">
+          <img src="https://media.licdn.com/dms/image/v2/D560BAQHCeZBcVMd0Jw/company-logo_200_200/B56ZU83u6GGUAM-/0/1740482998554/climatelaunchpad_logo?e=2147483647&v=beta&t=w5P2K5ToFlw1uySU9Gh5xGeesw_OEiPyD1vSTcNNXec" alt="Climate Launchpad India" class="partner-logo" />
+          <strong>Climate Launchpad India</strong>
+        </div>
+        <div class="partner">
           <img src="./img/Nasa.jpg" alt="NASA" class="partner-logo" />
           <strong>NASA</strong>
         </div>
@@ -248,6 +259,17 @@
       </button>
 
 <div class="carousel-track" id="carouselTrack">
+
+    <button class="carousel-slide"
+    data-video="https://res.cloudinary.com/a07iptoj/video/upload/v1784734353/hydropower_ch3fhu.mp4">
+    <img alt="50kw SHKT floating unit in action at IIT">
+    <span class="carousel-play">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </span>
+    <span class="carousel-caption">150k Wt SHKT Bottom fix unit in action</span>
+  </button>
     <!-- Deployment of Fixed Type SHK Ram nagar 1 -->
   <button class="carousel-slide"
     data-video="https://res.cloudinary.com/a07iptoj/video/upload/v1784730424/Deployment_of_Fixed_Tye_SHK_Turbine_at_Jim_Corbett_bpdvdb.mp4">
@@ -257,7 +279,17 @@
         <path d="M8 5v14l11-7z"/>
       </svg>
     </span>
-    <span class="carousel-caption">SHK Fixed Type Turbine in Ram Nagar</span>
+    <span class="carousel-caption">10k Wt Fixed Type SHKT unit in action</span>
+  </button>
+    <button class="carousel-slide"
+    data-video="https://res.cloudinary.com/a07iptoj/video/upload/v1784734353/hydropower_ch3fhu.mp4">
+    <img alt="SHK Turbine Proposal for Rajasthan">
+    <span class="carousel-play">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </span>
+    <span class="carousel-caption">150k wt SHKT bottom fix unit in action</span>
   </button>
   <!-- Ram nagar 1 -->
 <button class="carousel-slide" data-video="https://res.cloudinary.com/a07iptoj/video/upload/v1784886749/Ramanagar_fzsvat.mp4">
@@ -267,20 +299,9 @@
         <path d="M8 5v14l11-7z"/>
       </svg>
     </span>
-    <span class="carousel-caption">SHK Fixed Type Turbine in Ram Nagar</span>
+    <span class="carousel-caption">5k Wt Fixed type SHKT unit in action</span>
   </button>
 
-  <!-- SHK Turbine Proposal for Rajasthan -->
-  <button class="carousel-slide"
-    data-video="https://res.cloudinary.com/a07iptoj/video/upload/v1784734353/hydropower_ch3fhu.mp4">
-    <img alt="SHK Turbine Proposal for Rajasthan">
-    <span class="carousel-play">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-        <path d="M8 5v14l11-7z"/>
-      </svg>
-    </span>
-    <span class="carousel-caption">SHK Floating Turbine in Hanumangarh Rajasthan</span>
-  </button>
 
 
 
@@ -325,107 +346,245 @@
     <p class="why-sub">Traditional hydropower depends upon dams, reservoirs, large civil structures and significant environmental intervention. MACLEC's Surface Hydrokinetic Turbine Technology generates renewable electricity directly from the natural kinetic energy of flowing water—without altering the river, canal or waterway.</p>
 
     <!-- Comparison Table -->
-    <div class="compare-wrap">
-      <div class="compare-header">
-        <span>Conventional Hydropower vs SHK Turbine Technology</span>
+<div class="compare-wrap">
+  <div class="compare-header">
+    <span>Conventional Hydropower vs SHK Turbine vs Solar Power</span>
+  </div>
+  <div class="compare-table">
+    <!-- Labels -->
+    <div class="compare-col compare-col--label">
+      <div class="compare-cell compare-cell--head compare-cell--head-label">
+        <span>Parameter</span>
       </div>
-      <div class="compare-table">
-        <div class="compare-col compare-col--label">
-          <div class="compare-cell compare-cell--head">Parameter</div>
-          <div class="compare-cell">Dam Required</div>
-          <div class="compare-cell">Reservoir Required</div>
-          <div class="compare-cell">River Diversion</div>
-          <div class="compare-cell">Major Civil Construction</div>
-          <div class="compare-cell">Land Acquisition</div>
-          <div class="compare-cell">Installation Time</div>
-          <div class="compare-cell">Environmental Footprint</div>
-          <div class="compare-cell">Scalability</div>
-          <div class="compare-cell">Modular Deployment</div>
-        </div>
-        <div class="compare-col compare-col--old">
-          <div class="compare-cell compare-cell--head">Conventional Hydro</div>
-          <div class="compare-cell compare-cell--bad">Yes</div>
-          <div class="compare-cell compare-cell--bad">Yes</div>
-          <div class="compare-cell compare-cell--bad">Required</div>
-          <div class="compare-cell compare-cell--bad">Extensive</div>
-          <div class="compare-cell compare-cell--bad">High</div>
-          <div class="compare-cell compare-cell--bad">3–10 Years</div>
-          <div class="compare-cell compare-cell--bad">High</div>
-          <div class="compare-cell compare-cell--bad">Limited</div>
-          <div class="compare-cell compare-cell--bad">No</div>
-        </div>
-        <div class="compare-col compare-col--new">
-          <div class="compare-cell compare-cell--head">SHKT Technology</div>
-          <div class="compare-cell compare-cell--good">No ✓</div>
-          <div class="compare-cell compare-cell--good">No ✓</div>
-          <div class="compare-cell compare-cell--good">Not Required ✓</div>
-          <div class="compare-cell compare-cell--good">Minimal ✓</div>
-          <div class="compare-cell compare-cell--good">Negligible ✓</div>
-          <div class="compare-cell compare-cell--good">3–12 Months ✓</div>
-          <div class="compare-cell compare-cell--good">Very Low ✓</div>
-          <div class="compare-cell compare-cell--good">Unlimited ✓</div>
-          <div class="compare-cell compare-cell--good">Yes ✓</div>
-        </div>
-      </div>
+      <div class="compare-cell">Dam Required</div>
+      <div class="compare-cell">Reservoir Required</div>
+      <div class="compare-cell">River Diversion</div>
+      <div class="compare-cell">Major Civil Construction</div>
+      <div class="compare-cell">Land Acquisition</div>
+      <div class="compare-cell">Installation Time</div>
+      <div class="compare-cell">Environmental Footprint</div>
+      <div class="compare-cell">Scalability</div>
+      <div class="compare-cell">Modular Deployment</div>
+      <div class="compare-cell">24×7 Baseload Power</div>
     </div>
 
-    <!-- Advantage Cards -->
-    <div class="adv-grid">
-      <div class="adv-card">
-        <div class="adv-icon">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M5 19 19 5"/></svg>
-        </div>
-        <h3>No Dam Required</h3>
-        <p>Generate electricity directly from flowing water without blocking the stream or river.</p>
+    <!-- Conventional Hydro -->
+    <div class="compare-col compare-col--old">
+      <div class="compare-cell compare-cell--head">
+        <img class="compare-tech-img"
+             src="https://t4.ftcdn.net/jpg/03/37/19/77/360_F_337197779_OgXAskABXELNggQbjRlnLKPuaI6d3vvH.jpg"
+             alt="Conventional Hydro dam"
+             onerror="this.style.display='none'">
+        <span class="compare-head-text">Conventional Hydro</span>
       </div>
-      <div class="adv-card">
-        <div class="adv-icon">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="6" r="3"/><path d="M12 9v6M8 18h8"/><path d="M5 21h14"/></svg>
-        </div>
-        <h3>24×7 Baseload Power</h3>
-        <p>Unlike solar and wind, flowing water provides continuous, reliable energy generation round the clock.</p>
+      <div class="compare-cell compare-cell--bad">Yes</div>
+      <div class="compare-cell compare-cell--bad">Yes</div>
+      <div class="compare-cell compare-cell--bad">Required</div>
+      <div class="compare-cell compare-cell--bad">Extensive</div>
+      <div class="compare-cell compare-cell--bad">High</div>
+      <div class="compare-cell compare-cell--bad">3–10 Years</div>
+      <div class="compare-cell compare-cell--bad">High</div>
+      <div class="compare-cell compare-cell--bad">Limited</div>
+      <div class="compare-cell compare-cell--bad">No</div>
+      <div class="compare-cell compare-cell--good">Yes ✓</div>
+    </div>
+
+    <!-- SHKT -->
+    <div class="compare-col compare-col--new">
+      <div class="compare-cell compare-cell--head">
+        <img class="compare-tech-img"
+             src="./img/anemometer_lights_cctv.0001.00_00_02_26.Still004.png"
+             alt="SHKT Technology"
+             onerror="this.style.display='none'">
+        <span class="compare-head-text">SHKT Technology</span>
       </div>
-      <div class="adv-card">
-        <div class="adv-icon">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 9.5 22 4c0 9-5 16-13 16z"/></svg>
-        </div>
-        <h3>Ultra Low Environmental Impact</h3>
-        <p>No submergence. No displacement. No reservoir. Fish and aquatic life pass freely through installations.</p>
+      <div class="compare-cell compare-cell--good">No ✓</div>
+      <div class="compare-cell compare-cell--good">No ✓</div>
+      <div class="compare-cell compare-cell--good">Not Required ✓</div>
+      <div class="compare-cell compare-cell--good">Minimal ✓</div>
+      <div class="compare-cell compare-cell--good">Negligible ✓</div>
+      <div class="compare-cell compare-cell--good">3–12 Months ✓</div>
+      <div class="compare-cell compare-cell--good">Very Low ✓</div>
+      <div class="compare-cell compare-cell--good">Unlimited ✓</div>
+      <div class="compare-cell compare-cell--good">Yes ✓</div>
+      <div class="compare-cell compare-cell--good">Yes ✓</div>
+    </div>
+
+    <!-- Solar -->
+    <div class="compare-col compare-col--solar">
+      <div class="compare-cell compare-cell--head">
+        <img class="compare-tech-img"
+             src="https://i.pinimg.com/originals/55/42/96/554296a5e78dbd98814b9b156a21f1bc.png"
+             alt="Solar Power panels"
+             onerror="this.style.display='none'">
+        <span class="compare-head-text">Solar Power</span>
       </div>
-      <div class="adv-card">
-        <div class="adv-icon">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3 6h6l-5 4 2 7-6-4-6 4 2-7L3 8h6z"/></svg>
+      <div class="compare-cell compare-cell--good">No ✓</div>
+      <div class="compare-cell compare-cell--good">No ✓</div>
+      <div class="compare-cell compare-cell--good">Not Required ✓</div>
+      <div class="compare-cell compare-cell--bad">Moderate</div>
+      <div class="compare-cell compare-cell--bad">Very High</div>
+      <div class="compare-cell compare-cell--good">3–6 Months ✓</div>
+      <div class="compare-cell compare-cell--bad">Moderate</div>
+      <div class="compare-cell compare-cell--bad">Limited</div>
+      <div class="compare-cell compare-cell--good">Yes ✓</div>
+      <div class="compare-cell compare-cell--bad">No (Intermittent)</div>
+    </div>
+  </div>
+</div>
+
+    <!-- Benefit Cards -->
+         <div class="benefits-header">
+      <div class="benefits-header-deco benefits-header-deco--1"></div>
+      <div class="benefits-header-deco benefits-header-deco--2"></div>
+      <div class="benefits-header-deco benefits-header-deco--3"></div>
+   
+      <h2 class="benefits-title">
+        Real Benefits That<br>
+        <span class="accent-word">Transform Your Energy</span><br>
+        Infrastructure
+      </h2>
+      
+      <p class="benefits-subtitle">
+        Every installation delivers measurable returns—financial, operational, and environmental—from day one.
+      </p>
+    </div>
+  <div class="benefits-grid">
+      
+      <!-- 1. Zero Civil Works -->
+      <div class="benefit-card">
+        <div class="glow-orb"></div>
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5">
+            <!-- turbine directly in a water stream, no dam -->
+            <path d="M4 15c2-2 4-2 6 0s4 2 6 0s4-2 6 0"/>
+            <path d="M4 19c2-2 4-2 6 0s4 2 6 0s4-2 6 0"/>
+            <circle cx="12" cy="8" r="3.5"/>
+            <path d="M12 4.5v7M8.5 8h7"/>
+          </svg>
         </div>
-        <h3>Plug &amp; Play Installation</h3>
-        <p>Factory manufactured modules. Rapid deployment at site. Minimal civil works required.</p>
+        <h3>Zero Civil Structure Needed</h3>
+        <p>No dams, no reservoirs, no diversion channels. Install directly in existing waterways and start generating power within weeks.</p>
       </div>
-      <div class="adv-card">
-        <div class="adv-icon">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.7l-6-3.5a2 2 0 0 0-2 0l-6 3.5A2 2 0 0 0 5 8v8a2 2 0 0 0 1 1.7l6 3.5a2 2 0 0 0 2 0l6-3.5A2 2 0 0 0 21 16z"/><path d="M3.3 7 12 12l8.7-5M12 22V12"/></svg>
+
+      <!-- 2. 24×7 Baseload Power -->
+      <div class="benefit-card">
+        <div class="glow-orb"></div>
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 7v5l3 3"/>
+            <path d="M3 12h2M19 12h2M12 3v2M12 19v2"/>
+          </svg>
         </div>
-        <h3>Modular &amp; Scalable</h3>
-        <p>Deploy from 50 kW → 100 kW → 250 kW → MW → GW with growing turbine cluster arrays.</p>
+        <h3>24×7 Baseload Energy</h3>
+        <p>Solar stops at sunset. Wind dies down. Flowing water never sleeps—delivering continuous, predictable power every hour of every day.</p>
       </div>
-      <div class="adv-card">
-        <div class="adv-icon">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 4 5v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V5l-8-3z"/></svg>
+
+      <!-- 3. No Environmental Damage -->
+      <div class="benefit-card">
+        <div class="glow-orb"></div>
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5">
+            <!-- fish swimming freely through water -->
+            <path d="M3 12c3-4 8-5 11-3 2 1.3 3 3 3 3s-1 1.7-3 3c-3 2-8 1-11-3z"/>
+            <path d="M17 9l3-2v10l-3-2"/>
+            <circle cx="7.5" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+          </svg>
         </div>
-        <h3>40+ Year Design Life</h3>
-        <p>Engineered for long-term operation under harsh field conditions with minimal maintenance.</p>
+        <h3>Zero Submergence & Displacement</h3>
+        <p>No land is drowned. No communities are relocated. Fish and aquatic life move freely through the turbine zone untouched.</p>
       </div>
-      <div class="adv-card">
-        <div class="adv-icon">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2M3.5 9A9 9 0 0 1 12 3M3 12h2M12 21v-2M21 12h-2"/></svg>
+
+      <!-- 4. Fast Deployment -->
+      <div class="benefit-card">
+        <div class="glow-orb"></div>
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5">
+            <!-- rocket: speed of deployment -->
+            <path d="M12 2c3 2 4.5 5.5 4.5 9 0 2-1 4-1 4H8.5s-1-2-1-4c0-3.5 1.5-7 4.5-9z"/>
+            <circle cx="12" cy="9" r="1.5"/>
+            <path d="M8.5 15l-2.5 4M15.5 15l2.5 4M9.5 19h5"/>
+          </svg>
         </div>
-        <h3>Multiple Feasible Site Locations</h3>
-        <p>A wide SHK turbine range enables deployment across canals, rivers, hydropower and thermal plant channels, ports and pumped-storage sites for power production.</p>
+        <h3>From Order to Operation in 3–12 Months</h3>
+        <p>Factory-built modules ship ready to install. Minimal on-site civil work means you start earning from power generation within a single financial year.</p>
       </div>
-      <div class="adv-card">
-        <div class="adv-icon">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2M8 12h.01M12 12h.01M16 12h.01M8 16h8"/></svg>
+
+      <!-- 5. Pay-As-You-Grow -->
+      <div class="benefit-card">
+        <div class="glow-orb"></div>
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="7" height="7" rx="1"/>
+            <rect x="14" y="3" width="7" height="7" rx="1"/>
+            <rect x="3" y="14" width="7" height="7" rx="1"/>
+            <rect x="14" y="14" width="7" height="7" rx="1"/>
+            <path d="M10 6.5h4M6.5 10v4M17.5 10v4M10 17.5h4"/>
+          </svg>
         </div>
-        <h3>In-House Large Scale Manufacturing</h3>
-        <p>Complete in-house design, manufacturing and execution capacity enables MACLEC to deliver large-scale SHK turbine deployments end-to-end.</p>
+        <h3>Start Small, Scale to Gigawatts</h3>
+        <p>Begin with a single 50 kW unit and expand incrementally. Add clusters as your energy demand grows—no upfront over-investment.</p>
+      </div>
+
+      <!-- 6. 40+ Year Lifespan -->
+      <div class="benefit-card">
+        <div class="glow-orb"></div>
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5">
+            <!-- hourglass: long operating life -->
+            <path d="M6 3h12M6 21h12"/>
+            <path d="M7 3c0 4 3 6 5 8 2-2 5-4 5-8"/>
+            <path d="M7 21c0-4 3-6 5-8 2 2 5 4 5 8"/>
+          </svg>
+        </div>
+        <h3>40+ Years of Reliable Generation</h3>
+        <p>Built for decades of continuous operation in harsh water environments. Low wear parts mean minimal downtime and maintenance costs.</p>
+      </div>
+
+      <!-- 7. Works Almost Anywhere -->
+      <div class="benefit-card">
+        <div class="glow-orb"></div>
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5">
+            <!-- flowing channel / waterway -->
+            <path d="M3 8c2-2 4-2 6 0s4 2 6 0s4-2 6 0"/>
+            <path d="M3 13c2-2 4-2 6 0s4 2 6 0s4-2 6 0"/>
+            <path d="M3 18c2-2 4-2 6 0s4 2 6 0s4-2 6 0"/>
+          </svg>
+        </div>
+        <h3>Canals, Rivers, Ports & Channels</h3>
+        <p>One technology fits irrigation canals, hydropower tailraces, thermal cooling channels, tidal ports and pumped-storage systems.</p>
+      </div>
+
+      <!-- 8. 100% Recyclable + Scrap Value Return -->
+      <div class="benefit-card">
+        <div class="glow-orb"></div>
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5">
+            <!-- recycle loop symbol -->
+            <path d="M12 3l3 3-3 3"/>
+            <path d="M15 6H9a5 5 0 0 0-5 5v1"/>
+            <path d="M6 21l-3-3 3-3"/>
+            <path d="M3 18h6a5 5 0 0 0 5-5v-1"/>
+            <path d="M18 15l3 3-3 3"/>
+            <path d="M21 18h-6a5 5 0 0 1-4.5-2.8"/>
+          </svg>
+        </div>
+        <h3>100% Recyclable — 35–40% Value Back</h3>
+        <p>Every component is fully recyclable. Even after the 40-year design life, you recover 35–40% of material value. True circular economy energy.</p>
+      </div>
+
+      <!-- 9. Lowest Cost of Energy -->
+      <div class="benefit-card">
+        <div class="glow-orb"></div>
+        <div class="benefit-icon">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
+        <h3>Lowest Cost of Energy (LCoE)</h3>
+        <p>At just ₹2.5–3.5 per kWh, SHKT delivers power cheaper than diesel, gas, and even grid parity solar-wind hybrids with storage.</p>
       </div>
     </div>
 
@@ -438,7 +597,7 @@
 <!-- ===== INDUSTRIES WE SERVE ===== -->
 <section class="industries-section" id="applications">
   <div class="industries-inner">
-    <div class="about-tag">Industries We Serve</div>
+    <div class="about-tag">Feasable locations for SHKT</div>
     <h2 class="about-title">Unlocking Clean Energy from<br><span class="accent">Existing Water Infrastructure</span></h2>
     <p class="about-intro">MACLEC's Surface Hydrokinetic Turbine technology enables clean, continuous and scalable electricity generation from naturally flowing or man-made water streams without dams, reservoirs, diversion structures or major civil construction.</p>
 
@@ -551,7 +710,6 @@
   </div>
 </section>
 
-<!-- ===== RECOGNITION & TRUST WALL ===== -->
 <section class="trust-section" id="recognition">
   <div class="trust-inner">
     <div class="about-tag">Recognition &amp; Trust Wall</div>
@@ -630,6 +788,37 @@
     </div>
   </div> -->
 
+
+
+<div class="timeline-item">
+  <div class="timeline-year">2024</div>
+  <div class="timeline-dot"></div>
+  <div class="timeline-card">
+    <div class="timeline-badge timeline-badge--amber">MNRE</div>
+    <div class="timeline-card-header-row">
+      <div class="timeline-card-title-col">
+        <span class="timeline-full-form">Ministry of New &amp; Renewable Energy, Small Hydro Power Division</span>
+        <h3>Office Memorandum — Hydro Category Recognition</h3>
+      </div>
+      <div class="timeline-card-image-col">
+        <button class="timeline-cert-thumb"
+                data-view-src="./img/MNRE_acceptance.png"
+                data-view-type="image"
+                data-view-title="MNRE Office Memorandum - Hydro Kinetic Technology Turbines"
+                aria-label="View MNRE Office Memorandum">
+          <img src="./img/MNRE_acceptance.png" alt="MNRE Office Memorandum on Hydro Kinetic Technology Turbines">
+          <span class="cert-thumb-overlay">View</span>
+        </button>
+      </div>
+    </div>
+    <p>The Ministry of New &amp; Renewable Energy's Small Hydro Power Division issued an Office Memorandum (File No. 19/28/2024-SHP, dated 09.12.2024) forwarding the Central Electricity Authority's recognition of Surface Hydrokinetic Turbine (SHKT) technology under the Hydro Category, directing all State Implementing Agencies and Departments responsible for Small Hydro Power development to consider it for necessary action.</p>
+    <ul class="timeline-highlights">
+      <li>Forwarded CEA's Hydro Category recognition of SHKT</li>
+      <li>Directed to all State Implementing Agencies for Small Hydro Power</li>
+      <li>Aimed at driving innovation toward net-zero emission targets</li>
+    </ul>
+  </div>
+</div>
   <!-- 2024 Hydro Policy -->
 <div class="timeline-item">
   <div class="timeline-year">2024</div>
@@ -661,37 +850,47 @@
     </ul>
   </div>
 </div>
-
+<!-- 2021 CEA Report -->
 <div class="timeline-item">
-  <div class="timeline-year">2024</div>
+  <div class="timeline-year">2021</div>
   <div class="timeline-dot"></div>
   <div class="timeline-card">
-    <div class="timeline-badge timeline-badge--amber">MNRE</div>
+    <div class="timeline-badge timeline-badge--green">CEA Report 2021 Published</div>
     <div class="timeline-card-header-row">
       <div class="timeline-card-title-col">
-        <span class="timeline-full-form">Ministry of New &amp; Renewable Energy, Small Hydro Power Division</span>
-        <h3>Office Memorandum — Hydro Category Recognition</h3>
+        <span class="timeline-full-form">Central Electricity Authority, Ministry of Power, Govt. of India</span>
+        <h3>Committee Report on Hydro Kinetic Turbine Technology</h3>
       </div>
       <div class="timeline-card-image-col">
-        <button class="timeline-cert-thumb"
-                data-view-src="./img/MNRE_acceptance.png"
-                data-view-type="image"
-                data-view-title="MNRE Office Memorandum - Hydro Kinetic Technology Turbines"
-                aria-label="View MNRE Office Memorandum">
-          <img src="./img/MNRE_acceptance.png" alt="MNRE Office Memorandum on Hydro Kinetic Technology Turbines">
+        <button class="timeline-cert-thumb" 
+                data-view-src="./docs/CEA_Report_DatedOct_21.pdf"
+                data-view-type="pdf"
+                data-view-title="CEA Report on Hydro Kinetic Turbine - Oct 2021"
+                aria-label="View CEA Report 2021">
+          <img src="./img/CEA_Report.png" alt="CEA Report 2021 Cover">
           <span class="cert-thumb-overlay">View</span>
         </button>
       </div>
     </div>
-    <p>The Ministry of New &amp; Renewable Energy's Small Hydro Power Division issued an Office Memorandum (File No. 19/28/2024-SHP, dated 09.12.2024) forwarding the Central Electricity Authority's recognition of Surface Hydrokinetic Turbine (SHKT) technology under the Hydro Category, directing all State Implementing Agencies and Departments responsible for Small Hydro Power development to consider it for necessary action.</p>
+    <p>A Committee headed by Member (Hydro), CEA — comprising representatives from CEA, MNRE, NHPC, THDCIL and IIT Roorkee — studied the concept and commercial applications of MACLEC's Surface Hydro Kinetic Turbine. Five meetings were held with presentations from MACLEC, GKinetic Energy (Ireland) and Imp Powers. The report covers technology concept, potential assessment, cost analysis, tariff framework and a roadmap for pilot installations.</p>
     <ul class="timeline-highlights">
-      <li>Forwarded CEA's Hydro Category recognition of SHKT</li>
-      <li>Directed to all State Implementing Agencies for Small Hydro Power</li>
-      <li>Aimed at driving innovation toward net-zero emission targets</li>
+      <li>Committee constituted under Member (Hydro), CEA</li>
+      <li>Five meetings with Indian & foreign technology presentations</li>
+      <li>TRL assessed at 6–7 (technology demonstration stage)</li>
+      <li>India potential estimated at GW scale</li>
+      <li>Indigenous cost benchmarked at ~₹8 Cr/MW</li>
+      <li>Levellised Tariff: ₹2.60–6.43 per unit</li>
+      <li>Recommended pilot projects before commercial scale-up</li>
     </ul>
+    <div class="timeline-actions timeline-actions--report">
+      <a class="tl-btn tl-btn--outline"
+         href="./docs/CEA_Report_DatedOct_21.pdf"
+         download="MACLEC-CEA-HKT-Report-2021.pdf">
+        Download Report
+      </a>
+    </div>
   </div>
 </div>
-
   <!-- 2014 -->
 <div class="timeline-item">
   <div class="timeline-year">2018</div>
@@ -723,7 +922,7 @@
   </div>
 </div>
 
-  <!-- Academic -->
+<!-- Academic -->
 <div class="timeline-item">
   <div class="timeline-year">IIT</div>
   <div class="timeline-dot"></div>
@@ -734,18 +933,28 @@
         <span class="timeline-full-form">Indian Institute of Technology Roorkee</span>
         <h3>Academic &amp; Technical Validation</h3>
       </div>
+      <div class="timeline-card-image-col">
+        <button class="timeline-cert-thumb" 
+                data-view-src="./img/IIT_letter.png"
+                data-view-type="image"
+                data-view-title="IIT Roorkee Validation Letter – VARUN-III, Sept 2020"
+                aria-label="View IIT Roorkee Letter">
+          <img src="./img/IIT_letter.png" alt="IIT Roorkee Validation Letter">
+          <span class="cert-thumb-overlay">View</span>
+        </button>
+      </div>
     </div>
-    <p>MACLEC's technology has undergone technical reviews, performance assessments, CFD validation studies and academic evaluations by leading institutions including IIT Roorkee and government research agencies.</p>
+    <p>Dr. R.P. Saini, MNRE Chair Professor (Dept. of Hydro &amp; Renewable Energy), confirmed in a Sept 2020 letter that MACLEC is the industry partner in a UJVN-sponsored R&amp;D project to develop the 100 kW <strong>VARUN-III</strong> surface hydrokinetic turbine. The prototype was tested on the Upper Ganga Canal, and the letter validates the novelty of MACLEC's partial-submergence approach for harnessing surface water velocity.</p>
     <ul class="timeline-highlights">
-      <li>Hydrodynamic performance assessed</li>
-      <li>Wake recovery analysis conducted</li>
-      <li>Environmental impact validated</li>
-      <li>Grid integration feasibility confirmed</li>
+      <li>Formal R&amp;D partnership with IIT Roorkee &amp; UJVN Ltd.</li>
+      <li>VARUN-III prototype tested on Upper Ganga Canal</li>
+      <li>Novel partial-submergence design academically validated</li>
+      <li>Hydrodynamic performance &amp; wake recovery assessed</li>
     </ul>
   </div>
 </div>
 
-  <!-- International -->
+<!-- International -->
 <div class="timeline-item">
   <div class="timeline-year">🌐</div>
   <div class="timeline-dot"></div>
@@ -767,13 +976,17 @@
         </button>
       </div>
     </div>
-    <p>MACLEC's pioneering work in hydrokinetic energy has been acknowledged and showcased by several international organizations, innovation platforms and sustainability initiatives worldwide.</p>
+    <p>MACLEC's pioneering work in hydrokinetic energy has been acknowledged and showcased by leading international innovation platforms, government agencies and sustainability initiatives worldwide.</p>
     <ul class="timeline-highlights">
-      <li>NASA Innovation Platforms</li>
-      <li>European Union Innovation Ecosystems</li>
-      <li>United Nations Development Programme (UNDP)</li>
-      <li>World Wide Fund for Nature (WWF)</li>
-      <li>BRICS Innovation Platforms</li>
+      <li><strong>EU Climate Launchpad 2019</strong> — Global Grand Final, Second Prize Winner (Netherlands)</li>
+      <li><strong>NASA iTech 2020</strong> — "X Factor" Innovation of Earth showcase</li>
+      <li><strong>UNDP</strong> — Included in Grassroot Innovation Database</li>
+      <li><strong>AWS Clean Energy Accelerator 3.0</strong> — Selected among world's top 30 disrupting clean-tech companies</li>
+      <li><strong>U.S. Department of Commerce SABIT Program</strong> — Clean Energy for South Asia (2023)</li>
+      <li><strong>SET100 List 2024</strong> — 100 Most Promising Global Energy Startups (German Energy Agency / World Energy Council)</li>
+      <li><strong>Rising Up in Spain 2022</strong> — Top 10 Innovations of the World</li>
+      <li><strong>Decarbonize Thailand Startup Sandbox 2022</strong> — Top 10 Global Innovations</li>
+      <li><strong>WWF Climate Solver</strong> — Recognized for fostering cleantech innovation</li>
     </ul>
   </div>
 </div>
@@ -803,6 +1016,20 @@
     <div class="timeline-modal-body" id="timelineModalBody">
       <!-- Content injected via JS -->
     </div>
+  </div>
+</div>
+
+<!-- ===== INDUSTRY SITE-TYPE PHOTO MODAL ===== -->
+<div class="industry-modal" id="industryModal" aria-hidden="true">
+  <div class="industry-modal-backdrop" id="industryModalBackdrop"></div>
+  <div class="industry-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="industryModalTitle">
+    <button type="button" class="industry-modal-close" id="industryModalClose" aria-label="Close">×</button>
+    <div class="industry-modal-header">
+      <span class="industry-modal-tag" id="industryModalTag">Feasible Site Type</span>
+      <h4 id="industryModalTitle"></h4>
+      <p class="industry-modal-hint">Tap any image to explore feasibility mapping for this site type →</p>
+    </div>
+    <div class="industry-modal-grid" id="industryModalGrid"></div>
   </div>
 </div>
   <footer id="site-footer-root"></footer>

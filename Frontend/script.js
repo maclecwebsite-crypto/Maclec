@@ -1,4 +1,5 @@
-  (function() {
+// script.js
+(function() {
     const loader = document.getElementById('loadingScreen');
     const body = document.body;
     
@@ -487,5 +488,154 @@ const cardData = {
     current = current === 1 ? 2 : 1;
     video.src = current === 1 ? src1 : src2;
     video.play();
+  });
+})();
+
+
+/* Stats entrance animation */
+const statCards = document.querySelectorAll('.stat-card');
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      statsObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+statCards.forEach(card => statsObserver.observe(card));
+
+/* About pillars entrance animation */
+const pillarCards = document.querySelectorAll('.about-pillar');
+const pillarObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      pillarObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+pillarCards.forEach(card => pillarObserver.observe(card));
+
+
+/* Benefits entrance animation */
+const benefitCards = document.querySelectorAll('.benefit-card');
+const benefitObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      benefitObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+benefitCards.forEach(card => benefitObserver.observe(card));
+
+
+// --- INDUSTRY CARD PHOTO MODAL (Feasable locations for SHKT) ---
+(function () {
+  const INDUSTRY_IMAGES = {
+    canals: {
+      title: 'Irrigation Canals',
+      photos: [
+        { file: 'Small Irrigation canal.jfif', caption: 'Small irrigation canal' },
+        { file: 'Lined Canal.jfif', caption: 'Lined irrigation canal' },
+        { file: 'Unlined Canal.jfif', caption: 'Unlined irrigation canal' },
+        { file: 'Lift Irrigation Canal Systems 1.jfif', caption: 'Lift irrigation canal system' },
+      ]
+    },
+    hydro: {
+      title: 'Hydropower Plants',
+      photos: [
+        { file: 'Tailrace Hydropower Dam Canal 1.jfif', caption: 'Tailrace hydropower dam canal' },
+        { file: 'Tailrace Hydropower Dam Canal 3.jfif', caption: 'Tailrace hydropower dam canal' },
+        { file: 'Tailrace Hydropower Dam Canal 5.jfif', caption: 'Tailrace hydropower dam canal' },
+      ]
+    },
+    thermal: {
+      title: 'Thermal Power Plants',
+      photos: [
+        { file: 'Thermal Power Plant Cooling Water Channels 1.jfif', caption: 'Thermal plant cooling water channel' },
+        { file: 'Industrial Plant Cooling Water Channels.jfif', caption: 'Industrial cooling water channel' },
+        { file: 'Thermal Power Plant Cooling Water Channels 3.jfif', caption: 'Thermal plant cooling water channel' },
+      ]
+    },
+    rivers: {
+      title: 'Rivers & Streams',
+      photos: [
+        { file: 'Mountain River 1.jfif', caption: 'Mountain river' },
+        { file: 'Lowland or Alluvial River 1.jfif', caption: 'Lowland / alluvial river' },
+        { file: 'Hilly Stream 1.jfif', caption: 'Hilly stream' },
+        { file: 'Plain Ground Stream 1.jfif', caption: 'Plain ground stream' },
+      ]
+    },
+    ports: {
+      title: 'Ports & Coastal Infrastructure',
+      photos: [
+        { file: 'Bidirectional tidal channels 1.jfif', caption: 'Bidirectional tidal channel' },
+        { file: 'Bidirectional Tidal Stream Channel 2.jfif', caption: 'Bidirectional tidal stream channel' },
+        { file: 'Bidirectional Tidal Stream Channel 5.jfif', caption: 'Bidirectional tidal stream channel' },
+      ]
+    },
+    storage: {
+      title: 'Pumped Storage & Energy Storage',
+      photos: [
+        { file: 'Upstream Reservoir 1.jfif', caption: 'Upstream reservoir' },
+        { file: 'Downstream or Lower Stream1.jfif', caption: 'Downstream / lower stream' },
+        { file: 'abandoned mines 1.jfif', caption: 'Abandoned mine (PSP site)' },
+      ]
+    }
+  };
+
+  // Where clicking any photo should navigate to
+  const ATLAS_TARGET_URL = 'atlas.html#mapping-future';
+
+  const modal = document.getElementById('industryModal');
+  const backdrop = document.getElementById('industryModalBackdrop');
+  const closeBtn = document.getElementById('industryModalClose');
+  const tagEl = document.getElementById('industryModalTag');
+  const titleEl = document.getElementById('industryModalTitle');
+  const gridEl = document.getElementById('industryModalGrid');
+
+  if (!modal || !gridEl) return;
+
+  function openIndustryModal(key) {
+    const data = INDUSTRY_IMAGES[key];
+    if (!data) return;
+
+    titleEl.textContent = data.title;
+    gridEl.innerHTML = '';
+
+    data.photos.forEach(p => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'industry-modal-photo';
+      btn.innerHTML = `
+        <img src="img/${encodeURIComponent(p.file)}" alt="${p.caption}" loading="lazy">
+        <span class="industry-modal-photo-caption">${p.caption}</span>
+      `;
+      btn.addEventListener('click', () => {
+        window.location.href = ATLAS_TARGET_URL;
+      });
+      gridEl.appendChild(btn);
+    });
+
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeIndustryModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
+  document.querySelectorAll('.industry-card').forEach(card => {
+    card.addEventListener('click', () => {
+      openIndustryModal(card.dataset.industry);
+    });
+  });
+
+  if (backdrop) backdrop.addEventListener('click', closeIndustryModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeIndustryModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeIndustryModal();
   });
 })();

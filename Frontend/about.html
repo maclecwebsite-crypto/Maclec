@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="global.css">
+<link rel="stylesheet" href="about.css">
 <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32-v2.png">
 <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16-v2.png">
@@ -93,36 +95,43 @@
       </div>
     </div>
 
-    <div class="about-pillars">
-      <div class="about-pillar">
-        <span class="pillar-icon">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 4 5v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V5l-8-3z"/></svg>
-        </span>
-        <strong>100% Indigenous IP</strong>
-        <p>Proprietary SHKT platform developed entirely in India with full IP ownership.</p>
-      </div>
-      <div class="about-pillar">
-        <span class="pillar-icon">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 4 6.2 4 9s-1.5 6.3-4 9c-2.5-2.7-4-6.2-4-9s1.5-6.3 4-9z"/></svg>
-        </span>
-        <strong>Global Reach</strong>
-        <p>Active projects and partnerships across India, Central Asia, Middle East and Africa.</p>
-      </div>
-      <div class="about-pillar">
-        <span class="pillar-icon">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
-        </span>
-        <strong>Utility Scale Ready</strong>
-        <p>From 50 kW pilots to multi-GW deployments—scalable across any water infrastructure.</p>
-      </div>
-      <div class="about-pillar">
-        <span class="pillar-icon">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 9.5 22 4c0 9-5 16-13 16z"/></svg>
-        </span>
-        <strong>Climate Aligned</strong>
-        <p>Dam-free, reservoir-free technology with the lowest environmental footprint in hydropower.</p>
-      </div>
-    </div>
+<div class="about-pillars">
+  <div class="about-pillar">
+    <div class="glow-orb"></div>
+    <span class="pillar-icon">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2 4 5v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V5l-8-3z"/></svg>
+    </span>
+    <strong>100% Indigenous IP</strong>
+    <p>Proprietary SHKT platform developed entirely in India with full IP ownership.</p>
+  </div>
+  
+  <div class="about-pillar">
+    <div class="glow-orb"></div>
+    <span class="pillar-icon">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 4 6.2 4 9s-1.5 6.3-4 9c-2.5-2.7-4-6.2-4-9s1.5-6.3 4-9z"/></svg>
+    </span>
+    <strong>Global Reach</strong>
+    <p>Active projects and partnerships across India, Central Asia, Middle East and Africa.</p>
+  </div>
+  
+  <div class="about-pillar">
+    <div class="glow-orb"></div>
+    <span class="pillar-icon">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+    </span>
+    <strong>Utility Scale Ready</strong>
+    <p>From 50 kW pilots to multi-GW deployments—scalable across any water infrastructure.</p>
+  </div>
+  
+  <div class="about-pillar">
+    <div class="glow-orb"></div>
+    <span class="pillar-icon">
+      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 9.5 22 4c0 9-5 16-13 16z"/></svg>
+    </span>
+    <strong>Climate Aligned</strong>
+    <p>Dam-free, reservoir-free technology with the lowest environmental footprint in hydropower.</p>
+  </div>
+</div>
 
     <!-- ===== WHY SHKT — carried over from index.html for additional context ===== -->
     <div style="margin-top: 4.5rem;">
@@ -181,6 +190,28 @@
 
   </div>
 </section>
+<!-- Timeline (About card) Modal -->
+<div class="timeline-modal" id="timelineModal">
+  <div class="timeline-modal-backdrop" id="timelineModalBackdrop"></div>
+  <div class="timeline-modal-content">
+    <button type="button" class="timeline-modal-close" id="timelineModalClose" aria-label="Close">&times;</button>
+    <h3 class="timeline-modal-title" id="timelineModalTitle"></h3>
+    <div class="timeline-modal-body" id="timelineModalBody"></div>
+  </div>
+</div>
+
+<!-- File view / download Modal -->
+<div class="file-modal" id="fileModal">
+  <div class="file-modal-backdrop"></div>
+  <div class="file-modal-content">
+    <div class="file-modal-header">
+      <h3 id="fileModalTitle">Document</h3>
+      <a id="fileModalDownload" class="file-modal-download" href="#" download>Download</a>
+      <button type="button" id="fileModalClose" aria-label="Close">&times;</button>
+    </div>
+    <div class="file-modal-body" id="fileModalBody"></div>
+  </div>
+</div>
   <footer id="site-footer-root"></footer>
 <script src="partials.js"></script>
 <script src="script.js"></script>

@@ -1,3 +1,4 @@
+// atlas.js
 document.addEventListener('DOMContentLoaded', () => {
 
   /* ===== SHARED SITE QUERY STATE =====
