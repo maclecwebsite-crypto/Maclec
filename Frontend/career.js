@@ -342,3 +342,68 @@ if (navToggle && mainNav) {
 }
 
 loadJobs();
+
+
+/* Perk cards entrance animation */
+const perkCards = document.querySelectorAll('.perk-card');
+const perkObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      perkObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+perkCards.forEach(card => perkObserver.observe(card));
+
+
+/* Careers hero stats entrance animation */
+const heroStats = document.querySelectorAll('.careers-hero-stat');
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      // Optional: animate numbers counting up
+      const numEl = entry.target.querySelector('.careers-hero-stat-num');
+      if (numEl && !numEl.classList.contains('counted')) {
+        numEl.classList.add('counted');
+        animateCounter(numEl);
+      }
+      statsObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+heroStats.forEach(stat => statsObserver.observe(stat));
+
+/* Optional: Number count-up animation */
+function animateCounter(el) {
+  const finalText = el.textContent;
+  const hasUnit = finalText.match(/[a-zA-Z\s]/);
+  const numericPart = parseFloat(finalText.replace(/[^0-9.]/g, ''));
+  if (isNaN(numericPart)) return;
+  
+  const duration = 1500;
+  const startTime = performance.now();
+  const suffix = finalText.replace(/[0-9.,]/g, '').trim();
+  
+  function update(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easeOut = 1 - Math.pow(1 - progress, 3);
+    const current = numericPart * easeOut;
+    
+    if (numericPart >= 1000) {
+      el.textContent = Math.floor(current).toLocaleString() + (suffix ? ' ' + suffix : '');
+    } else {
+      el.textContent = current.toFixed(1) + (suffix ? ' ' + suffix : '');
+    }
+    
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    } else {
+      el.textContent = finalText;
+    }
+  }
+  requestAnimationFrame(update);
+}

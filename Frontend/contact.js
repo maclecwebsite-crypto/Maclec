@@ -115,3 +115,16 @@ if (navToggle && mainNav) {
     mainNav.classList.toggle('mobile-open');
   });
 }
+
+
+/* Channel cards entrance animation */
+const channelCards = document.querySelectorAll('.channel-card');
+const channelObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+      channelObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+channelCards.forEach(card => channelObserver.observe(card));
