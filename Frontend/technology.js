@@ -98,8 +98,8 @@ const turbineData = {
               {
           type: 'video',
           src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784730424/Deployment_of_Fixed_Tye_SHK_Turbine_at_Jim_Corbett_bpdvdb.mp4',
-          poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
-          thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          poster: './img/fixed_10kw.png',
+          thumb: './img/fixed_10kw.png',
           caption: '10kw-upper-fixed'
         },
               {
@@ -109,45 +109,110 @@ const turbineData = {
           thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
           caption: '10kw-upper-fixed'
         },
-        { type: 'image', src: './img/Fixed_type_surface_hydro_kinetic_turbine.png', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: '10 KW Upper Fixed Type Turbine' }
+        { type: 'image', src: './img/fixed_10kw.png', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: '10 KW Upper Fixed Type Turbine' }
       ]
     },
-    '150kw-floating': {
+  '150kw-floating': {
       title: '150 KW Floating Type Turbine',
       desc: 'Floating platform turbine engineered for variable water levels.',
       media: [
         {
           type: 'video',
-          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784732823/MOV_0030_compressed_slhmlc.mp4',
-          poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
-          thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
-          caption: 'SHK Floating Turbine in operation — Ramgarh'
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1785403995/animation_2_sebq2f.mp4',
+          poster: './img/Isometric View(water).jpg',
+          thumb: './img/Isometric View(water).jpg',
+          caption: '150 KW Floating Turbine — 360° turntable (in water)'
         },
-        { type: 'image', src: './img/Isometric_water_View.jpg', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: '150 KW Floating Type Turbine' },
-        { type: 'image', src: './img/Isometric_water_View.jpg', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: '150 KW Floating Type Turbine' },
-        { type: 'image', src: './img/Isometric_water_View.jpg', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: '150 KW Floating Type Turbine' },
-        { type: 'image', src: './img/Isometric_water_View.jpg', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: '150 KW Floating Type Turbine' },                        
+        {
+          type: 'video',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1785403997/animation_1_bsn8e9.mp4',
+          poster: './img/Isometric View.jpg',
+          thumb: './img/Isometric View.jpg',
+          caption: '150 KW Floating Turbine — 360° turntable'
+        },
+        {
+          type: 'video',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1785404001/animation_3_bdpesd.mp4',
+          poster: './img/Front View.jpg',
+          thumb: './img/Front View.jpg',
+          caption: '150 KW Floating Turbine — animation 1'
+        },
+        {
+          type: 'video',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1785404004/animation_TurnTable_jgfavr.mp4',
+          poster: './img/Front View.jpg',
+          thumb: './img/Front View.jpg',
+          caption: '150 KW Floating Turbine — animation 2'
+        },
+        {
+          type: 'video',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1785404006/animation_TurnTable_water_vqw6i0.mp4',
+          poster: './img/Front View.jpg',
+          thumb: './img/Front View.jpg',
+          caption: '150 KW Floating Turbine — animation 3'
+        },
+        {
+          type: 'image',
+          src: './img/Front View.jpg',
+          thumb: './img/Front View.jpg',
+          caption: '150 KW Floating Turbine — front view'
+        },
+        {
+          type: 'image',
+          src: './img/Isometric View.jpg',
+          thumb: './img/Isometric View.jpg',
+          caption: '150 KW Floating Turbine — isometric view'
+        },
+        {
+          type: 'image',
+          src: './img/Isometric View.jpg',
+          thumb: './img/Isometric View.jpg',
+          caption: '150 KW Floating Turbine — isometric view'
+        },
+        {
+          type: 'image',
+          src: './img/Side_View.jpg',
+          thumb: './img/Side_View.jpg',
+          caption: '150 KW Floating Turbine — side view'
+        }
       ]
     },
     'industrial-cooling-canal': {
       title: 'Industrial Cooling Water Canal SHK Turbine Unit',
       desc: 'Turbine unit purpose-built for thermal plant cooling water channels.',
       media: [
-        { type: 'image', src: './img/Fixed_type_surface_hydro_kinetic_turbine.png', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: 'Industrial Cooling Water Canal SHK Turbine Unit' },
         {
           type: 'video',
           src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784731898/Industrial_Cooling_Water_Canal_compressed_sttl4y.mp4',
-          poster: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
-          thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png',
+          poster: './img/industrial_cooling_1.png',
+          thumb: './img/industrial_cooling_1.png',
           caption: 'Deployment — industrial cooling water canal'
-        }
+        },
+         { type: 'image', src: './img/industrial_cooling_1.png', thumb: './img/industrial_cooling_1.png', caption: 'Industrial Cooling Water Canal SHK Turbine Unit' },
+{ type: 'image', src: './img/industrial_cooling_2.png', thumb: './img/industrial_cooling_2.png', caption: 'Industrial Cooling Water Canal SHK Turbine Unit' },
       ]
     },
-    'low-head-psp': {
+'low-head-psp': {
       title: 'Low Head (2mtr – 10mtr head) SHK PSP System',
       desc: 'Pumped storage system engineered for low-head sites between 2m and 10m.',
       media: [
-        { type: 'image', src: './img/Fixed_type_surface_hydro_kinetic_turbine.png', thumb: './img/Fixed_type_surface_hydro_kinetic_turbine.png', caption: 'Low Head SHK PSP System' }
+         {
+          type: 'video',
+          src: 'https://res.cloudinary.com/a07iptoj/video/upload/v1784795367/SHK_Double_reservoir_compressed_pxx4bi.mp4',
+          poster: './img/low_head1.png',
+          thumb: './img/low_head1.png',
+          caption: 'Low Head SHK PSP System'
+        },
+        { type: 'image', src: './img/low_head1.png', thumb: './img/low_head1.png', caption: 'Low Head SHK PSP System — site view 1' },
+        { type: 'image', src: './img/low_head2.png', thumb: './img/low_head2.png', caption: 'Low Head SHK PSP System — site view 2' },
+        { type: 'image', src: './img/low_head3.png', thumb: './img/low_head3.png', caption: 'Low Head SHK PSP System — site view 3' },
+        { type: 'image', src: './img/low_head4.png', thumb: './img/low_head4.png', caption: 'Low Head SHK PSP System — site view 4' },
+        { type: 'image', src: './img/low_head5.png', thumb: './img/low_head5.png', caption: 'Low Head SHK PSP System — site view 5' },
+        { type: 'image', src: './img/low_head6.png', thumb: './img/low_head6.png', caption: 'Low Head SHK PSP System — site view 6' },
+        { type: 'image', src: './img/low_head7.png', thumb: './img/low_head7.png', caption: 'Low Head SHK PSP System — site view 7' },
+        { type: 'image', src: './img/low_head8.png', thumb: './img/low_head8.png', caption: 'Low Head SHK PSP System — site view 8' },
+        { type: 'image', src: './img/low_head9.png', thumb: './img/low_head9.png', caption: 'Low Head SHK PSP System — site view 9' },
+        { type: 'image', src: './img/low_head10.png', thumb: './img/low_head10.png', caption: 'Low Head SHK PSP System — site view 10' }
       ]
     }
   };
