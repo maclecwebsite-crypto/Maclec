@@ -13,7 +13,7 @@
         '<a href="career.html">Careers</a>' +
         '<a href="contact.html">Contact</a>' +
       '</nav>' +
-      '<a class="maclec-btn-contact-nav" href="/contact.html">' +
+      '<a class="maclec-btn-contact-nav" href="contact.html">' +
         'Contact Us' +
         '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 18l6-6-6-6"/></svg>' +
       '</a>' +
