@@ -1,16 +1,10 @@
 // atlas.js
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ===== SHARED SITE QUERY STATE =====
-     Populated by the Step 1 capture flow (initSiteCapture below) and read
-     back out when the Step 3 "Request Virtual Meeting" button submits the
-     combined Location + Site Parameters + Consultation data as one record. */
+
   const siteQueryMedia = { video: null, photos: [] };
   let siteQueryCoords = { lat: null, lng: null };
 
-  // Reads the Select Location + Site Parameters fields straight from the DOM
-  // (no closure state needed), used both for Step 1's local confirmation and
-  // for the combined submission fired from Step 3.
   function collectSiteParameters(){
     const getRaw = (id) => document.getElementById(id)?.value ?? '';
     const checkedWatertype = document.querySelector('input[name="watertype"]:checked');
