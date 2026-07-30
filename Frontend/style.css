@@ -3156,3 +3156,27 @@ a{ text-decoration:none; color:inherit; }
 .industry-card:active .industry-view {
   transform: translateY(-2px) scale(0.96);
 }
+
+@media (max-width: 640px) {
+
+  .hero-actions {
+    position: static;
+    flex-direction: column;
+    align-items: stretch;   /* full-width instead of right-hugged */
+    width: 100%;
+    max-width: 100%;
+    margin-top: 24px;
+    gap: 10px;
+  }
+
+  .hero-actions .action-card {
+    width: 100%;            /* drop fixed 300px */
+    max-width: 90%;
+    flex: 1 1 auto;
+    white-space: normal;    /* allow wrapping on narrow screens */
+  }
+
+  .hero-actions .action-text {
+    white-space: normal;
+  }
+}
