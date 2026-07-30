@@ -1,15 +1,14 @@
 // script.js
 (function() {
-    const loader = document.getElementById('loadingScreen');
-    const body = document.body;
-    
-    // Remove loading screen after 2 seconds
-    setTimeout(function() {
-      loader.classList.add('done');
-      body.classList.remove('loading');
-       document.dispatchEvent(new Event('siteReady'));
-    }, 2000);
-  })();
+  const loader = document.getElementById('loadingScreen');
+  const body   = document.body;
+
+  setTimeout(function() {
+    if (loader) loader.classList.add('done');
+    body.classList.remove('loading');
+    document.dispatchEvent(new Event('siteReady'));
+  }, 2000);
+})();
 
 document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.querySelector('.nav-toggle');

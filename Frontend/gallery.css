@@ -500,6 +500,7 @@ a { text-decoration:none; color:inherit; }
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 40px;
 }
 .lightbox-img {
   max-width: 100%;
@@ -520,8 +521,8 @@ a { text-decoration:none; color:inherit; }
 }
 .lightbox-close {
   position: absolute;
-  top: -48px;
-  right: 0;
+  top: 20px;
+  right: 130px;
   background: none;
   border: none;
   color: rgba(255,255,255,0.7);

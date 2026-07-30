@@ -1339,3 +1339,60 @@
   .tadv-grid { grid-template-columns: 1fr; }
 }
 
+/* ===== TECHNOLOGY PAGE COMPARISON TABLE FIXES ===== */
+
+/* Force 3-column grid on technology page */
+.tcompare-section .compare-table,
+.tcompare-table {
+  grid-template-columns: 1.2fr 1fr 1fr;
+}
+
+/* Reset header cells for text-only headers (no images) */
+.tcompare-section .compare-cell--head,
+.tcompare-table .compare-cell--head {
+  min-height: auto;
+  padding: 13px 20px;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-elevated, #f4f6fb);
+  overflow: visible;
+}
+
+/* Remove the dark gradient overlay on headers */
+.tcompare-section .compare-cell--head::before,
+.tcompare-table .compare-cell--head::before {
+  display: none;
+}
+
+/* Header text styling */
+.tcompare-section .compare-cell--head,
+.tcompare-table .compare-cell--head {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-align: center;
+}
+
+/* Column backgrounds */
+.tcompare-table .compare-col--old .compare-cell {
+  background: #f9fafb;
+}
+.tcompare-table .compare-col--new .compare-cell {
+  background: #f0fdf4;
+}
+
+/* Row hover - more visible */
+.tcompare-table .compare-cell[data-row]:hover,
+.tcompare-table .compare-cell--row-hover {
+  background: rgba(94, 196, 224, 0.18) !important;
+  color: var(--text);
+}
+
+/* Ensure cells in tcompare don't use the flex display from index.css if it breaks layout */
+.tcompare-table .compare-cell {
+  display: block;
+  padding: 13px 20px;
+}
