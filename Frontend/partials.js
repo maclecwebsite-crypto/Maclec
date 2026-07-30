@@ -10,7 +10,7 @@
         '<a href="technology.html">Technology</a>' +
         '<a href="atlas.html">Potential Calculator</a>' +
         '<a href="gallery.html">Gallery</a>' +
-        '<a href="career.html">Careers</a>' +
+        '<a href="career.html">Join our Team</a>' +
         '<a href="contact.html">Contact</a>' +
       '</nav>' +
       '<a class="maclec-btn-contact-nav" href="contact.html">' +
@@ -43,7 +43,7 @@
         '<div class="maclec-footer-col">' +
           '<strong>Connect</strong>' +
           '<a href="contact.html">Contact</a>' +
-          '<a href="career.html">Careers</a>' +
+          '<a href="career.html">Join our Team</a>' +
           '<a href="#">Media</a>' +
         '</div>' +
       '</div>' +

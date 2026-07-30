@@ -3104,3 +3104,55 @@ a{ text-decoration:none; color:inherit; }
   .industry-modal-dialog { padding: 22px; }
   .industry-modal-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
 }
+
+/* View button — bottom-right of industry cards */
+.industry-view {
+  position: absolute;
+  bottom: 18px;
+  right: 18px;
+  z-index: 2;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+
+  background: rgba(94, 196, 224, 0.18);
+  border: 1px solid rgba(94, 196, 224, 0.45);
+  backdrop-filter: blur(6px);
+
+  transition: transform 0.25s cubic-bezier(0.34, 1.8, 0.64, 1),
+              background 0.25s ease,
+              box-shadow 0.25s ease;
+}
+
+/* Pop on card hover */
+.industry-card:hover .industry-view {
+  transform: translateY(-4px) scale(1.08);
+  background: rgba(94, 196, 224, 0.9);
+  color: #06131c;
+  border-color: rgba(94, 196, 224, 0.9);
+  box-shadow: 0 8px 24px rgba(94, 196, 224, 0.35);
+}
+
+/* Arrow nudge on hover */
+.industry-view span {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+.industry-card:hover .industry-view span {
+  transform: translateX(3px);
+}
+
+/* Click pop animation */
+.industry-card:active .industry-view {
+  transform: translateY(-2px) scale(0.96);
+}

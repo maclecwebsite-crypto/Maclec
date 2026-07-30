@@ -26,13 +26,47 @@
   <div class="careers-hero-media" aria-hidden="true">
     <div class="careers-hero-overlay"></div>
   </div>
-  <div class="careers-hero-content">
-    <div class="about-tag">Join the Mission</div>
-    <h1 class="careers-hero-title">Build the Future of<br><span class="accent">Clean Energy</span></h1>
-    <p class="careers-hero-desc">
-      MACLEC is pioneering dam-free, reservoir-free hydropower technology recognized at TRL-9 by the Central Electricity Authority. 
-      We are building a world-class team of engineers, researchers, and innovators to deploy Surface Hydrokinetic Turbines across India and the globe.
-    </p>
+<div class="careers-hero-content">
+  <div class="careers-hero-top">
+    <div class="careers-hero-text">
+      <div class="about-tag">Join the Mission</div>
+      <h1 class="careers-hero-title">Build the Future of<br><span class="accent">Clean Energy</span></h1>
+      <p class="careers-hero-desc">
+        MACLEC is pioneering dam-free, reservoir-free hydropower technology recognized at TRL-9 by the Central Electricity Authority.
+        We are building a world-class team of engineers, researchers, and innovators to deploy Surface Hydrokinetic Turbines across India and the globe.
+      </p>
+    </div>
+
+<div class="careers-hero-visual">
+  <div class="hero-globe-wrap">
+    <div class="hero-globe-atmosphere"></div>
+    <div class="hero-globe">
+      <div class="hero-globe-texture"></div>
+      <div class="hero-globe-shade"></div>
+      <div class="hero-globe-terminator"></div>
+      <div class="hero-globe-specular"></div>
+    </div>
+
+    <svg class="hero-globe-band" viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <path id="bandPath" d="M 6 45 Q 160 10 314 45 Q 160 80 6 45 Z"/>
+        <clipPath id="bandClip"><use href="#bandPath"/></clipPath>
+        <linearGradient id="bandFade" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"  stop-color="#0d1638" stop-opacity="0"/>
+          <stop offset="12%" stop-color="#0d1638" stop-opacity="0.9"/>
+          <stop offset="50%" stop-color="#141c42" stop-opacity="0.92"/>
+          <stop offset="88%" stop-color="#0d1638" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#0d1638" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <use href="#bandPath" fill="url(#bandFade)"/>
+      <path d="M 6 45 Q 160 10 314 45" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+      <path d="M 6 45 Q 160 80 314 45" fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+      <text x="160" y="51" text-anchor="middle" class="hero-globe-band-text">SUSTAINABLE FUTURE</text>
+    </svg>
+  </div>
+</div>
+  </div>
     <div class="careers-hero-stats">
       <div class="careers-hero-stat">
         <span class="stat-particle stat-particle--1"></span>
@@ -160,7 +194,8 @@
       <button class="job-filter-btn" data-dept="engineering">Engineering</button>
       <button class="job-filter-btn" data-dept="operations">Operations</button>
       <button class="job-filter-btn" data-dept="business">Business & Strategy</button>
-      <button class="job-filter-btn" data-dept="research">R&D</button>
+      <button class="job-filter-btn" data-dept="research">R&D</button> 
+      <button class="job-filter-btn" data-dept="research">Production</button>
     </div>
 
     <!-- Job Search -->
@@ -191,7 +226,7 @@
 <section class="general-app-section">
   <div class="general-app-inner">
     <div class="general-app-content">
-      <h2>Don't See the Right Fit?</h2>
+      <h2>Didn't Find the Right Role?</h2>
       <p>We are always looking for exceptional talent. If you are passionate about clean energy and believe you can contribute to MACLEC's mission, we want to hear from you.</p>
       <div class="general-app-actions">
         <button class="btn-primary apply-btn" data-job="General Application">Send Your Resume</button>
