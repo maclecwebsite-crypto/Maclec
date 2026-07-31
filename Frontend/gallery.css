@@ -265,7 +265,10 @@ a { text-decoration:none; color:inherit; }
   margin: 0 auto;
 }
 
-/* ===== FILTER BAR ===== */
+/* ===== FILTER BAR =====
+   Desktop/tablet: centered, wrapping pill row.
+   Mobile: horizontally scrollable single-line strip with edge fade,
+   so all 12 categories stay reachable without wrecking the layout. */
 .filter-bar {
   background: var(--bg-surface);
   border-bottom: 1px solid var(--border);
@@ -325,6 +328,8 @@ a { text-decoration:none; color:inherit; }
   opacity: 1;
   transform: scale(1);
   transition: opacity 0.4s ease, transform 0.4s ease;
+  min-height: 0;
+  min-width: 0;
 }
 .gallery-item.hidden {
   opacity: 0;
@@ -375,6 +380,13 @@ a { text-decoration:none; color:inherit; }
 .gallery-card--video img {
   object-fit: cover;
   background: none;
+}
+.gallery-card--video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none; /* let clicks reach the play button/card */
 }
 
 .gallery-card-overlay {
@@ -522,7 +534,7 @@ a { text-decoration:none; color:inherit; }
 .lightbox-close {
   position: absolute;
   top: 20px;
-  right: 130px;
+  right: 20px;
   background: none;
   border: none;
   color: rgba(255,255,255,0.7);
@@ -556,6 +568,12 @@ a { text-decoration:none; color:inherit; }
 }
 .lightbox-prev { left: -64px; }
 .lightbox-next { right: -64px; }
+
+/* Desktop-only wide offset for the close button, clear of the nav arrows.
+   Below 1101px the base 20px value above applies. */
+@media (min-width: 1101px) {
+  .lightbox-close { right: 130px; }
+}
 
 /* ===== VIDEO MODAL ===== */
 .video-modal {
@@ -621,7 +639,7 @@ a { text-decoration:none; color:inherit; }
   width: 165px;
   height: auto;
   margin-bottom: 12px;
-  
+
   opacity: 0.9;
 }
 .footer-brand p {
@@ -677,9 +695,9 @@ a { text-decoration:none; color:inherit; }
   .lightbox-prev { left: 16px; }
   .lightbox-next { right: 16px; }
 }
+
 @media (max-width: 768px) {
   .gallery-hero-content { padding: 120px 24px 48px; }
-  .filter-bar-inner { padding: 14px 24px; }
   .gallery-section { padding: 32px 24px 80px; }
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -692,7 +710,29 @@ a { text-decoration:none; color:inherit; }
   .footer-links { gap: 40px; }
   .lightbox-prev { left: 8px; }
   .lightbox-next { right: 8px; }
+
+  /* --- Filter bar: horizontal scroll strip --- */
+  .filter-bar-inner {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    padding: 14px 20px;
+    gap: 8px;
+    /* fade the edges to hint there's more to scroll */
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+  }
+  .filter-btn {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    font-size: 0.72rem;
+    padding: 7px 16px;
+    white-space: nowrap;
+  }
 }
+
 @media (max-width: 480px) {
   .header-inner { padding: 0 18px; }
   .gallery-grid {
@@ -700,11 +740,12 @@ a { text-decoration:none; color:inherit; }
     grid-auto-rows: 220px;
   }
   .gallery-item--wide { grid-column: span 1; }
-  .filter-btn { font-size: 0.7rem; padding: 6px 14px; }
   .gallery-card-overlay { opacity: 1; padding: 16px 14px; }
   .gallery-card-zoom { opacity: 1; transform: translateY(0); }
-}
 
+  .filter-bar-inner { padding: 12px 16px; gap: 6px; }
+  .filter-btn { font-size: 0.68rem; padding: 6px 14px; }
+}
 
 ::-webkit-scrollbar {
   display: none;
@@ -716,41 +757,4 @@ a { text-decoration:none; color:inherit; }
 
 * {
   -ms-overflow-style: none;
-}
-
-.gallery-grid {
-  max-width: 1280px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 280px);   /* ← explicit 4 rows */
-  grid-auto-rows: 280px;                  /* ← additional rows beyond 4 */
-  gap: 16px;
-}
-
-/* All items fit in single cells for 4x4 grid */
-.gallery-item--wide,
-.gallery-item--tall {
-  grid-column: span 1;
-  grid-row: span 1;
-}
-
-@media (max-width: 768px) {
-  .gallery-item--wide { grid-column: span 1; }
-  .gallery-item--tall { grid-row: span 1; }
-}
-
-.gallery-card--video video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  pointer-events: none; /* let clicks reach the play button/card */
-}
-
-/* Prevent any oversized content (video, huge images, etc.)
-   from stretching its grid row beyond the fixed 280px track */
-.gallery-item {
-  min-height: 0;
-  min-width: 0;
 }
