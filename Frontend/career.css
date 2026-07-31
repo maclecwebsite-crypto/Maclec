@@ -2190,7 +2190,7 @@ body.modal-open {
     max-height: 100dvh;           /* use dynamic viewport height */
     height: 100dvh;
     border-radius: 0;             /* full-bleed feels better on phones */
-    padding: 88px 20px 32px;
+    padding: 120px 20px 32px;
     box-shadow: none;
   }
 }
