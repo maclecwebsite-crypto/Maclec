@@ -93,10 +93,22 @@ function showNext() {
   }, 150);
 }
 
+
 // Click on gallery cards (not video play buttons)
-document.querySelectorAll('.gallery-card').forEach((card, index) => {
+galleryItems.forEach((item) => {
+  const card = item.querySelector('.gallery-card');
+  if (!card) return;
+
   card.addEventListener('click', (e) => {
     if (e.target.closest('.gallery-play-btn')) return;
+
+    // Video cards should never open the image lightbox
+    if (card.classList.contains('gallery-card--video')) return;
+
+    updateVisibleItems();
+    const index = visibleItems.indexOf(item);
+    if (index === -1) return;
+
     if (e.target.closest('.gallery-card-zoom')) {
       e.stopPropagation();
       openLightbox(index);
@@ -128,10 +140,12 @@ const videoModal = document.getElementById('videoModal');
 const videoModalPlayer = document.getElementById('videoModalPlayer');
 const videoModalClose = document.getElementById('videoModalClose');
 
+/* ===== VIDEO MODAL ===== */
 document.querySelectorAll('.gallery-play-btn').forEach(btn => {
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
     const videoSrc = btn.dataset.video;
+    if (!videoSrc) return;
     videoModalPlayer.src = videoSrc;
     videoModal.classList.add('open');
     videoModalPlayer.play();
@@ -169,3 +183,4 @@ if (navToggle && mainNav) {
     mainNav.classList.toggle('mobile-open');
   });
 }
+

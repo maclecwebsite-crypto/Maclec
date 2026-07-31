@@ -739,3 +739,18 @@ a { text-decoration:none; color:inherit; }
   .gallery-item--wide { grid-column: span 1; }
   .gallery-item--tall { grid-row: span 1; }
 }
+
+.gallery-card--video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none; /* let clicks reach the play button/card */
+}
+
+/* Prevent any oversized content (video, huge images, etc.)
+   from stretching its grid row beyond the fixed 280px track */
+.gallery-item {
+  min-height: 0;
+  min-width: 0;
+}
