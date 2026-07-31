@@ -1954,15 +1954,13 @@ a { text-decoration:none; color:inherit; }
 }
 
 .hero-globe {
-  position: relative;
-  width: 280px;
-  height: 280px;
-  border-radius: 50%;
-  overflow: hidden;
-  animation: globeFloat 6s ease-in-out infinite;
-  box-shadow:
-    0 40px 80px -20px rgba(15,23,42,0.35),
-    0 0 0 1px rgba(255,255,255,0.06) inset;
+    position: relative;
+    width: 426px;
+    height: 394px;
+    border-radius: 50%;
+    overflow: hidden;
+    animation: globeFloat 6s ease-in-out infinite;
+    box-shadow: 0 40px 80px -20px rgba(15, 23, 42, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
 }
 
 /* the actual rotating map texture — real equirectangular world map,
@@ -2111,7 +2109,7 @@ html, body {
   .hero-globe { width: 168px; height: 168px; }
   .hero-globe-atmosphere { inset: -14px; }
   .hero-globe-tag,
-  .hero-globe-band-text { font-size: 11px; letter-spacing: 0.06em; }
+  .hero-globe-band-text { font-size: 33px; letter-spacing: 0.06em; }
   .hero-globe-band { width: 92%; }
 }
 
@@ -2146,8 +2144,22 @@ html, body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100%;
+  width: 126%;
   transform: translate(-50%, -50%);
   z-index: 5;
   pointer-events: none;
+  animation: bandBreathe 4s ease-in-out infinite;
+}
+
+@keyframes bandBreathe {
+  0%, 100% { filter: drop-shadow(0 4px 14px rgba(34,197,94,0.25)); }
+  50%       { filter: drop-shadow(0 8px 28px rgba(34,197,94,0.55)); }
+}
+
+.hero-globe-band-text,
+.hero-globe-band-shimmer {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 35px;
+  letter-spacing: 2px;
 }
