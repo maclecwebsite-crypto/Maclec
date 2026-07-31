@@ -174,8 +174,6 @@ a { text-decoration:none; color:inherit; }
   border-radius:1px;
 }
 
-/* Mobile nav dropdown panel - shown when hamburger is toggled open.
-   Only takes effect below the breakpoint where .main-nav is hidden. */
 @media (max-width: 1100px) {
   .main-nav.mobile-open {
     display: flex;
@@ -198,100 +196,10 @@ a { text-decoration:none; color:inherit; }
   .nav-toggle span { transition: transform 0.2s ease, opacity 0.2s ease; }
 }
 
-/* ===== CAREERS HERO ===== */
-.careers-hero {
-  position: relative;
-  min-height: 65vh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  background: linear-gradient(180deg, var(--bg-warm) 0%, var(--bg) 100%);
-}
-.careers-hero-media {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background-image: url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1920&q=80');
-  background-size: cover;
-  background-position: center 40%;
-  opacity: 0.1;
-}
-.careers-hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(115deg,
-    rgba(247,249,252,0.96) 0%,
-    rgba(247,249,252,0.88) 45%,
-    rgba(255,255,255,0.75) 100%
-  );
-}
-.careers-hero-content {
-  position: relative;
-  z-index: 1;
-  max-width: 1280px;
-  margin: 0 auto;
-  width: 100%;
-  padding: 140px 40px 64px;
-  text-align: center;
-}
-.about-tag {
-  display: inline-block;
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--primary);
-  border: 1px solid #2a3b7e;
-  border-radius: 999px;
-  padding: 5px 16px;
-  margin-bottom: 22px;
-}
-.careers-hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-  font-weight: 700;
-  line-height: 1.15;
-  margin-bottom: 20px;
-  color: var(--text);
-}
-.accent { color: var(--primary); }
-.careers-hero-desc {
-  font-size: 1.05rem;
-  line-height: 1.75;
-  color: var(--text-secondary);
-  max-width: 720px;
-  margin: 0 auto 40px;
-}
-.careers-hero-stats {
-  display: flex;
-  justify-content: center;
-  gap: 48px;
-  flex-wrap: wrap;
-  margin-top: 32px;
-}
-.careers-hero-stat {
-  text-align: center;
-}
-.careers-hero-stat-num {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--energy);
-  margin-bottom: 4px;
-}
-.careers-hero-stat-label {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
 /* ===== WHY MACLEC ===== */
 .why-maclec-section {
   padding: 100px 0 80px;
-  background: var(--bg-warm);
+  background: linear-gradient(180deg, #f0f4ff 0%, #f8fafc 50%, #f0f4ff 100%);
   position: relative;
   overflow: hidden;
 }
@@ -302,6 +210,15 @@ a { text-decoration:none; color:inherit; }
   transform: translateX(-50%);
   width: 600px; height: 350px;
   background: radial-gradient(ellipse, rgba(42,59,126,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+.why-maclec-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(42,59,126,0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(239,127,27,0.03) 0%, transparent 50%);
   pointer-events: none;
 }
 .why-maclec-inner {
@@ -326,42 +243,349 @@ a { text-decoration:none; color:inherit; }
   max-width: 720px;
   margin-bottom: 56px;
 }
+.about-tag {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--primary);
+  border: 1px solid #2a3b7e;
+  border-radius: 999px;
+  padding: 5px 16px;
+  margin-bottom: 22px;
+}
 
+/* ---- Perk Grid ---- */
 .perk-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 24px;
 }
+
 .perk-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 32px 26px;
-  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-}
-.perk-card:hover {
-  border-color: var(--primary);
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(42,59,126,0.08);
-}
-.perk-icon {
-  color: var(--primary);
-  margin-bottom: 18px;
+  position: relative;
   display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  padding: 32px 28px;
+  overflow: hidden;
+  isolation: isolate;
+  transition: all 0.5s cubic-bezier(0.34, 1.8, 0.64, 1);
+  opacity: 0;
+  transform: translateY(40px) scale(0.9);
+  border: 2px solid transparent;
+  min-height: 260px;
 }
+
+.perk-card.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.perk-card:nth-child(1) { transition-delay: 0.06s; }
+.perk-card:nth-child(2) { transition-delay: 0.12s; }
+.perk-card:nth-child(3) { transition-delay: 0.18s; }
+.perk-card:nth-child(4) { transition-delay: 0.24s; }
+.perk-card:nth-child(5) { transition-delay: 0.30s; }
+.perk-card:nth-child(6) { transition-delay: 0.36s; }
+
+.perk-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  opacity: 0.88;
+  transition: opacity 0.4s ease, transform 0.6s ease;
+}
+.perk-card:hover::after {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.perk-card .glow-orb {
+  position: absolute;
+  top: -50px; right: -50px;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(30px);
+  opacity: 0.5;
+  transition: all 0.6s ease;
+}
+.perk-card:hover .glow-orb {
+  transform: scale(1.8) translate(-20px, 20px);
+  opacity: 0.9;
+}
+
+.perk-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255,255,255,0) 35%,
+    rgba(255,255,255,0.6) 50%,
+    rgba(255,255,255,0) 65%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+}
+.perk-card:hover::before {
+  animation: perkShimmer 1s ease forwards;
+  opacity: 1;
+}
+@keyframes perkShimmer {
+  0%   { left: -100%; }
+  100% { left: 200%; }
+}
+
+.perk-card:hover {
+  transform: translateY(-12px) scale(1.05) rotate(-1deg);
+  box-shadow:
+    0 25px 60px -15px var(--card-shadow),
+    0 0 0 3px var(--card-border-glow),
+    0 0 60px -10px var(--card-outer-glow),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+}
+
+.perk-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px; height: 56px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  box-shadow: 0 8px 24px var(--icon-shadow);
+  animation: perkIconBounce 2.5s ease-in-out infinite;
+}
+.perk-icon svg {
+  width: 26px; height: 26px;
+  stroke-width: 1.8;
+  stroke: currentColor;
+  fill: none;
+}
+
+.perk-card:nth-child(1) .perk-icon { animation-delay: 0s; }
+.perk-card:nth-child(2) .perk-icon { animation-delay: 0.35s; }
+.perk-card:nth-child(3) .perk-icon { animation-delay: 0.7s; }
+.perk-card:nth-child(4) .perk-icon { animation-delay: 1.05s; }
+.perk-card:nth-child(5) .perk-icon { animation-delay: 1.4s; }
+.perk-card:nth-child(6) .perk-icon { animation-delay: 1.75s; }
+
+@keyframes perkIconBounce {
+  0%, 100% { transform: scale(1) translateY(0); }
+  20%      { transform: scale(1.12) translateY(-5px); }
+  40%      { transform: scale(0.95) translateY(2px); }
+  60%      { transform: scale(1.06) translateY(-2px); }
+  80%      { transform: scale(1) translateY(0); }
+}
+
+.perk-icon::before {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 20px;
+  background: conic-gradient(from 0deg, var(--icon-ring-1), var(--icon-ring-2), var(--icon-ring-1));
+  z-index: -2;
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 0.3s ease;
+}
+.perk-card:hover .perk-icon::before {
+  opacity: 0.7;
+  animation: perkIconSpin 2s linear infinite;
+}
+@keyframes perkIconSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.perk-icon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  z-index: -1;
+  opacity: 0;
+}
+.perk-card:hover .perk-icon::after {
+  animation: perkIconBurst 1.2s ease-out infinite;
+}
+@keyframes perkIconBurst {
+  0%   { opacity: 0.5; transform: scale(1);   filter: blur(0px); }
+  100% { opacity: 0;   transform: scale(2.4); filter: blur(6px); }
+}
+
 .perk-card strong {
   display: block;
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  color: var(--text);
   margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease;
 }
+.perk-card:hover strong {
+  transform: scale(1.05) translateX(2px);
+}
+
 .perk-card p {
-  font-size: 0.84rem;
-  line-height: 1.65;
-  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.7;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
 }
+
+/* ---- 1. Cutting-Edge Tech (Indigo) ---- */
+.perk-card:nth-child(1) {
+  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 50%, #a5b4fc 100%);
+  --card-shadow: rgba(42,59,126,0.35);
+  --card-border-glow: rgba(42,59,126,0.3);
+  --card-outer-glow: rgba(79,70,229,0.2);
+}
+.perk-card:nth-child(1)::after {
+  background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+}
+.perk-card:nth-child(1) .glow-orb {
+  background: radial-gradient(circle, #6366f1 0%, transparent 70%);
+}
+.perk-card:nth-child(1) .perk-icon {
+  background: linear-gradient(135deg, #2a3b7e, #4f46e5);
+  --icon-shadow: rgba(42,59,126,0.45);
+  --icon-ring-1: #2a3b7e;
+  --icon-ring-2: #818cf8;
+}
+.perk-card:nth-child(1) strong { color: #1e1b4b; }
+.perk-card:nth-child(1) p { color: #3730a3; }
+.perk-card:nth-child(1):hover { border-color: #4f46e5; }
+
+/* ---- 2. Global Exposure (Emerald) ---- */
+.perk-card:nth-child(2) {
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%);
+  --card-shadow: rgba(3,152,70,0.35);
+  --card-border-glow: rgba(3,152,70,0.3);
+  --card-outer-glow: rgba(16,185,129,0.2);
+}
+.perk-card:nth-child(2)::after {
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+}
+.perk-card:nth-child(2) .glow-orb {
+  background: radial-gradient(circle, #10b981 0%, transparent 70%);
+}
+.perk-card:nth-child(2) .perk-icon {
+  background: linear-gradient(135deg, #039846, #059669);
+  --icon-shadow: rgba(3,152,70,0.45);
+  --icon-ring-1: #039846;
+  --icon-ring-2: #34d399;
+}
+.perk-card:nth-child(2) strong { color: #064e3b; }
+.perk-card:nth-child(2) p { color: #065f46; }
+.perk-card:nth-child(2):hover { border-color: #10b981; }
+
+/* ---- 3. Startup Agility (Amber) ---- */
+.perk-card:nth-child(3) {
+  background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 50%, #fdba74 100%);
+  --card-shadow: rgba(239,127,27,0.35);
+  --card-border-glow: rgba(239,127,27,0.3);
+  --card-outer-glow: rgba(249,115,22,0.2);
+}
+.perk-card:nth-child(3)::after {
+  background: linear-gradient(135deg, #ffedd5, #fed7aa);
+}
+.perk-card:nth-child(3) .glow-orb {
+  background: radial-gradient(circle, #f97316 0%, transparent 70%);
+}
+.perk-card:nth-child(3) .perk-icon {
+  background: linear-gradient(135deg, #ea580c, #f97316);
+  --icon-shadow: rgba(239,127,27,0.45);
+  --icon-ring-1: #ea580c;
+  --icon-ring-2: #fb923c;
+}
+.perk-card:nth-child(3) strong { color: #7c2d12; }
+.perk-card:nth-child(3) p { color: #9a3412; }
+.perk-card:nth-child(3):hover { border-color: #f97316; }
+
+/* ---- 4. Impact-Driven (Sky) ---- */
+.perk-card:nth-child(4) {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%);
+  --card-shadow: rgba(37,99,235,0.35);
+  --card-border-glow: rgba(37,99,235,0.3);
+  --card-outer-glow: rgba(59,130,246,0.2);
+}
+.perk-card:nth-child(4)::after {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+}
+.perk-card:nth-child(4) .glow-orb {
+  background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
+}
+.perk-card:nth-child(4) .perk-icon {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  --icon-shadow: rgba(37,99,235,0.45);
+  --icon-ring-1: #2563eb;
+  --icon-ring-2: #60a5fa;
+}
+.perk-card:nth-child(4) strong { color: #1e3a8a; }
+.perk-card:nth-child(4) p { color: #1e40af; }
+.perk-card:nth-child(4):hover { border-color: #3b82f6; }
+
+/* ---- 5. Competitive & Fair (Violet) ---- */
+.perk-card:nth-child(5) {
+  background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 50%, #c4b5fd 100%);
+  --card-shadow: rgba(124,58,237,0.35);
+  --card-border-glow: rgba(124,58,237,0.3);
+  --card-outer-glow: rgba(139,92,246,0.2);
+}
+.perk-card:nth-child(5)::after {
+  background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+}
+.perk-card:nth-child(5) .glow-orb {
+  background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+}
+.perk-card:nth-child(5) .perk-icon {
+  background: linear-gradient(135deg, #6d28d9, #8b5cf6);
+  --icon-shadow: rgba(124,58,237,0.45);
+  --icon-ring-1: #6d28d9;
+  --icon-ring-2: #a78bfa;
+}
+.perk-card:nth-child(5) strong { color: #4c1d95; }
+.perk-card:nth-child(5) p { color: #5b21b6; }
+.perk-card:nth-child(5):hover { border-color: #8b5cf6; }
+
+/* ---- 6. Continuous Growth (Cyan) ---- */
+.perk-card:nth-child(6) {
+  background: linear-gradient(135deg, #cffafe 0%, #a5f3fc 50%, #67e8f9 100%);
+  --card-shadow: rgba(8,145,178,0.35);
+  --card-border-glow: rgba(8,145,178,0.3);
+  --card-outer-glow: rgba(6,182,212,0.2);
+}
+.perk-card:nth-child(6)::after {
+  background: linear-gradient(135deg, #cffafe, #a5f3fc);
+}
+.perk-card:nth-child(6) .glow-orb {
+  background: radial-gradient(circle, #06b6d4 0%, transparent 70%);
+}
+.perk-card:nth-child(6) .perk-icon {
+  background: linear-gradient(135deg, #0891b2, #06b6d4);
+  --icon-shadow: rgba(8,145,178,0.45);
+  --icon-ring-1: #0891b2;
+  --icon-ring-2: #22d3ee;
+}
+.perk-card:nth-child(6) strong { color: #164e63; }
+.perk-card:nth-child(6) p { color: #155e75; }
+.perk-card:nth-child(6):hover { border-color: #06b6d4; }
 
 /* ===== JOBS SECTION ===== */
 .jobs-section {
@@ -374,7 +598,6 @@ a { text-decoration:none; color:inherit; }
   padding: 0 40px;
 }
 
-/* Job Filters */
 .job-filters {
   display: flex;
   gap: 10px;
@@ -406,7 +629,6 @@ a { text-decoration:none; color:inherit; }
   box-shadow: 0 4px 14px rgba(42,59,126,0.20);
 }
 
-/* Job Search */
 .job-search-wrap {
   position: relative;
   margin-bottom: 20px;
@@ -439,7 +661,6 @@ a { text-decoration:none; color:inherit; }
   color: var(--text-muted);
 }
 
-/* Job Count */
 .job-count {
   font-size: 0.85rem;
   color: var(--text-muted);
@@ -450,7 +671,6 @@ a { text-decoration:none; color:inherit; }
   font-weight: 700;
 }
 
-/* Job Cards */
 .job-list {
   display: flex;
   flex-direction: column;
@@ -622,7 +842,6 @@ a { text-decoration:none; color:inherit; }
   color: var(--text-muted);
 }
 
-/* No Results */
 .job-no-results {
   text-align: center;
   padding: 60px 20px;
@@ -752,7 +971,6 @@ a { text-decoration:none; color:inherit; }
   color: var(--text);
 }
 
-/* Form */
 .apply-form {
   display: flex;
   flex-direction: column;
@@ -802,7 +1020,6 @@ a { text-decoration:none; color:inherit; }
   min-height: 100px;
 }
 
-/* File Upload */
 .file-upload-wrap {
   position: relative;
 }
@@ -847,7 +1064,6 @@ a { text-decoration:none; color:inherit; }
   padding-top: 8px;
 }
 
-/* Apply Success */
 .apply-success {
   text-align: center;
   padding: 40px 20px;
@@ -933,7 +1149,6 @@ a { text-decoration:none; color:inherit; }
   width: 165px;
   height: auto;
   margin-bottom: 12px;
-  
   opacity: 0.9;
 }
 .footer-brand p {
@@ -1009,19 +1224,15 @@ a { text-decoration:none; color:inherit; }
   .form-actions .btn-outline { width: 100%; text-align: center; }
 }
 
-
 ::-webkit-scrollbar {
   display: none;
 }
-
 * {
   scrollbar-width: none;
 }
-
 * {
   -ms-overflow-style: none;
 }
-
 
 /* ===== CAREERS HERO ===== */
 .careers-hero {
@@ -1059,18 +1270,6 @@ a { text-decoration:none; color:inherit; }
   padding: 140px 40px 64px;
   text-align: center;
 }
-.about-tag {
-  display: inline-block;
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--primary);
-  border: 1px solid #2a3b7e;
-  border-radius: 999px;
-  padding: 5px 16px;
-  margin-bottom: 22px;
-}
 .careers-hero-title {
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 4.5vw, 3.6rem);
@@ -1088,449 +1287,7 @@ a { text-decoration:none; color:inherit; }
   margin: 0 auto 40px;
 }
 
-/* ---- FIXED: Careers Hero Stats ---- */
-.careers-hero-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  max-width: 1100px;
-  margin: 40px auto 0;
-}
-
-.careers-hero-stat {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg-surface);
-  border: 1.5px solid var(--border);
-  border-radius: 16px;
-  padding: 24px 16px;
-  text-align: center;
-  transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  min-height: 120px;
-}
-
-.careers-hero-stat:hover {
-  transform: translateY(-6px) scale(1.03);
-  border-color: var(--primary);
-  box-shadow: 0 12px 32px rgba(42,59,126,0.10);
-}
-
-.careers-hero-stat-num {
-  display: block;
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
-  font-weight: 800;
-  color: var(--energy);
-  margin-bottom: 8px;
-  line-height: 1.1;
-}
-
-.careers-hero-stat-label {
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  line-height: 1.4;
-  max-width: 100%;
-}
-
-/* ===== WHY MACLEC ===== */
-.why-maclec-section {
-  padding: 100px 0 80px;
-  background: linear-gradient(180deg, #f0f4ff 0%, #f8fafc 50%, #f0f4ff 100%);
-  position: relative;
-  overflow: hidden;
-}
-.why-maclec-section::before {
-  content:'';
-  position:absolute;
-  top: -80px; left: 50%;
-  transform: translateX(-50%);
-  width: 600px; height: 350px;
-  background: radial-gradient(ellipse, rgba(42,59,126,0.05) 0%, transparent 70%);
-  pointer-events: none;
-}
-.why-maclec-section::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(42,59,126,0.04) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(239,127,27,0.03) 0%, transparent 50%);
-  pointer-events: none;
-}
-.why-maclec-inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 40px;
-  position: relative;
-  z-index: 1;
-}
-.about-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3.5vw, 2.9rem);
-  font-weight: 700;
-  line-height: 1.18;
-  color: var(--text);
-  margin-bottom: 20px;
-}
-.about-intro {
-  font-size: 1.05rem;
-  line-height: 1.75;
-  color: var(--text-secondary);
-  max-width: 720px;
-  margin-bottom: 56px;
-}
-
-/* ---- Perk Grid ---- */
-.perk-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-.perk-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  border-radius: 24px;
-  padding: 32px 28px;
-  overflow: hidden;
-  isolation: isolate;
-  transition: all 0.5s cubic-bezier(0.34, 1.8, 0.64, 1);
-  opacity: 0;
-  transform: translateY(40px) scale(0.9);
-  border: 2px solid transparent;
-  min-height: 260px;
-}
-
-.perk-card.in-view {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.perk-card:nth-child(1) { transition-delay: 0.06s; }
-.perk-card:nth-child(2) { transition-delay: 0.12s; }
-.perk-card:nth-child(3) { transition-delay: 0.18s; }
-.perk-card:nth-child(4) { transition-delay: 0.24s; }
-.perk-card:nth-child(5) { transition-delay: 0.30s; }
-.perk-card:nth-child(6) { transition-delay: 0.36s; }
-
-/* colored background */
-.perk-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  opacity: 0.88;
-  transition: opacity 0.4s ease, transform 0.6s ease;
-}
-.perk-card:hover::after {
-  opacity: 1;
-  transform: scale(1.05);
-}
-
-/* ambient glow orb */
-.perk-card .glow-orb {
-  position: absolute;
-  top: -50px; right: -50px;
-  width: 140px; height: 140px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: -1;
-  filter: blur(30px);
-  opacity: 0.5;
-  transition: all 0.6s ease;
-}
-.perk-card:hover .glow-orb {
-  transform: scale(1.8) translate(-20px, 20px);
-  opacity: 0.9;
-}
-
-/* shimmer sweep */
-.perk-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -100%;
-  width: 50%; height: 100%;
-  background: linear-gradient(
-    115deg,
-    transparent 0%,
-    rgba(255,255,255,0) 35%,
-    rgba(255,255,255,0.6) 50%,
-    rgba(255,255,255,0) 65%,
-    transparent 100%
-  );
-  transform: skewX(-20deg);
-  pointer-events: none;
-  z-index: 3;
-  opacity: 0;
-}
-.perk-card:hover::before {
-  animation: perkShimmer 1s ease forwards;
-  opacity: 1;
-}
-@keyframes perkShimmer {
-  0%   { left: -100%; }
-  100% { left: 200%; }
-}
-
-/* pop on hover */
-.perk-card:hover {
-  transform: translateY(-12px) scale(1.05) rotate(-1deg);
-  box-shadow:
-    0 25px 60px -15px var(--card-shadow),
-    0 0 0 3px var(--card-border-glow),
-    0 0 60px -10px var(--card-outer-glow),
-    inset 0 1px 0 rgba(255,255,255,0.5);
-}
-
-/* ---- Icon ---- */
-.perk-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px; height: 56px;
-  border-radius: 16px;
-  margin-bottom: 20px;
-  position: relative;
-  z-index: 1;
-  color: #fff;
-  box-shadow: 0 8px 24px var(--icon-shadow);
-  animation: perkIconBounce 2.5s ease-in-out infinite;
-}
-.perk-icon svg {
-  width: 26px; height: 26px;
-  stroke-width: 1.8;
-  stroke: currentColor;
-  fill: none;
-}
-
-.perk-card:nth-child(1) .perk-icon { animation-delay: 0s; }
-.perk-card:nth-child(2) .perk-icon { animation-delay: 0.35s; }
-.perk-card:nth-child(3) .perk-icon { animation-delay: 0.7s; }
-.perk-card:nth-child(4) .perk-icon { animation-delay: 1.05s; }
-.perk-card:nth-child(5) .perk-icon { animation-delay: 1.4s; }
-.perk-card:nth-child(6) .perk-icon { animation-delay: 1.75s; }
-
-@keyframes perkIconBounce {
-  0%, 100% { transform: scale(1) translateY(0); }
-  20%      { transform: scale(1.12) translateY(-5px); }
-  40%      { transform: scale(0.95) translateY(2px); }
-  60%      { transform: scale(1.06) translateY(-2px); }
-  80%      { transform: scale(1) translateY(0); }
-}
-
-/* icon spinning glow ring */
-.perk-icon::before {
-  content: '';
-  position: absolute;
-  inset: -5px;
-  border-radius: 20px;
-  background: conic-gradient(from 0deg, var(--icon-ring-1), var(--icon-ring-2), var(--icon-ring-1));
-  z-index: -2;
-  opacity: 0;
-  filter: blur(10px);
-  transition: opacity 0.3s ease;
-}
-.perk-card:hover .perk-icon::before {
-  opacity: 0.7;
-  animation: perkIconSpin 2s linear infinite;
-}
-@keyframes perkIconSpin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-/* icon burst pulse */
-.perk-icon::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: inherit;
-  z-index: -1;
-  opacity: 0;
-}
-.perk-card:hover .perk-icon::after {
-  animation: perkIconBurst 1.2s ease-out infinite;
-}
-@keyframes perkIconBurst {
-  0%   { opacity: 0.5; transform: scale(1);   filter: blur(0px); }
-  100% { opacity: 0;   transform: scale(2.4); filter: blur(6px); }
-}
-
-/* ---- Typography ---- */
-.perk-card strong {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  position: relative;
-  z-index: 1;
-  transition: transform 0.3s ease;
-}
-.perk-card:hover strong {
-  transform: scale(1.05) translateX(2px);
-}
-
-.perk-card p {
-  font-size: 0.88rem;
-  line-height: 1.7;
-  font-weight: 500;
-  position: relative;
-  z-index: 1;
-}
-
-/* ============================================
-   PERK COLOR VARIANTS — EXPLICIT STYLES
-   ============================================ */
-
-/* ---- 1. Cutting-Edge Tech (Indigo) ---- */
-.perk-card:nth-child(1) {
-  background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 50%, #a5b4fc 100%);
-  --card-shadow: rgba(42,59,126,0.35);
-  --card-border-glow: rgba(42,59,126,0.3);
-  --card-outer-glow: rgba(79,70,229,0.2);
-}
-.perk-card:nth-child(1)::after {
-  background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
-}
-.perk-card:nth-child(1) .glow-orb {
-  background: radial-gradient(circle, #6366f1 0%, transparent 70%);
-}
-.perk-card:nth-child(1) .perk-icon {
-  background: linear-gradient(135deg, #2a3b7e, #4f46e5);
-  --icon-shadow: rgba(42,59,126,0.45);
-  --icon-ring-1: #2a3b7e;
-  --icon-ring-2: #818cf8;
-}
-.perk-card:nth-child(1) strong { color: #1e1b4b; }
-.perk-card:nth-child(1) p { color: #3730a3; }
-.perk-card:nth-child(1):hover { border-color: #4f46e5; }
-
-/* ---- 2. Global Exposure (Emerald) ---- */
-.perk-card:nth-child(2) {
-  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 50%, #6ee7b7 100%);
-  --card-shadow: rgba(3,152,70,0.35);
-  --card-border-glow: rgba(3,152,70,0.3);
-  --card-outer-glow: rgba(16,185,129,0.2);
-}
-.perk-card:nth-child(2)::after {
-  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
-}
-.perk-card:nth-child(2) .glow-orb {
-  background: radial-gradient(circle, #10b981 0%, transparent 70%);
-}
-.perk-card:nth-child(2) .perk-icon {
-  background: linear-gradient(135deg, #039846, #059669);
-  --icon-shadow: rgba(3,152,70,0.45);
-  --icon-ring-1: #039846;
-  --icon-ring-2: #34d399;
-}
-.perk-card:nth-child(2) strong { color: #064e3b; }
-.perk-card:nth-child(2) p { color: #065f46; }
-.perk-card:nth-child(2):hover { border-color: #10b981; }
-
-/* ---- 3. Startup Agility (Amber) ---- */
-.perk-card:nth-child(3) {
-  background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 50%, #fdba74 100%);
-  --card-shadow: rgba(239,127,27,0.35);
-  --card-border-glow: rgba(239,127,27,0.3);
-  --card-outer-glow: rgba(249,115,22,0.2);
-}
-.perk-card:nth-child(3)::after {
-  background: linear-gradient(135deg, #ffedd5, #fed7aa);
-}
-.perk-card:nth-child(3) .glow-orb {
-  background: radial-gradient(circle, #f97316 0%, transparent 70%);
-}
-.perk-card:nth-child(3) .perk-icon {
-  background: linear-gradient(135deg, #ea580c, #f97316);
-  --icon-shadow: rgba(239,127,27,0.45);
-  --icon-ring-1: #ea580c;
-  --icon-ring-2: #fb923c;
-}
-.perk-card:nth-child(3) strong { color: #7c2d12; }
-.perk-card:nth-child(3) p { color: #9a3412; }
-.perk-card:nth-child(3):hover { border-color: #f97316; }
-
-/* ---- 4. Impact-Driven (Sky) ---- */
-.perk-card:nth-child(4) {
-  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%);
-  --card-shadow: rgba(37,99,235,0.35);
-  --card-border-glow: rgba(37,99,235,0.3);
-  --card-outer-glow: rgba(59,130,246,0.2);
-}
-.perk-card:nth-child(4)::after {
-  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-}
-.perk-card:nth-child(4) .glow-orb {
-  background: radial-gradient(circle, #3b82f6 0%, transparent 70%);
-}
-.perk-card:nth-child(4) .perk-icon {
-  background: linear-gradient(135deg, #2563eb, #3b82f6);
-  --icon-shadow: rgba(37,99,235,0.45);
-  --icon-ring-1: #2563eb;
-  --icon-ring-2: #60a5fa;
-}
-.perk-card:nth-child(4) strong { color: #1e3a8a; }
-.perk-card:nth-child(4) p { color: #1e40af; }
-.perk-card:nth-child(4):hover { border-color: #3b82f6; }
-
-/* ---- 5. Competitive & Fair (Violet) ---- */
-.perk-card:nth-child(5) {
-  background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 50%, #c4b5fd 100%);
-  --card-shadow: rgba(124,58,237,0.35);
-  --card-border-glow: rgba(124,58,237,0.3);
-  --card-outer-glow: rgba(139,92,246,0.2);
-}
-.perk-card:nth-child(5)::after {
-  background: linear-gradient(135deg, #ede9fe, #ddd6fe);
-}
-.perk-card:nth-child(5) .glow-orb {
-  background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
-}
-.perk-card:nth-child(5) .perk-icon {
-  background: linear-gradient(135deg, #6d28d9, #8b5cf6);
-  --icon-shadow: rgba(124,58,237,0.45);
-  --icon-ring-1: #6d28d9;
-  --icon-ring-2: #a78bfa;
-}
-.perk-card:nth-child(5) strong { color: #4c1d95; }
-.perk-card:nth-child(5) p { color: #5b21b6; }
-.perk-card:nth-child(5):hover { border-color: #8b5cf6; }
-
-/* ---- 6. Continuous Growth (Cyan) ---- */
-.perk-card:nth-child(6) {
-  background: linear-gradient(135deg, #cffafe 0%, #a5f3fc 50%, #67e8f9 100%);
-  --card-shadow: rgba(8,145,178,0.35);
-  --card-border-glow: rgba(8,145,178,0.3);
-  --card-outer-glow: rgba(6,182,212,0.2);
-}
-.perk-card:nth-child(6)::after {
-  background: linear-gradient(135deg, #cffafe, #a5f3fc);
-}
-.perk-card:nth-child(6) .glow-orb {
-  background: radial-gradient(circle, #06b6d4 0%, transparent 70%);
-}
-.perk-card:nth-child(6) .perk-icon {
-  background: linear-gradient(135deg, #0891b2, #06b6d4);
-  --icon-shadow: rgba(8,145,178,0.45);
-  --icon-ring-1: #0891b2;
-  --icon-ring-2: #22d3ee;
-}
-.perk-card:nth-child(6) strong { color: #164e63; }
-.perk-card:nth-child(6) p { color: #155e75; }
-.perk-card:nth-child(6):hover { border-color: #06b6d4; }
-
-
-/* ---- UNIQUE LIGHT: Careers Hero Stats ---- */
+/* ---- Careers Hero Stats ---- */
 .careers-hero-stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1574,7 +1331,6 @@ a { text-decoration:none; color:inherit; }
 .careers-hero-stat:nth-child(6) { transition-delay: 0.48s; --stat-accent: #8b5cf6; --stat-glow: rgba(139,92,246,0.25); --stat-soft: #ede9fe; }
 .careers-hero-stat:nth-child(7) { transition-delay: 0.56s; --stat-accent: #f97316; --stat-glow: rgba(249,115,22,0.25); --stat-soft: #ffedd5; }
 
-/* soft gradient orb behind each card */
 .careers-hero-stat::before {
   content: '';
   position: absolute;
@@ -1592,7 +1348,6 @@ a { text-decoration:none; color:inherit; }
   opacity: 0.15;
 }
 
-/* floating particles */
 .stat-particle {
   position: absolute;
   border-radius: 50%;
@@ -1626,7 +1381,6 @@ a { text-decoration:none; color:inherit; }
   100% { opacity: 0; transform: translateY(-35px) scale(0); }
 }
 
-/* hover lift + colored glow */
 .careers-hero-stat:hover {
   transform: translateY(-8px) scale(1.03);
   border-color: var(--stat-accent);
@@ -1636,7 +1390,6 @@ a { text-decoration:none; color:inherit; }
     inset 0 1px 0 rgba(255,255,255,0.8);
 }
 
-/* number styling — solid gradient text, NO duplicate shimmer */
 .careers-hero-stat-num {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.5vw, 2rem);
@@ -1652,7 +1405,6 @@ a { text-decoration:none; color:inherit; }
   letter-spacing: -0.02em;
 }
 
-/* accent line under number */
 .careers-hero-stat-label::before {
   content: '';
   display: block;
@@ -1697,101 +1449,6 @@ a { text-decoration:none; color:inherit; }
   justify-content: center;
 }
 
-/* ===== ROTATING GLOBE ===== */
-.hero-globe-wrap {
-  position: relative;
-  width: 260px;
-  height: 260px;
-}
-.hero-globe-tag {
-  position: absolute;
-  top: -18px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-  background: var(--primary);
-  color: #fff;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 9px 20px;
-  border-radius: 999px;
-  white-space: nowrap;
-  box-shadow: 0 10px 26px rgba(42,59,126,0.35);
-}
-.hero-globe {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  overflow: hidden;
-  background: radial-gradient(circle at 32% 28%, #6ea3ec 0%, #2a3b7e 55%, #101a3d 100%);
-  box-shadow:
-    0 30px 70px -20px rgba(42,59,126,0.45),
-    inset -14px -14px 40px rgba(0,0,0,0.35),
-    inset 10px 10px 30px rgba(255,255,255,0.12);
-  animation: globeFloat 6s ease-in-out infinite;
-}
-.hero-globe-map {
-  position: absolute;
-  top: 0; left: 0;
-  width: 200%;
-  height: 100%;
-  background-image:
-    radial-gradient(circle at 40px 60px,  #2f9e56 0 22px, transparent 23px),
-    radial-gradient(circle at 95px 150px, #2f9e56 0 30px, transparent 31px),
-    radial-gradient(circle at 150px 45px, #2f9e56 0 18px, transparent 19px),
-    radial-gradient(circle at 195px 175px,#2f9e56 0 24px, transparent 25px),
-    radial-gradient(circle at 235px 95px, #04b354 0 16px, transparent 17px),
-    radial-gradient(circle at 300px 60px, #2f9e56 0 22px, transparent 23px),
-    radial-gradient(circle at 355px 150px,#2f9e56 0 30px, transparent 31px),
-    radial-gradient(circle at 410px 45px, #2f9e56 0 18px, transparent 19px),
-    radial-gradient(circle at 455px 175px,#2f9e56 0 24px, transparent 25px),
-    radial-gradient(circle at 495px 95px, #04b354 0 16px, transparent 17px);
-  opacity: 0.92;
-  animation: globeSpin 16s linear infinite;
-}
-.hero-globe-shade {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: radial-gradient(circle at 68% 72%, transparent 0%, transparent 40%, rgba(6,10,30,0.55) 100%);
-  z-index: 2;
-  pointer-events: none;
-}
-.hero-globe-highlight {
-  position: absolute;
-  top: 14%; left: 18%;
-  width: 34%; height: 24%;
-  background: radial-gradient(circle, rgba(255,255,255,0.55), transparent 70%);
-  border-radius: 50%;
-  filter: blur(4px);
-  z-index: 3;
-  pointer-events: none;
-}
-.hero-globe-ring {
-  position: absolute;
-  inset: -18px;
-  border-radius: 50%;
-  border: 1.5px dashed rgba(42,59,126,0.25);
-  animation: ringSpin 30s linear infinite;
-}
-
-@keyframes globeSpin {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-@keyframes globeFloat {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-10px); }
-}
-@keyframes ringSpin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
 @media (max-width: 900px) {
   .careers-hero-top {
     flex-direction: column;
@@ -1810,7 +1467,6 @@ a { text-decoration:none; color:inherit; }
   justify-content: center;
 }
 
-/* soft outer atmosphere glow, like light bleeding off a planet */
 .hero-globe-atmosphere {
   position: absolute;
   inset: -22px;
@@ -1834,8 +1490,6 @@ a { text-decoration:none; color:inherit; }
     0 0 0 1px rgba(255,255,255,0.06) inset;
 }
 
-/* the actual rotating map texture — real equirectangular world map,
-   doubled in width and slid via translateX for a seamless spin */
 .hero-globe-texture {
   position: absolute;
   top: 0; left: 0;
@@ -1848,7 +1502,6 @@ a { text-decoration:none; color:inherit; }
   filter: saturate(1.3) contrast(1.05) brightness(0.95);
 }
 
-/* directional lighting: darkens the lower-right, like sunlight from upper-left */
 .hero-globe-shade {
   position: absolute;
   inset: 0;
@@ -1860,7 +1513,6 @@ a { text-decoration:none; color:inherit; }
   pointer-events: none;
 }
 
-/* subtle day/night terminator line for extra depth */
 .hero-globe-terminator {
   position: absolute;
   inset: 0;
@@ -1870,7 +1522,6 @@ a { text-decoration:none; color:inherit; }
   pointer-events: none;
 }
 
-/* bright specular highlight, like sun glinting off atmosphere */
 .hero-globe-specular {
   position: absolute;
   top: 10%; left: 16%;
@@ -1882,7 +1533,6 @@ a { text-decoration:none; color:inherit; }
   pointer-events: none;
 }
 
-/* badge sitting centered over the globe, like the reference image */
 .hero-globe-tag {
   position: absolute;
   top: 50%;
@@ -1939,4 +1589,75 @@ a { text-decoration:none; color:inherit; }
   font-size: 15px;
   letter-spacing: 2px;
   fill: #ffffff;
+}
+
+/* ============================================================
+   MOBILE RESPONSIVENESS FIXES — appended to career.css
+   Paste this block at the very end of career.css (it must come
+   after the existing rules so it wins the cascade).
+   ============================================================ */
+
+/* Belt-and-braces: stop any decorative element (globe glow,
+   drop-shadows, negative-inset atmosphere) from creating a
+   horizontal scrollbar on narrow viewports. */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* ----- Hero: stat cards ----- 
+   The grid was hard-locked to 4 columns with no smaller
+   breakpoint, so on a phone each cell was ~85px wide and the
+   numbers/labels wrapped into an unreadable mess. */
+@media (max-width: 900px) {
+  .careers-hero-top {
+    gap: 32px;
+  }
+  /* Show the globe above the copy on mobile — reads better as a
+     hero image than sitting awkwardly after a wall of text. */
+  .careers-hero-visual {
+    order: -1;
+  }
+  .careers-hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-globe-wrap { width: 190px; height: 190px; }
+  .hero-globe { width: 168px; height: 168px; }
+  .hero-globe-atmosphere { inset: -14px; }
+  .hero-globe-tag,
+  .hero-globe-band-text { font-size: 11px; letter-spacing: 0.06em; }
+  .hero-globe-band { width: 92%; }
+}
+
+@media (max-width: 480px) {
+  .careers-hero-content { padding: 96px 18px 40px; }
+  .careers-hero-title { font-size: clamp(1.7rem, 8vw, 2.4rem); }
+
+  .careers-hero-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .careers-hero-stat {
+    min-height: unset;
+    padding: 18px 16px;
+  }
+
+  .job-card-summary { max-width: 100%; }
+  .job-card-header { padding: 20px 52px 20px 20px; }
+  .job-card-toggle { top: 20px; right: 16px; width: 32px; height: 32px; }
+
+  .apply-modal { padding: 10px; }
+  .apply-modal-content { padding: 20px; border-radius: 12px; }
+  .apply-modal-header h3 { font-size: 1.1rem; }
+
+  .general-app-actions .btn-primary,
+  .general-app-actions .btn-outline {
+    width: 100%;
+    text-align: center;
+  }
 }

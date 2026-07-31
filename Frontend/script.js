@@ -652,3 +652,90 @@ benefitCards.forEach(card => benefitObserver.observe(card));
     if (e.key === 'Escape' && modal.classList.contains('open')) closeIndustryModal();
   });
 })();
+
+/* ===== TIMELINE VIEW BUTTONS (fixes conflict with generic [data-view-src] handler) ===== */
+(function () {
+  'use strict';
+
+  /* 1. Inject modal markup once */
+  if (!document.getElementById('tvalidModal')) {
+    document.body.insertAdjacentHTML('beforeend', `
+      <div class="tvalid-modal" id="tvalidModal" aria-hidden="true">
+        <div class="tvalid-modal-backdrop" data-tvalid-close></div>
+        <div class="tvalid-modal-dialog" role="dialog" aria-modal="true">
+          <button class="tvalid-modal-close" data-tvalid-close aria-label="Close">&times;</button>
+          <div class="tvalid-modal-body" id="tvalidModalBody"></div>
+        </div>
+      </div>
+    `);
+  }
+
+  const modal = document.getElementById('tvalidModal');
+  const body  = document.getElementById('tvalidModalBody');
+
+  function openModal() {
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    body.innerHTML = '';
+  }
+
+  /* 2. Strip old listeners by cloning every timeline view button */
+  document.querySelectorAll('.tvalid-view-btn').forEach(oldBtn => {
+    const newBtn = oldBtn.cloneNode(true);
+    oldBtn.parentNode.replaceChild(newBtn, oldBtn);
+  });
+
+  /* 3. Re-attach clean click handlers */
+  document.querySelectorAll('.tvalid-view-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopImmediatePropagation(); /* block any other listener on this element */
+
+      const item = btn.closest('.tvalid-item');
+      const isDual = item && item.classList.contains('tvalid-item--glow');
+
+      if (isDual) {
+        /* ---- 2026+ : show BOTH images side-by-side ---- */
+        const buttons = Array.from(item.querySelectorAll('.tvalid-view-btn'));
+        let html = '<div class="tvalid-dual-grid">';
+        buttons.forEach(b => {
+          const src   = b.getAttribute('data-view-src');
+          const title = b.getAttribute('data-view-title') || '';
+          const label = b.previousElementSibling?.textContent?.trim() || title;
+          html += `
+            <div class="tvalid-dual-col">
+              <h4>${label}</h4>
+              <div class="tvalid-dual-img-wrap">
+                <img src="${src}" alt="${title}">
+              </div>
+            </div>
+          `;
+        });
+        html += '</div>';
+        body.innerHTML = html;
+      } else {
+        /* ---- 2008-2024 : single centered image ---- */
+        const src   = btn.getAttribute('data-view-src');
+        const title = btn.getAttribute('data-view-title') || '';
+        body.innerHTML = `<img src="${src}" alt="${title}">`;
+      }
+
+      openModal();
+    });
+  });
+
+  /* 4. Close handlers */
+  modal.addEventListener('click', (e) => {
+    if (e.target.hasAttribute('data-tvalid-close')) closeModal();
+  });
+  modal.querySelector('.tvalid-modal-close').addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+  });
+})();

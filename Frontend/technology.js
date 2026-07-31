@@ -551,3 +551,79 @@ function closeGallery(){
 
   resetTimer();
 })();
+
+/* ===== MACLEC TIMELINE VIEW BUTTONS (unique classes + data attrs) ===== */
+(function () {
+  'use strict';
+
+  if (!document.getElementById('mtvModal')) {
+    document.body.insertAdjacentHTML('beforeend', `
+      <div class="mtv-modal" id="mtvModal" aria-hidden="true">
+        <div class="mtv-modal-backdrop" data-mtv-close></div>
+        <div class="mtv-modal-dialog" role="dialog" aria-modal="true">
+          <button class="mtv-modal-close" data-mtv-close aria-label="Close">&times;</button>
+          <div class="mtv-modal-body" id="mtvModalBody"></div>
+        </div>
+      </div>
+    `);
+  }
+
+  const modal = document.getElementById('mtvModal');
+  const body  = document.getElementById('mtvModalBody');
+
+  function openModal() {
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    body.innerHTML = '';
+  }
+
+  document.querySelectorAll('.mtv-view-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const item   = btn.closest('.mtv-item');
+      const isDual = item && item.classList.contains('mtv-item--glow');
+
+      if (isDual) {
+        const buttons = Array.from(item.querySelectorAll('.mtv-view-btn'));
+        let html = '<div class="mtv-dual-grid">';
+        buttons.forEach(b => {
+          const src   = b.getAttribute('data-tv-src');
+          const title = b.getAttribute('data-tv-title') || '';
+          const label = b.previousElementSibling?.textContent?.trim() || title;
+          html += `
+            <div class="mtv-dual-col">
+              <h4>${label}</h4>
+              <div class="mtv-dual-img-wrap">
+                <img src="${src}" alt="${title}">
+              </div>
+            </div>
+          `;
+        });
+        html += '</div>';
+        body.innerHTML = html;
+      } else {
+        const src   = btn.getAttribute('data-tv-src');
+        const title = btn.getAttribute('data-tv-title') || '';
+        body.innerHTML = `<img src="${src}" alt="${title}">`;
+      }
+
+      openModal();
+    });
+  });
+
+  modal.addEventListener('click', (e) => {
+    if (e.target.hasAttribute('data-mtv-close')) closeModal();
+  });
+  modal.querySelector('.mtv-modal-close').addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+  });
+})();
