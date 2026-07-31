@@ -1928,8 +1928,6 @@ a { text-decoration:none; color:inherit; }
   .hero-globe-band-text { font-size: 20px; letter-spacing: 3px; }
 }
 @media (max-width: 640px) {
-  .hero-globe-wrap { width: 260px; height: 260px; }
-  .hero-globe { width: 220px; height: 220px; }
   .hero-globe-atmosphere { inset: -22px; }
   .hero-globe-band { width: 125%; transform: translate(-50%, -50%); }
   .hero-globe-band-text { font-size: 17px; letter-spacing: 2.5px; }
@@ -2105,8 +2103,11 @@ html, body {
 }
 
 @media (max-width: 640px) {
-  .hero-globe-wrap { width: 190px; height: 190px; }
-  .hero-globe { width: 168px; height: 168px; }
+     .hero-globe-wrap {
+        width: 229px;
+        height: 224px;
+    }
+  .hero-globe { width: 295px; height: 223px; }
   .hero-globe-atmosphere { inset: -14px; }
   .hero-globe-tag,
   .hero-globe-band-text { font-size: 33px; letter-spacing: 0.06em; }
