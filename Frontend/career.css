@@ -999,15 +999,7 @@ a { text-decoration:none; color:inherit; }
   .footer-inner { flex-direction: column; gap: 32px; }
   .footer-links { gap: 40px; }
 }
-@media (max-width: 480px) {
-  .header-inner { padding: 0 18px; }
-  .job-filters { gap: 8px; }
-  .job-filter-btn { font-size: 0.7rem; padding: 6px 14px; }
-  .job-card-footer { flex-direction: column; align-items: flex-start; }
-  .form-actions { flex-direction: column; }
-  .form-actions .btn-primary,
-  .form-actions .btn-outline { width: 100%; text-align: center; }
-}
+
 
 
 ::-webkit-scrollbar {
@@ -2163,4 +2155,15 @@ html, body {
   font-weight: 800;
   font-size: 35px;
   letter-spacing: 2px;
+}
+
+@media  (min-width: 300px) and (max-width: 480px) {
+  .header-inner { padding: 0 18px; }
+  .job-filters { gap: 8px; }
+  .perk-grid { grid-template-columns: 1fr; }
+  .job-filter-btn { font-size: 0.7rem; padding: 6px 14px; }
+  .job-card-footer { flex-direction: column; align-items: flex-start; }
+  .form-actions { flex-direction: column; }
+  .form-actions .btn-primary,
+  .form-actions .btn-outline { width: 100%; text-align: center; }
 }
