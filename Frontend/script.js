@@ -316,7 +316,7 @@ const cardData = {
                       data-view-src="${item.image}"
                       data-view-type="image"
                       data-view-title="${item.subtitle}">
-                View Certificate
+                View
               </button>
             </div>
           `;
@@ -378,7 +378,7 @@ const cardData = {
                   data-view-src="${data.image}"
                   data-view-type="image"
                   data-view-title="${data.title}">
-            View Certificate
+            View
           </button>
         </div>
       `;
