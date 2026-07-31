@@ -184,3 +184,54 @@ if (navToggle && mainNav) {
   });
 }
 
+/* ===== VIDEO THUMBNAIL FIX (mobile + fallback) =====
+   Every gallery video thumbnail now has a branded `poster` image set
+   directly in the HTML, so there's always something visible even if a
+   video file is missing or a mobile browser refuses to paint a frame.
+   This script is just a light enhancement: once a thumbnail scrolls into
+   view, it nudges the browser to decode a real frame (mobile browsers
+   often won't do this on their own from preload="metadata" alone). If the
+   video can't load for any reason, the poster simply stays put — nothing
+   goes blank. Deliberately does NOT call play()/pause(), to avoid any
+   flicker as thumbnails scroll into view. */
+(function fixVideoThumbnails() {
+  const thumbVideos = document.querySelectorAll('.gallery-card--video video');
+  if (!thumbVideos.length) return;
+
+  function revealFrame(video) {
+    if (video.dataset.frameReady) return;
+    video.dataset.frameReady = 'true';
+
+    const seekToFirstFrame = () => {
+      try {
+        // A tiny offset (not exactly 0) reliably forces a frame decode
+        // on iOS/most mobile browsers without needing autoplay.
+        video.currentTime = 0.1;
+      } catch (err) { /* poster stays visible — nothing breaks */ }
+    };
+
+    if (video.readyState >= 1) {
+      seekToFirstFrame();
+    } else {
+      video.addEventListener('loadedmetadata', seekToFirstFrame, { once: true });
+      if (video.readyState === 0) {
+        video.load();
+      }
+    }
+  }
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          revealFrame(entry.target);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '300px 0px' });
+
+    thumbVideos.forEach(video => io.observe(video));
+  } else {
+    thumbVideos.forEach(revealFrame);
+  }
+})();
