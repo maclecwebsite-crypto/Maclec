@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: transparent;
+  background: whitesmoke;
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -261,3 +261,71 @@
     gap: 2rem;
   }
 }
+
+
+@media (max-width: 768px) {
+  .maclec-site-footer {
+    padding: 3rem 1.5rem 0;
+  }
+
+  .maclec-footer-inner {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+  }
+
+  .maclec-footer-brand {
+    flex: none;
+    width: 100%;
+  }
+
+  .maclec-footer-logo {
+    max-height: 44px;
+  }
+
+  .maclec-footer-links {
+    flex: none;
+    width: 100%;
+    gap: 2rem;
+    justify-content: flex-start;
+  }
+
+  .maclec-footer-col {
+    flex: 1 1 45%;
+    min-width: 120px;
+  }
+
+  .maclec-footer-bottom {
+    margin-top: 2.5rem;
+    padding: 1.25rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .maclec-site-footer {
+    padding: 2.5rem 1.25rem 0;
+  }
+
+  .maclec-footer-links {
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .maclec-footer-col {
+    flex: none;
+    width: 100%;
+  }
+
+  .maclec-footer-col strong {
+    margin-bottom: 0.75rem;
+  }
+
+  .maclec-footer-col a {
+    margin-bottom: 0.5rem;
+  }
+
+  .maclec-footer-bottom p {
+    font-size: 0.8rem;
+  }
+}
+
