@@ -3181,3 +3181,135 @@ a{ text-decoration:none; color:inherit; }
   }
 }
 
+/* Add this to about.css (or global.css) — styles the two side-by-side
+   images used in the 2025 "Global Commercial Expansion" timeline card */
+
+.timeline-modal-image--pair {
+  width: 100%;
+}
+
+.timeline-modal-image-pair-row {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+}
+
+.timeline-modal-image-pair-item {
+  position: relative;
+  flex: 1 1 50%;
+  min-width: 0; /* prevent flex overflow */
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.timeline-modal-image-pair-item img {
+  display: block;
+  width: 100%;
+  height: 180px;       /* same size for both images */
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.timeline-modal-image-pair-item .cert-view-btn {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+}
+
+/* Stack on narrow screens */
+@media (max-width: 640px) {
+  .timeline-modal-image-pair-row {
+    flex-direction: column;
+  }
+  .timeline-modal-image-pair-item img {
+    height: 160px;
+  }
+}
+
+/* ===== FILE MODAL HEADER FIX ===== */
+/* Add this AFTER your existing .file-modal rules so it overrides them,
+   or replace your current .file-modal-header block with this. */
+
+.file-modal-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.file-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: #0d1117; /* adjust to match your modal bg */
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+}
+
+.file-modal-header h3,
+#fileModalTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.file-modal-download {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 18px;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.file-modal-download:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.file-modal-close {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.file-modal-close:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* Body below header scrolls independently */
+.file-modal-body {
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+#fileModalClose{
+  width: 60px;
+  border-radius: 10px;
+  font-size: 20px;
+}

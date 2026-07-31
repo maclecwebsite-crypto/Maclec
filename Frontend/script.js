@@ -267,7 +267,9 @@ const cardData = {
     year: '2025',
     title: 'Global Commercial Expansion',
     text: '200+ MW SHK Turbine Power Generation Projects in hand and 50+ MW SHK PSP project in hand',
-    hasImage: false
+    image: './img/project_Demonstrate_1.png',
+    image2: './img/project_Demonstrate_2.png',
+    hasImage: true
   },
   '2026': {
     year: '2026',
@@ -284,7 +286,7 @@ const cardData = {
 };
 
   function openModal(data) {
-    if (!data) return; // guards against cards with no modal-worthy content (e.g. 2025)
+    if (!data) return; // guards against cards with no modal-worthy content
 
     modalTitle.textContent = data.title;
     const modalContent = modal.querySelector('.timeline-modal-content');
@@ -338,10 +340,37 @@ const cardData = {
     } // Single-item view (for other years)
   else {
     const hasImg = data.hasImage && data.image;
+    const hasTwoImages = hasImg && data.image2;
 
     if (hasImg) html += `<div class="timeline-modal-columns">`;
 
-    if (hasImg) {
+    if (hasTwoImages) {
+      // Two images shown side by side, same size
+      html += `
+        <div class="timeline-modal-image timeline-modal-image--pair">
+          <div class="timeline-modal-image-pair-row">
+            <div class="timeline-modal-image-pair-item">
+              <img src="${data.image}" alt="${data.title} 1">
+              <button type="button" class="cert-view-btn"
+                      data-view-src="${data.image}"
+                      data-view-type="image"
+                      data-view-title="${data.title} 1">
+                View
+              </button>
+            </div>
+            <div class="timeline-modal-image-pair-item">
+              <img src="${data.image2}" alt="${data.title} 2">
+              <button type="button" class="cert-view-btn"
+                      data-view-src="${data.image2}"
+                      data-view-type="image"
+                      data-view-title="${data.title} 2">
+                View
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    } else if (hasImg) {
       html += `
         <div class="timeline-modal-image">
           <img src="${data.image}" alt="${data.title}">
@@ -407,7 +436,7 @@ const cardData = {
   cards.forEach(card => {
     card.addEventListener('click', () => {
       const year = card.dataset.year;
-      openModal(cardData[year]); // undefined for '2025' → openModal returns early, no modal opens
+      openModal(cardData[year]); // undefined for unknown years → openModal returns early, no modal opens
     });
   });
 
