@@ -2067,7 +2067,7 @@ a { text-decoration:none; color:inherit; }
 .hero-globe-band-text {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 15px;
+  font-size: 35px;
   letter-spacing: 2px;
   fill: #ffffff;
 }
@@ -2141,4 +2141,13 @@ html, body {
     width: 100%;
     text-align: center;
   }
+}
+.hero-globe-band {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  pointer-events: none;
 }
