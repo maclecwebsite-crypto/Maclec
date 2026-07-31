@@ -592,23 +592,44 @@ function closeGallery(){
       const isDual = item && item.classList.contains('mtv-item--glow');
 
       if (isDual) {
-        const buttons = Array.from(item.querySelectorAll('.mtv-view-btn'));
-        let html = '<div class="mtv-dual-grid">';
-        buttons.forEach(b => {
-          const src   = b.getAttribute('data-tv-src');
-          const title = b.getAttribute('data-tv-title') || '';
-          const label = b.previousElementSibling?.textContent?.trim() || title;
-          html += `
-            <div class="mtv-dual-col">
-              <h4>${label}</h4>
-              <div class="mtv-dual-img-wrap">
-                <img src="${src}" alt="${title}">
+        const src2   = btn.getAttribute('data-tv-src-2');
+        const title2 = btn.getAttribute('data-tv-title-2') || '';
+        const label2 = btn.getAttribute('data-tv-label-2') || title2;
+
+        if (src2) {
+          const src1   = btn.getAttribute('data-tv-src');
+          const title1 = btn.getAttribute('data-tv-title') || '';
+          const label1 = btn.getAttribute('data-tv-label') || btn.previousElementSibling?.textContent?.trim() || title1;
+
+          body.innerHTML = `
+            <div class="mtv-dual-grid">
+              <div class="mtv-dual-col">
+                <h4>${label1}</h4>
+                <div class="mtv-dual-img-wrap"><img src="${src1}" alt="${title1}"></div>
               </div>
-            </div>
-          `;
-        });
-        html += '</div>';
-        body.innerHTML = html;
+              <div class="mtv-dual-col">
+                <h4>${label2}</h4>
+                <div class="mtv-dual-img-wrap"><img src="${src2}" alt="${title2}"></div>
+              </div>
+            </div>`;
+        } else {
+          // fallback: old multi-button behaviour
+          const buttons = Array.from(item.querySelectorAll('.mtv-view-btn'));
+          let html = '<div class="mtv-dual-grid">';
+          buttons.forEach(b => {
+            const src   = b.getAttribute('data-tv-src');
+            const title = b.getAttribute('data-tv-title') || '';
+            const label = b.previousElementSibling?.textContent?.trim() || title;
+            html += `
+              <div class="mtv-dual-col">
+                <h4>${label}</h4>
+                <div class="mtv-dual-img-wrap"><img src="${src}" alt="${title}"></div>
+              </div>
+            `;
+          });
+          html += '</div>';
+          body.innerHTML = html;
+        }
       } else {
         const src   = btn.getAttribute('data-tv-src');
         const title = btn.getAttribute('data-tv-title') || '';

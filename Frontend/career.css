@@ -1591,24 +1591,13 @@ a { text-decoration:none; color:inherit; }
   fill: #ffffff;
 }
 
-/* ============================================================
-   MOBILE RESPONSIVENESS FIXES — appended to career.css
-   Paste this block at the very end of career.css (it must come
-   after the existing rules so it wins the cascade).
-   ============================================================ */
 
-/* Belt-and-braces: stop any decorative element (globe glow,
-   drop-shadows, negative-inset atmosphere) from creating a
-   horizontal scrollbar on narrow viewports. */
 html, body {
   max-width: 100%;
   overflow-x: hidden;
 }
 
-/* ----- Hero: stat cards ----- 
-   The grid was hard-locked to 4 columns with no smaller
-   breakpoint, so on a phone each cell was ~85px wide and the
-   numbers/labels wrapped into an unreadable mess. */
+
 @media (max-width: 900px) {
   .careers-hero-top {
     gap: 32px;
