@@ -2169,27 +2169,21 @@ html, body {
 }
 
 
-/* ============================================================
-   MODAL MOBILE FIXES
-   ============================================================ */
 
-/* Prevent body scroll when modal is open */
 body.modal-open {
   overflow: hidden;
   touch-action: none;
 }
 
-/* Align to top on short viewports so tall forms don't get
-   clipped above the fold; keep centered on desktop */
 @media (max-width: 640px) {
   .apply-modal {
     padding: 0;
     align-items: flex-start;
   }
   .apply-modal-content {
-    max-height: 100dvh;           /* use dynamic viewport height */
+    max-height: 100dvh;          
     height: 100dvh;
-    border-radius: 0;             /* full-bleed feels better on phones */
+    border-radius: 0;           
     padding: 120px 20px 32px;
     box-shadow: none;
   }
@@ -2251,4 +2245,36 @@ body.modal-open {
   .file-upload-display {
     padding: 18px 14px;
   }
+}
+
+#applySubmitBtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: btn-spin 0.7s linear infinite;
+}
+
+#applySubmitBtn.is-loading .btn-spinner {
+  display: inline-block;
+}
+
+#applySubmitBtn.is-loading {
+  opacity: 0.85;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
 }

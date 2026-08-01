@@ -304,8 +304,12 @@ applyForm.addEventListener('submit', async (e) => {
   clearFormError();
 
   const submitBtn = document.getElementById('applySubmitBtn');
-  submitBtn.textContent = 'Submitting...';
+  const btnText = submitBtn.querySelector('.btn-text');
+  const originalText = btnText.textContent;
+
+  submitBtn.classList.add('is-loading');
   submitBtn.disabled = true;
+  btnText.textContent = 'Submitting...';
 
   try {
     const formData = new FormData(applyForm);
@@ -325,8 +329,9 @@ applyForm.addEventListener('submit', async (e) => {
     console.error('Application submission failed', err);
     showFormError(err.message || 'Something went wrong. Please try again.');
   } finally {
-    submitBtn.textContent = 'Submit Application';
+    submitBtn.classList.remove('is-loading');
     submitBtn.disabled = false;
+    btnText.textContent = originalText;
   }
 });
 
