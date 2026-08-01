@@ -70,6 +70,14 @@ loginForm.addEventListener('submit', async (e) => {
   loginError.textContent = '';
   const password = document.getElementById('loginPassword').value;
 
+  const submitBtn = document.getElementById('loginSubmitBtn');
+  const btnText = submitBtn.querySelector('.btn-text');
+  const originalText = btnText.textContent;
+
+  submitBtn.classList.add('is-loading');
+  submitBtn.disabled = true;
+  btnText.textContent = 'Signing in...';
+
   try {
     const res = await fetch(`${API_BASE}/admin/login`, {
       method: 'POST',
@@ -89,6 +97,10 @@ loginForm.addEventListener('submit', async (e) => {
     showAdmin();
   } catch (err) {
     loginError.textContent = err.message;
+  } finally {
+    submitBtn.classList.remove('is-loading');
+    submitBtn.disabled = false;
+    btnText.textContent = originalText;
   }
 });
 
@@ -159,6 +171,14 @@ jobForm.addEventListener('submit', async (e) => {
     isActive: document.getElementById('jobActiveInput').checked
   };
 
+  const submitBtn = document.getElementById('jobSaveBtn');
+  const btnText = submitBtn.querySelector('.btn-text');
+  const originalText = btnText.textContent;
+
+  submitBtn.classList.add('is-loading');
+  submitBtn.disabled = true;
+  btnText.textContent = id ? 'Updating...' : 'Saving...';
+
   try {
     const res = await adminFetch(id ? `/admin/jobs/${id}` : '/admin/jobs', {
       method: id ? 'PUT' : 'POST',
@@ -173,6 +193,10 @@ jobForm.addEventListener('submit', async (e) => {
     loadJobs();
   } catch (err) {
     showToast(err.message, true);
+  } finally {
+    submitBtn.classList.remove('is-loading');
+    submitBtn.disabled = false;
+    btnText.textContent = originalText;
   }
 });
 

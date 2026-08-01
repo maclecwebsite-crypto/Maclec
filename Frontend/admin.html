@@ -20,7 +20,10 @@
     <form id="loginForm">
       <input type="password" id="loginPassword" placeholder="Admin password" required autocomplete="current-password">
       <p class="login-error" id="loginError"></p>
-      <button type="submit">Sign In</button>
+      <button type="submit" id="loginSubmitBtn">
+  <span class="btn-spinner" aria-hidden="true"></span>
+  <span class="btn-text">Sign In</span>
+</button>
     </form>
   </div>
 </div>
@@ -212,7 +215,10 @@
       </div>
       <div class="form-actions">
         <button type="button" class="btn btn-outline" id="jobCancelBtn">Cancel</button>
-        <button type="submit" class="btn btn-primary" id="jobSaveBtn">Save Job</button>
+        <button type="submit" class="btn btn-primary" id="jobSaveBtn">
+  <span class="btn-spinner" aria-hidden="true"></span>
+  <span class="btn-text">Save Job</span>
+</button>
       </div>
     </form>
   </div>
