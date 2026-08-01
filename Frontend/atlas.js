@@ -618,71 +618,78 @@ document.addEventListener('DOMContentLoaded', () => {
       if (state === 'err') statusEl.classList.add('geo-readout--err');
     }
 
-    scheduleBtn.addEventListener('click', async () => {
-      const nameEl = document.getElementById('m-name');
-      const emailEl = document.getElementById('m-email');
-      const orgEl = document.getElementById('m-org');
-      const dateEl = document.getElementById('m-date');
-      const timeEl = document.getElementById('m-time');
-      const messageEl = document.getElementById('m-message');
+scheduleBtn.addEventListener('click', async () => {
+  const nameEl = document.getElementById('m-name');
+  const emailEl = document.getElementById('m-email');
+  const orgEl = document.getElementById('m-org');
+  const dateEl = document.getElementById('m-date');
+  const timeEl = document.getElementById('m-time');
+  const messageEl = document.getElementById('m-message');
 
-      const fullName = nameEl?.value.trim() || '';
-      const email = emailEl?.value.trim() || '';
+  const fullName = nameEl?.value.trim() || '';
+  const email = emailEl?.value.trim() || '';
 
-      if (!fullName) {
-        setStatus('Please enter your full name.', 'err');
-        nameEl?.focus();
-        return;
-      }
-      if (!email) {
-        setStatus('Please enter your email address.', 'err');
-        emailEl?.focus();
-        return;
-      }
+  if (!fullName) {
+    setStatus('Please enter your full name.', 'err');
+    nameEl?.focus();
+    return;
+  }
+  if (!email) {
+    setStatus('Please enter your email address.', 'err');
+    emailEl?.focus();
+    return;
+  }
 
-      scheduleBtn.disabled = true;
-      setStatus('Submitting your site query and consultation request…');
+  const btnText = scheduleBtn.querySelector('.btn-text');
+  const originalText = btnText ? btnText.textContent : null;
 
-      try {
-        const formData = new FormData();
+  scheduleBtn.classList.add('is-loading');
+  scheduleBtn.disabled = true;
+  if (btnText) btnText.textContent = 'Submitting…';
+  setStatus('Submitting your site query and consultation request…');
 
-        // Step 1: Select Location (+ captured media)
-        formData.append('latitude', siteQueryCoords.lat ?? '');
-        formData.append('longitude', siteQueryCoords.lng ?? '');
-        if (siteQueryMedia.video) {
-          formData.append('site_video', siteQueryMedia.video, siteQueryMedia.video.name || 'site-video.mp4');
-        }
-        siteQueryMedia.photos.forEach((file, i) => {
-          formData.append('site_photos', file, file.name || `site-photo-${i + 1}.jpg`);
-        });
+  try {
+    const formData = new FormData();
 
-        // Step 2: Site Parameters
-        const params = collectSiteParameters();
-        Object.entries(params).forEach(([key, val]) => formData.append(key, val));
-
-        // Step 3: Book Consultation
-        formData.append('fullName', fullName);
-        formData.append('email', email);
-        formData.append('organization', orgEl?.value.trim() || '');
-        formData.append('preferredDate', dateEl?.value || '');
-        formData.append('preferredTime', timeEl?.value || '');
-        formData.append('message', messageEl?.value.trim() || '');
-
-        const res = await fetch(`${SITE_QUERY_API}/site-queries`, {
-          method: 'POST',
-          body: formData,
-        });
-
-        const body = await res.json().catch(() => ({}));
-        if (!res.ok) throw new Error(body.message || `Server responded ${res.status}`);
-
-        setStatus('Your site query and consultation request have been submitted. Team MACLEC will respond within 7 working days.', 'ok');
-      } catch (err) {
-        setStatus('Submission failed: ' + (err.message || 'network error') + '. Please try again.', 'err');
-      } finally {
-        scheduleBtn.disabled = false;
-      }
+    // Step 1: Select Location (+ captured media)
+    formData.append('latitude', siteQueryCoords.lat ?? '');
+    formData.append('longitude', siteQueryCoords.lng ?? '');
+    if (siteQueryMedia.video) {
+      formData.append('site_video', siteQueryMedia.video, siteQueryMedia.video.name || 'site-video.mp4');
+    }
+    siteQueryMedia.photos.forEach((file, i) => {
+      formData.append('site_photos', file, file.name || `site-photo-${i + 1}.jpg`);
     });
+
+    // Step 2: Site Parameters
+    const params = collectSiteParameters();
+    Object.entries(params).forEach(([key, val]) => formData.append(key, val));
+
+    // Step 3: Book Consultation
+    formData.append('fullName', fullName);
+    formData.append('email', email);
+    formData.append('organization', orgEl?.value.trim() || '');
+    formData.append('preferredDate', dateEl?.value || '');
+    formData.append('preferredTime', timeEl?.value || '');
+    formData.append('message', messageEl?.value.trim() || '');
+
+    const res = await fetch(`${SITE_QUERY_API}/site-queries`, {
+      method: 'POST',
+      body: formData,
+    });
+
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(body.message || `Server responded ${res.status}`);
+
+    setStatus('Your site query and consultation request have been submitted. Team MACLEC will respond within 7 working days.', 'ok');
+  } catch (err) {
+    setStatus('Submission failed: ' + (err.message || 'network error') + '. Please try again.', 'err');
+  } finally {
+    scheduleBtn.classList.remove('is-loading');
+    scheduleBtn.disabled = false;
+    if (btnText && originalText) btnText.textContent = originalText;
+  }
+});
   })();
 
   (function initSampleVideoUpload(){

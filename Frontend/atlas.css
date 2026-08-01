@@ -1761,3 +1761,35 @@
 @media (max-width: 768px){
   .atlas-layers-inner{ padding: 0 18px; }
 }
+
+#schedule-meeting {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+#schedule-meeting .btn-spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: btn-spin 0.7s linear infinite;
+}
+
+#schedule-meeting.is-loading .btn-spinner {
+  display: inline-block;
+}
+
+#schedule-meeting.is-loading {
+  opacity: 0.85;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
