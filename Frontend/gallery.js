@@ -235,3 +235,14 @@ if (navToggle && mainNav) {
     thumbVideos.forEach(revealFrame);
   }
 })();
+
+(function applyDefaultFilter() {
+  const defaultFilter = 'agreements';
+  galleryItems.forEach(item => {
+    if (item.dataset.category === defaultFilter) {
+      item.classList.remove('hidden');
+    } else {
+      item.classList.add('hidden');
+    }
+  });
+})();
