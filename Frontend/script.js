@@ -256,7 +256,7 @@ const cardData = {
         ],
         image: './img/CEA_Report.png',
         hasImage: true,
-        reportLink: './docs/CEA_Report_DatedOct_21.pdf'
+        reportLink: './docs/Hydro_Declaration_by_CEA.pdf'
       },
       {
         badge: 'CEA · Policy',
