@@ -16,6 +16,14 @@
   <link rel="icon" type="image/x-icon" href="img/favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32-v2.png">
   <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16-v2.png">
+  <script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
 </head>
 
 <body>
@@ -431,40 +439,30 @@
     </div>
   </div>
 
-  <!-- ===== GLOBAL POTENTIAL ===== -->
-  <section class="tglobal-section">
-    <div class="tglobal-media" aria-hidden="true">
-      <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80"
-        alt="World map at night showing global energy infrastructure">
-      <div class="tglobal-overlay"></div>
-    </div>
-    <div class="tglobal-inner">
-      <div class="about-tag">Global Potential</div>
-      <h2 class="about-title">A <span class="accent">Multi-Trillion Dollar</span> Opportunity</h2>
-      <p class="about-intro">Statistics that show why hydrokinetic energy is one of the largest untapped renewable
-        resources on the planet.</p>
-
-      <div class="tglobal-grid">
-        <div class="tglobal-stat">
-          <span class="tglobal-num">100+ <small>GW</small></span>
-          <span class="tglobal-label">India Potential</span>
-        </div>
-        <div class="tglobal-stat">
-          <span class="tglobal-num">10000 <small>TWH</small></span>
-          <span class="tglobal-label">Self identified potential in World wide</span>
-        </div>
-        <div class="tglobal-stat">
-          <span class="tglobal-num">Millions <small>of km</small></span>
-          <span class="tglobal-label">Canal and River Networks Available Worldwide</span>
-        </div>
-        <div class="tglobal-stat">
-          <span class="tglobal-num">3500+</span>
-          <span class="tglobal-label">Maclec Self identified Site</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
+<section class="tglobal-section" id="global-potential">
+  <div class="tglobal-media" aria-hidden="true">
+    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80"
+      alt="World map at night showing global energy infrastructure">
+    <div class="tglobal-overlay"></div>
+  </div>
+ 
+  <div class="tglobal-inner">
+    <div class="about-tag">Global Potential</div>
+    <h2 class="about-title">A <span class="accent">Multi-Trillion Dollar</span> Opportunity</h2>
+    <p class="about-intro">Drag the globe to explore why hydrokinetic energy is one of the largest
+      untapped renewable resources on the planet.</p>
+ 
+<div class="tglobe-wrap">
+  <div class="tglobe-canvas-wrap" id="tglobeCanvasWrap">
+    <canvas id="tglobeCanvas"></canvas>
+    <div class="tglobe-hint">Drag to rotate</div>
+    <div class="tglobe-loading" id="tglobeLoading">Loading globe…</div>
+  </div>
+  <div class="tglobe-dots" id="tglobeDots"></div>
+  <div class="tglobe-caption" id="tglobeCaption"></div>
+</div>
+  </div>
+</section>
 <section class="mtv-section">
   <div class="mtv-inner">
     <div class="about-tag">Technology Validation</div>
@@ -575,7 +573,7 @@
   </div>
   <footer id="site-footer-root"></footer>
   <script src="partials.js"></script>
-
+<script type="module" src="technology-globe.js"></script>
   <script src="script.js"></script>
   <script src="technology.js"></script>
 </body>

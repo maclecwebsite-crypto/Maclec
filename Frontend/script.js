@@ -676,3 +676,48 @@ benefitCards.forEach(card => benefitObserver.observe(card));
     if (e.key === 'Escape' && modal.classList.contains('open')) closeIndustryModal();
   });
 })();
+
+
+/* ===== Countries Engaged stat card → File Modal ===== */
+(function () {
+  const card = document.querySelector(
+    '.stat-card--clickable[data-view-src="./img/world_map.jpeg"]'
+  );
+  const modal = document.getElementById('fileModal');
+  if (!card || !modal) return;
+
+  const backdrop = modal.querySelector('.file-modal-backdrop');
+  const closeBtn = document.getElementById('fileModalClose');
+  const titleEl  = document.getElementById('fileModalTitle');
+  const bodyEl   = document.getElementById('fileModalBody');
+  const dlEl     = document.getElementById('fileModalDownload');
+
+  function openModal() {
+    const src   = card.dataset.viewSrc;
+    const title = card.dataset.viewTitle || 'Countries Engaged';
+
+    if (titleEl) titleEl.textContent = title;
+    if (bodyEl) {
+      bodyEl.innerHTML = `<img src="${src}" alt="${title}" style="max-width:100%;max-height:100%;object-fit:contain;display:block;">`;
+    }
+    if (dlEl) {
+      dlEl.href = src;
+      dlEl.download = 'MACLEC-World-Map.jpeg';
+    }
+
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  card.addEventListener('click', openModal);
+  if (closeBtn)  closeBtn.addEventListener('click', closeModal);
+  if (backdrop)  backdrop.addEventListener('click', closeModal);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+  });
+})();

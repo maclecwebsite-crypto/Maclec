@@ -1700,3 +1700,75 @@
   border-color: var(--cyan-bright, #1a2a5e);
   transform: translateY(-1px);
 }
+
+/* ===== GLOBE REWORK ===== */
+.tglobe-wrap{
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+/* 1. Kill the right-side card */
+.tglobe-panel{ display: none !important; }
+
+.tglobe-canvas-wrap{
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  height: 480px;
+  margin: 0 auto;
+  border-radius: 18px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 45%, rgba(94,196,224,0.08), transparent 70%);
+  border: 1px solid rgba(94,196,224,0.18);
+  cursor: grab;
+  touch-action: pan-y;           /* allow page scroll, we handle horiz swipe in JS */
+  user-select: none;
+}
+.tglobe-canvas-wrap:active{ cursor: grabbing; }
+
+
+
+
+
+/* 3. Dots + caption below globe */
+.tglobe-dots{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.tglobe-dot{
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(94,196,224,0.25);
+  cursor: pointer;
+  padding: 0;
+  transition: background .25s, transform .25s;
+}
+.tglobe-dot:hover{ background: rgba(94,196,224,0.55); }
+.tglobe-dot.is-active{
+  background: var(--cyan-bright, #5ec4e0);
+  transform: scale(1.3);
+}
+
+.tglobe-caption{
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: center;
+  min-height: 1.4em;
+  opacity: 0.9;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 1100px){
+  .tglobe-canvas-wrap{ height: 400px; }
+}
+@media (max-width: 480px){
+  .tglobe-canvas-wrap{ height: 340px; }
+  .tglobe-caption{ font-size: 0.85rem; }
+}
