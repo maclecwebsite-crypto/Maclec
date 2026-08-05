@@ -49,7 +49,7 @@
       '</div>' +
     '</div>' +
     '<div class="maclec-footer-bottom">' +
-      '<p>&copy; 2026 MACLEC. All rights reserved.</p>' +
+      '<p>&copy; 2026 MACLEC. All Rights Reserved. Designed and Developed by ASharp Infotech</p>' +
     '</div>';
 
   var headerRoot = document.getElementById('site-header-root');
