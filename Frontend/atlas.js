@@ -38,26 +38,23 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => goToStep(btn.dataset.goto));
   });
 
-  function getLengthFromSlider(rawVal) {
-    if (rawVal <= 20) {
-      // Phase 1: 250m to 2000m (fine control)
-      return Math.round(250 + rawVal * 87.5);
-    } else {
-      // Phase 2: 5000m to 100,000,000m (100,000 km)
-      const t = (rawVal - 20) / 80;
-      return Math.round(5000 + t * t * 99995000);
-    }
+function getLengthFromSlider(rawVal) {
+  const idx = Math.round(rawVal);
+  if (idx <= 95) {
+    return 50 + idx * 10;      // 50, 60, 70 ... 1000
+  } else {
+    return 1000 + (idx - 95) * 500;  // 1500, 2000, 2500 ... 100000
   }
+}
 
   function getSliderFromLength(length) {
-    if (length <= 2000) {
-      return (length - 250) / 87.5;
+    if (length <= 1000) {
+      return (length - 50) / 10;
     } else {
-      return 20 + Math.sqrt((length - 5000) / 99995000) * 80;
+      return 95 + (length - 1000) / 500;
     }
   }
 
-  /* ===== GET VALUE HELPER ===== */
   function getVal(id) {
     const el = document.getElementById(id);
     if (!el) return 0;
@@ -142,7 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
     return rawPowerW / 1000;
   }
 
-  const DEPTH_MIN = 0.3, DEPTH_MAX = 10;
+  const DEPTH_MIN = 0.5, DEPTH_MAX = 100;
+
   const CHANNEL_X = 20, CHANNEL_W = 320;
   const BED_Y = 150;
   const PX_MIN = 26, PX_MAX = 130;

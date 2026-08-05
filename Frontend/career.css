@@ -2278,3 +2278,65 @@ body.modal-open {
 @keyframes btn-spin {
   to { transform: rotate(360deg); }
 }
+
+/* ============================================
+   STAT CARD BACKGROUND IMAGES  (revised)
+   ============================================ */
+
+/* Ensure images respect the card radius */
+.careers-hero-stat {
+  overflow: hidden;
+}
+
+/* 1. Countries with Hydrokinetic Potential — earth / globe */
+.careers-hero-stat:nth-child(1) {
+  --stat-bg: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80');
+}
+
+/* 2. Global Power Demand — solar / energy */
+.careers-hero-stat:nth-child(2) {
+  --stat-bg: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqEWfuOQeCCitIzIn26Pv9E5hTWWmg-ov9sRMlerrMdvxZaSXFK22an07c&s=10');
+}
+
+/* 3. Expected Demand by 2030 — growing city */
+.careers-hero-stat:nth-child(3) {
+  --stat-bg: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRakTAveYnbAQKTtdcAHQpNuxjZAVb9jL1xjiy6yQQtyR7Xy8vN5kXBxtbd&s=10');
+}
+
+/* 4. Total SHKT Global Potential — river / water */
+.careers-hero-stat:nth-child(4) {
+  --stat-bg: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6u40g8tij8-CnURc5uuC1ebbqfd9mMCjPstJNX-y5tTEG6n-CRKNFcZu8&s=10');
+}
+
+/* 5. CO₂ Emissions — industrial / factory */
+.careers-hero-stat:nth-child(5) {
+  --stat-bg: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUPVQLb65Y7wzKSMEj8tJCav6fvv-rXdxlCv6q-giZ6EOIBH-FVVkstGA&s=10');
+}
+
+/* 6. Carbon Reduction Target — green nature */
+.careers-hero-stat:nth-child(6) {
+  --stat-bg: url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&q=80');
+}
+
+/* 7. Jobs to be Created — team / people */
+.careers-hero-stat:nth-child(7) {
+  --stat-bg: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80');
+}
+
+/* Apply image + white gradient overlay to every stat card */
+.careers-hero-stat {
+  background-image:
+    linear-gradient(145deg, rgba(255,255,255,0.90) 0%, rgba(248,250,252,0.90) 50%, rgba(241,245,249,0.90) 100%),
+    var(--stat-bg);
+  background-size: 100% 100%, cover;
+  background-position: center, center;
+  background-repeat: no-repeat;
+  transition: background-image 0.5s ease, transform 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* On hover, make the overlay slightly more transparent so the photo pops */
+.careers-hero-stat:hover {
+  background-image:
+    linear-gradient(145deg, rgba(255,255,255,0.78) 0%, rgba(248,250,252,0.78) 50%, rgba(241,245,249,0.78) 100%),
+    var(--stat-bg);
+}

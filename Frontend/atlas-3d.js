@@ -28,8 +28,28 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
   controls.maxDistance = 150;
   controls.enableDamping = true;
   controls.dampingFactor = 0.08;
-  controls.update();
+ controls.update();
 
+  // ---- Auto zoom-out based on channel width ----
+  const baseCamDistance = camera.position.distanceTo(controls.target); // reference distance at default width
+  let camZoomTween = null;
+  let lastCamZoomDistance = baseCamDistance;
+
+  function cameraZoomScaleForWidth(width) {
+    if (width <= 60) return 1; // no change up to 60m
+    const extra = width - 60;
+    // gentle sqrt growth so it doesn't zoom out too aggressively, capped at 5x
+    return Math.min(1 + Math.sqrt(extra / 60) * 1.1, 5);
+  }
+
+  function triggerCameraZoomForWidth(width) {
+    const desired = baseCamDistance * cameraZoomScaleForWidth(width);
+    if (Math.abs(desired - lastCamZoomDistance) < 0.05) return; // no meaningful change
+    const dir = camera.position.clone().sub(controls.target);
+    const currentDist = dir.length() || baseCamDistance;
+    camZoomTween = { from: currentDist, to: desired, start: performance.now(), duration: 600 };
+    lastCamZoomDistance = desired;
+  }
   initDepthScene();
 
   const ro = new ResizeObserver(() => {
@@ -443,6 +463,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
     const variation = getVal('f-variation') || 0;
     const realLength = getVal('f-length') || 250;
 
+    triggerCameraZoomForWidth(width); 
     let displayLength;
     if (realLength <= 250) {
       displayLength = 20;
@@ -522,13 +543,24 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
   window.twin3dRebuild = rebuild;
 
   const clock = new THREE.Clock();
-  function animate() {
+function animate() {
     requestAnimationFrame(animate);
     const dt = clock.getDelta();
     const elapsed = clock.getElapsedTime();
     waterUniforms.time.value += dt;
     rotors.forEach(r => { r.rotation.x += dt * 4; });
     updateWakeLines(elapsed);
+
+    // smoothly ease the camera distance when width changes
+    if (camZoomTween) {
+      const t = Math.min(1, (performance.now() - camZoomTween.start) / camZoomTween.duration);
+      const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; // easeInOutQuad
+      const dist = THREE.MathUtils.lerp(camZoomTween.from, camZoomTween.to, eased);
+      const dir = camera.position.clone().sub(controls.target).normalize();
+      camera.position.copy(controls.target).add(dir.multiplyScalar(dist));
+      if (t >= 1) camZoomTween = null;
+    }
+
     controls.update();
     renderer.render(scene, camera);
   }

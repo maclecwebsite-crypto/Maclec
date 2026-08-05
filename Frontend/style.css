@@ -3357,3 +3357,51 @@ a{ text-decoration:none; color:inherit; }
   }
 }
  
+.timeline-card-title-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.timeline-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.timeline-cert-thumb--logo {
+  border: none;
+  background: #fff;
+  padding: 3px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.timeline-cert-thumb--logo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.timeline-cert-thumb--logo img.timeline-agency-logo {
+  height: 45px;
+  width: auto;
+  max-width: 64px;
+  object-fit: contain;
+  display: block;
+}
+
+.timeline-agency-logo-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.timeline-agency-logo-group .timeline-cert-thumb--logo img.timeline-agency-logo {
+  height: 45px;
+}

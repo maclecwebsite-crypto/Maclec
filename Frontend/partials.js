@@ -128,3 +128,26 @@
     init();
   }
 })();
+
+/* ===== Active nav link ===== */
+(function () {
+  function setActiveNav() {
+    var current = window.location.pathname.split('/').pop() || 'index.html';
+    if (!current) current = 'index.html';
+    var links = document.querySelectorAll('.maclec-main-nav a');
+    links.forEach(function (a) {
+      var href = a.getAttribute('href') || '';
+      var page = href.split('/').pop() || 'index.html';
+      if (page === current) {
+        a.classList.add('active');
+      } else {
+        a.classList.remove('active');
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setActiveNav);
+  } else {
+    setActiveNav();
+  }
+})();

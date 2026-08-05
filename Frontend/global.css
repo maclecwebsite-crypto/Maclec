@@ -329,3 +329,11 @@
   }
 }
 
+.maclec-main-nav a.active {
+  color: #0bcef5;
+}
+
+.maclec-main-nav a.active::after {
+  width: 100%;
+  background: #f59e0b;
+}

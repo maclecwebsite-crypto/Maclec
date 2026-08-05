@@ -31,12 +31,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Himalayan river video — pause/play based on visibility for performance
+  // Hero video playlist — plays each video in order, then loops back to the start
   const video = document.querySelector('.hero-media .hero-video');
   if (video) {
-    // If video fails to load, hide it so the fallback image shows through
+    const playlist = [
+      'https://res.cloudinary.com/a07iptoj/video/upload/v1784970348/mega_wat_level_intalation_of_shk_turbine_unit-_compressed_kazaju.mp4',
+      'https://res.cloudinary.com/a07iptoj/video/upload/v1785838229/mega_wat_level_intalation_of_shk_turbine_online-video-cutter_online-video-cutter.com_ie4gyv_online-video-cutter.com_oyjyj0.mp4'
+    ];
+    let currentIndex = 0;
+
+    function playCurrent() {
+      const source = video.querySelector('source');
+      if (source) {
+        source.src = playlist[currentIndex];
+      } else {
+        video.src = playlist[currentIndex];
+      }
+      video.load();
+      video.play().catch(() => {});
+    }
+
+    video.addEventListener('ended', () => {
+      currentIndex = (currentIndex + 1) % playlist.length;
+      playCurrent();
+    });
+
+    // If a video fails to load, skip to the next one in the playlist
     video.addEventListener('error', () => {
-      video.style.display = 'none';
+      if (playlist.length > 1) {
+        currentIndex = (currentIndex + 1) % playlist.length;
+        playCurrent();
+      } else {
+        video.style.display = 'none';
+      }
     });
 
     const observer = new IntersectionObserver((entries) => {
@@ -51,9 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(video);
   }
 });
-
-
-
 
 
 // ---  CAROUSEL & VIDEO MODAL ------
@@ -652,4 +676,3 @@ benefitCards.forEach(card => benefitObserver.observe(card));
     if (e.key === 'Escape' && modal.classList.contains('open')) closeIndustryModal();
   });
 })();
-
