@@ -569,8 +569,6 @@ a { text-decoration:none; color:inherit; }
 .lightbox-prev { left: -64px; }
 .lightbox-next { right: -64px; }
 
-/* Desktop-only wide offset for the close button, clear of the nav arrows.
-   Below 1101px the base 20px value above applies. */
 @media (min-width: 1101px) {
   .lightbox-close { right: 130px; }
 }
@@ -583,6 +581,7 @@ a { text-decoration:none; color:inherit; }
   display: none;
   align-items: center;
   justify-content: center;
+  padding: 24px;               /* breathing room on all sides */
 }
 .video-modal.open { display: flex; }
 .video-modal-backdrop {
@@ -593,11 +592,17 @@ a { text-decoration:none; color:inherit; }
 }
 .video-modal-content {
   position: relative;
-  width: min(90vw, 960px);
+  width: min(90vw, 1100px);
+  max-height: calc(100vh - 48px);   /* respect the 24px padding */
+  display: flex;                    /* lets the video shrink to fit */
+  flex-direction: column;
   z-index: 1;
 }
 .video-modal-content video {
   width: 100%;
+  max-height: calc(100vh - 96px);   /* leave room for close button + padding */
+  height: auto;                     /* maintain aspect ratio */
+  object-fit: contain;              /* letterbox instead of stretch */
   border-radius: 12px;
   display: block;
   background: #000;
@@ -605,7 +610,7 @@ a { text-decoration:none; color:inherit; }
 }
 .video-modal-close {
   position: absolute;
-  top: -48px;
+  top: -44px;
   right: 0;
   background: none;
   border: none;
@@ -617,6 +622,18 @@ a { text-decoration:none; color:inherit; }
 }
 .video-modal-close:hover { color: #fff; }
 
+@media (max-width: 768px) {
+  .video-modal { padding: 16px; }
+  .video-modal-content { width: 100%; }
+  .video-modal-content video {
+    max-height: calc(100vh - 80px);
+  }
+  .video-modal-close {
+    top: -40px;
+    right: 4px;
+    font-size: 2rem;
+  }
+}
 /* ===== FOOTER ===== */
 .site-footer {
   background: #3d64c1;
