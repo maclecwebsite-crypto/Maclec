@@ -237,7 +237,7 @@ if (navToggle && mainNav) {
 })();
 
 (function applyDefaultFilter() {
-  const defaultFilter = 'agreements';
+  const defaultFilter = 'maclec';
   galleryItems.forEach(item => {
     if (item.dataset.category === defaultFilter) {
       item.classList.remove('hidden');

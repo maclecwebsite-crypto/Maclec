@@ -678,7 +678,6 @@ benefitCards.forEach(card => benefitObserver.observe(card));
 })();
 
 
-/* ===== Countries Engaged stat card → File Modal ===== */
 (function () {
   const card = document.querySelector(
     '.stat-card--clickable[data-view-src="./img/world_map.jpeg"]'
